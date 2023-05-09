@@ -1,0 +1,34 @@
+{
+    "name": "Cursor_Controller",
+    "maps": [
+        {
+            "name": "Cursor",
+            "id": "cee2f453-1876-42e1-adad-a90bec89df6c",
+            "actions": [
+                {
+                    "name": "CursorClick",
+                    "type": "Button",
+                    "id": "ff508975-430b-4545-b359-471fe045dfe1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "d2844c2f-3a92-4b4a-83bd-c2cd197e49e9",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CursorClick",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

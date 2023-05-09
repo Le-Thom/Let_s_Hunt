@@ -1,0 +1,57 @@
+
+Ce projet est un template permettant de creer tout les autres projets, 
+pensez a modifier le read me après avoir creer votre projet avec les informations nécessaires.
+
+
+
+# Règles de nomenclature
+
+### Scènes:
+
+Les scènes sont rédigées en **Screaming Snake Case** (toutes lettres en **majuscule**, **underscore** entre chaque terme). Il doit contenir son **numéro** dans le **d’ordre** dans le **build**.
+
+*Exemple: SCENE_DU_PROJET_01*
+
+### Objets:
+
+Les objets sont rédigés en **Pascal Case** (première lettre de chaque terme en majuscule et pas d’espace entre les termes). Il doit contenir le type d’objet et son rôle. 
+
+*Exemple: SceneManager*
+
+### Variables:
+
+Les scripts sont rédigés en **Camel Case** (première lettre en minuscule, les autres premières lettres des termes en majuscule). Il doit contenir le type et la nature de la variable.
+
+*Exemple: jeSuisUneVariable*
+
+Si la variable est une réference, alors ajouté un **underscore** devant, suivit du nom complet de l’objet dans la scène (si possible).
+
+### Scripts:
+
+Les scripts sont rédigés en **Pascal Case** (première lettre de chaque mot en majuscule). Il doit contenir son utilisation.
+
+*Exemple: JeSuisUnScript*
+
+Si le script est un enfant d’un autre script alors il faut **rajouté l’index du script devant**.
+
+*Exemple: S_JeSuisUnScript (ici on présice que l’objet est un enfant de singleton, donc l’objet est un singleton)*
+
+### Methods:
+
+Les méthodes (fonction) sont rédigées en **Pascal Case** (première lettre de chaque mot en majuscule). Il doit contenir un résumé de ce que la méthode fait.
+
+*Exemple: JeSuisUneFonction*
+
+### Dossiers:
+
+Les dossiers sont rédigés en **Skewer Case** (première lettre de chaque mot en majuscule, **underscore entre chaque termes**).
+
+*Exemple: Je_Suis_Un_Dossier*
+
+### Scriptable Object:
+
+Les scriptables objects sont rédigés en **Skewer Case** (première lettre de chaque mot en majuscule, **underscore entre chaque termes**). ****Il doit contenir son nom d’utilisation.
+
+Ceux-ci doivent contenir de quelle type de scriptable ils sont. Il garde la même règle de nomenclature qu’un **scripts** après le type de scriptable.
+
+*Exemple: Sc_Player_JeanEstBleu*
