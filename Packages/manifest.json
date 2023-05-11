@@ -17,6 +17,7 @@
     "com.unity.timeline": "1.7.4",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualeffectgraph": "14.0.6",
+    "net.peeweek.gameplay-ingredients": "2021.3.2",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
     "com.unity.modules.animation": "1.0.0",
@@ -48,5 +49,16 @@
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
     "com.unity.modules.xr": "1.0.0"
-  }
+  },
+  "scopedRegistries": [
+    {
+      "name": "OpenUMP",
+      "url": "https://package.openupm.com",
+      "scopes": [
+        "com.valax321.mesh",
+        "com.dbrizov",
+        "net.peeweek"
+      ]
+    }
+  ]
 }
