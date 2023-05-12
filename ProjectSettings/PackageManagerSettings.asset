@@ -30,7 +30,7 @@ MonoBehaviour:
     m_Name: OpenUMP
     m_Url: https://package.openupm.com
     m_Scopes:
-    - com.valax321.mesh
+    - com.valax321
     - com.dbrizov
     - net.peeweek
     m_IsDefault: 0

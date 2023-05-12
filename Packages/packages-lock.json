@@ -272,6 +272,13 @@
         "com.unity.render-pipelines.core": "14.0.6"
       }
     },
+    "com.valax321.meshsprites": {
+      "version": "1.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "net.peeweek.gameplay-ingredients": {
       "version": "2021.3.2",
       "depth": 0,

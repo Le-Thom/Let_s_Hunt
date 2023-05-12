@@ -12,9 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MAIN_MENU.unity
     guid: 7da8b72dec8a15c4dac37c3e342ef9b1
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/Scenes/Gameplay Ingredient/G_INGRENDIENT_MAINMENU.unity
     guid: 7358258b3f977864f87db0d8e4601341
   - enabled: 1
-    path: Assets/Scenes/GameLevel.unity
+    path: Assets/Scenes/Gameplay Ingredient/G_INGRENDIENT_GAME.unity
     guid: 25c0b8a3b619fa8428011452b839d11a
   m_configObjects: {}
