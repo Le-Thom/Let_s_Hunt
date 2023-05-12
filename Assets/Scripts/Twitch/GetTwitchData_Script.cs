@@ -32,7 +32,7 @@ public class GetTwitchData_Script : MonoBehaviour
     string OAuth = "oauth:s8dodjpznd9t4z30a1duqi4l35ohfe";
 
     //The Twitch Channel were we gonna get the chat
-    string Channel = "Laink";
+    [SerializeField] private string Channel = "Laink";
 
     //========
     //MONOBEHAVIOUR
