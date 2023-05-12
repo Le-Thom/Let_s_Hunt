@@ -126,12 +126,6 @@ public class ScS_PlayerData : ScriptableObject
 
         [Tooltip("Acceleration and deceleration (Default = 10.0f)")]
         public float speedChangeRate;
-
-        [Tooltip("The height the player can jump (Default = 1.2f)")]
-        public float jumpHeight;
-
-        [Tooltip("The character uses its own gravity value. The engine default is -9.81f (Default = -15.0f)")]
-        public float gravity;
     }
 
     /// <summary>

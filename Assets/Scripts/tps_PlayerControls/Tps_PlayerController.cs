@@ -35,7 +35,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private Animator _Animator;
     [SerializeField] private Camera _Camera;
     [SerializeField] private GameObject _targetCamera;
-    [SerializeField] private CinemachineFreeLook _virtualCamera;
+    [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
     #endregion
     //==============================================================================================================
@@ -47,20 +47,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     [Space(5), Header("Machine state")]
     [SerializeField] private StateMachine<Tps_PlayerController> stateMachine;
-
-    [Space(5), Header("Parameters")]
-    [Tooltip("Sensibility of the camera.")]
-    [SerializeField] private float cameraSensibility = 5f;
-    [SerializeField] private Vector3 cameraOffset = Vector3.one * 1.65f;
-
-    [Tooltip("Useful for rough ground")]
-    public float GroundedOffset = -0.14f;
-
-    [Tooltip("The radius of the grounded check. Should match the radius of the CharacterController")]
-    public float GroundedRadius = 0.28f;
-
-    [Tooltip("What layers the character uses as ground")]
-    public LayerMask GroundLayers;
 
     //input
     private Vector2 movementInput;
@@ -77,21 +63,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private float _verticalVelocity;
     private float _terminalVelocity = 53.0f;
 
-    // timeout deltatime
-    private float _jumpTimeoutDelta;
-    private float _fallTimeoutDelta;
-
     private const float Rad2Deg = 57.29578f;
-
-
-    [Space(10)]
-    [Tooltip("Time required to pass before being able to jump again. Set to 0f to instantly jump again (Default = 0.50f)")]
-    [SerializeField] private float jumpTimeout = 0.50f;
-    [Tooltip("How fast the character turns to face movement direction (Default = 0.12f)")]
-    [Range(0.0f, 0.3f)]
-    [SerializeField] private float rotationSmoothTime = 0.12f;
-    [Tooltip("Time required to pass before entering the fall state. Useful for walking down stairs (Default = 0.15f)")]
-    [SerializeField] private float fallTimeout = 0.15f;
 
     #endregion
     //==============================================================================================================
@@ -163,8 +135,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         playerData.inGameDataValue.speed = 2.0f;
         playerData.inGameDataValue.sprintSpeed = 5.333f;
         playerData.inGameDataValue.speedChangeRate = 10.0f;
-        playerData.inGameDataValue.jumpHeight = 1.2f;
-        playerData.inGameDataValue.gravity = -15f;
     }
 
     private void ResetPlayerData()
@@ -220,8 +190,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [Button]
     private void ResetParameters()
     {
-        cameraSensibility = 5f;
-
         UpdateParameters();
     }
 
@@ -230,13 +198,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// </summary>
     private void SetVirtualCamParameters()
     {
-        _virtualCamera.m_YAxis.m_MaxSpeed = cameraSensibility * 0.01f;
-        _virtualCamera.m_YAxis.m_AccelTime = cameraSensibility * 0.1f;
-        _virtualCamera.m_YAxis.m_DecelTime = cameraSensibility * 0.1f;
 
-        _virtualCamera.m_XAxis.m_MaxSpeed = cameraSensibility * 1f;
-        _virtualCamera.m_XAxis.m_AccelTime = cameraSensibility * 0.05f;
-        _virtualCamera.m_XAxis.m_DecelTime = cameraSensibility * 0.05f;
     }
 
     #endregion
@@ -307,10 +269,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         RegisterInputEvent();
 
         AssignAnimationIDs();
-
-        // reset our timeouts on start
-        _jumpTimeoutDelta = jumpTimeout;
-        _fallTimeoutDelta = fallTimeout;
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -455,10 +413,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             // if there is a move input rotate player when the player is moving
             _targetRotation = Mathf.Atan2(inputDirection.x, inputDirection.z) * Mathf.Rad2Deg +
                                 _Camera.transform.eulerAngles.y;
-            float rotation = Mathf.SmoothDampAngle(transform.eulerAngles.y, _targetRotation, ref _rotationVelocity,
-                                rotationSmoothTime);
             // rotate to face input direction relative to camera position
-            transform.rotation = Quaternion.Euler(0.0f, rotation, 0.0f);
+            transform.rotation = Quaternion.Euler(0.0f, _targetRotation, 0.0f);
         }
 
         Vector3 targetDirection = Quaternion.Euler(0.0f, _targetRotation, 0.0f) * Vector3.forward;
@@ -480,17 +436,17 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     }
 
-    private async void Attack1()
+    private void Attack1()
     {
 
     }
 
-    private async void Attack2()
+    private void Attack2()
     {
 
     }
 
-    private async void IsStun()
+    private void IsStun()
     {
 
     }
