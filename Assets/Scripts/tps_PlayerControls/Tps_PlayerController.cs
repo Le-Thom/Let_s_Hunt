@@ -11,7 +11,6 @@ using NaughtyAttributes;
 /// tps player using starter pack model.
 /// /!\ made with a singleton /!\
 /// </summary>
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(CharacterController))]
 public class Tps_PlayerController : Singleton<Tps_PlayerController>
 {
@@ -32,6 +31,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region REFERENCE
     //==============================================================================================================
     [SerializeField] private CharacterController _CharacterController;
+    [SerializeField] private GameObject _Body;
     [SerializeField] private Animator _Animator;
     [SerializeField] private Camera _Camera;
     [SerializeField] private GameObject _targetCamera;
@@ -54,9 +54,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     // animation IDs
     private int _animIDSpeed;
     private int _animIDDodge;
-    private int _animIDMotionSpeed;
+    private int _animIDAtk1;
+    private int _animIDAtk2;
+    private int _animIDGetHit;
+    private int _animIDDeath;
+    private int _animIDRevive;
 
-    private float _animationBlend;
+    private float _animIDSpeedBlend;
 
     private float _targetRotation = 0.0f;
     private float _rotationVelocity;
@@ -120,6 +124,36 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region PUBLIC FONCTION
     //==============================================================================================================
 
+    /// <summary>
+    /// Exit dodge state.
+    /// </summary>
+    public void StartDodge() => playerData.monitor.canGetHit = false;
+    /// <summary>
+    /// Exit dodge state.
+    /// </summary>
+    public void EndDodge() => stateMachine.ChangeState(StateId.IDLE);
+    /// <summary>
+    /// deal damage from attaque 1.
+    /// </summary>
+    public void ATK1()
+    {
+
+    }
+    /// <summary>
+    /// deal damage from attaque 2.
+    /// </summary>
+    public void ATK2()
+    {
+
+    }
+    /// <summary>
+    /// Revive player with 4hp.
+    /// </summary>
+    public void Revive()
+    {
+
+    }
+
     #endregion
     //==============================================================================================================
 
@@ -156,11 +190,11 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _inputs.Player.Dodge.started += ctx => playerData.monitor.tryToDodge = true;
         _inputs.Player.Dodge.canceled += ctx => playerData.monitor.tryToDodge = false;
         // Attack1
-        _inputs.Player.Attack1.started += ctx => playerData.monitor.tryToAttack1 = true;
-        _inputs.Player.Attack1.canceled += ctx => playerData.monitor.tryToAttack1 = false;
+        _inputs.Player.Attack1.started += ctx => playerData.monitor.tryToAtk1 = true;
+        _inputs.Player.Attack1.canceled += ctx => playerData.monitor.tryToAtk1 = false;
         // Attack2
-        _inputs.Player.Attack2.started += ctx => playerData.monitor.tryToAttack2 = true;
-        _inputs.Player.Attack2.canceled += ctx => playerData.monitor.tryToAttack2 = false;
+        _inputs.Player.Attack2.started += ctx => playerData.monitor.tryToAtk2 = true;
+        _inputs.Player.Attack2.canceled += ctx => playerData.monitor.tryToAtk2 = false;
     }
 
     /// <summary>
@@ -226,17 +260,41 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         stateIsntLoaded.delegateEventsAtExitOfState += ExitStateIsntLoaded;
         stateMachine.RegisterState(stateIsntLoaded);
 
-        StatePerforming<Tps_PlayerController> statePerforming = new StatePerforming<Tps_PlayerController>();
-        statePerforming.delegateEventsAtInitOfState += InitStatePerforming;
-        statePerforming.delegateEventsAtUpdateOfState += UpdateStatePerforming;
-        statePerforming.delegateEventsAtExitOfState += ExitStatePerforming;
-        stateMachine.RegisterState(statePerforming);
+        StateIdle<Tps_PlayerController> stateIdle = new StateIdle<Tps_PlayerController>();
+        stateIdle.delegateEventsAtInitOfState += InitStateIdle;
+        stateIdle.delegateEventsAtUpdateOfState += UpdateStateIdle;
+        stateIdle.delegateEventsAtExitOfState += ExitStateIdle;
+        stateMachine.RegisterState(stateIdle);
+
+        StateDodge<Tps_PlayerController> stateDodge = new StateDodge<Tps_PlayerController>();
+        stateDodge.delegateEventsAtInitOfState += InitStateDodge;
+        stateDodge.delegateEventsAtUpdateOfState += UpdateStateDodge;
+        stateDodge.delegateEventsAtExitOfState += ExitStateDodge;
+        stateMachine.RegisterState(stateDodge);
+
+        StateAtk1<Tps_PlayerController> stateAtk1 = new StateAtk1<Tps_PlayerController>();
+        stateAtk1.delegateEventsAtInitOfState += InitStateAtk1;
+        stateAtk1.delegateEventsAtUpdateOfState += UpdateStateAtk1;
+        stateAtk1.delegateEventsAtExitOfState += ExitStateAtk1;
+        stateMachine.RegisterState(stateAtk1);
+
+        StateAtk2<Tps_PlayerController> stateAtk2 = new StateAtk2<Tps_PlayerController>();
+        stateAtk2.delegateEventsAtInitOfState += InitStateAtk2;
+        stateAtk2.delegateEventsAtUpdateOfState += UpdateStateAtk2;
+        stateAtk2.delegateEventsAtExitOfState += ExitStateAtk2;
+        stateMachine.RegisterState(stateAtk2);
+
+        StateEquipement<Tps_PlayerController> stateEquipement = new StateEquipement<Tps_PlayerController>();
+        stateEquipement.delegateEventsAtInitOfState += InitStateEquipement;
+        stateEquipement.delegateEventsAtUpdateOfState += UpdateStateEquipement;
+        stateEquipement.delegateEventsAtExitOfState += ExitStateEquipement;
+        stateMachine.RegisterState(stateEquipement);
 
         StatePaused<Tps_PlayerController> statePaused = new StatePaused<Tps_PlayerController>();
-        statePaused.delegateEventsAtInitOfState += InitStatePaused;
-        statePaused.delegateEventsAtUpdateOfState += UpdateStatePaused;
-        statePaused.delegateEventsAtExitOfState += ExitStatePaused;
-        stateMachine.RegisterState(statePaused);
+        stateIdle.delegateEventsAtInitOfState += InitStatePaused;
+        stateIdle.delegateEventsAtUpdateOfState += UpdateStatePaused;
+        stateIdle.delegateEventsAtExitOfState += ExitStatePaused;
+        stateMachine.RegisterState(stateIdle);
 
         StateDead<Tps_PlayerController> stateDeath = new StateDead<Tps_PlayerController>();
         stateDeath.delegateEventsAtInitOfState += InitDeath;
@@ -256,9 +314,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         // return while player isn't corretly initialized.
         if (!playerData.monitor.isInit) { SetStates(); return; }
-
-        if (playerData.monitor.isActive && stateMachine.currentState != StateId.PERFORMING) stateMachine.ChangeState(StateId.PERFORMING);
-
     }
 
     #region States Actions
@@ -276,6 +331,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         playerData.monitor.isInit = true;
         playerData.monitor.isActive = true;
         playerData.monitor.isChangingState = false;
+
+        stateMachine.ChangeState(StateId.IDLE);
     }
     private void UpdateStateInit()
     {
@@ -301,17 +358,18 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     }
     #endregion
-    #region Performing
-    private void InitStatePerforming()
+    #region Idle
+    private void InitStateIdle()
     {
-        Debug.Log("Player Enter playing state");
-
         playerData.monitor.canMove = true;
         playerData.monitor.canDodge = true;
+        playerData.monitor.canAtk1 = true;
+        playerData.monitor.canAtk2 = true;
+        playerData.monitor.canGetHit = true;
 
         playerData.monitor.isChangingState = false;
     }
-    private void UpdateStatePerforming()
+    private void UpdateStateIdle()
     {
         // gather all input of player.
         GatherInput();
@@ -319,7 +377,73 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // move the player.
         Move();
     }
-    private void ExitStatePerforming()
+    private void ExitStateIdle()
+    {
+
+    }
+    #endregion
+    #region Dodge
+    private void InitStateDodge()
+    {
+        _Animator.SetTrigger(_animIDDodge);
+
+        playerData.monitor.isChangingState = false;
+    }
+    private void UpdateStateDodge()
+    {
+
+    }
+    private void ExitStateDodge()
+    {
+        playerData.monitor.isChangingState = true;
+
+        playerData.monitor.canGetHit = true;
+    }
+    #endregion
+    #region Atk1
+    private void InitStateAtk1()
+    {
+
+
+        playerData.monitor.isChangingState = false;
+    }
+    private void UpdateStateAtk1()
+    {
+
+    }
+    private void ExitStateAtk1()
+    {
+
+    }
+    #endregion
+    #region Atk2
+    private void InitStateAtk2()
+    {
+
+
+        playerData.monitor.isChangingState = false;
+    }
+    private void UpdateStateAtk2()
+    {
+
+    }
+    private void ExitStateAtk2()
+    {
+
+    }
+    #endregion
+    #region Equipement
+    private void InitStateEquipement()
+    {
+
+
+        playerData.monitor.isChangingState = false;
+    }
+    private void UpdateStateEquipement()
+    {
+
+    }
+    private void ExitStateEquipement()
     {
 
     }
@@ -361,11 +485,18 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     #region Movement
 
+    /// <summary>
+    /// Set ID of animation to there value.
+    /// </summary>
     private void AssignAnimationIDs()
     {
         _animIDSpeed = Animator.StringToHash("Speed");
         _animIDDodge = Animator.StringToHash("Dodge");
-        _animIDMotionSpeed = Animator.StringToHash("MotionSpeed");
+        _animIDAtk1 = Animator.StringToHash("Atk1");
+        _animIDAtk2 = Animator.StringToHash("Atk2");
+        _animIDGetHit = Animator.StringToHash("GetHit");
+        _animIDDeath = Animator.StringToHash("Death");
+        _animIDRevive = Animator.StringToHash("Revive");
     }
 
     private void Move()
@@ -402,8 +533,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             playerData.variables.speed = targetSpeed;
         }
 
-        // _animationBlend = Mathf.Lerp(_animationBlend, targetSpeed, Time.deltaTime * playerData.inGameDataValue.speedChangeRate);
-        // if (_animationBlend < 0.01f) _animationBlend = 0f;
+        _animIDSpeedBlend = Mathf.Lerp(_animIDSpeedBlend, targetSpeed, Time.deltaTime * playerData.inGameDataValue.speedChangeRate);
+        if (_animIDSpeedBlend < 0.01f) _animIDSpeedBlend = 0f;
 
         // normalise input direction
         Vector3 inputDirection = new Vector3(movementInput.x, 0.0f, movementInput.y).normalized;
@@ -426,15 +557,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // Set camera target to it's position.
         _targetCamera.transform.position = transform.position + Vector3.up * 1.65f;
 
+        _Body.transform.position = transform.position;
+
         // update animator
-        // _Animator.SetFloat(_animIDSpeed, _animationBlend);
-        // _Animator.SetFloat(_animIDMotionSpeed, inputMagnitude);
+        _Animator.SetFloat(_animIDSpeed, _animIDSpeedBlend);
     }
 
-    private void Dodge()
-    {
-
-    }
 
     private void Attack1()
     {

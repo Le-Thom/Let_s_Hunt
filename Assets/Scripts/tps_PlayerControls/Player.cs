@@ -128,7 +128,13 @@ namespace AkarisuMD
 
             // When the game is running
             ISNTLOADED,
-            PERFORMING,
+
+            //Performing State
+            IDLE,
+            DODGE,
+            ATK1,
+            ATK2,
+            EQUIPEMENT,
 
             // When the game is in pause for the player
             PAUSED,
@@ -206,13 +212,53 @@ namespace AkarisuMD
         }
 
         /// <summary>
-        /// Inside a menu.
+        /// 
         /// </summary>
-        public class StatePerforming<T> : States<T>
+        public class StateIdle<T> : States<T>
         {
             public override StateId GetId()
             {
-                return StateId.PERFORMING;
+                return StateId.IDLE;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public class StateDodge<T> : States<T>
+        {
+            public override StateId GetId()
+            {
+                return StateId.DODGE;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public class StateAtk1<T> : States<T>
+        {
+            public override StateId GetId()
+            {
+                return StateId.ATK1;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public class StateAtk2<T> : States<T>
+        {
+            public override StateId GetId()
+            {
+                return StateId.ATK2;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public class StateEquipement<T> : States<T>
+        {
+            public override StateId GetId()
+            {
+                return StateId.EQUIPEMENT;
             }
         }
 

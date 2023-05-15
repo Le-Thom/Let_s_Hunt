@@ -61,14 +61,14 @@ public class ScS_PlayerData : ScriptableObject
         public bool isDodging => tryToDodge && canDodge;
 
         // check if player want to Attack1 and can Attack1.
-        public bool tryToAttack1;
-        public bool canAttack1;
-        public bool isAttack1 => tryToAttack1 && canAttack1;
+        public bool tryToAtk1;
+        public bool canAtk1;
+        public bool isAtk1 => tryToAtk1 && canAtk1;
 
         // check if player want to Attack2 and can Attack2.
-        public bool tryToAttack2;
-        public bool canAttack2;
-        public bool isAttack2 => tryToAttack2 && canAttack2;
+        public bool tryToAtk2;
+        public bool canAtk2;
+        public bool isAtk2 => tryToAtk2 && canAtk2;
 
         /// <summary>
         /// Used for hitCooldown to not get directly kill easily.
