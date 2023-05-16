@@ -10,14 +10,19 @@
     "com.unity.ide.visualstudio": "2.0.18",
     "com.unity.ide.vscode": "1.2.5",
     "com.unity.inputsystem": "1.5.1",
+    "com.unity.multiplayer.tools": "1.0.0",
+    "com.unity.netcode.gameobjects": "1.2.0",
     "com.unity.render-pipelines.universal": "14.0.6",
     "com.unity.services.cloudsave": "2.0.1",
+    "com.unity.services.lobby": "1.0.3",
+    "com.unity.services.relay": "1.0.5",
     "com.unity.test-framework": "1.1.33",
     "com.unity.textmeshpro": "3.0.6",
     "com.unity.timeline": "1.7.4",
     "com.unity.ugui": "1.0.0",
     "com.unity.visualeffectgraph": "14.0.6",
     "com.valax321.meshsprites": "1.0.1",
+    "com.veriorpies.parrelsync": "1.5.2",
     "net.peeweek.gameplay-ingredients": "2021.3.2",
     "com.unity.modules.ai": "1.0.0",
     "com.unity.modules.androidjni": "1.0.0",
@@ -58,7 +63,8 @@
       "scopes": [
         "com.valax321",
         "com.dbrizov",
-        "net.peeweek"
+        "net.peeweek",
+        "com.veriorpies"
       ]
     }
   ]
