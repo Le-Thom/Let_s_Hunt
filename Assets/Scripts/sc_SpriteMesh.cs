@@ -2,9 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
+using static UnityEngine.Rendering.DebugUI;
 
 public class sc_SpriteMesh : MonoBehaviour
 {
@@ -62,6 +64,7 @@ public class sc_SpriteMesh : MonoBehaviour
     #endregion
 
     [SerializeField] private Sprite m_sprite;
+    private Sprite m_sprite_LastShown;
     [SerializeField] private Color m_color = Color.white;
     [SerializeField, Range(0, 1)] private float m_alphaCutoff = 0.5f;
     [SerializeField] private bool m_flipX;
@@ -192,10 +195,10 @@ public class sc_SpriteMesh : MonoBehaviour
 
     private void Update()
     {
-        if (!sprite)
-            return;
+        if (m_sprite_LastShown == sprite) return;
 
         GenerateMeshForSprite(m_filter, sprite);
         UpdateProps(m_renderer, sprite, m_propBlock);
+        m_sprite_LastShown = sprite;
     }
 }

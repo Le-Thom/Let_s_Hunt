@@ -49,7 +49,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private StateMachine<Tps_PlayerController> stateMachine;
 
     //input
-    private Vector2 movementInput;
+    [SerializeField] private Vector2 movementInput;
 
     // animation IDs
     private int _animIDSpeed;
@@ -510,6 +510,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         float inputMagnitude = movementInput.magnitude;
         // if there is no input, set the target speed to 0
         if (!playerData.monitor.tryToMove) targetSpeed = 0.0f;
+        Debug.Log("pass");
 
         // a reference to the players current horizontal velocity
         float currentHorizontalSpeed = new Vector3(_CharacterController.velocity.x, 0.0f, _CharacterController.velocity.z).magnitude;
