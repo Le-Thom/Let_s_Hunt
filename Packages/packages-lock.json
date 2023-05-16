@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.dbrizov.naughtyattributes": {
+      "version": "2.1.4",
+      "depth": 1,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
     "com.unity.2d.animation": {
       "version": "9.0.3",
       "depth": 0,
@@ -264,6 +271,24 @@
         "com.unity.shadergraph": "14.0.6",
         "com.unity.render-pipelines.core": "14.0.6"
       }
+    },
+    "com.valax321.meshsprites": {
+      "version": "1.0.1",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {},
+      "url": "https://package.openupm.com"
+    },
+    "net.peeweek.gameplay-ingredients": {
+      "version": "2021.3.2",
+      "depth": 0,
+      "source": "registry",
+      "dependencies": {
+        "com.unity.cinemachine": "2.8.4",
+        "com.unity.timeline": "1.6.4",
+        "com.dbrizov.naughtyattributes": "2.1.4"
+      },
+      "url": "https://package.openupm.com"
     },
     "com.unity.modules.ai": {
       "version": "1.0.0",
