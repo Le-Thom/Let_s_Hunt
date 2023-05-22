@@ -8,9 +8,12 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/0.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MAIN_MENU.unity
     guid: 7da8b72dec8a15c4dac37c3e342ef9b1
+  - enabled: 1
+    path: Assets/Scenes/MAXIME_PLAYERTESTROOM.unity
+    guid: ca949f163c7f6b14782918d4172d58b4
   - enabled: 1
     path: Assets/Scenes/Gameplay Ingredient/G_INGRENDIENT_MAINMENU.unity
     guid: 7358258b3f977864f87db0d8e4601341
