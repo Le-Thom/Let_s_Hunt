@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d66b211e6ac6a44b6d1df1ae555420, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: 
+  monitor:
+    isValid: 0
+    isChangingState: 0
+    isInit: 0
+    isActive: 0
+    tryToMove: 0
+    canMove: 0
+    tryToDodge: 0
+    canDodge: 0
+    tryToAttack1: 0
+    canAttack1: 0
+    tryToAttack2: 0
+    canAttack2: 0
+    canGetHit: 0
+    isStun: 0
+    canHeal: 0
+    canGetHealed: 0
+    isDead: 0
+  variables:
+    playerPosition: {x: 0, y: 0, z: 0}
+    playerRotation: {x: 0, y: 0, z: 0}
+    speed: 0
+  inGameDataValue:
+    speed: 0
+    sprintSpeed: 0
+    speedChangeRate: 0
+  persistentPlayerGameData:
+    globalTimeMove: 0
