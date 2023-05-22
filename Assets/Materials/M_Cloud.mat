@@ -51,7 +51,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _CloudStrenght: 0.97
-    - _CloudsDensity: 0.19
+    - _CloudsDensity: 0.16
     - _CloudsSize: 0.08
     - _CloudsSpeed: 2.25
     - _QueueControl: 0
