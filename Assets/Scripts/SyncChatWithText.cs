@@ -18,6 +18,11 @@ public class SyncChatWithText : MonoBehaviour
     [SerializeField] private int messageLenghtLimit = 12;
 
     [SerializeField] private int messageLimit = 12;
+    private void Awake()
+    {
+        GetTwitchData_Script twitchScript = GameObject.FindFirstObjectByType<GetTwitchData_Script>();
+        if (twitchScript != null) twitchScript.OnChatMessage.AddListener(AddingChatMessageToUI);
+    }
     //========
     //FONCTIONS
     //========

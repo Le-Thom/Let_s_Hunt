@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Gameplay Ingredient/G_INGRENDIENT_GAME.unity
     guid: 25c0b8a3b619fa8428011452b839d11a
+  - enabled: 0
+    path: Assets/_externals/CodeMonkey/LobbyTutorial/LobbyTutorial_Done.unity
+    guid: be8200a558cfff84b8ce074fa6e33558
   m_configObjects: {}

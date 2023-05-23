@@ -15,7 +15,11 @@ public class MainMenu_Link : MonoBehaviour
     [Header("Twitch Side")]
     [SerializeField] private Button connectToTwitchButton;
     [SerializeField] private TMP_InputField channelName;
+    [SerializeField] private GameObject twitchChatUI;
+
     private string channel => channelName.text.ToLower();
+
+    [SerializeField] private Button createRoomButton;
 
     [Header("Soldat Side")]
     [SerializeField] private Button joinRoomButton;
@@ -25,6 +29,8 @@ public class MainMenu_Link : MonoBehaviour
     [SerializeField] private GetTwitchData_Script twitch_Script;
     [SerializeField] private Testing_Relay network_Script;
     [SerializeField] private List<GameObject> listOfLoadingIcon = new();
+
+
 
     //=======
     //MONOBEHAVIOUR
@@ -53,6 +59,14 @@ public class MainMenu_Link : MonoBehaviour
         twitch_Script.onConnectionSuccess.AddListener(WhenTheConnectionIsSuccessfullListener);
 
         twitch_Script.onForcedDisconect.AddListener(WhenConnectionIsFailed);
+
+        createRoomButton.onClick.AddListener(CreateARoom);
+
+        network_Script.onJoinRoomFailed.AddListener(() => SetLoadingIcon(false, LoadingIcon.JoinGameLoading));
+        network_Script.onJoinRoomSuccess.AddListener(() => SetLoadingIcon(false, LoadingIcon.JoinGameLoading));
+
+        network_Script.onCreateRoomFailed.AddListener(() => SetLoadingIcon(false, LoadingIcon.CreateRoom));
+        network_Script.onCreateRoomSuccess.AddListener(() => SetLoadingIcon(false, LoadingIcon.CreateRoom));
     }
     private void OnDisable()
     {
@@ -61,10 +75,22 @@ public class MainMenu_Link : MonoBehaviour
         twitch_Script.onConnectionSuccess.RemoveListener(WhenTheConnectionIsSuccessfullListener);
 
         twitch_Script.onForcedDisconect.RemoveListener(WhenConnectionIsFailed);
+
+        createRoomButton.onClick.RemoveListener(CreateARoom);
+
+        network_Script.onJoinRoomFailed.RemoveListener(() => SetLoadingIcon(false, LoadingIcon.JoinGameLoading));
+        network_Script.onJoinRoomSuccess.RemoveListener(() => SetLoadingIcon(false, LoadingIcon.JoinGameLoading));
+
+        network_Script.onCreateRoomFailed.RemoveListener(() => SetLoadingIcon(false, LoadingIcon.CreateRoom));
+        network_Script.onCreateRoomSuccess.RemoveListener(() => SetLoadingIcon(false, LoadingIcon.CreateRoom));
     }
     //=======
     //FONCTION
     //=======
+    public void CancelTwitchLoading()
+    {
+        twitch_Script.DisconnectedTwitch();
+    }
     private void WhenTheConnectionIsStartListener()
     {
         SetLoadingIcon(true, LoadingIcon.TwitchLoading);
@@ -76,6 +102,8 @@ public class MainMenu_Link : MonoBehaviour
         SetLoadingIcon(false, LoadingIcon.TwitchLoading);
         StopCoroutine(TimerBeforeTimeout());
         connectToTwitchButton.enabled = true;
+
+        ShowTchatMenu();
     }
     private void WhenConnectionIsFailed()
     {
@@ -101,6 +129,8 @@ public class MainMenu_Link : MonoBehaviour
     {
         string joinCode = joinCodeInputField.text;
 
+        SetLoadingIcon(true, LoadingIcon.JoinGameLoading);
+
         network_Script.JoinRelay(joinCode);
     }
     private void SetLoadingIcon(bool active, LoadingIcon loadingIcon)
@@ -116,8 +146,22 @@ public class MainMenu_Link : MonoBehaviour
             SetLoadingIcon(false, LoadingIcon.TwitchLoading);
         }
     }
+    private void ShowTchatMenu()
+    {
+        twitchChatUI.SetActive(true);
+        //Adding Event on lost connection
+    }
+    private void CreateARoom()
+    {
+        if (twitch_Script.IsTwitchConnected()) 
+        { 
+            SetLoadingIcon(true, LoadingIcon.CreateRoom);
+            network_Script.ConnectToRelay();
+        }
+        else Debug.LogWarning("Failed : Twitch Not Connected");
+    }
 }
 enum LoadingIcon
 {
-    TwitchLoading, JoinGameLoading
+    TwitchLoading, JoinGameLoading, CreateRoom
 }

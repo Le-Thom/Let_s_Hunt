@@ -12,12 +12,20 @@ public class SoldierLobby : MonoBehaviour
     public GameObject soliderWaitingIcon;
     public GameObject soliderJoinedIcon;
     public GameObject soliderReadyIcon;
-    public bool isTheSoldierReady { private set; get; } = false;
     public int soliderState = (int)SoliderState.WaitingForSoliderToJoin;
 
     //========
     //FONCTION
     //========
+    public void WhenWaitingForSoldier()
+    {
+        soliderState = (int)SoliderState.WaitingForSoliderToJoin;
+        soliderNameUI.text = "Waiting ...";
+
+        soliderWaitingIcon.SetActive(true);
+        soliderJoinedIcon.SetActive(false);
+        soliderReadyIcon.SetActive(false);
+    }
 
     public void WhenSoliderJoin()
     {
@@ -31,7 +39,7 @@ public class SoldierLobby : MonoBehaviour
     public void WhenSoliderIsReady()
     {
         soliderState = (int)SoliderState.SoldierReady;
-        soliderNameUI.text = "Joined !";
+        soliderNameUI.text = "Ready !";
 
         soliderWaitingIcon.SetActive(false);
         soliderJoinedIcon.SetActive(false);

@@ -12,7 +12,7 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
     //========
     [Header("Event")]
     //When a member of the chat write a message
-    [SerializeField] private UnityEvent<string, string> OnChatMessage;
+    public UnityEvent<string, string> OnChatMessage;
     public UnityEvent startingConnectionEvent;
     public UnityEvent onConnectionSuccess;
     public UnityEvent onForcedDisconect;
@@ -41,9 +41,21 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
     //========
     //MONOBEHAVIOUR
     //========
+    private void Awake()
+    {
+        DisconnectedTwitch();
+    }
     private void OnDisable()
     {
         DisconnectedTwitch();
+    }
+    private void OnApplicationQuit()
+    {
+        try 
+        { 
+            DisconnectedTwitch(); 
+        }
+        catch { }
     }
 
     private void Update()
@@ -72,7 +84,7 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
 
                 OnChatMessage?.Invoke(chatter, msg);
             }
-            if(message.Contains("/NAMES"))
+            if(message.Contains("JOIN"))
             {
                 onConnectionSuccess?.Invoke();
             }
@@ -90,6 +102,8 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
 
         channel = Channel;
 
+        isConnectionStarted = true;
+
         //We ask from misterYesYes to connect on the Twitch
         Writer.WriteLine("PASS " + OAuth);
         Writer.WriteLine("NICK " + User.ToLower());
@@ -100,10 +114,11 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
 
         startingConnectionEvent?.Invoke();
 
-        isConnectionStarted = true;
-
         Debug.Log("Starting The Connection To Twitch");
     }
+    /// <summary>
+    /// Assure the deconnection of Twitch
+    /// </summary>
     public void DisconnectedTwitch()
     {
         if (Twitch != null && Twitch.Connected)
@@ -128,6 +143,9 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
     }
     public bool IsTwitchConnected()
     {
+        if (Twitch == null) 
+            return false;
+        else
         return Twitch.Connected;
     }
     public string GetChannelName()

@@ -34,6 +34,7 @@ MonoBehaviour:
     - com.dbrizov
     - net.peeweek
     - com.veriorpies
+    - com.brunomikoski
     m_IsDefault: 0
     m_Capabilities: 0
     m_ConfigSource: 4

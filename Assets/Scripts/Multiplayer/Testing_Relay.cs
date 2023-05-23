@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Relay;
@@ -14,8 +15,20 @@ public class Testing_Relay : MonoBehaviour
     //=======
     //MONOBEHAVIOR
     //=======
-    [SerializeField] private GetTwitchData_Script twitch_Script;
-    [SerializeField] private Lobby_Manager lobby_Manager;
+
+    [Header("Settings")]
+    [SerializeField] private int maxNumberOfPlayer = 5;
+
+    [Header("Info")]
+    [SerializeField] private string currentJoinCode;
+
+    [Header("Event Create Room Streamer")]
+    public UnityEvent onCreateRoomSuccess;
+    public UnityEvent onCreateRoomFailed;
+
+    [Header("Event Join Soldiers")]
+    public UnityEvent onJoinRoomSuccess;
+    public UnityEvent onJoinRoomFailed;
 
     //=======
     //MONOBEHAVIOR
@@ -28,27 +41,21 @@ public class Testing_Relay : MonoBehaviour
 
         await AuthenticationService.Instance.SignInAnonymouslyAsync();
     }
-    private void OnEnable()
-    {
-        twitch_Script.onConnectionSuccess.AddListener(ConnectToRelay);
-    }
-    private void OnDisable()
-    {
-        twitch_Script.onConnectionSuccess.RemoveListener(ConnectToRelay);
-    }
     //=======
     //FONCTION
     //=======
     [Button]
-    private async void ConnectToRelay()
+    public async void ConnectToRelay()
     {
         try 
         {
-            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(3);
+            Allocation allocation = await RelayService.Instance.CreateAllocationAsync(maxNumberOfPlayer);
 
             string joinCode = await RelayService.Instance.GetJoinCodeAsync(allocation.AllocationId);
 
             Debug.Log("join Code: " + joinCode);
+
+            currentJoinCode = joinCode;
 
             NetworkManager.Singleton.GetComponent<UnityTransport>().SetHostRelayData(
                 allocation.RelayServer.IpV4, 
@@ -59,11 +66,13 @@ public class Testing_Relay : MonoBehaviour
 
             NetworkManager.Singleton.StartHost();
 
-            lobby_Manager.GetInLobby();
+            onCreateRoomSuccess?.Invoke();
 
         } catch (RelayServiceException error) 
         {
             Debug.LogError(error);
+
+            onCreateRoomFailed?.Invoke();
         }
     }
     public async void JoinRelay(string joinCode)
@@ -84,11 +93,12 @@ public class Testing_Relay : MonoBehaviour
 
             NetworkManager.Singleton.StartClient();
 
-            lobby_Manager.GetInLobby();
+            onJoinRoomSuccess?.Invoke();
         }
         catch (RelayServiceException error)
         {
             Debug.LogError(error);
+            onJoinRoomFailed?.Invoke();
         }
     }
 }

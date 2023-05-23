@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.brunomikoski.animationsequencer": "0.5.1",
     "com.unity.2d.animation": "9.0.3",
     "com.unity.2d.pixel-perfect": "5.0.3",
     "com.unity.2d.psdimporter": "8.0.2",
@@ -64,7 +65,8 @@
         "com.valax321",
         "com.dbrizov",
         "net.peeweek",
-        "com.veriorpies"
+        "com.veriorpies",
+        "com.brunomikoski"
       ]
     }
   ]
