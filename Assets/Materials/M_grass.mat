@@ -31,10 +31,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _Alpha: 0.73
-    - _ColorSeed: 1
-    - _IsRandom: 1
-    - _RandomInMovement: 1
-    - _hasWind: 0
+    - _ColorSeed: 0
+    - _IsHit: 0
+    - _IsRandom: 0
+    - _RandomInMovement: 0
+    - _Wind_Influence: 0.04
+    - _hasWind: 1
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &5155014910642195051
