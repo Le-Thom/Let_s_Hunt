@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class PositionToMouse : Singleton<PositionToMouse>
 {
+    [SerializeField] private LayerMask layerMask;
     //========
     //MONOBEHAVIOUR
     //========
 
     void Update()
     {
-        transform.position = GetMouseWorldPosition(0);
+        transform.position = GetMouseWorldPosition(layerMask);
     }
     //========
     //FONCTION
@@ -23,6 +24,10 @@ public class PositionToMouse : Singleton<PositionToMouse>
         {
             return raycastHit.point;
         }
-        else return Vector3.zero;
+        else
+        {
+            print("no mouse hit, on " + layerMask + "ray =" + ray.origin + "dir" + ray.direction);
+            return Vector3.zero;
+        }
     }
 }

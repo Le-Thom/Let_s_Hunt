@@ -18,7 +18,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
     [Header("Camera")]
     [SerializeField] private CinemachineVirtualCamera startCamera;
 
-    private Dictionary<CinemachineVirtualCamera, PlayerInput> soldiersComponent = new();
+    private Dictionary<CinemachineVirtualCamera, Tps_PlayerController> soldiersComponent = new();
     private (CinemachineVirtualCamera, PlayerInput) monsterComponent;
 
     //========
@@ -39,7 +39,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
             {
                 soldiersComponent.Add(
                     soldier.GetComponentInChildren<CinemachineVirtualCamera>(),
-                    soldier.GetComponentInChildren<PlayerInput>()
+                    soldier.GetComponentInChildren<Tps_PlayerController>()
                 );
             }
         }
@@ -59,17 +59,17 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
         if (playerId == 0)
         {
             SwitchCamera(monsterComponent.Item1);
-            ActivateInput(monsterComponent.Item2);
+            ActivateInputMonster(monsterComponent.Item2);
         }
         else
         {
             //We remove 1 because we want to take the first element of the list
             //Soldier 1 have a player id of 1 but we want him to take the first element of the list so 0
             CinemachineVirtualCamera soldierCamera = soldiersComponent.ElementAt(playerId - 1).Key;
-            PlayerInput soldierInput = soldiersComponent.ElementAt(playerId - 1).Value;
+            Tps_PlayerController soldierScript = soldiersComponent.ElementAt(playerId - 1).Value;
 
             SwitchCamera(soldierCamera);
-            ActivateInput(soldierInput);
+            ActivateInputSoldier(soldierScript);
         }
     }
     /// <summary>
@@ -91,12 +91,21 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
         Debug.Log("Switch to" + newCamera.name + "camera");
     }
     /// <summary>
-    /// Activate The Player Input
+    /// Activate The Monster Input
     /// </summary>
     /// <param name="playerInput"></param>
-    private void ActivateInput(PlayerInput playerInput)
+    private void ActivateInputMonster(PlayerInput playerInput)
     {
         playerInput.enabled = true;
         Debug.Log("Activate Input");
+    }
+    /// <summary>
+    /// Activate The Soldier Input
+    /// </summary>
+    /// <param name="soldier_Script"></param>
+    private void ActivateInputSoldier(Tps_PlayerController soldier_Script)
+    {
+        //soldier_Script._input.Enable();
+        Debug.Log("Input Soldier Activated");
     }
 }
