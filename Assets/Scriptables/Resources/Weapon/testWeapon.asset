@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bf4be59e41208a74a96daf465f07d77b, type: 3}
-  m_Name: test
+  m_Name: testWeapon
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   atkDistance: 2
