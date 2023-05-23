@@ -70,5 +70,4 @@ public class PlayerConnectionManager : NetworkBehaviour
         JoinGame_Manager joinGame = FindAnyObjectByType<JoinGame_Manager>();
         joinGame.UpdateSoldierLobbyClientRpc();
     }
-
 }

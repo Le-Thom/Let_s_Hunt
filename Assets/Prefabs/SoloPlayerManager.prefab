@@ -9,10 +9,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 673576022292135569}
-  - component: {fileID: 8262441005613356175}
   - component: {fileID: 8472552546498508716}
   - component: {fileID: 5730755940899106244}
   - component: {fileID: 2799382370347493809}
+  - component: {fileID: 1796320841132538488}
   m_Layer: 0
   m_Name: SoloPlayerManager
   m_TagString: Untagged
@@ -35,22 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8262441005613356175
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4804950669894808981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!114 &8472552546498508716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -64,8 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onDisconnect: {fileID: 5730755940899106244}
-  playerId:
-    m_InternalValue: 0
+  soldierLobby: {fileID: 0}
 --- !u!114 &5730755940899106244
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -104,3 +87,19 @@ MonoBehaviour:
   UserSaveName: Progress
   SaveProgress: 0
   OnComplete: []
+--- !u!114 &1796320841132538488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4804950669894808981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

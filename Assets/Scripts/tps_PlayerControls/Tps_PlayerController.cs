@@ -33,6 +33,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         NORMAL,
         STOP,
     }
+    public Tps_Player_Inputs Inputs { get { return _inputs; } }
 
     #endregion
     //==============================================================================================================
@@ -43,7 +44,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     // [SerializeField] private CharacterController _CharacterController;
     [SerializeField] private GameObject _Body;
     [SerializeField] private Animator _Animator;
-    [SerializeField] private Camera _Camera;
+    private Camera _Camera;
     [SerializeField] private GameObject _targetCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
@@ -96,12 +97,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     {
         // create inputs.
         _inputs = new();
+        _Camera = Camera.main;
     }
 
     private void OnEnable()
     {
         // active inputs
-        _inputs.Enable();
+        //_inputs.Enable();
     }
 
     private void Start()

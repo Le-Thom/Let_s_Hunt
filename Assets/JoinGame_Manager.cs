@@ -13,21 +13,22 @@ public class JoinGame_Manager : NetworkBehaviour
     //========
     //VARIABLES
     //========
-    [SerializeField] private GameObject lobbyMenu_UI;
-    [SerializeField] private Testing_Relay relayScript;
-    [SerializeField] private PlayerConnectionManager playerConnection;
 
-    [SerializeField] private Button createRoomButton;
-
+    [Header("UI Ref")]
     public Button readyButton;
     public Button startButton;
-
+    [SerializeField] private Button createRoomButton;
+    [SerializeField] private GameObject lobbyMenu_UI;
     [SerializeField] private TextMeshProUGUI streamerName;
-
-    //Number of player without counting the host
+    [SerializeField] private TextMeshProUGUI joinCodeText;
     [SerializeField] private List<SoldierLobby> soldierLobbies = new List<SoldierLobby>();
 
-    [SerializeField] private List<int> playerIdLeft = new();
+    [Header("Script Ref")]
+    [SerializeField] private Testing_Relay relayScript;
+
+
+    [Header("Network Variable")]
+    [SerializeField] private NetworkVariable<bool> isTheGameStarted = new NetworkVariable<bool>(false);
 
     //========
     //MONOBEHAVIOUR
@@ -42,7 +43,7 @@ public class JoinGame_Manager : NetworkBehaviour
     }
     private void Update()
     {
-        if(IsHost)
+        if(IsHost && !isTheGameStarted.Value)
         {
             UpdateSoldierLobbyClientRpc();
         }
@@ -60,11 +61,6 @@ public class JoinGame_Manager : NetworkBehaviour
     {
         lobbyMenu_UI.SetActive(false);
         print("Removing Lobby");
-    }
-    public void AddingAPlayerToTheRoom(int playerId)
-    {
-        playerIdLeft.Remove(playerId);
-        print("Adding Player Number " + playerId);
     }
     public int GiveIdNotTaken()
     {
@@ -119,7 +115,7 @@ public class JoinGame_Manager : NetworkBehaviour
         }
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public void TryToStartGameServerRpc()
     {
         PlayerConnectionManager[] playersManager = GameObject.FindObjectsOfType<PlayerConnectionManager>();
@@ -154,6 +150,7 @@ public class JoinGame_Manager : NetworkBehaviour
     [ClientRpc]
     public void StartTheGameClientRpc()
     {
+        if(IsHost) isTheGameStarted.Value = true;
         int playerId = 5;
         PlayerConnectionManager[] playersManager = GameObject.FindObjectsOfType<PlayerConnectionManager>();
         foreach(PlayerConnectionManager playerScript in playersManager)
@@ -163,7 +160,25 @@ public class JoinGame_Manager : NetworkBehaviour
                 playerId = playerScript.playerId.Value;
             }
         }
-        In_Game_Manager.Instance.GiveInputAndCameraToPlayer(playerId);
+        Debug.Log("Start the game, Incarnate Player " + playerId);
+        GameObject player = In_Game_Manager.Instance.GiveInputAndCameraToPlayer(playerId);
+        GiveOwnerToPlayerServerRpc(playerId, NetworkManager.Singleton.LocalClientId);
         QuitLobbyUI();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void GiveOwnerToPlayerServerRpc(int playerid, ulong clientId)
+    {
+        In_Game_Manager startGame_Manager = FindAnyObjectByType<In_Game_Manager>();
+
+        GameObject player = startGame_Manager.GetPlayerViaId(playerid);
+
+        NetworkObject[] networkObjects = player.GetComponentsInChildren<NetworkObject>();
+
+        foreach (NetworkObject networkObject in networkObjects)
+        {
+            networkObject.GetComponent<NetworkObject>().ChangeOwnership(clientId);
+            Debug.Log("Switch Ownership to Client " + clientId);
+        }
     }
 }

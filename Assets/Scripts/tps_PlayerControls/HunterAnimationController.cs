@@ -5,18 +5,30 @@ using UnityEngine;
 public class HunterAnimationController : MonoBehaviour
 {
     [SerializeField] private Tps_PlayerController playerController;
-    [SerializeField] private bool isOwner;
+    private bool isOwner => playerController.enabled;
 
     //==============================================================================================================
     #region PRIVATE FONCTION
     //==============================================================================================================
 
-    private void ChangeStateToIdle() => playerController.ChangeStateToIdle();
-    private void StartDodge() => playerController.StartDodge();
-    private void EndDodge() => playerController.EndDodge();
-    private void ATK1() => playerController.Atk1();
-    private void ATK2() => playerController.Atk2();
-    private void Revive() => playerController.Revive();
+    private void ChangeStateToIdle() 
+    {
+        if(isOwner)
+        playerController.ChangeStateToIdle(); 
+    }
+    private void StartDodge() 
+    {
+        if (isOwner)
+            playerController.StartDodge(); 
+    }
+    private void EndDodge() 
+    {
+        if (isOwner)
+            playerController.EndDodge(); 
+    }
+    private void ATK1() { if (isOwner) playerController.Atk1(); }
+    private void ATK2() { if (isOwner) playerController.Atk2(); }
+    private void Revive() { if (isOwner) playerController.Revive(); }
 
     // AUDIO
 

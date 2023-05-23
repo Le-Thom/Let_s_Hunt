@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using Cinemachine;
 using UnityEngine.InputSystem;
 
@@ -54,12 +56,20 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
     /// Change The Camera And Activate Input 
     /// </summary>
     /// <param name="playerId"></param>
-    public void GiveInputAndCameraToPlayer(int playerId)
+    public GameObject GiveInputAndCameraToPlayer(int playerId)
     {
+        GameObject newPlayer = null;
         if (playerId == 0)
         {
             SwitchCamera(monsterComponent.Item1);
             ActivateInputMonster(monsterComponent.Item2);
+
+            newPlayer = monsterGameObject;
+
+            foreach (Tps_PlayerController tps_PlayerController in soldiersComponent.Values)
+            {
+                Destroy(tps_PlayerController);
+            }
         }
         else
         {
@@ -70,6 +80,27 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
 
             SwitchCamera(soldierCamera);
             ActivateInputSoldier(soldierScript);
+
+
+            newPlayer = soldiersGameObject[playerId - 1];
+            soldiersComponent.Remove(soldierCamera);
+
+            foreach (Tps_PlayerController tps_PlayerController in soldiersComponent.Values)
+            {
+                Destroy(tps_PlayerController);
+            }
+        }
+        return newPlayer;
+    }
+    public GameObject GetPlayerViaId(int playerId)
+    {
+        if(playerId == 0)
+        {
+            return monsterGameObject;
+        }
+        else
+        {
+            return soldiersGameObject[playerId - 1];
         }
     }
     /// <summary>
@@ -103,9 +134,11 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
     /// Activate The Soldier Input
     /// </summary>
     /// <param name="soldier_Script"></param>
-    private void ActivateInputSoldier(Tps_PlayerController soldier_Script)
+    private void ActivateInputSoldier(Tps_PlayerController soldiertps_Script)
     {
-        //soldier_Script._input.Enable();
+        soldiertps_Script.enabled = true;
+        soldiertps_Script.Inputs.Enable();
+        //soldiertps_Script.isOwner();
         Debug.Log("Input Soldier Activated");
     }
 }
