@@ -88,17 +88,22 @@ public class Blit : ScriptableRendererFeature {
         blitPass = new BlitPass(settings.Event, settings.blitMaterial, settings.blitMaterialPassIndex, name);
         m_RenderTextureHandle.Init(settings.textureId);
     }
- 
+
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData) {
-        var src = renderer.cameraColorTarget;
-        var dest = (settings.destination == Target.Color) ? RenderTargetHandle.CameraTarget : m_RenderTextureHandle;
+        
  
         if (settings.blitMaterial == null) {
             Debug.LogWarningFormat("Missing Blit Material. {0} blit pass will not execute. Check for missing reference in the assigned renderer.", GetType().Name);
             return;
         }
  
-        blitPass.Setup(src, dest);
         renderer.EnqueuePass(blitPass);
+    }
+
+    public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
+    {
+        var dest = (settings.destination == Target.Color) ? RenderTargetHandle.CameraTarget : m_RenderTextureHandle;
+        blitPass.Setup(renderer.cameraColorTargetHandle, dest);
+
     }
 }
