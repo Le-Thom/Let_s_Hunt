@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AtkCollider : MonoBehaviour
+public class WeaponAtkCollider : MonoBehaviour
 {
     [SerializeField] private Weapon target;
     private void OnTriggerEnter(Collider other)

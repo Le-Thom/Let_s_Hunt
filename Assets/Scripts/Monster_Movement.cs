@@ -23,6 +23,7 @@ public class Monster_Movement : MonoBehaviour
 
     [SerializeField] private LayerMask cameraCastLayer;
     private Vector3 movementDirectionCamera;
+    [SerializeField] private Transform _Cac_Skill;
     //========
     //MONOBEHAVIOUR
     //========
@@ -30,6 +31,7 @@ public class Monster_Movement : MonoBehaviour
     {
         //Camera Movement on Update So If Key is Long Press, continue to move
         virtualCamera.transform.position += movementDirectionCamera * cameraSpeed;
+        _Cac_Skill.position = transform.position;
     }
 
     //========

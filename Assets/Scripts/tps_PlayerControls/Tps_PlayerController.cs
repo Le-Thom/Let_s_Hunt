@@ -100,8 +100,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     private void OnEnable()
     {
-        // active inputs
-        _inputs.Enable();
+
     }
 
     private void Start()

@@ -3,30 +3,27 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class HunterHitCollider : MonoBehaviour
+public class HunterHitCollider : NetworkBehaviour
 {
-    [SerializeField] private ScS_PlayerData playerData;
-    private void Awake() => playerData = ScS_PlayerData.Instance;
-
     [SerializeField] private Equipment equipment1, equipment2;
+
+    private int indexPlayer;
+
+
+    // NEED NETWORK HERE FOR INDEX PLAYER
+
 
     /// <summary>
     /// If collider got hit, transfert info to player.
     /// </summary>
-    [ClientRpc]
-    public void TransfertHitInfoToClient(int indexPlayer, int Damage)
+    // [ClientRpc]
+    public void HunterGetHit(int Damage)
     {
-        // if isOwner then change his hp, else only change the healthbar
-        if (indexPlayer == playerData.monitor.index) playerData.ChangeHp(Damage);
-        
-        HealthBarManager.Instance.ChangeHealthBar(indexPlayer, Damage);
-    }
+        // change the healthbar
+        if (IsHost) return; // Monster don't have this.
 
-    /// <summary>
-    /// If hunter get hit. (positive if heal, negative if damage)
-    /// </summary>
-    /// <param name="value"></param>
-    public void GetHit(int value) => playerData.ChangeHp(value);
+        HealthBarManager.Instance.ChangeHealthBar(indexPlayer, Damage); 
+    }
 
     public Equipment GetEquipment(sc_Equipment equipment) 
     {
