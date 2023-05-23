@@ -910,11 +910,11 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: 
+  cloudProjectId: b76ebf1e-ba12-4523-b255-14e8036d9dac
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: ForTemplate
-  organizationId: 
+  projectName: Let_s_Hunt
+  organizationId: let-s-hunt
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
   hmiLoadingImage: {fileID: 0}

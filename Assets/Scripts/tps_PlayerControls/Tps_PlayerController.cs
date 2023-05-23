@@ -85,6 +85,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     private float revivingTimer;
 
+    public List<InteractableObject> interactableObjects = new();
+    private InteractableObject closestInteractableObject;
+
     #endregion
     //==============================================================================================================
 
@@ -250,6 +253,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _inputs.Player.Equipment1.started += ctx => _equipment1.SetOnSelected();
         // Equipment2
         _inputs.Player.Equipment2.started += ctx => _equipment2.SetOnSelected();
+        // Interact
+        _inputs.Player.Interact.started += ctx => Interact();
         // Drop
         _inputs.Player.Drop.started += ctx => _equipment1.Drop();
         _inputs.Player.Drop.started += ctx => _equipment2.Drop();
@@ -442,6 +447,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         if(playerData.monitor.isAtk1) stateMachine.ChangeState(StateId.ATK1);
         if (playerData.monitor.isAtk2) stateMachine.ChangeState(StateId.ATK2);
+
+        UpdateEquipmentCheck();
     }
     private void ExitStateIdle()
     {
@@ -738,6 +745,73 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         if (revivingTimer > playerData.inGameDataValue.reviveTime) stateMachine.ChangeState(StateId.IDLE);
     }
 
+    #region Interact
+    private void Interact()
+    {
+        if (closestInteractableObject != null) closestInteractableObject.Interact();
+    }
+    private void UpdateEquipmentCheck()
+    {
+        if (interactableObjects.Count == 0) return;
+
+        InteractableObject _closestEquipment = GetClosestItem();
+        if ((_closestEquipment == null && closestInteractableObject != null)
+            || _closestEquipment != closestInteractableObject)
+            closestInteractableObject.StopBeingTheClosest();
+
+        if (_closestEquipment == null) return;
+
+        if (_closestEquipment.TryGetComponent<EquipmentDrop>(out EquipmentDrop _equipmentDrop))
+        {
+            Equipment _emptyEquipment = IsOneOfEquipmentEmpty();
+            if (_emptyEquipment == null);
+            else
+            {
+                _closestEquipment.IsClosestToInteract();
+                closestInteractableObject = _closestEquipment;
+                return;
+            }
+        }
+
+        else
+        {
+            _closestEquipment.IsClosestToInteract();
+            closestInteractableObject = _closestEquipment;
+        }
+
+        closestInteractableObject.IsClosestToInteract();
+
+    }
+    private InteractableObject GetClosestItem()
+    {
+        InteractableObject _io = null;
+        float _distClosest = 10000;
+        for (int i = 0; i < interactableObjects.Count; i++)
+        {
+            if (interactableObjects[i].GetType() == typeof(EquipmentDrop))
+            {
+                Equipment _equipment = IsOneOfEquipmentEmpty();
+                if (_equipment != null)
+                {
+                    float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
+                    if (_distMagnitude < _distClosest) _io = interactableObjects[i];
+                }
+            }
+            else
+            {
+                float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
+                if (_distMagnitude < _distClosest) _io = interactableObjects[i];
+            }
+        }
+        return _io;
+    }
+    public Equipment IsOneOfEquipmentEmpty()
+    {
+        if (_equipment1.GetEquipment() == null) return _equipment1;
+        else if (_equipment2.GetEquipment() == null) return _equipment2;
+        else return null;
+    }
+    #endregion
 
     #endregion
     //==============================================================================================================

@@ -31,6 +31,4 @@ public class HunterHitCollider : MonoBehaviour
             return equipment2;
         else return null;
     }
-
-    public List<EquipmentDrop> equipmentDropsLists = new();
 }

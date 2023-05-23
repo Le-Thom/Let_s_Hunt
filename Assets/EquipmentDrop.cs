@@ -4,7 +4,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(sc_SpriteMesh))]
 [RequireComponent(typeof(SphereCollider))]
-public class EquipmentDrop : MonoBehaviour
+public class EquipmentDrop : InteractableObject
 {
     public EquipmentDrop(sc_Equipment _equipment)
     {
@@ -22,7 +22,8 @@ public class EquipmentDrop : MonoBehaviour
 
     [SerializeField] private List<EquipmentDrop> equipmentDropList = new();
     [SerializeField] private HunterHitCollider playerController;
-    Coroutine attractCoroutine;
+    private Coroutine attractCoroutine;
+    private Equipment _equipment;
 
     private void Update()
     {
@@ -43,14 +44,29 @@ public class EquipmentDrop : MonoBehaviour
 
         else if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _playerController))
         {
-            Equipment _equipment = _playerController.GetEquipment(equipment);
+            Tps_PlayerController.Instance.interactableObjects.Add(this);
+            Equipment _equipment = Tps_PlayerController.Instance.IsOneOfEquipmentEmpty();
             if (_equipment == null) return;
+            if (_equipment.GetEquipment() != equipment) return;
 
             if (attractCoroutine != null) StopCoroutine(attractCoroutine);
             attractCoroutine = null;
 
             playerController = _playerController;
             attractCoroutine = StartCoroutine(AttractToPlayer());
+        }
+    }
+    private void OnDestroy()
+    {
+        if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
+            Tps_PlayerController.Instance.interactableObjects.Remove(this);
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _playerController))
+        {
+            if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
+                Tps_PlayerController.Instance.interactableObjects.Remove(this);
         }
     }
 
@@ -66,11 +82,22 @@ public class EquipmentDrop : MonoBehaviour
             yield return null;
         }
 
-        Debug.Log("Good to go in inv");
+        // check if is owner then continue
+        int _howMuchLeft = _equipment.AddEquipment(nb);
+        if (_howMuchLeft > 0) nb = _howMuchLeft;
+        else Destroy(gameObject);
     }
 
-    public void AddToPlayer()
+    public override void IsClosestToInteract()
     {
-
+        base.IsClosestToInteract();
+    }
+    public override void StopBeingTheClosest()
+    {
+        base.StopBeingTheClosest();
+    }
+    public override void Interact()
+    {
+        
     }
 }
