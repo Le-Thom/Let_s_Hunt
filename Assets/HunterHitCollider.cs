@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 public class HunterHitCollider : MonoBehaviour
@@ -12,9 +13,13 @@ public class HunterHitCollider : MonoBehaviour
     /// <summary>
     /// If collider got hit, transfert info to player.
     /// </summary>
-    public void TransfertHitInfoToClient()
+    [ClientRpc]
+    public void TransfertHitInfoToClient(int indexPlayer, int Damage)
     {
-        // Multiplayer info here
+        // if isOwner then change his hp, else only change the healthbar
+        if (indexPlayer == playerData.monitor.index) playerData.ChangeHp(Damage);
+        
+        HealthBarManager.Instance.ChangeHealthBar(indexPlayer, Damage);
     }
 
     /// <summary>
