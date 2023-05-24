@@ -4,15 +4,20 @@ using UnityEngine;
 
 [RequireComponent(typeof(sc_SpriteMesh))]
 [RequireComponent(typeof(SphereCollider))]
-public class EquipmentDrop : InteractableObject
+public class ObjectDrop : InteractableObject
 {
-    public EquipmentDrop(sc_Equipment _equipment)
+    public ObjectDrop(sc_Object _object)
     {
-        equipment = _equipment;
+        sc_object = _object;
+        spriteMesh.sprite = _object.objectSprite;
+        spriteMesh.m_material = _object.objectMaterial;
     }
 
+    private sc_SpriteMesh spriteMesh => GetComponent<sc_SpriteMesh>();
+    private SphereCollider sphereCollider => GetComponent<SphereCollider>();
+
     [SerializeField] private int nb;
-    [SerializeField] private sc_Equipment equipment;
+    [SerializeField] private sc_Object sc_object;
 
 
     private float time = 0;
@@ -20,10 +25,18 @@ public class EquipmentDrop : InteractableObject
     [SerializeField] private float BreathingAmplitude;
     [SerializeField] private AnimationCurve BreathingCurve;
 
-    [SerializeField] private List<EquipmentDrop> equipmentDropList = new();
+    [SerializeField] private List<ObjectDrop> equipmentDropList = new();
     [SerializeField] private HunterHitCollider playerController;
     private Coroutine attractCoroutine;
-    private Equipment _equipment;
+
+    [SerializeField] private GameObject onCanPickUp;
+    [SerializeField] private Equipment equipment;
+
+    private void Start()
+    {
+        sphereCollider.radius = 2f;
+        onCanPickUp.SetActive(false);
+    }
 
     private void Update()
     {
@@ -37,7 +50,7 @@ public class EquipmentDrop : InteractableObject
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<EquipmentDrop>(out EquipmentDrop equipmentDrop))
+        if (other.TryGetComponent<ObjectDrop>(out ObjectDrop equipmentDrop))
         {
             equipmentDropList.Add(equipmentDrop);
         }
@@ -45,15 +58,19 @@ public class EquipmentDrop : InteractableObject
         else if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _playerController))
         {
             Tps_PlayerController.Instance.interactableObjects.Add(this);
-            Equipment _equipment = Tps_PlayerController.Instance.IsOneOfEquipmentEmpty();
-            if (_equipment == null) return;
-            if (_equipment.GetEquipment() != equipment) return;
 
-            if (attractCoroutine != null) StopCoroutine(attractCoroutine);
-            attractCoroutine = null;
+            if (sc_object.GetType() == typeof(sc_Equipment))
+            {
+                Equipment _equipment = Tps_PlayerController.Instance.IsOneOfEquipmentEmpty();
+                if (_equipment == null) return;
+                if (_equipment.GetEquipment() != sc_object) return;
 
-            playerController = _playerController;
-            attractCoroutine = StartCoroutine(AttractToPlayer());
+                if (attractCoroutine != null) StopCoroutine(attractCoroutine);
+                attractCoroutine = null;
+
+                playerController = _playerController;
+                attractCoroutine = StartCoroutine(AttractToPlayer(_equipment));
+            }
         }
     }
     private void OnDestroy()
@@ -70,7 +87,7 @@ public class EquipmentDrop : InteractableObject
         }
     }
 
-    private IEnumerator AttractToPlayer()
+    private IEnumerator AttractToPlayer(Equipment equipment)
     {
         while ((transform.position.x >= playerController.transform.position.x + 0.05f ||
             transform.position.x <= playerController.transform.position.x - 0.05f) &&
@@ -82,22 +99,38 @@ public class EquipmentDrop : InteractableObject
             yield return null;
         }
 
-        // check if is owner then continue
-        int _howMuchLeft = _equipment.AddEquipment(nb);
-        if (_howMuchLeft > 0) nb = _howMuchLeft;
-        else Destroy(gameObject);
+        // check owner
+        AddingEquipment();
     }
 
     public override void IsClosestToInteract()
     {
-        base.IsClosestToInteract();
+        if (!onCanPickUp.active) onCanPickUp.SetActive(true);
+
+        if (sc_object.GetType() == typeof(sc_Equipment))
+        {
+            equipment = Tps_PlayerController.Instance.IsOneOfEquipmentEmpty();
+            if (equipment == null) Tps_PlayerController.Instance.interactableObjects.Remove(this);
+        }
     }
     public override void StopBeingTheClosest()
     {
-        base.StopBeingTheClosest();
+        if (onCanPickUp.active) onCanPickUp.SetActive(false);
     }
     public override void Interact()
     {
-        
+        if (sc_object.GetType() == typeof(sc_Equipment))
+        {
+            int _howMuchLeft = equipment.AddEquipment(sc_object as sc_Equipment ,nb);
+            if (_howMuchLeft > 0) nb = _howMuchLeft;
+            else Destroy(gameObject);
+        }
+    }
+
+    private void AddingEquipment()
+    {
+        int _howMuchLeft = equipment.AddEquipment(nb);
+        if (_howMuchLeft > 0) nb = _howMuchLeft;
+        else Destroy(gameObject);
     }
 }

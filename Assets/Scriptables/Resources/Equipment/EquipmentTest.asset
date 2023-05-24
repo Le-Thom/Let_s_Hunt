@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33da90c140a61ba409c28209155f8990, type: 3}
   m_Name: EquipmentTest
   m_EditorClassIdentifier: 
-  equipmentSprite: {fileID: 21300000, guid: 66073aa0b28bf4d4f889f77f167f8b67, type: 3}
-  equipmentName: Test buisson
-  equipmentPrefab: {fileID: 0}
-  maxStackEquipment: 0
+  objectSprite: {fileID: 21300000, guid: 8455825f2f9f52b478b8c730bb9a9c39, type: 3}
+  objectMaterial: {fileID: 2100000, guid: bc6da4580f5514e458fe5def87e138be, type: 2}
+  objectName: TestEquipment
+  prefab_ObjectDrop: {fileID: 0}
+  maxStackEquipment: 2
+  prefab_Object: {fileID: 0}

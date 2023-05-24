@@ -29,8 +29,8 @@ public class Equipment : MonoBehaviour
             if (value == null) return;
 
             _equipment = value;
-            imageEquipment.sprite = value.equipmentSprite;
-            textEquipment.text = value.equipmentName;
+            imageEquipment.sprite = value.objectSprite;
+            textEquipment.text = value.objectName;
         }
     }
 

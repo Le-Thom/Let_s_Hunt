@@ -73,7 +73,7 @@ public class sc_SpriteMesh : MonoBehaviour
     [SerializeField] private ShadowCastingMode m_shadowCastingMode = ShadowCastingMode.On;
     [SerializeField] private bool m_receiveShadows = true;
     [SerializeField] private LightProbeUsage m_lightProbeUsage = LightProbeUsage.BlendProbes;
-    [SerializeField] private Material m_material;
+    [SerializeField] public Material m_material;
 
     private MeshFilter m_filter;
     private MeshRenderer m_renderer;
