@@ -1,18 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
 public class HealthBarManager : Singleton<HealthBarManager>
 {
+    private int _indexOwner = 0;
+    public int IndexOwner 
+    { set 
+        { 
+            _indexOwner = value;
+            IntHealthBar();
+        } 
+    }
     [SerializeField] private HealthBar healthBar1, healthBar2, healthBar3, healthBar4;
 
-    private void OnEnable()
+    private void IntHealthBar()
     {
         List<int> _indexPlayers = new() { 1, 2, 3, 4 };
 
         // get player owner index and set it to healthbar1
-        int _indexOwner = ScS_PlayerData.Instance.monitor.index;
-        healthBar1.SetIndexPlayer(ScS_PlayerData.Instance.monitor.index);
+
+        if(_indexOwner == 0)
+        {
+            return;
+        }
+
+        Debug.LogError("Whats");
+
+        healthBar1.SetIndexPlayer(_indexOwner);
         _indexPlayers.Remove(_indexOwner);
 
         healthBar2.SetIndexPlayer(_indexPlayers[0]);

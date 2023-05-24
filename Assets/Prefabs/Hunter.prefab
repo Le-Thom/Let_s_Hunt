@@ -398,6 +398,7 @@ GameObject:
   - component: {fileID: 2467195622780089689}
   - component: {fileID: 6984843316426790653}
   - component: {fileID: 2292865818569585856}
+  - component: {fileID: 3811475238906001762}
   m_Layer: 10
   m_Name: HitCollider
   m_TagString: Untagged
@@ -483,6 +484,22 @@ MonoBehaviour:
   equipment1: {fileID: 0}
   equipment2: {fileID: 0}
   equipmentDropsLists: []
+--- !u!114 &3811475238906001762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4112244836409116089}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &4325552961343017011
 GameObject:
   m_ObjectHideFlags: 0
@@ -853,7 +870,7 @@ Transform:
   - {fileID: 4402414184197764421}
   - {fileID: 1512120570887448886}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6924912554656350910
 GameObject:

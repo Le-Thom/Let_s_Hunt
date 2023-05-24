@@ -16,6 +16,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
     [Header("Ref GameObject")]
     [SerializeField] private GameObject monsterGameObject;
     [SerializeField] private List<GameObject> soldiersGameObject = new();
+    [SerializeField] private GameObject hunterUI;
 
     [Header("Camera")]
     [SerializeField] private CinemachineVirtualCamera startCamera;
@@ -84,6 +85,11 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
 
             newPlayer = soldiersGameObject[playerId - 1];
             soldiersComponent.Remove(soldierCamera);
+
+            newPlayer.GetComponentInChildren<HunterHitCollider>().SetPlayerIdServerRpc(playerId);
+            HealthBarManager.Instance.IndexOwner = playerId;
+
+            hunterUI.SetActive(true);
 
             foreach (Tps_PlayerController tps_PlayerController in soldiersComponent.Values)
             {

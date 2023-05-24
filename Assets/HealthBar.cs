@@ -10,7 +10,10 @@ public class HealthBar : MonoBehaviour
 
     // to who this bar is owned.
     [SerializeField] private int indexPlayer;
-    public void SetIndexPlayer(int _indexPlayer) => _indexPlayer = indexPlayer;
+    public void SetIndexPlayer(int _newIndexPlayer) 
+    {
+        indexPlayer = _newIndexPlayer; 
+    }
     public int GetIndexPlayer() { return indexPlayer; }
     // Player owner this bar
     [SerializeField] private bool isOwner;
