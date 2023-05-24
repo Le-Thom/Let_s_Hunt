@@ -89,7 +89,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
             newPlayer.GetComponentInChildren<HunterHitCollider>().SetPlayerIdServerRpc(playerId);
             HealthBarManager.Instance.IndexOwner = playerId;
 
-            hunterUI.SetActive(true);
+            UIGlobal_Manager.Instance.SwitchUIState(UIState.Soldier);
 
             foreach (Tps_PlayerController tps_PlayerController in soldiersComponent.Values)
             {
