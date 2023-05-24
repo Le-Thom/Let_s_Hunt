@@ -34,6 +34,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         STOP,
     }
 
+    public Vector2 directionLook;
+
     #endregion
     //==============================================================================================================
 
@@ -87,6 +89,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     public List<InteractableObject> interactableObjects = new();
     [SerializeField] private InteractableObject closestInteractableObject;
+
+    [SerializeField] private Equipment equipment1, equipment2;
 
     #endregion
     //==============================================================================================================
@@ -259,8 +263,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // Interact
         _inputs.Player.Interact.started += ctx => Interact();
         // Drop
-        _inputs.Player.Drop.started += ctx => _equipment1.Drop();
-        _inputs.Player.Drop.started += ctx => _equipment2.Drop();
+        _inputs.Player.Drop.started += ctx => _equipment1.Drop(this);
+        _inputs.Player.Drop.started += ctx => _equipment2.Drop(this);
     }
 
     /// <summary>
@@ -712,10 +716,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         Vector3 playerPosInViewport = _Camera.WorldToScreenPoint(_targetCamera.transform.position);
 
         // direction of the vector from player to mouse.
-        Vector2 _direction = new Vector2(playerPosInViewport.x - objectif.x, playerPosInViewport.y - objectif.y);
+        directionLook = new Vector2(playerPosInViewport.x - objectif.x, playerPosInViewport.y - objectif.y);
 
         // calculate Y rotation from the direction.
-        _lookTargetRotation = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg + 90;
+        _lookTargetRotation = Mathf.Atan2(directionLook.x, directionLook.y) * Mathf.Rad2Deg + 90;
     }
 
     /// <summary>
@@ -816,6 +820,22 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             }
         }
         return _io;
+    }
+    public Equipment GetEquipment(int who)
+    {
+        switch (who)
+        {
+            case 1:
+                return equipment1;
+                break;
+            case 2:
+                return equipment2;
+                break;
+            default:
+                Debug.LogError("Wrong Equipment index selection");
+                return null;
+                break;
+        }
     }
     public Equipment IsOneOfEquipmentEmpty()
     {

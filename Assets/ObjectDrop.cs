@@ -1,3 +1,4 @@
+using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,10 +9,9 @@ public class ObjectDrop : InteractableObject
 {
     public ObjectDrop(sc_Object _object)
     {
-        sc_object = _object;
-        spriteMesh.sprite = _object.objectSprite;
-        spriteMesh.m_material = _object.objectMaterial;
     }
+
+    [SerializeField] private GameObject parent;
 
     private sc_SpriteMesh spriteMesh => GetComponent<sc_SpriteMesh>();
     private SphereCollider sphereCollider => GetComponent<SphereCollider>();
@@ -32,16 +32,29 @@ public class ObjectDrop : InteractableObject
     [SerializeField] private GameObject onCanPickUp;
     [SerializeField] private Equipment equipment;
 
+
     private void Start()
     {
         sphereCollider.radius = 2f;
         onCanPickUp.SetActive(false);
+        transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
     private void Update()
     {
         Anim_Breathing();
     }
+
+    public void SetUpObj(sc_Object _object)
+    {
+        sc_object = _object;
+        nb = 1;
+        spriteMesh.sprite = _object.objectSprite;
+        spriteMesh.m_material = _object.objectMaterial;
+
+        sphereCollider.enabled = true;
+    }
+
     private void Anim_Breathing()
     {
         time += Time.deltaTime;
@@ -63,16 +76,22 @@ public class ObjectDrop : InteractableObject
             {
                 Equipment _equipment = Tps_PlayerController.Instance.IsOneOfEquipmentEmpty();
                 if (_equipment == null) return;
-                if (_equipment.GetEquipment() != sc_object) return;
 
-                if (attractCoroutine != null) StopCoroutine(attractCoroutine);
-                attractCoroutine = null;
-
-                playerController = _playerController;
-                attractCoroutine = StartCoroutine(AttractToPlayer(_equipment));
+                
+                if (Tps_PlayerController.Instance.GetEquipment(1).GetEquipment() == sc_object) { StartCoroutineAttract(_playerController); }
+                else if (Tps_PlayerController.Instance.GetEquipment(1).GetEquipment() == sc_object) { StartCoroutineAttract(_playerController); }
             }
         }
     }
+    private void StartCoroutineAttract(HunterHitCollider _playerController)
+    {
+        if (attractCoroutine != null) StopCoroutine(attractCoroutine);
+        attractCoroutine = null;
+
+        playerController = _playerController;
+        attractCoroutine = StartCoroutine(AttractToPlayer());
+    }
+
     private void OnDestroy()
     {
         if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
@@ -87,7 +106,7 @@ public class ObjectDrop : InteractableObject
         }
     }
 
-    private IEnumerator AttractToPlayer(Equipment equipment)
+    private IEnumerator AttractToPlayer()
     {
         while ((transform.position.x >= playerController.transform.position.x + 0.05f ||
             transform.position.x <= playerController.transform.position.x - 0.05f) &&
@@ -123,7 +142,7 @@ public class ObjectDrop : InteractableObject
         {
             int _howMuchLeft = equipment.AddEquipment(sc_object as sc_Equipment ,nb);
             if (_howMuchLeft > 0) nb = _howMuchLeft;
-            else Destroy(gameObject);
+            else Destroy(parent);
         }
     }
 
@@ -131,6 +150,6 @@ public class ObjectDrop : InteractableObject
     {
         int _howMuchLeft = equipment.AddEquipment(nb);
         if (_howMuchLeft > 0) nb = _howMuchLeft;
-        else Destroy(gameObject);
+        else Destroy(parent);
     }
 }

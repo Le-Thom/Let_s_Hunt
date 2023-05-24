@@ -26,9 +26,10 @@ public class Equipment : MonoBehaviour
         get { return _equipment; }
         set
         {
+            _equipment = value;
+
             if (value == null) return;
 
-            _equipment = value;
             imageEquipment.sprite = value.objectSprite;
             textEquipment.text = value.objectName;
         }
@@ -39,7 +40,7 @@ public class Equipment : MonoBehaviour
     [SerializeField] private TMP_Text textEquipment;
     [SerializeField] private TMP_Text textNb;
 
-    public bool onSelected;
+    private bool onSelected;
 
     [SerializeField] private Sprite nullEquipment;
 
@@ -91,6 +92,7 @@ public class Equipment : MonoBehaviour
     /// </summary>
     public void EquipmentNbIs0()
     {
+        onSelected = false;
         equipment = null;
         imageEquipment.sprite = nullEquipment;
         textEquipment.text = "";
@@ -110,15 +112,16 @@ public class Equipment : MonoBehaviour
             transform.localScale = Vector3.Slerp(transform.localScale, Vector3.one, 1);
     }
 
-    public void Drop()
+    public void Drop(Tps_PlayerController player)
     {
         if (onSelected)
         {
-            // drop 1 obj on the ground.
+            GameObject _drop = Instantiate(Resources.Load<GameObject>("DropObject"), player.transform.position, Quaternion.Euler(0,0,0));
+            _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(equipment);
+            _drop.GetComponent<Rigidbody>().velocity += new Vector3(-player.directionLook.x, 0, -player.directionLook.y) * Time.deltaTime + Vector3.up * 5;
             ItemUsed();
         }
     }
 
-    private void _Drop() { }
-    private void ItemUsed() => nbInInventaire--;
+    private void ItemUsed() => nbInInventaire = nbInInventaire - 1;
 }
