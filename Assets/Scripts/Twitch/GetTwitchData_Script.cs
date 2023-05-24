@@ -5,14 +5,17 @@ using UnityEngine.Events;
 using System.Net.Sockets;
 using System.IO;
 
-public class GetTwitchData_Script : MonoBehaviour
+public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
 {
     //========
     //VARIABLES
     //========
     [Header("Event")]
     //When a member of the chat write a message
-    [SerializeField] private UnityEvent<string, string> OnChatMessage;
+    public UnityEvent<string, string> OnChatMessage;
+    public UnityEvent startingConnectionEvent;
+    public UnityEvent onConnectionSuccess;
+    public UnityEvent onForcedDisconect;
 
     [Header("Twitch Connect")]
     private TcpClient Twitch;
@@ -32,26 +35,36 @@ public class GetTwitchData_Script : MonoBehaviour
     string OAuth = "oauth:s8dodjpznd9t4z30a1duqi4l35ohfe";
 
     //The Twitch Channel were we gonna get the chat
-    string Channel = "Laink";
+    private string channel = "Laink";
 
+    private bool isConnectionStarted = false;
     //========
     //MONOBEHAVIOUR
     //========
-    private void OnEnable()
+    private void Awake()
     {
-        ConnectToTwitch();
+        DisconnectedTwitch();
     }
     private void OnDisable()
     {
         DisconnectedTwitch();
     }
+    private void OnApplicationQuit()
+    {
+        try 
+        { 
+            DisconnectedTwitch(); 
+        }
+        catch { }
+    }
 
     private void Update()
     {
+        if (!isConnectionStarted) return;
         //If The Streamer Get Disconnected From Twitch, We try to reconnect him
         if(!Twitch.Connected)
         {
-            ConnectToTwitch();
+            ConnectToTwitch(channel);
             print("Deconnected From Twitch");
         }
         if(Twitch.Available > 0)
@@ -71,17 +84,25 @@ public class GetTwitchData_Script : MonoBehaviour
 
                 OnChatMessage?.Invoke(chatter, msg);
             }
+            if(message.Contains("JOIN"))
+            {
+                onConnectionSuccess?.Invoke();
+            }
             print(message);
         }
     }
     //========
     //FONCTION
     //========
-    private void ConnectToTwitch()
+    public void ConnectToTwitch(string Channel)
     {
         Twitch = new TcpClient(URL, PORT);
         Reader = new StreamReader(Twitch.GetStream());
         Writer = new StreamWriter(Twitch.GetStream());
+
+        channel = Channel;
+
+        isConnectionStarted = true;
 
         //We ask from misterYesYes to connect on the Twitch
         Writer.WriteLine("PASS " + OAuth);
@@ -90,17 +111,45 @@ public class GetTwitchData_Script : MonoBehaviour
         //We ask from misterYesYes to join the Channel of the streamer
         Writer.WriteLine("JOIN #" + Channel.ToLower());
         Writer.Flush();
+
+        startingConnectionEvent?.Invoke();
+
+        Debug.Log("Starting The Connection To Twitch");
     }
-    private void DisconnectedTwitch()
+    /// <summary>
+    /// Assure the deconnection of Twitch
+    /// </summary>
+    public void DisconnectedTwitch()
     {
         if (Twitch != null && Twitch.Connected)
         {
-            Writer.WriteLine("PART #" + Channel.ToLower());
-            Writer.Flush();
+            if (Writer != null)
+            {
+                Writer.WriteLine("PART #" + channel.ToLower());
+                Writer.Flush();
+            }
 
-            Reader.Close();
-            Writer.Close();
+            if (Reader != null)
+                Reader.Close();
+
+            if (Writer != null)
+                Writer.Close();
+
             Twitch.Close();
+
+            isConnectionStarted = false;
+            onForcedDisconect?.Invoke();
         }
+    }
+    public bool IsTwitchConnected()
+    {
+        if (Twitch == null) 
+            return false;
+        else
+        return Twitch.Connected;
+    }
+    public string GetChannelName()
+    {
+        return channel;
     }
 }

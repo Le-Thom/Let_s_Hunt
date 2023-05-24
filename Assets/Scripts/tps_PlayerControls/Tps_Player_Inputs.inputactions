@@ -49,6 +49,33 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Equipment1",
+                    "type": "Button",
+                    "id": "59f3b94c-4313-496e-9861-ff92f4f96ee9",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Equipment2",
+                    "type": "Button",
+                    "id": "b6b81a19-9772-4e6e-881b-e73f906d2504",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Drop",
+                    "type": "Button",
+                    "id": "104994a1-ec31-4d3c-b84f-ac212e5bf2cf",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -121,21 +148,10 @@
                 {
                     "name": "",
                     "id": "66b990d0-a942-4d14-b611-d9859f931a2c",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "ScaleVector2(x=0.025,y=0.025)",
-                    "groups": "Keyboard",
-                    "action": "LocationLook",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0f330b46-25b8-4b2f-b45b-4310803c3c33",
-                    "path": "<Gamepad>/rightStick",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepads",
+                    "groups": "Keyboard",
                     "action": "LocationLook",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -214,6 +230,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "Attack2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6ae5aaf8-d79f-4082-bd01-2b2b6b13ca89",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Equipment1",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b76af0a6-a137-47a9-99e0-4e7815e55c45",
+                    "path": "<Keyboard>/2",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Equipment2",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "5c250108-277b-46be-85d0-b7dbf371e622",
+                    "path": "<Keyboard>/b",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Drop",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

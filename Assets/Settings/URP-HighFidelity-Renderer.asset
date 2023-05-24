@@ -52,7 +52,11 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
+<<<<<<< HEAD
   - {fileID: 6351972641029128822}
+=======
+  - {fileID: 0}
+>>>>>>> GD
   m_RendererFeatureMap: adc0de57c6d2eee576828a7b76bd2658
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -105,9 +109,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92f75fda1b575d0449f730df8720485b, type: 3}
   m_Name: Shockwave
   m_EditorClassIdentifier: 
+<<<<<<< HEAD
   m_Active: 0
   settings:
     Event: 500
+=======
+  m_Active: 1
+  settings:
+    Event: 300
+>>>>>>> GD
     blitMaterial: {fileID: 2100000, guid: 956d0c534b491eb459b7b339a93dd0df, type: 2}
     blitMaterialPassIndex: 0
     destination: 0

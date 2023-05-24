@@ -135,6 +135,7 @@ namespace AkarisuMD
             ATK1,
             ATK2,
             EQUIPEMENT,
+            GETHIT,
 
             // When the game is in pause for the player
             PAUSED,
@@ -259,6 +260,16 @@ namespace AkarisuMD
             public override StateId GetId()
             {
                 return StateId.EQUIPEMENT;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public class StateGetHit<T> : States<T>
+        {
+            public override StateId GetId()
+            {
+                return StateId.GETHIT;
             }
         }
 
