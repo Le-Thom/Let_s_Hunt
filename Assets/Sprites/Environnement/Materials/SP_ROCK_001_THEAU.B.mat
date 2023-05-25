@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Ground
+  m_Name: SP_ROCK_001_THEAU.B
   m_Shader: {fileID: -6465566751694194690, guid: 68bd50ba81260854c90ca3e8deaeb2dd,
     type: 3}
   m_Parent: {fileID: 0}
@@ -25,15 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b0c83b1a47b341e4db14aa05c8057d87, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_34cd9c9b0b1840b0b6d8fc44bef70619_Texture_1:
-        m_Texture: {fileID: 2800000, guid: fd030fa58a289dc41ae32efbdb90df39, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _SampleTexture2D_e6b50f34c353423b9b04e9d4603d4a03_Texture_1:
-        m_Texture: {fileID: 2800000, guid: fd030fa58a289dc41ae32efbdb90df39, type: 3}
+        m_Texture: {fileID: 2800000, guid: e3e71cb8fbd1e3d4d944a72dd8f8c554, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -50,19 +42,19 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CloudStrenght: 1.35
-    - _CloudsDensity: 0.15
-    - _CloudsSize: 0.08
-    - _CloudsSpeed: 2.25
+    - _CloudStrenght: 0.66
+    - _CloudsDensity: 0.36
+    - _CloudsSize: 35.13
+    - _CloudsSpeed: 0
     - _QueueControl: 0
     - _QueueOffset: 0
     m_Colors:
-    - _CloudsDirection: {r: 1.27, g: 0.31, b: 0, a: 0}
-    - _Color: {r: 0.005787062, g: 1.2810919, b: 1.5336015, a: 1}
-    - _Offset: {r: 1, g: 1, b: 0, a: 0}
-    - _Tiling: {r: 100, g: 100, b: 0, a: 0}
+    - _CloudsDirection: {r: 0, g: 0, b: 0, a: 0}
+    - _Color: {r: 49.49362, g: 85.44501, b: 64.50294, a: 0}
+    - _Offset: {r: 0, g: 0, b: 0, a: 0}
+    - _Tiling: {r: 50, g: 50, b: 0, a: 0}
   m_BuildTextureStacks: []
---- !u!114 &6134274817368402741
+--- !u!114 &2908516996902371609
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
