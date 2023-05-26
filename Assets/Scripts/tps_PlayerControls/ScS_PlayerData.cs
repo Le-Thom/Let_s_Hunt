@@ -35,6 +35,10 @@ public class ScS_PlayerData : ScriptableObject
     public struct PlayerMonitor
     {
         /// <summary>
+        /// Index of the player in the network.
+        /// </summary>
+        public int index;
+        /// <summary>
         /// can Player start working.
         /// </summary>
         public bool isValid;
