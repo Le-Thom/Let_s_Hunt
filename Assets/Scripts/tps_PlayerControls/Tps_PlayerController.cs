@@ -91,6 +91,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private InteractableObject closestInteractableObject;
 
     [SerializeField] private Equipment equipment1, equipment2;
+    private bool WasOnSelectEquipment;
 
     #endregion
     //==============================================================================================================
@@ -143,7 +144,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     private void OnDestroy()
     {
-        
+
     }
 
     #endregion
@@ -169,7 +170,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// <summary>
     /// Set State of player to idle.
     /// </summary>
-    public void ChangeStateToIdle() => stateMachine.ChangeState(StateId.IDLE);
+    public void ChangeStateToIdle()
+    {
+        if (WasOnSelectEquipment)
+            stateMachine.ChangeState(StateId.EQUIPEMENT);
+        else
+            stateMachine.ChangeState(StateId.IDLE);
+    }
 
     /// <summary>
     /// Exit dodge state.
@@ -179,7 +186,15 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// <summary>
     /// Exit dodge state.
     /// </summary>
-    public void EndDodge() { stateMachine.ChangeState(StateId.IDLE); Debug.Log("end dodge"); }
+    public void EndDodge() { 
+
+        if ( WasOnSelectEquipment)
+            stateMachine.ChangeState(StateId.EQUIPEMENT);
+        else 
+            stateMachine.ChangeState(StateId.IDLE);
+
+        Debug.Log("end dodge"); 
+    }
 
     /// <summary>
     /// Attack by making a new component of the weapon to call the fonction, then destroy the Monobehaviour.
@@ -208,10 +223,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// </summary>
     public void Revive()
     {
-        
+
     }
 
-    public void Died() => stateMachine.ChangeState(StateId.DEATH);
+    public void Died() { 
+        stateMachine.ChangeState(StateId.DEATH);
+        WasOnSelectEquipment = false; 
+    }
 
     #endregion
     //==============================================================================================================
@@ -240,6 +258,39 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     #endregion
 
+    private void OnEquipment1()
+    {
+        _equipment1.SetOnSelected();
+
+        Equipment _equipment = GetSelectedEquipment();
+        if (_equipment == null)
+        {
+            stateMachine.ChangeState(StateId.IDLE);
+            WasOnSelectEquipment = false;
+        }
+        else 
+        {
+            stateMachine.ChangeState(StateId.EQUIPEMENT);
+            WasOnSelectEquipment = true;
+        }
+    }
+    private void OnEquipment2()
+    {
+        _equipment2.SetOnSelected();
+
+        Equipment _equipment = GetSelectedEquipment();
+        if (_equipment == null)
+        {
+            stateMachine.ChangeState(StateId.IDLE);
+            WasOnSelectEquipment = false;
+        }
+        else
+        {
+            stateMachine.ChangeState(StateId.EQUIPEMENT);
+            WasOnSelectEquipment = true;
+        }
+    }
+
     #region InputsEvent
 
     /// <summary>
@@ -257,9 +308,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _inputs.Player.Attack2.started += ctx => playerData.monitor.tryToAtk2 = true;
         _inputs.Player.Attack2.canceled += ctx => playerData.monitor.tryToAtk2 = false;
         // Equipment1
-        _inputs.Player.Equipment1.started += ctx => _equipment1.SetOnSelected();
+        _inputs.Player.Equipment1.started += ctx => OnEquipment1();
         // Equipment2
-        _inputs.Player.Equipment2.started += ctx => _equipment2.SetOnSelected();
+        _inputs.Player.Equipment2.started += ctx => OnEquipment2();
         // Interact
         _inputs.Player.Interact.started += ctx => Interact();
         // Drop
@@ -454,7 +505,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         UpdateEquipmentCheck();
 
-        if(playerData.monitor.isAtk1) stateMachine.ChangeState(StateId.ATK1);
+        if (playerData.monitor.isAtk1) stateMachine.ChangeState(StateId.ATK1);
         if (playerData.monitor.isAtk2) stateMachine.ChangeState(StateId.ATK2);
     }
     private void ExitStateIdle()
@@ -492,7 +543,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void UpdateStateAtk1()
     {
-        MoveFlashlight(); 
+        MoveFlashlight();
         FlipBody();
         Move(HunterMoveType.STOP);
         if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
@@ -529,9 +580,26 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void UpdateStateEquipement()
     {
-        MoveFlashlight();
-        FlipBody();
+        MoveFlashlight(); FlipBody();
+        // move the player.
         Move(HunterMoveType.NORMAL);
+
+        UpdateEquipmentCheck();
+
+        if (playerData.monitor.isAtk1)
+        {
+            GetSelectedEquipment().UseItem();
+            playerData.monitor.tryToAtk1 = false;
+            UnselectAllEquipment();
+            stateMachine.ChangeState(StateId.IDLE);
+        }
+        if (playerData.monitor.isAtk2)
+        {
+            GetSelectedEquipment().UseItem();
+            playerData.monitor.tryToAtk2 = false;
+            UnselectAllEquipment();
+            stateMachine.ChangeState(StateId.IDLE);
+        }
     }
     private void ExitStateEquipement()
     {
@@ -623,9 +691,11 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// </summary>
     private void Move(HunterMoveType hunterMoveType)
     {
-        if (!playerData.monitor.canMove) {
+        if (!playerData.monitor.canMove)
+        {
             playerData.variables.speed = 0.0f;
-            return; }
+            return;
+        }
 
         // set target speed based on move speed, sprint speed and if sprint is pressed
         // float targetSpeed = playerData.monitor.isSprinting ? playerData.inGameDataValue.sprintSpeed : playerData.inGameDataValue.speed;
@@ -657,7 +727,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         playerData.variables.speed = lerpedTargetSpeed;
 
 
-            _animSpeedBlend = Mathf.Lerp(_animSpeedBlend, lerpedTargetSpeed / targetSpeed, Time.deltaTime * playerData.inGameDataValue.speedChangeRate);
+        _animSpeedBlend = Mathf.Lerp(_animSpeedBlend, lerpedTargetSpeed / targetSpeed, Time.deltaTime * playerData.inGameDataValue.speedChangeRate);
         if (_animSpeedBlend < 0.01f) _animSpeedBlend = 0f;
 
 
@@ -802,7 +872,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
                 if (_equipment != null)
                 {
                     float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
-                    if (_distMagnitude < _distClosest) 
+                    if (_distMagnitude < _distClosest)
                     {
                         _io = interactableObjects[i];
                         _distClosest = _distMagnitude;
@@ -844,6 +914,18 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         else return null;
     }
     #endregion
+
+    private Equipment GetSelectedEquipment()
+    {
+        if (equipment1.GetOnSelected()) return equipment1;
+        else if (equipment2.GetOnSelected()) return equipment2;
+        else return null;
+    }
+    private void UnselectAllEquipment()
+    {
+        if (equipment1.GetOnSelected()) equipment1.SetOnSelected();
+        else if (equipment2.GetOnSelected()) equipment2.SetOnSelected();
+    }
 
     #endregion
     //==============================================================================================================

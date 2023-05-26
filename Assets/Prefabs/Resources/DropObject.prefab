@@ -289,6 +289,7 @@ MonoBehaviour:
   parent: {fileID: 190610680389894505}
   nb: 0
   sc_object: {fileID: 0}
+  hunterFollowed: {fileID: 0}
   BreathingSpeed: 3
   BreathingAmplitude: 0.3
   BreathingCurve:
@@ -333,7 +334,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 1
     m_RotationOrder: 4
-  equipmentDropList: []
   playerController: {fileID: 0}
   onCanPickUp: {fileID: 5197258200285722886}
   equipment: {fileID: 0}

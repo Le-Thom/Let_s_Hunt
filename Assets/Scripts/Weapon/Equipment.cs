@@ -1,6 +1,7 @@
 using GameplayIngredients.Events;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ using UnityEngine.UI;
 public class Equipment : MonoBehaviour
 {
     [SerializeField] private int _nbInInventaire;
-    private int nbInInventaire
+    public int nbInInventaire
     {
         get { return _nbInInventaire; }
         set
@@ -52,6 +53,7 @@ public class Equipment : MonoBehaviour
         onSelected = !onSelected;
         if (otherEquipment.onSelected) otherEquipment.onSelected = false;
     }
+    public bool GetOnSelected() { return onSelected; }
 
     /// <summary>
     /// If there is nothing in equipment.
@@ -64,8 +66,9 @@ public class Equipment : MonoBehaviour
         equipment = _equipment;
         nbInInventaire = nb;
         nbInInventaire = Mathf.Clamp(nbInInventaire, 1, equipment.maxStackEquipment);
+        Debug.Log($"Pass 8 {nbInInventaire}");
 
-        return nbInInventaire - nb;
+        return nb - nbInInventaire;
     }
 
     /// <summary>
@@ -75,6 +78,8 @@ public class Equipment : MonoBehaviour
     /// <returns></returns>
     public int AddEquipment(int nb)
     {
+        Debug.Log($"Pass 6 {gameObject.name}");
+
         nbInInventaire += nb;
         int _nb = nbInInventaire;
         nbInInventaire = Mathf.Clamp(nbInInventaire, 1, equipment.maxStackEquipment);
@@ -117,11 +122,22 @@ public class Equipment : MonoBehaviour
         if (onSelected)
         {
             GameObject _drop = Instantiate(Resources.Load<GameObject>("DropObject"), player.transform.position, Quaternion.Euler(0,0,0));
-            _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(equipment);
-            _drop.GetComponent<Rigidbody>().velocity += new Vector3(-player.directionLook.x, 0, -player.directionLook.y) * Time.deltaTime + Vector3.up * 5;
+            _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(equipment, true);
+
+            float _directionX = Mathf.Clamp(player.directionLook.x, -150, 150);
+            float _directionY = Mathf.Clamp(player.directionLook.y, -150, 150);
+
+            _drop.GetComponent<Rigidbody>().velocity += new Vector3(-_directionX, 0, -_directionY) * Time.deltaTime + Vector3.up * 4;
+
+
             ItemUsed();
         }
     }
 
     private void ItemUsed() => nbInInventaire = nbInInventaire - 1;
+
+    public void UseItem()
+    {
+        Debug.Log("Use item from equipment");
+    }
 }
