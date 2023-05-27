@@ -63,7 +63,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
     /// Change The Camera And Activate Input 
     /// </summary>
     /// <param name="playerId"></param>
-    public GameObject GiveInputAndCameraToPlayer(int playerId)
+    public void GiveInputAndCameraToPlayer(int playerId)
     {
         GameObject newPlayer = null;
         if (playerId == 0)
@@ -103,7 +103,6 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
                 Destroy(tps_PlayerController);
             }
         }
-        return newPlayer;
     }
     public GameObject GetPlayerViaId(int playerId)
     {
