@@ -9,7 +9,6 @@ public class HunterHitCollider : NetworkBehaviour
     [SerializeField] private Equipment equipment1, equipment2;
 
     private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
-    public List<EquipmentDrop> equipmentDropsLists = new();
 
     // NEED NETWORK HERE FOR INDEX PLAYER
 
@@ -23,15 +22,6 @@ public class HunterHitCollider : NetworkBehaviour
         if (IsHost) return; // Monster don't have this.
 
         HealthBarManager.Instance.ChangeHealthBar(indexPlayer.Value, Damage); 
-    }
-
-    public Equipment GetEquipment(sc_Equipment equipment) 
-    {
-        if (equipment1.GetEquipment() == equipment)
-            return equipment1;
-        else if (equipment2.GetEquipment() == equipment)
-            return equipment2;
-        else return null;
     }
 
     [ServerRpc(RequireOwnership = false)]

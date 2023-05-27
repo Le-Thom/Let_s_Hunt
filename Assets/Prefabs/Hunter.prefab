@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: ad58c05fe68fa9d4ba41468d749efb11, type: 2}
+  directionLook: {x: 0, y: 0}
   _Body: {fileID: 3416843369104095083}
   _Animator: {fileID: 8518387614417164574}
   _targetCamera: {fileID: 5014364779174252360}
@@ -91,6 +92,10 @@ MonoBehaviour:
   stateMachine:
     currentState: 0
   movementInput: {x: 0, y: 0}
+  interactableObjects: []
+  closestInteractableObject: {fileID: 0}
+  equipment1: {fileID: 0}
+  equipment2: {fileID: 0}
 --- !u!114 &3215569569033763558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -483,7 +488,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipment1: {fileID: 0}
   equipment2: {fileID: 0}
-  equipmentDropsLists: []
 --- !u!114 &3811475238906001762
 MonoBehaviour:
   m_ObjectHideFlags: 0
