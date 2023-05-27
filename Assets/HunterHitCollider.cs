@@ -13,7 +13,6 @@ public class HunterHitCollider : NetworkBehaviour
 
     // NEED NETWORK HERE FOR INDEX PLAYER
 
-
     /// <summary>
     /// If collider got hit, transfert info to player.
     /// </summary>
