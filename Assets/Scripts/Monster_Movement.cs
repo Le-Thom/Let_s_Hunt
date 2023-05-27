@@ -67,7 +67,7 @@ public class Monster_Movement : MonoBehaviour
 
         Vector3 positionOnNavmesh = positionMouse;
 
-        /*if (NavMesh.SamplePosition(positionMouse.normalized, out NavMeshHit hit, 10, layerMask))
+        /*if (NavMesh.SamplePosition(positionMouse.normalized, out NavMeshHit hit, 10, NavMesh.AllAreas))
         {
             positionOnNavmesh = hit.position;
         }*/

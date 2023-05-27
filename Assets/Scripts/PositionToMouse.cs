@@ -26,7 +26,6 @@ public class PositionToMouse : Singleton<PositionToMouse>
         }
         else
         {
-            print("no mouse hit, on " + layerMask + "ray =" + ray.origin + "dir" + ray.direction);
             return Vector3.zero;
         }
     }

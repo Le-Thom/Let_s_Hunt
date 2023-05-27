@@ -5,7 +5,14 @@ using UnityEngine;
 public class HunterAnimationController : MonoBehaviour
 {
     [SerializeField] private Tps_PlayerController playerController;
-    private bool isOwner => playerController.enabled;
+    private bool isOwner 
+    { 
+        get 
+        {
+            if (playerController != null) return playerController.enabled;
+            else return false;
+        } 
+    }
 
     //==============================================================================================================
     #region PRIVATE FONCTION

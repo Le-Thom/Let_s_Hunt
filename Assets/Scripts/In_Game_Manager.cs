@@ -6,12 +6,17 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using System;
 
 public class In_Game_Manager : Singleton<In_Game_Manager>
 {
     //========
     //VARIABLES
     //========
+
+    /// <summary>
+    /// When the game is Starting with the player id of the actual player
+    /// </summary>
 
     [Header("Ref GameObject")]
     [SerializeField] private GameObject monsterGameObject;
@@ -23,6 +28,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
 
     private Dictionary<CinemachineVirtualCamera, Tps_PlayerController> soldiersComponent = new();
     private (CinemachineVirtualCamera, PlayerInput) monsterComponent;
+
 
     //========
     //MONOBEHAVIOUR
@@ -67,6 +73,8 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
 
             newPlayer = monsterGameObject;
 
+            UIGlobal_Manager.Instance.SwitchUIState(UIState.Monster);
+
             foreach (Tps_PlayerController tps_PlayerController in soldiersComponent.Values)
             {
                 Destroy(tps_PlayerController);
@@ -82,14 +90,13 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
             SwitchCamera(soldierCamera);
             ActivateInputSoldier(soldierScript);
 
-
             newPlayer = soldiersGameObject[playerId - 1];
             soldiersComponent.Remove(soldierCamera);
 
+            UIGlobal_Manager.Instance.SwitchUIState(UIState.Soldier);
+
             newPlayer.GetComponentInChildren<HunterHitCollider>().SetPlayerIdServerRpc(playerId);
             HealthBarManager.Instance.IndexOwner = playerId;
-
-            UIGlobal_Manager.Instance.SwitchUIState(UIState.Soldier);
 
             foreach (Tps_PlayerController tps_PlayerController in soldiersComponent.Values)
             {
