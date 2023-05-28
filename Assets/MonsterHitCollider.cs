@@ -9,7 +9,6 @@ using System;
 public class MonsterHitCollider : NetworkBehaviour
 
 {
-    [SerializeField] private MonsterHealth monsterHealthScript;
     public static event Action<int> onMonsterHit;
 
     [ServerRpc(RequireOwnership = false)]

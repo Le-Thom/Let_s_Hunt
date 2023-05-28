@@ -161,7 +161,7 @@ public class JoinGame_Manager : NetworkBehaviour
             }
         }
         Debug.Log("Start the game, Incarnate Player " + playerId);
-        GameObject player = In_Game_Manager.Instance.GiveInputAndCameraToPlayer(playerId);
+        In_Game_Manager.Instance.GiveInputAndCameraToPlayer(playerId);
         GiveOwnerToPlayerServerRpc(playerId, NetworkManager.Singleton.LocalClientId);
         QuitLobbyUI();
     }
