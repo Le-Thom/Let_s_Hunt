@@ -36,6 +36,7 @@ public class ObjectDrop : InteractableObject
 
     private void Start()
     {
+        isInteractable = true;
         sphereCollider.radius = 2f;
         onCanPickUp.SetActive(false);
         transform.rotation = Quaternion.Euler(0, 0, 0);

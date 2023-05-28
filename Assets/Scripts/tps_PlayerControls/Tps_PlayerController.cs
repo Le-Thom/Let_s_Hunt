@@ -866,10 +866,22 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         float _distClosest = 10000;
         for (int i = 0; i < interactableObjects.Count; i++)
         {
-            if (interactableObjects[i].GetType() == typeof(ObjectDrop))
+            if (interactableObjects[i].IsInteractable())
             {
-                Equipment _equipment = IsOneOfEquipmentEmpty();
-                if (_equipment != null)
+                if (interactableObjects[i].GetType() == typeof(ObjectDrop))
+                {
+                    Equipment _equipment = IsOneOfEquipmentEmpty();
+                    if (_equipment != null)
+                    {
+                        float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
+                        if (_distMagnitude < _distClosest)
+                        {
+                            _io = interactableObjects[i];
+                            _distClosest = _distMagnitude;
+                        }
+                    }
+                }
+                else
                 {
                     float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
                     if (_distMagnitude < _distClosest)
@@ -877,15 +889,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
                         _io = interactableObjects[i];
                         _distClosest = _distMagnitude;
                     }
-                }
-            }
-            else
-            {
-                float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
-                if (_distMagnitude < _distClosest)
-                {
-                    _io = interactableObjects[i];
-                    _distClosest = _distMagnitude;
                 }
             }
         }
