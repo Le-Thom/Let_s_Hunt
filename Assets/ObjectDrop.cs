@@ -62,7 +62,7 @@ public class ObjectDrop : InteractableObject
     private void Anim_Breathing()
     {
         time += Time.deltaTime;
-        transform.localPosition += Vector3.up * BreathingAmplitude * BreathingCurve.Evaluate(time * BreathingSpeed) * Time.deltaTime;
+        // transform.localPosition += Vector3.up * BreathingAmplitude * BreathingCurve.Evaluate(time * BreathingSpeed) * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
