@@ -624,14 +624,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         if (playerData.monitor.isAtk1)
         {
-            GetSelectedEquipment().UseItem();
+            GetSelectedEquipment().UseItem(this);
             playerData.monitor.tryToAtk1 = false;
             UnselectAllEquipment();
             stateMachine.ChangeState(StateId.IDLE);
         }
         if (playerData.monitor.isAtk2)
         {
-            GetSelectedEquipment().UseItem();
+            GetSelectedEquipment().UseItem(this);
             playerData.monitor.tryToAtk2 = false;
             UnselectAllEquipment();
             stateMachine.ChangeState(StateId.IDLE);
