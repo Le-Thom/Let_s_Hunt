@@ -33,6 +33,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         NORMAL,
         STOP,
     }
+    public Tps_Player_Inputs Inputs { get { return _inputs; } }
 
     public Vector2 directionLook;
 
@@ -45,7 +46,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     // [SerializeField] private CharacterController _CharacterController;
     [SerializeField] private GameObject _Body;
     [SerializeField] private Animator _Animator;
-    [SerializeField] private Camera _Camera;
+    private Camera _Camera;
     [SerializeField] private GameObject _targetCamera;
     [SerializeField] private CinemachineVirtualCamera _virtualCamera;
 
@@ -74,6 +75,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private int _animIDDodge;
     private int _animIDAtk1;
     private int _animIDAtk2;
+    private int _animIDHealing;
     private int _animIDGetHit;
     private int _animIDDeath;
     private int _animIDRevive;
@@ -84,6 +86,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private float _lookTargetRotation = 0.0f;
 
     private const float Rad2Deg = 57.29578f;
+
+    private Medkit_Script currentMedkit;
 
     private float revivingTimer;
 
@@ -104,12 +108,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     {
         // create inputs.
         _inputs = new();
+        _Camera = Camera.main;
     }
 
     private void OnEnable()
     {
         // active inputs
-        _inputs.Enable();
+        //_inputs.Enable();
     }
 
     private void Start()
@@ -155,6 +160,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     //==============================================================================================================
 
     /// <summary>
+    /// Get Current State If State Machine
+    /// </summary>
+    public StateId GetCurrentState()
+    {
+        return stateMachine.currentState;
+    }
+
+    /// <summary>
     /// Get hit from something, like the creature.
     /// </summary>
     /// <param name="value"></param>
@@ -181,7 +194,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// <summary>
     /// Exit dodge state.
     /// </summary>
-    public void StartDodge() => playerData.monitor.canGetHit = false;
+    public void StartDodge() 
+    { 
+        playerData.monitor.canGetHit = false; 
+    }
 
     /// <summary>
     /// Exit dodge state.
@@ -219,6 +235,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
 
     /// <summary>
+    /// Remove The Ability for the player to move, until he dodge or finish healing
+    /// </summary>
+    public void ChangeStateToPlayerHealing()
+    {
+        stateMachine.ChangeState(StateId.HEALING);
+    }
+
+    /// <summary>
     /// Revive player with 4hp.
     /// </summary>
     public void Revive()
@@ -237,6 +261,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     //==============================================================================================================
     #region PRIVATE FONCTION
     //==============================================================================================================
+
+    [Button]
+    private void ActiveInput()
+    {
+        _inputs.Enable();
+    }
 
     #region Data
 
@@ -415,6 +445,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         stateEquipement.delegateEventsAtExitOfState += ExitStateEquipement;
         stateMachine.RegisterState(stateEquipement);
 
+        StateHealing<Tps_PlayerController> stateHealing = new StateHealing<Tps_PlayerController>();
+        stateHealing.delegateEventsAtInitOfState += InitStateHealing;
+        stateHealing.delegateEventsAtUpdateOfState += UpdateStateHealing;
+        stateHealing.delegateEventsAtExitOfState += ExitStateHealing;
+        stateMachine.RegisterState(stateHealing);
+
         StateGetHit<Tps_PlayerController> stateGetHit = new StateGetHit<Tps_PlayerController>();
         stateGetHit.delegateEventsAtInitOfState += InitStateGetHit;
         stateGetHit.delegateEventsAtUpdateOfState += UpdateStateGetHit;
@@ -588,14 +624,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         if (playerData.monitor.isAtk1)
         {
-            GetSelectedEquipment().UseItem();
+            GetSelectedEquipment().UseItem(this);
             playerData.monitor.tryToAtk1 = false;
             UnselectAllEquipment();
             stateMachine.ChangeState(StateId.IDLE);
         }
         if (playerData.monitor.isAtk2)
         {
-            GetSelectedEquipment().UseItem();
+            GetSelectedEquipment().UseItem(this);
             playerData.monitor.tryToAtk2 = false;
             UnselectAllEquipment();
             stateMachine.ChangeState(StateId.IDLE);
@@ -604,6 +640,34 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void ExitStateEquipement()
     {
 
+    }
+    #endregion
+    #region Healing
+    private void InitStateHealing()
+    {
+        _Animator.SetTrigger(_animIDHealing);
+
+        currentMedkit = new Medkit_Script (this, 1, 10, 5);
+
+        currentMedkit.OnUse();
+
+        playerData.monitor.isChangingState = false;
+    }
+    private void UpdateStateHealing()
+    {
+        //MoveFlashlight();
+        //FlipBody();
+        //Move(HunterMoveType.NORMAL);
+    }
+    private void ExitStateHealing()
+    {
+        playerData.monitor.isChangingState = true;
+
+        //Check If For Assuring The Player doesn't use 2 medkit insteed of one
+        if (!currentMedkit.DidPlayerFinishUsingThisMedkit())
+        {
+            currentMedkit.SetPlayerCanUseMedkit(false);
+        }
     }
     #endregion
     #region Get Hit
@@ -681,6 +745,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _animIDDodge = Animator.StringToHash("Dodge");
         _animIDAtk1 = Animator.StringToHash("Atk1");
         _animIDAtk2 = Animator.StringToHash("Atk2");
+        _animIDHealing = Animator.StringToHash("Healing");
         _animIDGetHit = Animator.StringToHash("GetHit");
         _animIDDeath = Animator.StringToHash("Death");
         _animIDRevive = Animator.StringToHash("Revive");

@@ -6,33 +6,24 @@ using UnityEngine.UI;
 public class HealthBar : MonoBehaviour
 {
     [SerializeField] private Slider slider;
-    [SerializeField] private ScS_PlayerData playerData;
+    public int GetHpValue() { return Mathf.RoundToInt(slider.value); }
 
     // to who this bar is owned.
     [SerializeField] private int indexPlayer;
-    public void SetIndexPlayer(int _indexPlayer) => _indexPlayer = indexPlayer;
+    public void SetIndexPlayer(int _newIndexPlayer) 
+    {
+        indexPlayer = _newIndexPlayer; 
+    }
+    public int GetIndexPlayer() { return indexPlayer; }
     // Player owner this bar
     [SerializeField] private bool isOwner;
 
-    private void Start()
+    private void OnEnable()
     {
-        playerData = ScS_PlayerData.Instance;
+        slider.value = slider.maxValue;
     }
 
-    private void Update()
-    {
-        if (playerData == null) Debug.LogError("PlayerData not found");
-
-        // if player is owner of this bar then modify his hp bar value to his hp bar
-        if (isOwner) {
-            if (playerData.inGameDataValue.hp != slider.value) ChangeValueHealthBar(playerData.inGameDataValue.hp);
-        }
-
-        // else... need multi info
-
-    }
-
-    private void ChangeValueHealthBar(int value)
+    public void ChangeValueHealthBar(int value)
     {
         slider.value = value;
     }

@@ -1,34 +1,36 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
+using NaughtyAttributes;
 
-public class HunterHitCollider : MonoBehaviour
+public class HunterHitCollider : NetworkBehaviour
 {
-    [SerializeField] private ScS_PlayerData playerData;
-    private void Awake() => playerData = ScS_PlayerData.Instance;
-
     [SerializeField] private Equipment equipment1, equipment2;
+
+    private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
+
+    // NEED NETWORK HERE FOR INDEX PLAYER
 
     /// <summary>
     /// If collider got hit, transfert info to player.
     /// </summary>
-    public void TransfertHitInfoToClient()
+    [ClientRpc]
+    public void HunterGetHitClientRpc(int Damage)
     {
-        // Multiplayer info here
+        // change the healthbar
+        if (IsHost) return; // Monster don't have this.
+
+        HealthBarManager.Instance.ChangeHealthBar(indexPlayer.Value, Damage); 
     }
 
-    /// <summary>
-    /// If hunter get hit. (positive if heal, negative if damage)
-    /// </summary>
-    /// <param name="value"></param>
-    public void GetHit(int value) => playerData.ChangeHp(value);
-
-    public Equipment GetEquipment(sc_Equipment equipment) 
+    [ServerRpc(RequireOwnership = false)]
+    public void SetPlayerIdServerRpc(int newPlayerId)
     {
-        if (equipment1.GetEquipment() == equipment)
-            return equipment1;
-        else if (equipment2.GetEquipment() == equipment)
-            return equipment2;
-        else return null;
+        indexPlayer.Value = newPlayerId;
+    }
+    public int GetPlayerId()
+    {
+        return indexPlayer.Value;
     }
 }
