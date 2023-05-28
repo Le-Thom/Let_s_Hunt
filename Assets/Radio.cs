@@ -6,16 +6,20 @@ using UnityEngine;
 public class Radio : InteractableObject
 {
     // Reference
-    [SerializeField] private GameObject onCanPickUp;
-    [SerializeField] private GameObject uiRadio;
+    [SerializeField] private GameObject onCanPickUp, notAvailable;
 
+    // private
+    [SerializeField] private bool available;
+    [SerializeField] private float unavailableTimer = 120f;
 
     // Monobehaviour
     private void Start()
     {
         isInteractable = true;
+        available = true;
         onCanPickUp.SetActive(false);
-        uiRadio.SetActive(false);
+        notAvailable.SetActive(false);
+
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -35,23 +39,41 @@ public class Radio : InteractableObject
             if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
 
-            if (uiRadio.active) uiRadio.SetActive(false);
         }
     }
 
     // Public fonction
     public override void IsClosestToInteract()
     {
-        if (!onCanPickUp.active) onCanPickUp.SetActive(true);
+        if (available && !onCanPickUp.active) onCanPickUp.SetActive(true);
+        else if (!available && !notAvailable.active) notAvailable.SetActive(true);
     }
     public override void StopBeingTheClosest()
     {
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
+        if (notAvailable.active) notAvailable.SetActive(false);
     }
     public override void Interact()
     {
-        uiRadio.SetActive(!uiRadio.active);
+        if (!available) return;
+
+        available = false;
+
+        StartVote();
     }
 
     // Private fonction
+
+    private void StartVote()
+    {
+        StartCoroutine(AvailableTimer());
+    }
+
+    private IEnumerator AvailableTimer()
+    {
+        if (onCanPickUp.active) onCanPickUp.SetActive(false);
+        if (!available && !notAvailable.active) notAvailable.SetActive(true);
+        yield return new WaitForSeconds(unavailableTimer);
+        available = true;
+    }
 }
