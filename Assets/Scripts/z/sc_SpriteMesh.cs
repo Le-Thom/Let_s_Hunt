@@ -8,11 +8,11 @@ using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 using static UnityEngine.Rendering.DebugUI;
 
+[DisallowMultipleComponent]
+[RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(MeshFilter))]
 public class sc_SpriteMesh : MonoBehaviour
 {
-    [DisallowMultipleComponent]
-    [RequireComponent(typeof(MeshRenderer))]
-    [RequireComponent(typeof(MeshFilter))]
     private static class ShaderProps
     {
         public static int MainTex = Shader.PropertyToID("_MainTex");

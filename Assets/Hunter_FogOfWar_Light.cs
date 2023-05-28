@@ -4,14 +4,11 @@ using UnityEngine;
 
 public class Hunter_FogOfWar_Light : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Tps_PlayerController playerController;
 
-    // Update is called once per frame
-    void Update()
+
+
+    private void OnDrawGizmos()
     {
         
     }

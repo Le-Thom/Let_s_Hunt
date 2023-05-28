@@ -262,6 +262,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region PRIVATE FONCTION
     //==============================================================================================================
 
+    [Button]
+    private void ActiveInput()
+    {
+        _inputs.Enable();
+    }
+
     #region Data
 
     [Button]
