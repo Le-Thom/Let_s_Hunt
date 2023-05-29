@@ -18,3 +18,4 @@ MonoBehaviour:
   maxStackEquipment: 3
   prefab_Object: {fileID: 3965260193904146956, guid: 38cf6fc8bfe297d459d54231356dad5a,
     type: 3}
+  script_equipment: {fileID: 11500000, guid: 06758fe566ec96a4e98b9b3f0379b6a9, type: 3}

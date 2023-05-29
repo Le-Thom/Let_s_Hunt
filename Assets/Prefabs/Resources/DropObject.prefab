@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 361609107860772868}
   - component: {fileID: 1523702375125552184}
   - component: {fileID: 4211390326953848922}
+  - component: {fileID: 3414505655043701242}
   m_Layer: 0
   m_Name: DropObject
   m_TagString: Untagged
@@ -68,7 +69,7 @@ SphereCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 190610680389894505}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: 3d75c9d65e01fce45ae53cc8d0259709, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -82,6 +83,37 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.1
   m_Center: {x: 0, y: -0.5, z: 0}
+--- !u!114 &3414505655043701242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190610680389894505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1279607813
+      Data2: 1208644440
+      Data3: 1237922210
+      Data4: 378533518
+    Path: event:/SFX/World/Drop/Grounded
+  Event: 
+  PlayEvent: 7
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &8511926328120867966
 GameObject:
   m_ObjectHideFlags: 0
@@ -253,6 +285,9 @@ MonoBehaviour:
   playerController: {fileID: 0}
   onCanPickUp: {fileID: 209309281414284941}
   equipment: {fileID: 0}
+  layerHitOnSpawn:
+    serializedVersion: 2
+    m_Bits: 0
 --- !u!135 &5144980474294058122
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -295,17 +330,17 @@ PrefabInstance:
     - target: {fileID: 1488868230940501344, guid: 7b8dc779609660b4bb4be505c9e6b27d,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.35
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1488868230940501344, guid: 7b8dc779609660b4bb4be505c9e6b27d,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.35
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1488868230940501344, guid: 7b8dc779609660b4bb4be505c9e6b27d,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.35
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1488868230940501344, guid: 7b8dc779609660b4bb4be505c9e6b27d,
         type: 3}
@@ -315,7 +350,7 @@ PrefabInstance:
     - target: {fileID: 1488868230940501344, guid: 7b8dc779609660b4bb4be505c9e6b27d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.463
+      value: 0.924
       objectReference: {fileID: 0}
     - target: {fileID: 1488868230940501344, guid: 7b8dc779609660b4bb4be505c9e6b27d,
         type: 3}

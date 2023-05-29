@@ -6,8 +6,6 @@ using NaughtyAttributes;
 
 public class HunterHitCollider : NetworkBehaviour
 {
-    [SerializeField] private Equipment equipment1, equipment2;
-
     private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
 
     // NEED NETWORK HERE FOR INDEX PLAYER

@@ -17,3 +17,4 @@ MonoBehaviour:
   objectName: Medical Kit
   maxStackEquipment: 3
   prefab_Object: {fileID: 0}
+  script_equipment: {fileID: 11500000, guid: b3eb6bb64e2e7004e94a42fe12c71af5, type: 3}

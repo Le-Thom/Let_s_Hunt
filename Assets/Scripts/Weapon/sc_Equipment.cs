@@ -7,4 +7,6 @@ public class sc_Equipment : sc_Object
 {
     public int maxStackEquipment;
     public GameObject prefab_Object;
+
+    public Object script_equipment;
 }

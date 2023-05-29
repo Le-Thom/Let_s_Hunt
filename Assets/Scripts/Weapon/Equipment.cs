@@ -67,7 +67,6 @@ public class Equipment : MonoBehaviour
         equipment = _equipment;
         nbInInventaire = nb;
         nbInInventaire = Mathf.Clamp(nbInInventaire, 1, equipment.maxStackEquipment);
-        Debug.Log($"Pass 8 {nbInInventaire}");
 
         return nb - nbInInventaire;
     }
@@ -79,8 +78,6 @@ public class Equipment : MonoBehaviour
     /// <returns></returns>
     public int AddEquipment(int nb)
     {
-        Debug.Log($"Pass 6 {gameObject.name}");
-
         nbInInventaire += nb;
         int _nb = nbInInventaire;
         nbInInventaire = Mathf.Clamp(nbInInventaire, 1, equipment.maxStackEquipment);
@@ -123,7 +120,7 @@ public class Equipment : MonoBehaviour
         if (onSelected)
         {
             GameObject _drop = Instantiate(Resources.Load<GameObject>("DropObject"), player.transform.position, Quaternion.Euler(0,0,0));
-            _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(equipment, true);
+            _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(equipment, player.GetComponentInChildren<HunterHitCollider>());
 
             float _directionX = Mathf.Clamp(player.directionLook.x, -150, 150);
             float _directionY = Mathf.Clamp(player.directionLook.y, -150, 150);
@@ -139,14 +136,16 @@ public class Equipment : MonoBehaviour
 
     public void UseItem(Tps_PlayerController player)
     {
-        GameObject _objSpawn = Instantiate(equipment.prefab_Object, player.transform.position + Vector3.up * 1.5f, Quaternion.Euler(0, 0, 0));
-        if (_objSpawn.TryGetComponent<Rigidbody>(out Rigidbody rb))
-        {
-            float _directionX = Mathf.Clamp(player.directionLook.x * 2, -250, 250);
-            float _directionY = Mathf.Clamp(player.directionLook.y * 2, -250, 250);
+        SC_UseItem _script = player.gameObject.AddComponent(System.Type.GetType(equipment.script_equipment.name)) as SC_UseItem;
 
-            rb.velocity += new Vector3(-_directionX, 0, -_directionY) * Time.deltaTime + Vector3.up * 4;
+        Debug.Log(_script.GetType());
+        if (_script.GetType() == typeof(SC_UI_MedKit) && Tps_PlayerController.Instance.GetCurrentState() == AkarisuMD.Player.StateId.HEALING) 
+        {
+            Debug.Log("Bloque");
+            return;
         }
+
+        _script.UseItem(player, equipment);
         ItemUsed();
     }
 }

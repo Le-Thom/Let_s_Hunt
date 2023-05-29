@@ -7,9 +7,6 @@ using UnityEngine;
 [RequireComponent(typeof(SphereCollider))]
 public class ObjectDrop : InteractableObject
 {
-    public ObjectDrop(sc_Object _object)
-    {
-    }
 
     [SerializeField] private GameObject parent;
 
@@ -31,8 +28,10 @@ public class ObjectDrop : InteractableObject
 
     [SerializeField] private GameObject onCanPickUp;
     [SerializeField] private Equipment equipment;
-    private bool spawnFromPlayerCheck;
 
+    private HunterHitCollider spawnFromPlayerCheck;
+
+    [SerializeField] private LayerMask layerHitOnSpawn;
 
     private void Start()
     {
@@ -47,16 +46,16 @@ public class ObjectDrop : InteractableObject
         Anim_Breathing();
     }
 
-    public void SetUpObj(sc_Object _object, bool isFromPlayer)
+    public void SetUpObj(sc_Object _object, HunterHitCollider isFromPlayer)
     {
         sc_object = _object;
         nb = 1;
         spriteMesh.sprite = _object.objectSprite;
         spriteMesh.m_material = _object.objectMaterial;
 
-        sphereCollider.enabled = true;
-
         spawnFromPlayerCheck = isFromPlayer;
+
+        sphereCollider.enabled = true;
     }
 
     private void Anim_Breathing()
@@ -69,8 +68,19 @@ public class ObjectDrop : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            if (spawnFromPlayerCheck) return;
+            if (spawnFromPlayerCheck == _hunterCollider) return;
             EquipmentVerification(_hunterCollider);
+        }
+    }
+    private void OnTriggerStay(Collider other)
+    {
+        if (attractCoroutine == null)
+        {
+            if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
+            {
+                EquipmentVerification2(_hunterCollider);
+            }
+            return;
         }
     }
 
@@ -80,14 +90,11 @@ public class ObjectDrop : InteractableObject
 
         if (sc_object.GetType() == typeof(sc_Equipment))
         {
-            Debug.Log("Pass 1");
-
             Equipment _equipment1 = Tps_PlayerController.Instance.GetEquipment(1);
             Equipment _equipment2 = Tps_PlayerController.Instance.GetEquipment(2);
 
             if (_equipment1.GetEquipment() == sc_object && _equipment1.nbInInventaire < _equipment1.GetEquipment().maxStackEquipment)
             {
-                Debug.Log("Pass 2");
 
                 if (attractCoroutine != null) StopCoroutine(attractCoroutine);
                 attractCoroutine = null;
@@ -100,7 +107,6 @@ public class ObjectDrop : InteractableObject
 
             else if (_equipment2.GetEquipment() == sc_object && _equipment2.nbInInventaire < _equipment2.GetEquipment().maxStackEquipment)
             {
-                Debug.Log("Pass 2 bis");
                 if (attractCoroutine != null) StopCoroutine(attractCoroutine);
                 attractCoroutine = null;
 
@@ -112,9 +118,6 @@ public class ObjectDrop : InteractableObject
 
             else
             {
-
-                Debug.Log("Pass 4");
-
                 Tps_PlayerController.Instance.interactableObjects.Add(this);
                 return;
             }
@@ -122,8 +125,42 @@ public class ObjectDrop : InteractableObject
             return;
         }
 
-        Debug.Log("Pass 5");
         Tps_PlayerController.Instance.interactableObjects.Add(this);
+    }
+    private void EquipmentVerification2(HunterHitCollider _hunterCollider)
+    {
+        // If !isOwner then return
+
+        if (sc_object.GetType() == typeof(sc_Equipment))
+        {
+            Equipment _equipment1 = Tps_PlayerController.Instance.GetEquipment(1);
+            Equipment _equipment2 = Tps_PlayerController.Instance.GetEquipment(2);
+
+            if (_equipment1.GetEquipment() == sc_object && _equipment1.nbInInventaire < _equipment1.GetEquipment().maxStackEquipment)
+            {
+
+                if (attractCoroutine != null) StopCoroutine(attractCoroutine);
+                attractCoroutine = null;
+
+                ChangeAttract(hunterFollowed);
+                hunterFollowed = _hunterCollider;
+
+                attractCoroutine = StartCoroutine(AttractToPlayer(_equipment1));
+            }
+
+            else if (_equipment2.GetEquipment() == sc_object && _equipment2.nbInInventaire < _equipment2.GetEquipment().maxStackEquipment)
+            {
+                if (attractCoroutine != null) StopCoroutine(attractCoroutine);
+                attractCoroutine = null;
+
+                ChangeAttract(hunterFollowed);
+                hunterFollowed = _hunterCollider;
+
+                attractCoroutine = StartCoroutine(AttractToPlayer(_equipment2));
+            }
+
+            return;
+        }
     }
 
     private void OnDestroy()
@@ -137,7 +174,7 @@ public class ObjectDrop : InteractableObject
 
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            spawnFromPlayerCheck = false;
+            spawnFromPlayerCheck = null;
 
             if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
@@ -150,6 +187,11 @@ public class ObjectDrop : InteractableObject
     bool debug_dontPass = false;
     private IEnumerator AttractToPlayer(Equipment _equipment)
     {
+        if (onCanPickUp.active) onCanPickUp.SetActive(false);
+
+        if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
+            Tps_PlayerController.Instance.interactableObjects.Remove(this);
+
         CallOnAttract(hunterFollowed);
 
         while ((transform.position.x >= hunterFollowed.transform.position.x + 0.15f ||
@@ -171,8 +213,6 @@ public class ObjectDrop : InteractableObject
 
         }
 
-
-        Debug.Log("Pass 3");
 
         if (!debug_dontPass)
             AddingEquipment(_equipment);
@@ -233,17 +273,14 @@ public class ObjectDrop : InteractableObject
     {
         if (sc_object.GetType() == typeof(sc_Equipment))
         {
-            Debug.Log("Pass 7");
             int _howMuchLeft = equipment.AddEquipment(sc_object as sc_Equipment ,nb);
             if (_howMuchLeft > 0) nb = _howMuchLeft;
             else Destroy(parent);
-            Debug.Log($"Pass 9 {_howMuchLeft}");
         }
     }
 
     private void AddingEquipment(Equipment _equipment)
     {
-        Debug.Log("Pass 5");
         int _howMuchLeft = _equipment.AddEquipment(nb);
         if (_howMuchLeft > 0)
         {

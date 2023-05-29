@@ -88,14 +88,11 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     private const float Rad2Deg = 57.29578f;
 
-    private Medkit_Script currentMedkit;
-
     private float revivingTimer;
 
     public List<InteractableObject> interactableObjects = new();
     [SerializeField] private InteractableObject closestInteractableObject;
 
-    [SerializeField] private Equipment equipment1, equipment2;
     private bool WasOnSelectEquipment;
 
     #endregion
@@ -115,7 +112,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void OnEnable()
     {
         // active inputs
-        //_inputs.Enable();
+        _inputs.Enable();
     }
 
     private void Start()
@@ -161,7 +158,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     //==============================================================================================================
 
     /// <summary>
-    /// Get Current State If State Machine
+    /// Get Current State of State Machine
     /// </summary>
     public StateId GetCurrentState()
     {
@@ -256,6 +253,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         WasOnSelectEquipment = false; 
     }
 
+    public GameObject _Instantiate(GameObject original, Vector3 position, Quaternion rotation)
+    {
+        GameObject _obj = Instantiate(original, position, rotation);
+        return _obj;
+    }
+
     #endregion
     //==============================================================================================================
 
@@ -267,6 +270,21 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void ActiveInput()
     {
         _inputs.Enable();
+    }
+
+    /// <summary>
+    /// Set ID of animation to there value.
+    /// </summary>
+    private void AssignAnimationIDs()
+    {
+        _animIDSpeed = Animator.StringToHash("Speed");
+        _animIDDodge = Animator.StringToHash("Dodge");
+        _animIDAtk1 = Animator.StringToHash("Atk1");
+        _animIDAtk2 = Animator.StringToHash("Atk2");
+        _animIDGetHit = Animator.StringToHash("GetHit");
+        _animIDHealing = Animator.StringToHash("Healing");
+        _animIDDeath = Animator.StringToHash("Death");
+        _animIDRevive = Animator.StringToHash("Revive");
     }
 
     #region Data
@@ -291,6 +309,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     private void OnEquipment1()
     {
+        if (stateMachine.currentState != StateId.IDLE && stateMachine.currentState != StateId.EQUIPEMENT) return;
+
         _equipment1.SetOnSelected();
 
         Equipment _equipment = GetSelectedEquipment();
@@ -307,6 +327,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void OnEquipment2()
     {
+        if (stateMachine.currentState != StateId.IDLE && stateMachine.currentState != StateId.EQUIPEMENT) return;
+
         _equipment2.SetOnSelected();
 
         Equipment _equipment = GetSelectedEquipment();
@@ -628,14 +650,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             GetSelectedEquipment().UseItem(this);
             playerData.monitor.tryToAtk1 = false;
             UnselectAllEquipment();
-            stateMachine.ChangeState(StateId.IDLE);
+            if (stateMachine.currentState == StateId.EQUIPEMENT) stateMachine.ChangeState(StateId.IDLE);
         }
         if (playerData.monitor.isAtk2)
         {
             GetSelectedEquipment().UseItem(this);
             playerData.monitor.tryToAtk2 = false;
             UnselectAllEquipment();
-            stateMachine.ChangeState(StateId.IDLE);
+            if (stateMachine.currentState == StateId.EQUIPEMENT) stateMachine.ChangeState(StateId.IDLE);
         }
     }
     private void ExitStateEquipement()
@@ -648,10 +670,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     {
         _Animator.SetTrigger(_animIDHealing);
 
-        currentMedkit = new Medkit_Script (this, 1, 10, 5);
-
-        currentMedkit.OnUse();
-
         playerData.monitor.isChangingState = false;
     }
     private void UpdateStateHealing()
@@ -663,12 +681,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void ExitStateHealing()
     {
         playerData.monitor.isChangingState = true;
-
-        //Check If For Assuring The Player doesn't use 2 medkit insteed of one
-        if (!currentMedkit.DidPlayerFinishUsingThisMedkit())
-        {
-            currentMedkit.SetPlayerCanUseMedkit(false);
-        }
     }
     #endregion
     #region Get Hit
@@ -737,20 +749,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     #region Movement
 
-    /// <summary>
-    /// Set ID of animation to there value.
-    /// </summary>
-    private void AssignAnimationIDs()
-    {
-        _animIDSpeed = Animator.StringToHash("Speed");
-        _animIDDodge = Animator.StringToHash("Dodge");
-        _animIDAtk1 = Animator.StringToHash("Atk1");
-        _animIDAtk2 = Animator.StringToHash("Atk2");
-        _animIDHealing = Animator.StringToHash("Healing");
-        _animIDGetHit = Animator.StringToHash("GetHit");
-        _animIDDeath = Animator.StringToHash("Death");
-        _animIDRevive = Animator.StringToHash("Revive");
-    }
 
     /// <summary>
     /// Movement of player.
@@ -821,7 +819,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _targetCamera.transform.position = transform.position + Vector3.up * 1.65f;
 
         // Set sprite pos to player pos.
-        _Body.transform.position = transform.position + Vector3.up * 0.2f;
+        _Body.transform.position = transform.position + Vector3.up * 1f;
 
         // Set flashlight pos to player pos
         _flashlightRoot.position = transform.position + Vector3.up * 0.01f;
@@ -960,15 +958,17 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         }
         return _io;
     }
+    #endregion
+
     public Equipment GetEquipment(int who)
     {
         switch (who)
         {
             case 1:
-                return equipment1;
+                return _equipment1;
                 break;
             case 2:
-                return equipment2;
+                return _equipment2;
                 break;
             default:
                 Debug.LogError("Wrong Equipment index selection");
@@ -982,18 +982,16 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         else if (_equipment2.GetEquipment() == null) return _equipment2;
         else return null;
     }
-    #endregion
-
     private Equipment GetSelectedEquipment()
     {
-        if (equipment1.GetOnSelected()) return equipment1;
-        else if (equipment2.GetOnSelected()) return equipment2;
+        if (_equipment1.GetOnSelected()) return _equipment1;
+        else if (_equipment2.GetOnSelected()) return _equipment2;
         else return null;
     }
     private void UnselectAllEquipment()
     {
-        if (equipment1.GetOnSelected()) equipment1.SetOnSelected();
-        else if (equipment2.GetOnSelected()) equipment2.SetOnSelected();
+        if (_equipment1.GetOnSelected()) _equipment1.SetOnSelected();
+        else if (_equipment2.GetOnSelected()) _equipment2.SetOnSelected();
     }
 
     #endregion
