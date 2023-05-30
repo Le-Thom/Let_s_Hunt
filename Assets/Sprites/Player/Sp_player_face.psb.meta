@@ -94,6 +94,27 @@ ScriptedImporter:
     spritePosition: {x: 0, y: 0}
   mosaicSpriteImportData: []
   rigSpriteImportData:
+  - name: face_light
+    originalName: 
+    pivot: {x: 0.5, y: 0.5}
+    alignment: 0
+    border: {x: 0, y: 0, z: 0, w: 0}
+    rect:
+      serializedVersion: 2
+      x: 2519
+      y: 503
+      width: 426
+      height: 243
+    spriteID: c0990e98cffb8c84aa3b656dfcd4a067
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 2519, y: 503}
+    spritePosition: {x: 1057, y: 2032}
   - name: face_left_arm_forward
     originalName: 
     pivot: {x: 0.5, y: 0.5}
@@ -19559,6 +19580,16 @@ ScriptedImporter:
     flatten: 0
     isImported: 0
     isVisible: 1
+  - name: face_light
+    spriteName: face_light
+    isGroup: 0
+    parentIndex: 99
+    spriteID: c0990e98cffb8c84aa3b656dfcd4a067
+    layerID: 186
+    mosaicPosition: {x: 2519, y: 503}
+    flatten: 0
+    isImported: 1
+    isVisible: 1
   - name: face_left_arm_forward
     spriteName: face_left_arm_forward
     isGroup: 0
@@ -19712,7 +19743,7 @@ ScriptedImporter:
   - name: back_helmet
     spriteName: 
     isGroup: 0
-    parentIndex: 114
+    parentIndex: 115
     spriteID: c1bc5f0c5093b184db639b1b37f7dd92
     layerID: 39
     mosaicPosition: {x: 0, y: 0}
@@ -19722,7 +19753,7 @@ ScriptedImporter:
   - name: back_head
     spriteName: 
     isGroup: 0
-    parentIndex: 114
+    parentIndex: 115
     spriteID: 8c01bae52fe0d2a4495896cf86e8f656
     layerID: 38
     mosaicPosition: {x: 0, y: 0}
@@ -19732,7 +19763,7 @@ ScriptedImporter:
   - name: back_right_ears
     spriteName: 
     isGroup: 0
-    parentIndex: 114
+    parentIndex: 115
     spriteID: c04ad27e47bd33f4ca8ab9b61c4dd2e1
     layerID: 37
     mosaicPosition: {x: 0, y: 0}
@@ -19742,7 +19773,7 @@ ScriptedImporter:
   - name: back_left_ears
     spriteName: 
     isGroup: 0
-    parentIndex: 114
+    parentIndex: 115
     spriteID: f6843c29f799fc54a85a3dde900d628d
     layerID: 36
     mosaicPosition: {x: 0, y: 0}
@@ -19752,7 +19783,7 @@ ScriptedImporter:
   - name: back_torso
     spriteName: 
     isGroup: 0
-    parentIndex: 114
+    parentIndex: 115
     spriteID: e6c66e3efcc446c4b87d219c234cbaf0
     layerID: 35
     mosaicPosition: {x: 0, y: 0}
@@ -19762,7 +19793,7 @@ ScriptedImporter:
   - name: back_right_leg
     spriteName: 
     isGroup: 0
-    parentIndex: 114
+    parentIndex: 115
     spriteID: 9bb2cb8339916ec4d80f1937c370eaa4
     layerID: 34
     mosaicPosition: {x: 0, y: 0}
@@ -19772,7 +19803,7 @@ ScriptedImporter:
   - name: back_left_leg
     spriteName: 
     isGroup: 0
-    parentIndex: 114
+    parentIndex: 115
     spriteID: 5c2a7aee0a783e448896ee3517fa8f68
     layerID: 33
     mosaicPosition: {x: 0, y: 0}
@@ -19782,7 +19813,7 @@ ScriptedImporter:
   - name: back_left_arm
     spriteName: 
     isGroup: 0
-    parentIndex: 114
+    parentIndex: 115
     spriteID: 2a158b0af685ff84e8ab9a65e9df5033
     layerID: 32
     mosaicPosition: {x: 0, y: 0}
@@ -19792,7 +19823,7 @@ ScriptedImporter:
   - name: back_right_arm
     spriteName: 
     isGroup: 0
-    parentIndex: 114
+    parentIndex: 115
     spriteID: 754011ac25fe49b45b7d80e7b2733652
     layerID: 31
     mosaicPosition: {x: 0, y: 0}
@@ -19812,7 +19843,7 @@ ScriptedImporter:
   - name: TF_back_head
     spriteName: 
     isGroup: 0
-    parentIndex: 124
+    parentIndex: 125
     spriteID: d7031ec1885f34341a4a5681b8fc78bd
     layerID: 28
     mosaicPosition: {x: 0, y: 0}
@@ -19822,7 +19853,7 @@ ScriptedImporter:
   - name: TF_back_ right_ears
     spriteName: 
     isGroup: 0
-    parentIndex: 124
+    parentIndex: 125
     spriteID: d8d056c18ecdded47b18ffd2d1150272
     layerID: 27
     mosaicPosition: {x: 0, y: 0}
@@ -19832,7 +19863,7 @@ ScriptedImporter:
   - name: TF_back_left_ears
     spriteName: 
     isGroup: 0
-    parentIndex: 124
+    parentIndex: 125
     spriteID: 96259435feab5444f88641c686ba1681
     layerID: 26
     mosaicPosition: {x: 0, y: 0}
@@ -19842,7 +19873,7 @@ ScriptedImporter:
   - name: TF_back_right_arm
     spriteName: 
     isGroup: 0
-    parentIndex: 124
+    parentIndex: 125
     spriteID: d0148da498ef24740bb91efe140bb5d6
     layerID: 25
     mosaicPosition: {x: 0, y: 0}
@@ -19852,7 +19883,7 @@ ScriptedImporter:
   - name: TF_back_torso
     spriteName: 
     isGroup: 0
-    parentIndex: 124
+    parentIndex: 125
     spriteID: 31a88faeb8025424c86c904b097d68db
     layerID: 24
     mosaicPosition: {x: 0, y: 0}
@@ -19862,7 +19893,7 @@ ScriptedImporter:
   - name: TF_back_left_arm
     spriteName: 
     isGroup: 0
-    parentIndex: 124
+    parentIndex: 125
     spriteID: 8d19becd30a71f640b83518e2f6d455d
     layerID: 23
     mosaicPosition: {x: 0, y: 0}
@@ -19872,7 +19903,7 @@ ScriptedImporter:
   - name: TF_back_left_leg
     spriteName: 
     isGroup: 0
-    parentIndex: 124
+    parentIndex: 125
     spriteID: eb8e488b76da5f6468fde72b645a4083
     layerID: 22
     mosaicPosition: {x: 0, y: 0}
@@ -19882,7 +19913,7 @@ ScriptedImporter:
   - name: TF_back_right_leg
     spriteName: 
     isGroup: 0
-    parentIndex: 124
+    parentIndex: 125
     spriteID: 45889804bc37dde4ab275b7765801817
     layerID: 21
     mosaicPosition: {x: 0, y: 0}
@@ -19902,7 +19933,7 @@ ScriptedImporter:
   - name: side_head
     spriteName: 
     isGroup: 0
-    parentIndex: 133
+    parentIndex: 134
     spriteID: 27d4a1e017a267b43a90a9737b870b1e
     layerID: 18
     mosaicPosition: {x: 0, y: 0}
@@ -19912,7 +19943,7 @@ ScriptedImporter:
   - name: side_arm
     spriteName: 
     isGroup: 0
-    parentIndex: 133
+    parentIndex: 134
     spriteID: e515c67c503ab9640aa51688568e7eb8
     layerID: 17
     mosaicPosition: {x: 0, y: 0}
@@ -19922,7 +19953,7 @@ ScriptedImporter:
   - name: side_torso
     spriteName: 
     isGroup: 0
-    parentIndex: 133
+    parentIndex: 134
     spriteID: c65fed2b5d6af5d409b0d599daa1a02d
     layerID: 16
     mosaicPosition: {x: 0, y: 0}
@@ -19932,7 +19963,7 @@ ScriptedImporter:
   - name: side_leg
     spriteName: 
     isGroup: 0
-    parentIndex: 133
+    parentIndex: 134
     spriteID: 92b50f5c0fb67064e99775b35fbc768f
     layerID: 15
     mosaicPosition: {x: 0, y: 0}
@@ -19952,7 +19983,7 @@ ScriptedImporter:
   - name: TF_face_head
     spriteName: 
     isGroup: 0
-    parentIndex: 138
+    parentIndex: 139
     spriteID: 33f1bd7b699801142aca62110062bc2c
     layerID: 12
     mosaicPosition: {x: 0, y: 0}
@@ -19962,7 +19993,7 @@ ScriptedImporter:
   - name: TF_face_right_ears
     spriteName: 
     isGroup: 0
-    parentIndex: 138
+    parentIndex: 139
     spriteID: 0c852dd6db53d2f4085b3ee73fc9b8b8
     layerID: 11
     mosaicPosition: {x: 0, y: 0}
@@ -19972,7 +20003,7 @@ ScriptedImporter:
   - name: TF_face_left_ears
     spriteName: 
     isGroup: 0
-    parentIndex: 138
+    parentIndex: 139
     spriteID: 8ca41bd2a9880e74fb10fe9ce6e871cb
     layerID: 10
     mosaicPosition: {x: 0, y: 0}
@@ -19982,7 +20013,7 @@ ScriptedImporter:
   - name: TF_face_left_arm
     spriteName: 
     isGroup: 0
-    parentIndex: 138
+    parentIndex: 139
     spriteID: 4b6d76147ee217a4e87541b1749e280b
     layerID: 9
     mosaicPosition: {x: 0, y: 0}
@@ -19992,7 +20023,7 @@ ScriptedImporter:
   - name: TF_face_torso
     spriteName: 
     isGroup: 0
-    parentIndex: 138
+    parentIndex: 139
     spriteID: 34e332d51327757488abb0bbf20fb1eb
     layerID: 8
     mosaicPosition: {x: 0, y: 0}
@@ -20002,7 +20033,7 @@ ScriptedImporter:
   - name: TF_face_left_leg
     spriteName: 
     isGroup: 0
-    parentIndex: 138
+    parentIndex: 139
     spriteID: 8dba6218cd4b53649ac4a7460714305a
     layerID: 7
     mosaicPosition: {x: 0, y: 0}
@@ -20012,7 +20043,7 @@ ScriptedImporter:
   - name: TF_face_right_leg
     spriteName: 
     isGroup: 0
-    parentIndex: 138
+    parentIndex: 139
     spriteID: 1cbd86f7c4be2204eaa4ec152e7dcda3
     layerID: 6
     mosaicPosition: {x: 0, y: 0}
@@ -20022,7 +20053,7 @@ ScriptedImporter:
   - name: TF_face_right_arm
     spriteName: 
     isGroup: 0
-    parentIndex: 138
+    parentIndex: 139
     spriteID: 5bd85b10fcc43aa49b78078d2fee2379
     layerID: 5
     mosaicPosition: {x: 0, y: 0}
