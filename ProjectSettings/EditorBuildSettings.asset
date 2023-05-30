@@ -29,4 +29,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/BUNDLE.unity
     guid: 0aa7ee44800cd4c4eab23f544da09b1d
+  - enabled: 1
+    path: Assets/EasyCodeForVivox/Demo Scenes/3D Demo Scenes/3D Demo Scene.unity
+    guid: 701e494990c2cb44ebbe9d1ebf2e14cb
+  - enabled: 1
+    path: Assets/EasyCodeForVivox/Demo Scenes/3D Demo Scenes/Lobby.unity
+    guid: 453be91484487a2488a0a2f0576e1068
+  - enabled: 1
+    path: Assets/EasyCodeForVivox/Demo Scenes/Chat Demo Scenes/Chat Scene.unity
+    guid: 88d655b296c81764d823c73574939e66
   m_configObjects: {}
