@@ -106,7 +106,7 @@ public class LoginCredentials : MonoBehaviour
     }
     public void JoinChannel()
     {
-        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional);
+        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.NonPositional);
         channelSession = loginSession.GetChannelSession(channelId);
 
         Bind_Channel_Callback_Listeners(true, channelSession);
