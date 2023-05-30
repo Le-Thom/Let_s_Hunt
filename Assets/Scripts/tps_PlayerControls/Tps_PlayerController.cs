@@ -55,6 +55,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     [SerializeField] private Equipment _equipment1, _equipment2;
 
+    [SerializeField] private GameObject _rotationScream;
+
     #endregion
     //==============================================================================================================
 
@@ -120,6 +122,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         ResetPlayerData();
 
         SetVirtualCamParameters();
+
+        SetEvent();
 
         playerData.monitor.isValid = true;
     }
@@ -270,6 +274,11 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void ActiveInput()
     {
         _inputs.Enable();
+    }
+
+    private void SetEvent()
+    {
+        ScreamMonster.Instance.delegateEventsScream += MonsterScream;
     }
 
     /// <summary>
@@ -992,6 +1001,26 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     {
         if (_equipment1.GetOnSelected()) _equipment1.SetOnSelected();
         else if (_equipment2.GetOnSelected()) _equipment2.SetOnSelected();
+    }
+
+    private void MonsterScream(Vector3 position, float timer)
+    {
+        _rotationScream.SetActive(true);
+
+        // direction of the vector from player to mouse.
+        Vector2 _directionLook = new Vector2(transform.position.x - position.x, transform.position.z - position.z);
+
+        // calculate Y rotation from the direction.
+        float __lookTargetRotation = Mathf.Atan2(-_directionLook.x, _directionLook.y) * Mathf.Rad2Deg + 180;
+
+        _rotationScream.transform.rotation = Quaternion.Euler(0,0, __lookTargetRotation);
+
+        StartCoroutine(TimerMonsterScream(timer));
+    }
+    private IEnumerator TimerMonsterScream(float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        _rotationScream.SetActive(false);
     }
 
     #endregion
