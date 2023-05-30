@@ -2,13 +2,13 @@
 <objects serializationModel="Studio.02.02.00">
 	<object class="Event" id="{cc752763-65f7-4075-a0c1-26a695353e86}">
 		<property name="name">
-			<value>Explosion</value>
+			<value>Test_audio</value>
 		</property>
 		<property name="outputFormat">
 			<value>0</value>
 		</property>
 		<relationship name="folder">
-			<destination>{84f7705a-64c8-4741-a4a0-4acf9e89d6f8}</destination>
+			<destination>{b7056636-c0d4-453d-838a-42d1493cf82b}</destination>
 		</relationship>
 		<relationship name="mixer">
 			<destination>{c669ec3e-f002-4e93-a201-2652a29dd6a2}</destination>
@@ -56,7 +56,7 @@
 			<destination>{dd7dfe37-6cea-4a17-97c1-e138a809eaec}</destination>
 		</relationship>
 		<relationship name="output">
-			<destination>{0f5aeb59-7f21-4798-abeb-c6dd9adb3763}</destination>
+			<destination>{6b3f6627-1a1e-47d9-8242-fe8f0c30caf7}</destination>
 		</relationship>
 	</object>
 	<object class="EventAutomatableProperties" id="{a035c1da-0f66-49c0-b7ca-a08ea1490823}" />

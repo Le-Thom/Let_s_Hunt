@@ -71,6 +71,42 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Equipment1"",
+                    ""type"": ""Button"",
+                    ""id"": ""59f3b94c-4313-496e-9861-ff92f4f96ee9"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Equipment2"",
+                    ""type"": ""Button"",
+                    ""id"": ""b6b81a19-9772-4e6e-881b-e73f906d2504"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Drop"",
+                    ""type"": ""Button"",
+                    ""id"": ""104994a1-ec31-4d3c-b84f-ac212e5bf2cf"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""487fd015-b197-43a8-bb62-5737c5be6957"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -143,21 +179,10 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""66b990d0-a942-4d14-b611-d9859f931a2c"",
-                    ""path"": ""<Mouse>/delta"",
-                    ""interactions"": """",
-                    ""processors"": ""ScaleVector2(x=0.025,y=0.025)"",
-                    ""groups"": ""Keyboard"",
-                    ""action"": ""LocationLook"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""0f330b46-25b8-4b2f-b45b-4310803c3c33"",
-                    ""path"": ""<Gamepad>/rightStick"",
+                    ""path"": ""<Mouse>/position"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": ""Gamepads"",
+                    ""groups"": ""Keyboard"",
                     ""action"": ""LocationLook"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -238,6 +263,50 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Attack2"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6ae5aaf8-d79f-4082-bd01-2b2b6b13ca89"",
+                    ""path"": ""<Keyboard>/1"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Equipment1"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""b76af0a6-a137-47a9-99e0-4e7815e55c45"",
+                    ""path"": ""<Keyboard>/2"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Equipment2"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5c250108-277b-46be-85d0-b7dbf371e622"",
+                    ""path"": ""<Keyboard>/b"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84a7af94-2626-4d2e-aa96-1e42d2dd6017"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -279,6 +348,10 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
         m_Player_Dodge = m_Player.FindAction("Dodge", throwIfNotFound: true);
         m_Player_Attack1 = m_Player.FindAction("Attack1", throwIfNotFound: true);
         m_Player_Attack2 = m_Player.FindAction("Attack2", throwIfNotFound: true);
+        m_Player_Equipment1 = m_Player.FindAction("Equipment1", throwIfNotFound: true);
+        m_Player_Equipment2 = m_Player.FindAction("Equipment2", throwIfNotFound: true);
+        m_Player_Drop = m_Player.FindAction("Drop", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -345,6 +418,10 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Dodge;
     private readonly InputAction m_Player_Attack1;
     private readonly InputAction m_Player_Attack2;
+    private readonly InputAction m_Player_Equipment1;
+    private readonly InputAction m_Player_Equipment2;
+    private readonly InputAction m_Player_Drop;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @Tps_Player_Inputs m_Wrapper;
@@ -354,6 +431,10 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
         public InputAction @Dodge => m_Wrapper.m_Player_Dodge;
         public InputAction @Attack1 => m_Wrapper.m_Player_Attack1;
         public InputAction @Attack2 => m_Wrapper.m_Player_Attack2;
+        public InputAction @Equipment1 => m_Wrapper.m_Player_Equipment1;
+        public InputAction @Equipment2 => m_Wrapper.m_Player_Equipment2;
+        public InputAction @Drop => m_Wrapper.m_Player_Drop;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -378,6 +459,18 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
             @Attack2.started += instance.OnAttack2;
             @Attack2.performed += instance.OnAttack2;
             @Attack2.canceled += instance.OnAttack2;
+            @Equipment1.started += instance.OnEquipment1;
+            @Equipment1.performed += instance.OnEquipment1;
+            @Equipment1.canceled += instance.OnEquipment1;
+            @Equipment2.started += instance.OnEquipment2;
+            @Equipment2.performed += instance.OnEquipment2;
+            @Equipment2.canceled += instance.OnEquipment2;
+            @Drop.started += instance.OnDrop;
+            @Drop.performed += instance.OnDrop;
+            @Drop.canceled += instance.OnDrop;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -397,6 +490,18 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
             @Attack2.started -= instance.OnAttack2;
             @Attack2.performed -= instance.OnAttack2;
             @Attack2.canceled -= instance.OnAttack2;
+            @Equipment1.started -= instance.OnEquipment1;
+            @Equipment1.performed -= instance.OnEquipment1;
+            @Equipment1.canceled -= instance.OnEquipment1;
+            @Equipment2.started -= instance.OnEquipment2;
+            @Equipment2.performed -= instance.OnEquipment2;
+            @Equipment2.canceled -= instance.OnEquipment2;
+            @Drop.started -= instance.OnDrop;
+            @Drop.performed -= instance.OnDrop;
+            @Drop.canceled -= instance.OnDrop;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -439,5 +544,9 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
         void OnDodge(InputAction.CallbackContext context);
         void OnAttack1(InputAction.CallbackContext context);
         void OnAttack2(InputAction.CallbackContext context);
+        void OnEquipment1(InputAction.CallbackContext context);
+        void OnEquipment2(InputAction.CallbackContext context);
+        void OnDrop(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }
