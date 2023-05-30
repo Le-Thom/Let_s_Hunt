@@ -5,7 +5,7 @@ using System;
 using System.ComponentModel;
 using VivoxUnity;
 
-public class LoginCredentials : MonoBehaviour
+public class LoginCredentials : Singleton<LoginCredentials>
 {
     VivoxUnity.Client client;
     private string userName;
@@ -106,7 +106,7 @@ public class LoginCredentials : MonoBehaviour
     }
     public void JoinChannel()
     {
-        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.NonPositional);
+        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional);
         channelSession = loginSession.GetChannelSession(channelId);
 
         Bind_Channel_Callback_Listeners(true, channelSession);
@@ -147,6 +147,81 @@ public class LoginCredentials : MonoBehaviour
     {
         channelSession.Disconnect();
         loginSession.DeleteChannelSession(new ChannelId(issuer, channelName, domain));
+    }
+
+    #endregion
+
+    #region Mute/Demute Methods
+
+    public void LocalToggleMuteSelf(VivoxUnity.Client client)
+    {
+        if (client.AudioInputDevices.Muted)
+        {
+            client.AudioInputDevices.Muted = false;
+        }
+        else
+        {
+            client.AudioInputDevices.Muted = true;
+        }
+    }
+    public void MuteOtherUser(string username)
+    {
+        string constructedParticipantKey = "sip:." + issuer + "." + username + ".@" + domain;
+        var participants = channelSession.Participants;
+
+        if (participants[constructedParticipantKey].InAudio)
+        {
+            if (participants[constructedParticipantKey].LocalMute == false)
+            {
+                participants[constructedParticipantKey].LocalMute = true;
+            }
+            else
+            {
+                participants[constructedParticipantKey].LocalMute = false;
+            }
+        }
+        else
+        {
+            //Tell Player To Try Again
+            Debug.Log("Try Again");
+        }
+    }
+
+    #endregion
+
+    #region VOIP
+
+    public void Update3DPosition(Transform listener, Transform speaker)
+    {
+        channelSession.Set3DPosition(speaker.position, listener.position, listener.forward, listener.up);
+    }
+
+    #endregion
+
+    #region Devices
+
+    public VivoxUnity.IReadOnlyDictionary<string, IAudioDevice> GetAllDevices()
+    {
+        return client.AudioInputDevices.AvailableDevices;
+    }
+    public IAudioDevices GetCurrentDevices()
+    {
+        return client.AudioInputDevices;
+    }
+
+    public void ChangeInputDevice(IAudioDevice targetInput = null)
+    {
+        IAudioDevices intputDevices = client.AudioInputDevices;
+        if (targetInput != null && targetInput != client.AudioInputDevices.ActiveDevice)
+        {
+            client.AudioInputDevices.BeginSetActiveDevice(targetInput, ar =>
+            {
+                if (ar.IsCompleted)
+                {
+                    client.AudioInputDevices.EndSetActiveDevice(ar);
+                }
+            });
+        };
     }
 
     #endregion
