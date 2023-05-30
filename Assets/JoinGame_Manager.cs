@@ -26,7 +26,6 @@ public class JoinGame_Manager : NetworkBehaviour
     [Header("Script Ref")]
     [SerializeField] private Testing_Relay relayScript;
 
-
     [Header("Network Variable")]
     [SerializeField] private NetworkVariable<bool> isTheGameStarted = new NetworkVariable<bool>(false);
 
@@ -36,10 +35,12 @@ public class JoinGame_Manager : NetworkBehaviour
     private void OnEnable()
     {
         startButton.onClick.AddListener(TryToStartGameServerRpc);
+        relayScript.onCreateRoomSuccess.AddListener(SetJoinCode);
     }
     private void OnDisable()
     {
         startButton.onClick.RemoveListener(TryToStartGameServerRpc);
+        relayScript.onCreateRoomSuccess.AddListener(SetJoinCode);
     }
     private void Update()
     {
@@ -180,5 +181,9 @@ public class JoinGame_Manager : NetworkBehaviour
             networkObject.GetComponent<NetworkObject>().ChangeOwnership(clientId);
             Debug.Log("Switch Ownership to Client " + clientId);
         }
+    }
+    private void SetJoinCode()
+    {
+        joinCodeText.text = relayScript.GetJoinCode();
     }
 }

@@ -9,10 +9,10 @@ public class TwitchCommand_Manager : MonoBehaviour
     //VARIABLES
     //========
 
-    private Dictionary<string, UnityEvent<string>> commandList = new();
-    public UnityEvent<string> onChatSendPosition;
-    public UnityEvent<string> onChatSendStrat;
-    public UnityEvent<string> onChatSendVote;
+    private Dictionary<string, UnityEvent<string, string>> commandList = new();
+    public UnityEvent<string, string> onChatSendPosition;
+    public UnityEvent<string, string> onChatSendStrat;
+    public UnityEvent<string, string> onChatSendVote;
 
     //========
     //MONOBEHAVIOUR
@@ -32,8 +32,8 @@ public class TwitchCommand_Manager : MonoBehaviour
         {
             if(message.Contains(command))
             {
-                commandList.TryGetValue(command, out UnityEvent<string> eventOfCommand);
-                if (eventOfCommand != null) eventOfCommand.Invoke(message);
+                commandList.TryGetValue(command, out UnityEvent<string, string> eventOfCommand);
+                if (eventOfCommand != null) eventOfCommand.Invoke(user ,message);
             }
         }
     }
