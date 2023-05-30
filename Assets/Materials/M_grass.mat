@@ -36,8 +36,8 @@ Material:
     - _IsRandom: 1
     - _RandomInMovement: 1
     - _WindSpeed: 1.93
-    - _WindStrenght: 0.88
-    - _Wind_Influence: 0.04
+    - _WindStrenght: 1.24
+    - _Wind_Influence: 0.085
     - _hasWind: 1
     m_Colors: []
   m_BuildTextureStacks: []
