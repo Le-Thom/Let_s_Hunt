@@ -44,7 +44,7 @@ Material:
     - _WindSpeed: 2
     - _WindStrenght: 0.5
     - _Wind_Influence: 0.1
-    - _hasWind: 1
+    - _hasWind: 0
     m_Colors:
     - _EmisionColor: {r: 404509.06, g: 404509.06, b: 404509.06, a: 0}
   m_BuildTextureStacks: []
