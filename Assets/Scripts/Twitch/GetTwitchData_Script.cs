@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Net.Sockets;
 using System.IO;
+using System;
+using System.Threading.Tasks;
 
 public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
 {
@@ -38,6 +40,7 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
     private string channel = "Laink";
 
     private bool isConnectionStarted = false;
+    private bool isConnectedToTwitch = false;
     //========
     //MONOBEHAVIOUR
     //========
@@ -87,6 +90,7 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
             if(message.Contains("JOIN"))
             {
                 onConnectionSuccess?.Invoke();
+                isConnectedToTwitch = true;
             }
             print(message);
         }
@@ -102,8 +106,6 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
 
         channel = Channel;
 
-        isConnectionStarted = true;
-
         //We ask from misterYesYes to connect on the Twitch
         Writer.WriteLine("PASS " + OAuth);
         Writer.WriteLine("NICK " + User.ToLower());
@@ -115,12 +117,21 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
         startingConnectionEvent?.Invoke();
 
         Debug.Log("Starting The Connection To Twitch");
+
+        if(!isConnectionStarted)
+        {
+            TimeOutConnection();
+            isConnectedToTwitch = false;
+        }
+
+        isConnectionStarted = true;
     }
     /// <summary>
     /// Assure the deconnection of Twitch
     /// </summary>
     public void DisconnectedTwitch()
     {
+        isConnectionStarted = false;
         if (Twitch != null && Twitch.Connected)
         {
             if (Writer != null)
@@ -137,7 +148,6 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
 
             Twitch.Close();
 
-            isConnectionStarted = false;
             onForcedDisconect?.Invoke();
         }
     }
@@ -151,5 +161,19 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
     public string GetChannelName()
     {
         return channel;
+    }
+    public async void TimeOutConnection()
+    {
+        //If the connect didn't start proprely, we try each 5 sec
+        for(int i = 0; i<= 6; i++)
+        {
+            await Task.Delay(5000);
+            if(isConnectionStarted && !isConnectedToTwitch) ConnectToTwitch(channel);
+        }
+        if(isConnectionStarted && !isConnectedToTwitch)
+        {
+            //Time out
+            DisconnectedTwitch();
+        }
     }
 }

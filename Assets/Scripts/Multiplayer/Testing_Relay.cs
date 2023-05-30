@@ -101,4 +101,8 @@ public class Testing_Relay : MonoBehaviour
             onJoinRoomFailed?.Invoke();
         }
     }
+    public string GetJoinCode()
+    {
+        return currentJoinCode;
+    }
 }

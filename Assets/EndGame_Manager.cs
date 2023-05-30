@@ -12,6 +12,20 @@ public class EndGame_Manager : NetworkBehaviour
     [SerializeField] private GameObject winningCanvas;
     [SerializeField] private GameObject losingCanvas;
 
+    //========
+    //MONOBEHAVIOUR
+    //========
+
+    private void OnEnable()
+    {
+        MonsterHealth.whenTheMonsterDied += OnSoldierWinningClientRpc;
+    }
+
+    private void OnDisable()
+    {
+        MonsterHealth.whenTheMonsterDied -= OnSoldierWinningClientRpc;
+    }
+
     //=========
     //FONCTION
     //=========
@@ -30,6 +44,7 @@ public class EndGame_Manager : NetworkBehaviour
         {
             winningCanvas.SetActive(true);
         }
+        Time.timeScale = 0;
     }
     /// <summary>
     /// Call When The Monster Win in the Animator
@@ -45,5 +60,6 @@ public class EndGame_Manager : NetworkBehaviour
         {
             losingCanvas.SetActive(true);
         }
+        Time.timeScale = 0;
     }
 }
