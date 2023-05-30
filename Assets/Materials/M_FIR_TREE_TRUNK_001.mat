@@ -7,14 +7,14 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Main
+  m_Name: M_FIR_TREE_TRUNK_001
   m_Shader: {fileID: -6465566751694194690, guid: 84c8b4f0ee170774fb88c3392e326b71,
     type: 3}
-  m_Parent: {fileID: 0}
-  m_ModifiedSerializedProperties: 0
+  m_Parent: {fileID: 2100000, guid: aa8768adca0791e45bde07c4da971d62, type: 2}
+  m_ModifiedSerializedProperties: 2
   m_ValidKeywords: []
   m_InvalidKeywords: []
-  m_LightmapFlags: 4
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -25,38 +25,15 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _Sprite_Texture:
-        m_Texture: {fileID: 2800000, guid: d5cf62ca11e9b0548b89c7d609c460aa, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_Lightmaps:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_LightmapsInd:
-        m_Texture: {fileID: 0}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - unity_ShadowMasks:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: e90fae0f7990b244bbcb8f023e8a9a3e, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Alpha: 1
-    - _IsHit: 0
     - _IsRandom: 0
-    - _ItsMonster: 1
-    - _QueueControl: 0
-    - _QueueOffset: 0
-    - _WindSpeed: 1
-    - _WindStrenght: 0.5
-    - _Wind_Influence: 0.25
-    - _hasWind: 0
-    m_Colors:
-    - _Character_HitColor: {r: 87.47353, g: 87.47353, b: 87.47353, a: 0}
-    - _Monster_HitColor: {r: 89.55003, g: 0, b: 0, a: 0}
+    m_Colors: []
   m_BuildTextureStacks: []
---- !u!114 &7936825543708129329
+--- !u!114 &3353628833348333281
 MonoBehaviour:
   m_ObjectHideFlags: 11
   m_CorrespondingSourceObject: {fileID: 0}
