@@ -1,14 +1,16 @@
 using GameplayIngredients.Events;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
+using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Equipment : MonoBehaviour
 {
     [SerializeField] private int _nbInInventaire;
-    private int nbInInventaire
+    public int nbInInventaire
     {
         get { return _nbInInventaire; }
         set
@@ -26,11 +28,12 @@ public class Equipment : MonoBehaviour
         get { return _equipment; }
         set
         {
+            _equipment = value;
+
             if (value == null) return;
 
-            _equipment = value;
-            imageEquipment.sprite = value.equipmentSprite;
-            textEquipment.text = value.equipmentName;
+            imageEquipment.sprite = value.objectSprite;
+            textEquipment.text = value.objectName;
         }
     }
 
@@ -39,7 +42,7 @@ public class Equipment : MonoBehaviour
     [SerializeField] private TMP_Text textEquipment;
     [SerializeField] private TMP_Text textNb;
 
-    public bool onSelected;
+    private bool onSelected;
 
     [SerializeField] private Sprite nullEquipment;
 
@@ -51,6 +54,7 @@ public class Equipment : MonoBehaviour
         onSelected = !onSelected;
         if (otherEquipment.onSelected) otherEquipment.onSelected = false;
     }
+    public bool GetOnSelected() { return onSelected; }
 
     /// <summary>
     /// If there is nothing in equipment.
@@ -64,7 +68,7 @@ public class Equipment : MonoBehaviour
         nbInInventaire = nb;
         nbInInventaire = Mathf.Clamp(nbInInventaire, 1, equipment.maxStackEquipment);
 
-        return nbInInventaire - nb;
+        return nb - nbInInventaire;
     }
 
     /// <summary>
@@ -91,6 +95,7 @@ public class Equipment : MonoBehaviour
     /// </summary>
     public void EquipmentNbIs0()
     {
+        onSelected = false;
         equipment = null;
         imageEquipment.sprite = nullEquipment;
         textEquipment.text = "";
@@ -110,15 +115,37 @@ public class Equipment : MonoBehaviour
             transform.localScale = Vector3.Slerp(transform.localScale, Vector3.one, 1);
     }
 
-    public void Drop()
+    public void Drop(Tps_PlayerController player)
     {
         if (onSelected)
         {
-            // drop 1 obj on the ground.
+            GameObject _drop = Instantiate(Resources.Load<GameObject>("DropObject"), player.transform.position, Quaternion.Euler(0,0,0));
+            _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(equipment, player.GetComponentInChildren<HunterHitCollider>());
+
+            float _directionX = Mathf.Clamp(player.directionLook.x, -150, 150);
+            float _directionY = Mathf.Clamp(player.directionLook.y, -150, 150);
+
+            _drop.GetComponent<Rigidbody>().velocity += new Vector3(-_directionX, 0, -_directionY) * Time.deltaTime + Vector3.up * 4;
+
+
             ItemUsed();
         }
     }
 
-    private void _Drop() { }
-    private void ItemUsed() => nbInInventaire--;
+    private void ItemUsed() => nbInInventaire = nbInInventaire - 1;
+
+    public void UseItem(Tps_PlayerController player)
+    {
+        SC_UseItem _script = player.gameObject.AddComponent(System.Type.GetType(equipment.script_equipment.name)) as SC_UseItem;
+
+        Debug.Log(_script.GetType());
+        if (_script.GetType() == typeof(SC_UI_MedKit) && Tps_PlayerController.Instance.GetCurrentState() == AkarisuMD.Player.StateId.HEALING) 
+        {
+            Debug.Log("Bloque");
+            return;
+        }
+
+        _script.UseItem(player, equipment);
+        ItemUsed();
+    }
 }

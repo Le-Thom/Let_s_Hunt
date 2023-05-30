@@ -98,6 +98,15 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interact"",
+                    ""type"": ""Button"",
+                    ""id"": ""487fd015-b197-43a8-bb62-5737c5be6957"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -287,6 +296,17 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
                     ""action"": ""Drop"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""84a7af94-2626-4d2e-aa96-1e42d2dd6017"",
+                    ""path"": ""<Keyboard>/f"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Interact"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -331,6 +351,7 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
         m_Player_Equipment1 = m_Player.FindAction("Equipment1", throwIfNotFound: true);
         m_Player_Equipment2 = m_Player.FindAction("Equipment2", throwIfNotFound: true);
         m_Player_Drop = m_Player.FindAction("Drop", throwIfNotFound: true);
+        m_Player_Interact = m_Player.FindAction("Interact", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -400,6 +421,7 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_Equipment1;
     private readonly InputAction m_Player_Equipment2;
     private readonly InputAction m_Player_Drop;
+    private readonly InputAction m_Player_Interact;
     public struct PlayerActions
     {
         private @Tps_Player_Inputs m_Wrapper;
@@ -412,6 +434,7 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
         public InputAction @Equipment1 => m_Wrapper.m_Player_Equipment1;
         public InputAction @Equipment2 => m_Wrapper.m_Player_Equipment2;
         public InputAction @Drop => m_Wrapper.m_Player_Drop;
+        public InputAction @Interact => m_Wrapper.m_Player_Interact;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -445,6 +468,9 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
             @Drop.started += instance.OnDrop;
             @Drop.performed += instance.OnDrop;
             @Drop.canceled += instance.OnDrop;
+            @Interact.started += instance.OnInteract;
+            @Interact.performed += instance.OnInteract;
+            @Interact.canceled += instance.OnInteract;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -473,6 +499,9 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
             @Drop.started -= instance.OnDrop;
             @Drop.performed -= instance.OnDrop;
             @Drop.canceled -= instance.OnDrop;
+            @Interact.started -= instance.OnInteract;
+            @Interact.performed -= instance.OnInteract;
+            @Interact.canceled -= instance.OnInteract;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -518,5 +547,6 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
         void OnEquipment1(InputAction.CallbackContext context);
         void OnEquipment2(InputAction.CallbackContext context);
         void OnDrop(InputAction.CallbackContext context);
+        void OnInteract(InputAction.CallbackContext context);
     }
 }

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{7ed3e7b1-2efd-4d33-9bd6-6d542c47315c}">
+		<property name="color">
+			<value>Purple</value>
+		</property>
+		<property name="name">
+			<value>GameManagment</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ce8e6d9d-42d1-4ce6-845f-1c94dca7c970}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{eb06e4b3-ea00-4fc0-8734-7a27b6d0bd3d}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{0f5aeb59-7f21-4798-abeb-c6dd9adb3763}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ce8e6d9d-42d1-4ce6-845f-1c94dca7c970}">
+		<relationship name="effects">
+			<destination>{7f7b17e7-e269-4430-ad13-3739cf46a016}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{eb06e4b3-ea00-4fc0-8734-7a27b6d0bd3d}" />
+	<object class="MixerBusFader" id="{7f7b17e7-e269-4430-ad13-3739cf46a016}" />
+</objects>

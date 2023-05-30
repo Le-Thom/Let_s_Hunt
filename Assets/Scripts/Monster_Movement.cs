@@ -14,25 +14,12 @@ public class Monster_Movement : MonoBehaviour
     [Header("Ref")]
     [SerializeField] private ParticleSystem onClickParticule;
     [SerializeField] private GameObject mousePointeur;
-    [SerializeField] private CinemachineVirtualCamera virtualCamera;
     [SerializeField] private NavMeshAgent navMeshAgent;
 
     [Header("Movement Variable")]
     [SerializeField] private float monsterSpeed = 2;
-    [SerializeField] private float cameraSpeed = 1.2f;
 
     [SerializeField] private LayerMask cameraCastLayer;
-    private Vector3 movementDirectionCamera;
-    [SerializeField] private Transform _Cac_Skill;
-    //========
-    //MONOBEHAVIOUR
-    //========
-    private void FixedUpdate()
-    {
-        //Camera Movement on Update So If Key is Long Press, continue to move
-        virtualCamera.transform.position += movementDirectionCamera * cameraSpeed;
-        _Cac_Skill.position = transform.position;
-    }
 
     //========
     //FONCTION
@@ -49,12 +36,6 @@ public class Monster_Movement : MonoBehaviour
 
         navMeshAgent.SetDestination(newDestination);
     }
-    public void OnCameraMovement(InputAction.CallbackContext context)
-    {
-        Vector3 movementDirection = context.ReadValue<Vector2>();
-
-        movementDirectionCamera = new Vector3(movementDirection.x, 0, movementDirection.y);
-    }
     /// <summary>
     /// Get The Closer Navmesh Position to the world
     /// </summary>
@@ -67,7 +48,7 @@ public class Monster_Movement : MonoBehaviour
 
         Vector3 positionOnNavmesh = positionMouse;
 
-        /*if (NavMesh.SamplePosition(positionMouse.normalized, out NavMeshHit hit, 10, layerMask))
+        /*if (NavMesh.SamplePosition(positionMouse.normalized, out NavMeshHit hit, 10, NavMesh.AllAreas))
         {
             positionOnNavmesh = hit.position;
         }*/

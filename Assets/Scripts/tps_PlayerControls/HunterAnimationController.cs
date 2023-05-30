@@ -1,3 +1,4 @@
+using BrunoMikoski.AnimationSequencer;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,11 +6,21 @@ using UnityEngine;
 public class HunterAnimationController : MonoBehaviour
 {
     [SerializeField] private Tps_PlayerController playerController;
-    private bool isOwner => playerController.enabled;
+    private bool isOwner 
+    { 
+        get 
+        {
+            if (playerController != null) return playerController.enabled;
+            else return false;
+        } 
+    }
+
+    [SerializeField] private GameObject anim_Healing;
 
     //==============================================================================================================
     #region PRIVATE FONCTION
     //==============================================================================================================
+
 
     private void ChangeStateToIdle() 
     {
@@ -29,6 +40,26 @@ public class HunterAnimationController : MonoBehaviour
     private void ATK1() { if (isOwner) playerController.Atk1(); }
     private void ATK2() { if (isOwner) playerController.Atk2(); }
     private void Revive() { if (isOwner) playerController.Revive(); }
+    private void StartHealing() { 
+        anim_Healing.SetActive(true);
+        AnimationSequencerController _asc = anim_Healing.GetComponentInChildren<AnimationSequencerController>();
+        _asc.ResetToInitialState();
+        _asc.Play();
+    }
+    private void EndHealing() {
+        anim_Healing.GetComponentInChildren<AnimationSequencerController>().OnFinishedEvent.AddListener(EndAnimHealing);
+        Debug.Log("Pass Heal");
+        if (!isOwner) return; 
+
+        playerController.playerData.ChangeHp(10);
+        HealthBarManager.Instance.ChangeHealthBar(playerController.playerData.monitor.index, 10);
+    }
+    private void EndAnimHealing()
+    {
+        anim_Healing.GetComponentInChildren<AnimationSequencerController>().OnFinishedEvent.RemoveAllListeners();
+        anim_Healing.SetActive(false);
+    }
+
 
     // AUDIO
 

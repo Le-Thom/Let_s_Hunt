@@ -6,10 +6,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Serialization;
+using static UnityEngine.Rendering.DebugUI;
 
-    [DisallowMultipleComponent]
-    [RequireComponent(typeof(MeshRenderer))]
-    [RequireComponent(typeof(MeshFilter))]
+[DisallowMultipleComponent]
+[RequireComponent(typeof(MeshRenderer))]
+[RequireComponent(typeof(MeshFilter))]
 public class sc_SpriteMesh : MonoBehaviour
 {
     private static class ShaderProps
@@ -72,7 +73,7 @@ public class sc_SpriteMesh : MonoBehaviour
     [SerializeField] private ShadowCastingMode m_shadowCastingMode = ShadowCastingMode.On;
     [SerializeField] private bool m_receiveShadows = true;
     [SerializeField] private LightProbeUsage m_lightProbeUsage = LightProbeUsage.BlendProbes;
-    [SerializeField] private Material m_material;
+    [SerializeField] public Material m_material;
 
     private MeshFilter m_filter;
     private MeshRenderer m_renderer;

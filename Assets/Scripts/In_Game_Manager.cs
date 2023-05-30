@@ -6,6 +6,7 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using Cinemachine;
 using UnityEngine.InputSystem;
+using System;
 
 public class In_Game_Manager : Singleton<In_Game_Manager>
 {
@@ -13,15 +14,21 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
     //VARIABLES
     //========
 
+    /// <summary>
+    /// When the game is Starting with the player id of the actual player
+    /// </summary>
+
     [Header("Ref GameObject")]
     [SerializeField] private GameObject monsterGameObject;
     [SerializeField] private List<GameObject> soldiersGameObject = new();
+    [SerializeField] private GameObject hunterUI;
 
     [Header("Camera")]
     [SerializeField] private CinemachineVirtualCamera startCamera;
 
     private Dictionary<CinemachineVirtualCamera, Tps_PlayerController> soldiersComponent = new();
     private (CinemachineVirtualCamera, PlayerInput) monsterComponent;
+
 
     //========
     //MONOBEHAVIOUR
@@ -56,7 +63,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
     /// Change The Camera And Activate Input 
     /// </summary>
     /// <param name="playerId"></param>
-    public GameObject GiveInputAndCameraToPlayer(int playerId)
+    public void GiveInputAndCameraToPlayer(int playerId)
     {
         GameObject newPlayer = null;
         if (playerId == 0)
@@ -65,6 +72,8 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
             ActivateInputMonster(monsterComponent.Item2);
 
             newPlayer = monsterGameObject;
+
+            UIGlobal_Manager.Instance.SwitchUIState(UIState.Monster);
 
             foreach (Tps_PlayerController tps_PlayerController in soldiersComponent.Values)
             {
@@ -81,16 +90,19 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
             SwitchCamera(soldierCamera);
             ActivateInputSoldier(soldierScript);
 
-
             newPlayer = soldiersGameObject[playerId - 1];
             soldiersComponent.Remove(soldierCamera);
+
+            UIGlobal_Manager.Instance.SwitchUIState(UIState.Soldier);
+
+            newPlayer.GetComponentInChildren<HunterHitCollider>().SetPlayerIdServerRpc(playerId);
+            HealthBarManager.Instance.IndexOwner = playerId;
 
             foreach (Tps_PlayerController tps_PlayerController in soldiersComponent.Values)
             {
                 Destroy(tps_PlayerController);
             }
         }
-        return newPlayer;
     }
     public GameObject GetPlayerViaId(int playerId)
     {

@@ -23,7 +23,7 @@ namespace AkarisuMD
             public States<T>[] states;
 
             /// <summary>
-            /// Current state you machine is.
+            /// Current state your machine is.
             /// </summary>
             public StateId currentState;
             #endregion
@@ -135,6 +135,7 @@ namespace AkarisuMD
             ATK1,
             ATK2,
             EQUIPEMENT,
+            HEALING,
             GETHIT,
 
             // When the game is in pause for the player
@@ -260,6 +261,16 @@ namespace AkarisuMD
             public override StateId GetId()
             {
                 return StateId.EQUIPEMENT;
+            }
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        public class StateHealing<T> : States<T>
+        {
+            public override StateId GetId()
+            {
+                return StateId.HEALING;
             }
         }
         /// <summary>
