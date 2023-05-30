@@ -18,9 +18,10 @@ public class Monster_Camera : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera lockedCamera;
 
     [Header("Free Camera Parameter")]
-    [SerializeField] private float cameraSpeed = 1.2f;
+    [SerializeField] private float cameraWASDSpeed = 1.2f;
+    [SerializeField] private float cameraMouseSpeed = 1.2f;
     [SerializeField] private float screenSizeThickness = 1.2f;
-
+    [SerializeField] private bool canMoveCameraByMouse = false;
     private Vector3 movementDirectionCamera;
 
     private MonsterCameraState currentState = MonsterCameraState.FreeCam;
@@ -32,7 +33,7 @@ public class Monster_Camera : MonoBehaviour
     private void FixedUpdate()
     {
         //Camera Movement on Update So If Key is Long Press, continue to move
-        freeCamera.transform.position += movementDirectionCamera * cameraSpeed;
+        freeCamera.transform.position += movementDirectionCamera * cameraWASDSpeed;
         OnCameraMovementBorderMouse();
     }
 
@@ -49,7 +50,7 @@ public class Monster_Camera : MonoBehaviour
     }
     public void OnCameraMovementBorderMouse()
     {
-        if (!CanMoveCamera()) return;
+        if (!CanMoveCamera() || !canMoveCameraByMouse) return;
 
         Vector2 mousePositionOnScreen = Input.mousePosition;
 
@@ -57,27 +58,27 @@ public class Monster_Camera : MonoBehaviour
         //This is boring
 
         //Up
-        if(mousePositionOnScreen.y >= Screen.height - screenSizeThickness)
+        if(mousePositionOnScreen.x >= Screen.height - screenSizeThickness)
         {
-            newCameraPosition.x -= cameraSpeed * Time.deltaTime;
+            newCameraPosition.x += cameraMouseSpeed * Time.deltaTime;
         }
 
         //Down
-        if (mousePositionOnScreen.y <= screenSizeThickness)
-        {
-            newCameraPosition.x += cameraSpeed * Time.deltaTime;
-        }
-
-        //Up
-        if (mousePositionOnScreen.x >= Screen.height - screenSizeThickness)
-        {
-            newCameraPosition.z += cameraSpeed * Time.deltaTime;
-        }
-
-        //Up
         if (mousePositionOnScreen.x <= screenSizeThickness)
         {
-            newCameraPosition.z -= cameraSpeed * Time.deltaTime;
+            newCameraPosition.x -= cameraMouseSpeed * Time.deltaTime;
+        }
+
+        //Left
+        if (mousePositionOnScreen.y >= Screen.height - screenSizeThickness)
+        {
+            newCameraPosition.z += cameraMouseSpeed * Time.deltaTime;
+        }
+
+        //Right
+        if (mousePositionOnScreen.y <= screenSizeThickness)
+        {
+            newCameraPosition.z -= cameraMouseSpeed * Time.deltaTime;
         }
 
         freeCamera.transform.position = newCameraPosition;

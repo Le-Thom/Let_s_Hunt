@@ -123,6 +123,82 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &24956430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9116424718437147183, guid: b426420e240ce8740a75736eea577347,
+    type: 3}
+  m_PrefabInstance: {fileID: 8110657784034621278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &24956431 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5111335501320840297, guid: b426420e240ce8740a75736eea577347,
+    type: 3}
+  m_PrefabInstance: {fileID: 8110657784034621278}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &24956434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24956430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c10d422b52559da41aa9676770a8fc65, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationSteps:
+  - rid: 6659803089966727168
+  updateType: 0
+  timeScaleIndependent: 0
+  autoplayMode: 0
+  startPaused: 0
+  playbackSpeed: 1
+  playType: 0
+  loops: 0
+  loopType: 0
+  autoKill: 1
+  onStartEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onFinishedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  onProgressEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  progress: -1
+  references:
+    version: 2
+    RefIds:
+    - rid: 6659803089966727168
+      type: {class: DOTweenAnimationStep, ns: BrunoMikoski.AnimationSequencer, asm: BrunoMikoski.AnimationSequencer}
+      data:
+        delay: 0
+        flowType: 0
+        target: {fileID: 24956430}
+        duration: 1
+        loopCount: 999999999
+        loopType: 1
+        actions:
+        - rid: 6659803089966727170
+    - rid: 6659803089966727170
+      type: {class: MoveToPositionDOTweenActionBase, ns: BrunoMikoski.AnimationSequencer,
+        asm: BrunoMikoski.AnimationSequencer}
+      data:
+        direction: 0
+        ease:
+          ease: 7
+          curve:
+            serializedVersion: 2
+            m_Curve: []
+            m_PreInfinity: 2
+            m_PostInfinity: 2
+            m_RotationOrder: 4
+        isRelative: 1
+        localMove: 1
+        axisConstraint: 0
+        position: {x: 0, y: 25, z: 0}
 --- !u!1 &106038583
 GameObject:
   m_ObjectHideFlags: 0
@@ -689,6 +765,11 @@ PrefabInstance:
       objectReference: {fileID: 106038583}
     - target: {fileID: 564159131435758773, guid: b426420e240ce8740a75736eea577347,
         type: 3}
+      propertyPath: _fightBroke
+      value: 
+      objectReference: {fileID: 24956431}
+    - target: {fileID: 564159131435758773, guid: b426420e240ce8740a75736eea577347,
+        type: 3}
       propertyPath: _monsterCamera
       value: 
       objectReference: {fileID: 317630633}
@@ -752,8 +833,38 @@ PrefabInstance:
       propertyPath: m_Name
       value: MiniMap
       objectReference: {fileID: 0}
+    - target: {fileID: 5111335501320840297, guid: b426420e240ce8740a75736eea577347,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111335501320840297, guid: b426420e240ce8740a75736eea577347,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 5111335501320840297, guid: b426420e240ce8740a75736eea577347,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7536974974498143942, guid: b426420e240ce8740a75736eea577347,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 0edf105f5a74d3e4bbcdebd131a9d519,
+        type: 3}
+    - target: {fileID: 9116424718437147183, guid: b426420e240ce8740a75736eea577347,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9116424718437147183, guid: b426420e240ce8740a75736eea577347,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 24956434}
   m_SourcePrefab: {fileID: 100100000, guid: b426420e240ce8740a75736eea577347, type: 3}

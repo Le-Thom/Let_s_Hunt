@@ -21,4 +21,7 @@ public class MonsterHitCollider : NetworkBehaviour
     {
         MonsterGetHitServerRpc(-5);
     }
+
+    
+    public void GetStun() { }
 }

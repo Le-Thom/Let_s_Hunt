@@ -244,18 +244,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c8c92e8943a9914ba89720ba5fcf806, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ViewRadius: 10
+  ViewRadius: 1
   AdditionalSoftenDistance: 10
   ViewAngle: 45
-  UnobscuredRadius: 3
+  UnobscuredRadius: 1.5
   AddCorners: 0
   RevealHiderInFadeOutZonePercentage: 0.5
   EyeOffset: 1
-  VisionHeight: 10
-  VisionHeightSoftenDistance: 1.5
+  VisionHeight: 1
+  VisionHeightSoftenDistance: 4
   ObstacleMask:
     serializedVersion: 2
-    m_Bits: 4097
+    m_Bits: 4353
   RaycastResolution: 0.5
   MaxEdgeResolveIterations: 10
   NumExtraIterations: 4
@@ -264,17 +264,267 @@ MonoBehaviour:
   StaticRevealer: 0
   FogOfWarID: 0
   IndexID: 0
-  NumberOfPoints: 0
-  Angles: []
-  Radii: []
-  AreHits: 
+  NumberOfPoints: 3
+  Angles:
+  - -8.423897
+  - 14.076103
+  - 36.576103
+  - 41.398926
+  - 64.579025
+  - 65.729385
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  Radii:
+  - 1
+  - 1
+  - 1
+  - 5.4963737
+  - 1
+  - 1
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  - 0
+  AreHits: 0000000100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
   MaxAcceptableEdgeAngleDifference: 0.005
   EdgeDstThreshold: 0.1
   DoubleHitMaxDelta: 0.1
   DoubleHitMaxAngleDelta: 15
   DebugMode: 0
   LogNumRaycasts: 0
-  NumRayCasts: 0
+  NumRayCasts: 23
   DrawRayNoise: 0
   DrawExtraCastLines: 0
   DrawIteritiveLines: 0
@@ -577,5 +827,5 @@ Transform:
   - {fileID: 2403324170589150992}
   - {fileID: 4526460632237465321}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
