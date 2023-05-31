@@ -72,14 +72,15 @@ public class PlayerConnectionManager : NetworkBehaviour
         JoinGame_Manager joinGame = FindAnyObjectByType<JoinGame_Manager>();
         joinGame.UpdateSoldierLobbyClientRpc();
     }
-    private void ConnectToVivox()
+    private async void ConnectToVivox()
     {
+        await System.Threading.Tasks.Task.Delay(5000);
         JoinGame_Manager joinGame = FindAnyObjectByType<JoinGame_Manager>();
 
         LoginCredentials.Instance.SetUserName(playerId.Value.ToString());
         LoginCredentials.Instance.Login();
 
-        LoginCredentials.Instance.SetChannelName(joinGame.joinCode.Value);
+        LoginCredentials.Instance.SetChannelName(/*joinGame.joinCode.Value*/ "bite");
         LoginCredentials.Instance.JoinChannel();
     }
 }

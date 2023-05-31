@@ -8,7 +8,6 @@ using VivoxUnity;
 public class LoginCredentials : Singleton<LoginCredentials>
 {
     VivoxUnity.Client client;
-    private string userName;
     private Uri server = new Uri("https://unity.vivox.com/appconfig/90718-let_s-74999-udash");
     private string domain = "mtu1xp.vivox.com";
     private string issuer = "90718-let_s-74999-udash";
@@ -19,7 +18,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
     private ILoginSession loginSession;
     private IChannelSession channelSession;
 
-
+    private string userName;
     private string channelName;
 
     private void Awake()
@@ -106,7 +105,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
     }
     public void JoinChannel()
     {
-        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional);
+        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.NonPositional);
         channelSession = loginSession.GetChannelSession(channelId);
 
         Bind_Channel_Callback_Listeners(true, channelSession);

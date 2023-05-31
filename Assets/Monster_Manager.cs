@@ -22,16 +22,10 @@ public class Monster_Manager : MonoBehaviour
     private Vector3 positionOfTheMonster => monster_Movement.transform.position;
 
     //========
-<<<<<<< Updated upstream
     //MONOBEHAVIOUR
     //========
-    private void Update()
-    {
 
-    }
     //========
-=======
->>>>>>> Stashed changes
     //FONCTIONS
     //========
     public void IsTheMonsterInFightState()
