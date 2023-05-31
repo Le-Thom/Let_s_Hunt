@@ -8,7 +8,6 @@ public class Dash_Competance_Monster : BaseCompetance_Monster
 {
     [SerializeField] private new Collider collider;
     [SerializeField] private GameObject dashDestination;
-    [SerializeField] private Monster_Manager monster_Manager;
     [SerializeField] private float dashForce;
     private NavMeshAgent monster_navmesh => monster_Manager.navmesh;
     private Monster_Movement monster_Movement => monster_Manager.monster_Movement;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[CreateAssetMenu(fileName = "sc_TwitchVote")]
 public class sc_TwitchVote : ScriptableObject
 {
     public int voteCount = 0;
