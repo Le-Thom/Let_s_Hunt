@@ -19,10 +19,10 @@ public class MonsterHitCollider : NetworkBehaviour
         if(canGetHit)
         onMonsterHit?.Invoke(damage);
     }
-    [Button]
-    public void TestingHit()
+
+    public void GetStun()
     {
-        MonsterGetHitServerRpc(-5);
+
     }
     public async void GetMonsterInvincibleForXMiliseconds(int milliseconds)
     {

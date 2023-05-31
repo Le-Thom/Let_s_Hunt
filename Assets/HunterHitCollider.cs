@@ -9,9 +9,6 @@ public class HunterHitCollider : NetworkBehaviour
     [SerializeField] private Equipment equipment1, equipment2;
 
     private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
-    public List<EquipmentDrop> equipmentDropsLists = new();
-
-    // NEED NETWORK HERE FOR INDEX PLAYER
 
     /// <summary>
     /// If collider got hit, transfert info to player.
@@ -31,14 +28,6 @@ public class HunterHitCollider : NetworkBehaviour
     public void DeactivateFlashLightForXMillisecondSecond(int milliseconds)
     {
 
-    }
-    public Equipment GetEquipment(sc_Equipment equipment) 
-    {
-        if (equipment1.GetEquipment() == equipment)
-            return equipment1;
-        else if (equipment2.GetEquipment() == equipment)
-            return equipment2;
-        else return null;
     }
 
     [ServerRpc(RequireOwnership = false)]
