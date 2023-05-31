@@ -26,7 +26,7 @@ public class Monster_Manager : MonoBehaviour
     //========
     private void Update()
     {
-        IsTheMonsterInFightState();
+
     }
     //========
     //FONCTIONS

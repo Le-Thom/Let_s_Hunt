@@ -1,6 +1,7 @@
 using NaughtyAttributes;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(sc_SpriteMesh))]
@@ -167,6 +168,8 @@ public class ObjectDrop : InteractableObject
     {
         if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
             Tps_PlayerController.Instance.interactableObjects.Remove(this);
+
+        GetComponent<NetworkObject>().Despawn(true);
     }
     private void OnTriggerExit(Collider other)
     {
@@ -269,9 +272,10 @@ public class ObjectDrop : InteractableObject
     {
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
     }
-    public override void Interact()
+    [ClientRpc]
+    public override void InteractClientRpc()
     {
-        if (sc_object.GetType() == typeof(sc_Equipment))
+        if (IsHost && sc_object.GetType() == typeof(sc_Equipment))
         {
             int _howMuchLeft = equipment.AddEquipment(sc_object as sc_Equipment ,nb);
             if (_howMuchLeft > 0) nb = _howMuchLeft;
@@ -289,4 +293,6 @@ public class ObjectDrop : InteractableObject
         }
         else Destroy(parent);
     }
+
+    
 }

@@ -735,6 +735,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     {
         _Animator.SetTrigger(_animIDDeath);
 
+        _inputs.Disable();
         playerData.monitor.isChangingState = false;
     }
     private void UpdateDeath()
@@ -748,7 +749,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void ExitDeath()
     {
-
+        _inputs.Enable();
     }
     #endregion
 
@@ -898,7 +899,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Interact
     private void Interact()
     {
-        if (closestInteractableObject != null) closestInteractableObject.Interact();
+        if (closestInteractableObject != null) closestInteractableObject.InteractClientRpc();
     }
     private void UpdateEquipmentCheck()
     {
