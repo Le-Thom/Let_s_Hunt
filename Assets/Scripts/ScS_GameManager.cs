@@ -15,7 +15,6 @@ public class ScS_GameManager : ScriptableObject
         get
         {
             instance = instance ?? Resources.Load<ScS_GameManager>("ManagerSingleton/GameData");
-            Debug.Log(instance);
             return instance;
         }
     }

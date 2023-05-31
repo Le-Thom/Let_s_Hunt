@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="MixerGroup" id="{6cdc6b8f-ed9a-4bf3-8416-5791af2fd64d}">
+		<property name="color">
+			<value>Magenta</value>
+		</property>
+		<property name="name">
+			<value>Monster</value>
+		</property>
+		<relationship name="effectChain">
+			<destination>{ccd2f048-99a1-4018-ae81-cd6320813ee9}</destination>
+		</relationship>
+		<relationship name="panner">
+			<destination>{cc4ffc5f-db6a-463a-a1e2-df46190a471f}</destination>
+		</relationship>
+		<relationship name="output">
+			<destination>{0f5aeb59-7f21-4798-abeb-c6dd9adb3763}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusEffectChain" id="{ccd2f048-99a1-4018-ae81-cd6320813ee9}">
+		<relationship name="effects">
+			<destination>{a2f6d209-8545-4c32-97f9-8a9ea945dde8}</destination>
+		</relationship>
+	</object>
+	<object class="MixerBusPanner" id="{cc4ffc5f-db6a-463a-a1e2-df46190a471f}" />
+	<object class="MixerBusFader" id="{a2f6d209-8545-4c32-97f9-8a9ea945dde8}" />
+</objects>

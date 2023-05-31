@@ -5,7 +5,7 @@
 			<value>Other</value>
 		</property>
 		<relationship name="folder">
-			<destination>{96d61a6f-73fb-4f2c-8571-04ac6ef6c3fb}</destination>
+			<destination>{1b013e21-f945-48eb-8f60-3dd85ff0e14c}</destination>
 		</relationship>
 	</object>
 </objects>

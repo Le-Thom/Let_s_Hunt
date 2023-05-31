@@ -1,0 +1,14 @@
+{ff0c6a9c-fab1-45c2-a4e3-b1ea7408a2f4} bank:/Master
+{67114a48-8bca-0980-22aa-3b1485fba46c} bank:/Master.strings
+{12136644-2aed-4c24-8783-2ca45af5f32c} bus:/
+{cd8c81ca-e11a-4112-b33c-bd122cdd59e5} bus:/Music
+{0f5aeb59-7f21-4798-abeb-c6dd9adb3763} bus:/SFX
+{1b798405-9286-4cd7-8716-e61a39021f83} bus:/SFX/Enviro
+{71f7adb0-0823-4cbf-b24a-9a0942795d1c} bus:/SFX/Equipment
+{7ed3e7b1-2efd-4d33-9bd6-6d542c47315c} bus:/SFX/GameManagment
+{6cdc6b8f-ed9a-4bf3-8416-5791af2fd64d} bus:/SFX/Monster
+{6b3f6627-1a1e-47d9-8242-fe8f0c30caf7} bus:/SFX/Option
+{7700725f-ddcf-4c72-84af-76d954d664b0} bus:/SFX/Player
+{2ec9e2b9-77b8-4fb5-a54a-b89f35737384} bus:/SFX/UI
+{39cc1395-d979-4b3e-911e-11ea4a90cdcc} bus:/SFX/Weapon
+{363de5f3-b730-4194-996e-802f75fcbf72} bus:/SFX/World
