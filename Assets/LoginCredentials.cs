@@ -21,6 +21,8 @@ public class LoginCredentials : Singleton<LoginCredentials>
     private string userName;
     private string channelName;
 
+    public bool channelConnected;
+
     private void Awake()
     {
         client = new Client();
@@ -105,7 +107,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
     }
     public void JoinChannel()
     {
-        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.NonPositional);
+        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional);
         channelSession = loginSession.GetChannelSession(channelId);
 
         Bind_Channel_Callback_Listeners(true, channelSession);
@@ -133,12 +135,15 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 break;
             case ConnectionState.Connected:
                 Debug.Log($"{source.Channel.Name} Connected");
+                channelConnected = true;
                 break;
             case ConnectionState.Disconnecting:
                 Debug.Log($"{source.Channel.Name} Disconnecting");
+                channelConnected = true;
                 break;
             case ConnectionState.Disconnected:
                 Debug.Log($"{source.Channel.Name} Disconnected");
+                channelConnected = true;
                 break;
         }
     }

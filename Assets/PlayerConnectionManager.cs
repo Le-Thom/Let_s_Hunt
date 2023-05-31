@@ -80,7 +80,9 @@ public class PlayerConnectionManager : NetworkBehaviour
         LoginCredentials.Instance.SetUserName(playerId.Value.ToString());
         LoginCredentials.Instance.Login();
 
-        LoginCredentials.Instance.SetChannelName(/*joinGame.joinCode.Value*/ "bite");
+        await System.Threading.Tasks.Task.Delay(15000);
+
+        LoginCredentials.Instance.SetChannelName(/*joinGame.joinCode.Value*/ "Dudule");
         LoginCredentials.Instance.JoinChannel();
     }
 }
