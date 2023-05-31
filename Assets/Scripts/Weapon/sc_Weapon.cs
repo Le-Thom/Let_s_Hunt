@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName ="Weapon", menuName ="Game/Weapon")]
-public class sc_Weapon : ScriptableObject
+public class sc_Weapon : sc_Object
 {
-    public Sprite sprite;
     public float atkDistance;
     public GameObject go_Weapon_Hit_Prefab;
 

@@ -16,6 +16,7 @@ using UnityEngine.AI;
 public class Tps_PlayerController : Singleton<Tps_PlayerController>
 {
 
+
     //==============================================================================================================
     #region PUBLIC
     //==============================================================================================================
@@ -35,6 +36,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     public Tps_Player_Inputs Inputs { get { return _inputs; } }
 
+    public Vector2 directionLook;
+
     #endregion
     //==============================================================================================================
 
@@ -51,6 +54,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private Transform _flashlightRoot;
 
     [SerializeField] private Equipment _equipment1, _equipment2;
+
+    [SerializeField] private GameObject _rotationScream;
 
     #endregion
     //==============================================================================================================
@@ -85,9 +90,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     private const float Rad2Deg = 57.29578f;
 
-    private Medkit_Script currentMedkit;
-
     private float revivingTimer;
+
+    public List<InteractableObject> interactableObjects = new();
+    [SerializeField] private InteractableObject closestInteractableObject;
+
+    private bool WasOnSelectEquipment;
 
     #endregion
     //==============================================================================================================
@@ -106,7 +114,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void OnEnable()
     {
         // active inputs
-        //_inputs.Enable();
+        _inputs.Enable();
     }
 
     private void Start()
@@ -114,6 +122,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         ResetPlayerData();
 
         SetVirtualCamParameters();
+
+        SetEvent();
 
         playerData.monitor.isValid = true;
     }
@@ -128,6 +138,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         if (!playerData.monitor.isValid) return;
 
         stateMachine.Update();
+
+        if (stateMachine.currentState != StateId.IDLE && closestInteractableObject != null)
+            closestInteractableObject.StopBeingTheClosest();
     }
 
     private void OnDisable()
@@ -138,7 +151,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     private void OnDestroy()
     {
-        
+
     }
 
     #endregion
@@ -149,7 +162,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     //==============================================================================================================
 
     /// <summary>
-    /// Get Current State If State Machine
+    /// Get Current State of State Machine
     /// </summary>
     public StateId GetCurrentState()
     {
@@ -172,7 +185,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// <summary>
     /// Set State of player to idle.
     /// </summary>
-    public void ChangeStateToIdle() => stateMachine.ChangeState(StateId.IDLE);
+    public void ChangeStateToIdle()
+    {
+        if (WasOnSelectEquipment)
+            stateMachine.ChangeState(StateId.EQUIPEMENT);
+        else
+            stateMachine.ChangeState(StateId.IDLE);
+    }
 
     /// <summary>
     /// Exit dodge state.
@@ -185,7 +204,15 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// <summary>
     /// Exit dodge state.
     /// </summary>
-    public void EndDodge() { stateMachine.ChangeState(StateId.IDLE); Debug.Log("end dodge"); }
+    public void EndDodge() { 
+
+        if ( WasOnSelectEquipment)
+            stateMachine.ChangeState(StateId.EQUIPEMENT);
+        else 
+            stateMachine.ChangeState(StateId.IDLE);
+
+        Debug.Log("end dodge"); 
+    }
 
     /// <summary>
     /// Attack by making a new component of the weapon to call the fonction, then destroy the Monobehaviour.
@@ -222,10 +249,19 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// </summary>
     public void Revive()
     {
-        
+
     }
 
-    public void Died() => stateMachine.ChangeState(StateId.DEATH);
+    public void Died() { 
+        stateMachine.ChangeState(StateId.DEATH);
+        WasOnSelectEquipment = false; 
+    }
+
+    public GameObject _Instantiate(GameObject original, Vector3 position, Quaternion rotation)
+    {
+        GameObject _obj = Instantiate(original, position, rotation);
+        return _obj;
+    }
 
     #endregion
     //==============================================================================================================
@@ -233,6 +269,32 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     //==============================================================================================================
     #region PRIVATE FONCTION
     //==============================================================================================================
+
+    [Button]
+    private void ActiveInput()
+    {
+        _inputs.Enable();
+    }
+
+    private void SetEvent()
+    {
+        ScreamMonster.Instance.delegateEventsScream += MonsterScream;
+    }
+
+    /// <summary>
+    /// Set ID of animation to there value.
+    /// </summary>
+    private void AssignAnimationIDs()
+    {
+        _animIDSpeed = Animator.StringToHash("Speed");
+        _animIDDodge = Animator.StringToHash("Dodge");
+        _animIDAtk1 = Animator.StringToHash("Atk1");
+        _animIDAtk2 = Animator.StringToHash("Atk2");
+        _animIDGetHit = Animator.StringToHash("GetHit");
+        _animIDHealing = Animator.StringToHash("Healing");
+        _animIDDeath = Animator.StringToHash("Death");
+        _animIDRevive = Animator.StringToHash("Revive");
+    }
 
     #region Data
 
@@ -254,6 +316,43 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     #endregion
 
+    private void OnEquipment1()
+    {
+        if (stateMachine.currentState != StateId.IDLE && stateMachine.currentState != StateId.EQUIPEMENT) return;
+
+        _equipment1.SetOnSelected();
+
+        Equipment _equipment = GetSelectedEquipment();
+        if (_equipment == null)
+        {
+            stateMachine.ChangeState(StateId.IDLE);
+            WasOnSelectEquipment = false;
+        }
+        else 
+        {
+            stateMachine.ChangeState(StateId.EQUIPEMENT);
+            WasOnSelectEquipment = true;
+        }
+    }
+    private void OnEquipment2()
+    {
+        if (stateMachine.currentState != StateId.IDLE && stateMachine.currentState != StateId.EQUIPEMENT) return;
+
+        _equipment2.SetOnSelected();
+
+        Equipment _equipment = GetSelectedEquipment();
+        if (_equipment == null)
+        {
+            stateMachine.ChangeState(StateId.IDLE);
+            WasOnSelectEquipment = false;
+        }
+        else
+        {
+            stateMachine.ChangeState(StateId.EQUIPEMENT);
+            WasOnSelectEquipment = true;
+        }
+    }
+
     #region InputsEvent
 
     /// <summary>
@@ -271,12 +370,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _inputs.Player.Attack2.started += ctx => playerData.monitor.tryToAtk2 = true;
         _inputs.Player.Attack2.canceled += ctx => playerData.monitor.tryToAtk2 = false;
         // Equipment1
-        _inputs.Player.Equipment1.started += ctx => _equipment1.SetOnSelected();
+        _inputs.Player.Equipment1.started += ctx => OnEquipment1();
         // Equipment2
-        _inputs.Player.Equipment2.started += ctx => _equipment2.SetOnSelected();
+        _inputs.Player.Equipment2.started += ctx => OnEquipment2();
+        // Interact
+        _inputs.Player.Interact.started += ctx => Interact();
         // Drop
-        _inputs.Player.Drop.started += ctx => _equipment1.Drop();
-        _inputs.Player.Drop.started += ctx => _equipment2.Drop();
+        _inputs.Player.Drop.started += ctx => _equipment1.Drop(this);
+        _inputs.Player.Drop.started += ctx => _equipment2.Drop(this);
     }
 
     /// <summary>
@@ -470,7 +571,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // move the player.
         Move(HunterMoveType.NORMAL);
 
-        if(playerData.monitor.isAtk1) stateMachine.ChangeState(StateId.ATK1);
+        UpdateEquipmentCheck();
+
+        if (playerData.monitor.isAtk1) stateMachine.ChangeState(StateId.ATK1);
         if (playerData.monitor.isAtk2) stateMachine.ChangeState(StateId.ATK2);
     }
     private void ExitStateIdle()
@@ -508,7 +611,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void UpdateStateAtk1()
     {
-        MoveFlashlight(); 
+        MoveFlashlight();
         FlipBody();
         Move(HunterMoveType.STOP);
         if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
@@ -545,9 +648,26 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void UpdateStateEquipement()
     {
-        MoveFlashlight();
-        FlipBody();
+        MoveFlashlight(); FlipBody();
+        // move the player.
         Move(HunterMoveType.NORMAL);
+
+        UpdateEquipmentCheck();
+
+        if (playerData.monitor.isAtk1)
+        {
+            GetSelectedEquipment().UseItem(this);
+            playerData.monitor.tryToAtk1 = false;
+            UnselectAllEquipment();
+            if (stateMachine.currentState == StateId.EQUIPEMENT) stateMachine.ChangeState(StateId.IDLE);
+        }
+        if (playerData.monitor.isAtk2)
+        {
+            GetSelectedEquipment().UseItem(this);
+            playerData.monitor.tryToAtk2 = false;
+            UnselectAllEquipment();
+            if (stateMachine.currentState == StateId.EQUIPEMENT) stateMachine.ChangeState(StateId.IDLE);
+        }
     }
     private void ExitStateEquipement()
     {
@@ -558,10 +678,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void InitStateHealing()
     {
         _Animator.SetTrigger(_animIDHealing);
-
-        currentMedkit = new Medkit_Script (this, 1, 10, 5);
-
-        currentMedkit.OnUse();
 
         playerData.monitor.isChangingState = false;
     }
@@ -574,12 +690,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void ExitStateHealing()
     {
         playerData.monitor.isChangingState = true;
-
-        //Check If For Assuring The Player doesn't use 2 medkit insteed of one
-        if (!currentMedkit.DidPlayerFinishUsingThisMedkit())
-        {
-            currentMedkit.SetPlayerCanUseMedkit(false);
-        }
     }
     #endregion
     #region Get Hit
@@ -648,29 +758,17 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     #region Movement
 
-    /// <summary>
-    /// Set ID of animation to there value.
-    /// </summary>
-    private void AssignAnimationIDs()
-    {
-        _animIDSpeed = Animator.StringToHash("Speed");
-        _animIDDodge = Animator.StringToHash("Dodge");
-        _animIDAtk1 = Animator.StringToHash("Atk1");
-        _animIDAtk2 = Animator.StringToHash("Atk2");
-        _animIDHealing = Animator.StringToHash("Healing");
-        _animIDGetHit = Animator.StringToHash("GetHit");
-        _animIDDeath = Animator.StringToHash("Death");
-        _animIDRevive = Animator.StringToHash("Revive");
-    }
 
     /// <summary>
     /// Movement of player.
     /// </summary>
     private void Move(HunterMoveType hunterMoveType)
     {
-        if (!playerData.monitor.canMove) {
+        if (!playerData.monitor.canMove)
+        {
             playerData.variables.speed = 0.0f;
-            return; }
+            return;
+        }
 
         // set target speed based on move speed, sprint speed and if sprint is pressed
         // float targetSpeed = playerData.monitor.isSprinting ? playerData.inGameDataValue.sprintSpeed : playerData.inGameDataValue.speed;
@@ -702,7 +800,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         playerData.variables.speed = lerpedTargetSpeed;
 
 
-            _animSpeedBlend = Mathf.Lerp(_animSpeedBlend, lerpedTargetSpeed / targetSpeed, Time.deltaTime * playerData.inGameDataValue.speedChangeRate);
+        _animSpeedBlend = Mathf.Lerp(_animSpeedBlend, lerpedTargetSpeed / targetSpeed, Time.deltaTime * playerData.inGameDataValue.speedChangeRate);
         if (_animSpeedBlend < 0.01f) _animSpeedBlend = 0f;
 
 
@@ -730,7 +828,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _targetCamera.transform.position = transform.position + Vector3.up * 1.65f;
 
         // Set sprite pos to player pos.
-        _Body.transform.position = transform.position + Vector3.up * 0.2f;
+        _Body.transform.position = transform.position + Vector3.up * 1f;
 
         // Set flashlight pos to player pos
         _flashlightRoot.position = transform.position + Vector3.up * 0.01f;
@@ -761,10 +859,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         Vector3 playerPosInViewport = _Camera.WorldToScreenPoint(_targetCamera.transform.position);
 
         // direction of the vector from player to mouse.
-        Vector2 _direction = new Vector2(playerPosInViewport.x - objectif.x, playerPosInViewport.y - objectif.y);
+        directionLook = new Vector2(playerPosInViewport.x - objectif.x, playerPosInViewport.y - objectif.y);
 
         // calculate Y rotation from the direction.
-        _lookTargetRotation = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg + 90;
+        _lookTargetRotation = Mathf.Atan2(directionLook.x, directionLook.y) * Mathf.Rad2Deg + 90;
     }
 
     /// <summary>
@@ -797,6 +895,133 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         if (revivingTimer > playerData.inGameDataValue.reviveTime) stateMachine.ChangeState(StateId.IDLE);
     }
 
+    #region Interact
+    private void Interact()
+    {
+        if (closestInteractableObject != null) closestInteractableObject.Interact();
+    }
+    private void UpdateEquipmentCheck()
+    {
+        InteractableObject _closestEquipment = GetClosestItem();
+        if (closestInteractableObject != null && (_closestEquipment == null || _closestEquipment != closestInteractableObject))
+        {
+            closestInteractableObject.StopBeingTheClosest();
+            closestInteractableObject = null;
+        }
+
+        if (_closestEquipment == null) return;
+
+        if (_closestEquipment.TryGetComponent<ObjectDrop>(out ObjectDrop _equipmentDrop))
+        {
+            Equipment _emptyEquipment = IsOneOfEquipmentEmpty();
+            if (_emptyEquipment != null)
+            {
+                _closestEquipment.IsClosestToInteract();
+                closestInteractableObject = _closestEquipment;
+                return;
+            }
+        }
+
+        else
+        {
+            _closestEquipment.IsClosestToInteract();
+            closestInteractableObject = _closestEquipment;
+        }
+
+        closestInteractableObject.IsClosestToInteract();
+
+    }
+    private InteractableObject GetClosestItem()
+    {
+        if (interactableObjects.Count == 0) return null;
+
+        InteractableObject _io = null;
+        float _distClosest = 10000;
+        for (int i = 0; i < interactableObjects.Count; i++)
+        {
+            if (interactableObjects[i].IsInteractable())
+            {
+                if (interactableObjects[i].GetType() == typeof(ObjectDrop))
+                {
+                    Equipment _equipment = IsOneOfEquipmentEmpty();
+                    if (_equipment != null)
+                    {
+                        float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
+                        if (_distMagnitude < _distClosest)
+                        {
+                            _io = interactableObjects[i];
+                            _distClosest = _distMagnitude;
+                        }
+                    }
+                }
+                else
+                {
+                    float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
+                    if (_distMagnitude < _distClosest)
+                    {
+                        _io = interactableObjects[i];
+                        _distClosest = _distMagnitude;
+                    }
+                }
+            }
+        }
+        return _io;
+    }
+    #endregion
+
+    public Equipment GetEquipment(int who)
+    {
+        switch (who)
+        {
+            case 1:
+                return _equipment1;
+                break;
+            case 2:
+                return _equipment2;
+                break;
+            default:
+                Debug.LogError("Wrong Equipment index selection");
+                return null;
+                break;
+        }
+    }
+    public Equipment IsOneOfEquipmentEmpty()
+    {
+        if (_equipment1.GetEquipment() == null) return _equipment1;
+        else if (_equipment2.GetEquipment() == null) return _equipment2;
+        else return null;
+    }
+    private Equipment GetSelectedEquipment()
+    {
+        if (_equipment1.GetOnSelected()) return _equipment1;
+        else if (_equipment2.GetOnSelected()) return _equipment2;
+        else return null;
+    }
+    private void UnselectAllEquipment()
+    {
+        if (_equipment1.GetOnSelected()) _equipment1.SetOnSelected();
+        else if (_equipment2.GetOnSelected()) _equipment2.SetOnSelected();
+    }
+
+    private void MonsterScream(Vector3 position, float timer)
+    {
+        _rotationScream.SetActive(true);
+
+        // direction of the vector from player to mouse.
+        Vector2 _directionLook = new Vector2(transform.position.x - position.x, transform.position.z - position.z);
+
+        // calculate Y rotation from the direction.
+        float __lookTargetRotation = Mathf.Atan2(-_directionLook.x, _directionLook.y) * Mathf.Rad2Deg + 180;
+
+        _rotationScream.transform.rotation = Quaternion.Euler(0,0, __lookTargetRotation);
+
+        StartCoroutine(TimerMonsterScream(timer));
+    }
+    private IEnumerator TimerMonsterScream(float timer)
+    {
+        yield return new WaitForSeconds(timer);
+        _rotationScream.SetActive(false);
+    }
 
     #endregion
     //==============================================================================================================

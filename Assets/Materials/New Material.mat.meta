@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Animations/Particle/BloodAnim.anim.meta
+guid: 4eae8c54c1abeed49b0132490e628cb0
+========
 guid: 477692f0d8c6c0f439d0f0c87d1641e8
+>>>>>>>> GD:Assets/Materials/New Material.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000

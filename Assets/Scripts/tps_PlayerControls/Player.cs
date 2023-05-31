@@ -23,7 +23,7 @@ namespace AkarisuMD
             public States<T>[] states;
 
             /// <summary>
-            /// Current state you machine is.
+            /// Current state your machine is.
             /// </summary>
             public StateId currentState;
             #endregion
