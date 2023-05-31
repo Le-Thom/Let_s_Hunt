@@ -10,6 +10,7 @@ public class MiniMapManager : Singleton<MiniMapManager>
     [SerializeField] private Camera _camera;
     [SerializeField] private GameObject _monster;
     [SerializeField] private Transform _monsterCamera;
+    [SerializeField] private bool isHunter = false;
     [SerializeField] private RectTransform _MM_MonsterCamera;
     [SerializeField] private GameObject monsterZone_Top_Left, monsterZone_Top_Right, monsterZone_Bottom_Left, monsterZone_Bottom_Right;
     
@@ -55,10 +56,24 @@ public class MiniMapManager : Singleton<MiniMapManager>
     }
 
     // Public fonction
+
+    public void SetForMonster()
+    {
+        isHunter = false;
+    }
+    public void SetForHunter()
+    {
+        isHunter = true; 
+        _MM_MonsterCamera.gameObject.SetActive(false);
+    }
+
     [Button]
     public void FightBroke()
     {
-        StartCoroutine(_FightBroke());
+        if (!isHunter)
+        {
+            StartCoroutine(_FightBroke());
+        }
     }
 
     // Private fonction
@@ -77,8 +92,11 @@ public class MiniMapManager : Singleton<MiniMapManager>
     }
     private void MM_Updater()
     {
-        MonsterPosition();
-        CameraPosition();
+        if (!isHunter)
+        {
+            MonsterPosition();
+            CameraPosition();
+        }
     }
 
     private void MonsterPosition()

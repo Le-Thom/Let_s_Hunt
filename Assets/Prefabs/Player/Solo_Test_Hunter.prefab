@@ -430,7 +430,7 @@ MonoBehaviour:
   AddCorners: 0
   RevealHiderInFadeOutZonePercentage: 0.5
   EyeOffset: 1
-  VisionHeight: 1
+  VisionHeight: 5
   VisionHeightSoftenDistance: 4
   ObstacleMask:
     serializedVersion: 2
@@ -718,6 +718,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7484155002877759297}
   - component: {fileID: 7309681137719932174}
+  - component: {fileID: 7628223629269391792}
   m_Layer: 10
   m_Name: VoiceSpeakerListener
   m_TagString: Untagged
@@ -753,6 +754,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 2403324170589150992}
+  isActif: 0
+--- !u!114 &7628223629269391792
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2902979864493648293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &3304793421507758945
 GameObject:
   m_ObjectHideFlags: 0
@@ -1210,7 +1228,7 @@ Transform:
   - {fileID: 2872250107980376960}
   - {fileID: 7484155002877759297}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3863997562566330115
 PrefabInstance:

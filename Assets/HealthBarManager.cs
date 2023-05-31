@@ -26,8 +26,6 @@ public class HealthBarManager : Singleton<HealthBarManager>
             return;
         }
 
-        Debug.LogError("Whats");
-
         healthBar1.SetIndexPlayer(_indexOwner);
         _indexPlayers.Remove(_indexOwner);
 

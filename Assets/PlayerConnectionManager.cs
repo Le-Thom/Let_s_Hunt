@@ -74,7 +74,7 @@ public class PlayerConnectionManager : NetworkBehaviour
     }
     private async void ConnectToVivox()
     {
-        await System.Threading.Tasks.Task.Delay(5000);
+        await System.Threading.Tasks.Task.Delay(50);
         JoinGame_Manager joinGame = FindAnyObjectByType<JoinGame_Manager>();
 
         LoginCredentials.Instance.SetUserName(playerId.Value.ToString());
