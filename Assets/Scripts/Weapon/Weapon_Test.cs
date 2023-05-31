@@ -18,7 +18,7 @@ public class Weapon_Test : Weapon
         Debug.Log("ATK1 from Weapon_Test");
         for (int i = 0; i < listTarget.Count; i++)
         {
-            listTarget[i].GetHit(weapon.DamageAtk1);
+            listTarget[i].MonsterGetHitServerRpc(weapon.DamageAtk1);
         }
 
         Destroy();
@@ -30,7 +30,7 @@ public class Weapon_Test : Weapon
         Debug.Log("ATK2 from Weapon_Test");
         for (int i = 0; i < listTarget.Count; i++)
         {
-            listTarget[i].GetHit(weapon.DamageAtk2);
+            listTarget[i].MonsterGetHitServerRpc(weapon.DamageAtk2);
         }
 
         Destroy();
