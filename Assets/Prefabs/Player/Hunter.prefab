@@ -277,7 +277,7 @@ MonoBehaviour:
   AddCorners: 0
   RevealHiderInFadeOutZonePercentage: 0.5
   EyeOffset: 1
-  VisionHeight: 1
+  VisionHeight: 5
   VisionHeightSoftenDistance: 4
   ObstacleMask:
     serializedVersion: 2
@@ -1361,7 +1361,7 @@ Transform:
   - {fileID: 4402414184197764421}
   - {fileID: 1512120570887448886}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 25
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8980991942242729264
 PrefabInstance:
