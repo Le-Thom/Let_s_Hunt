@@ -6,6 +6,7 @@ using UnityEngine;
 public class MiniMapManager : Singleton<MiniMapManager>
 {
     // Reference
+    [SerializeField] public GameObject canvas; 
     [SerializeField] private RectTransform _MM_UI;
     [SerializeField] private Camera _camera;
     [SerializeField] private GameObject _monster;

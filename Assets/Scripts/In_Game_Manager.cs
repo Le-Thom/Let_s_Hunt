@@ -80,6 +80,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
                 Destroy(tps_PlayerController);
             }
 
+            MiniMapManager.Instance.canvas.SetActive(true);
             MiniMapManager.Instance.SetForMonster();
         }
         else
@@ -105,6 +106,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
                 Destroy(tps_PlayerController);
             }
 
+            MiniMapManager.Instance.canvas.SetActive(true);
             MiniMapManager.Instance.SetForHunter();
         }
     }
