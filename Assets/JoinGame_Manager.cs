@@ -19,7 +19,7 @@ public class JoinGame_Manager : NetworkBehaviour
     public Button startButton;
     [SerializeField] private Button createRoomButton;
     [SerializeField] private GameObject lobbyMenu_UI;
-    [SerializeField] private TextMeshProUGUI streamerName;
+    [SerializeField] private TextMeshProUGUI streamerNameText;
     [SerializeField] private TextMeshProUGUI joinCodeText;
     [SerializeField] private List<SoldierLobby> soldierLobbies = new List<SoldierLobby>();
 
@@ -28,6 +28,7 @@ public class JoinGame_Manager : NetworkBehaviour
 
     [Header("Network Variable")]
     [SerializeField] private NetworkVariable<bool> isTheGameStarted = new NetworkVariable<bool>(false);
+    public NetworkVariable<string> joinCode = new NetworkVariable<string>("");
 
     //========
     //MONOBEHAVIOUR
@@ -41,6 +42,14 @@ public class JoinGame_Manager : NetworkBehaviour
     {
         startButton.onClick.RemoveListener(TryToStartGameServerRpc);
         relayScript.onCreateRoomSuccess.AddListener(SetJoinCode);
+    }
+    public override void OnGainedOwnership()
+    {
+        if(IsHost)
+        {
+            print("testing");
+            joinCode.Value = relayScript.GetJoinCode();
+        }
     }
     private void Update()
     {

@@ -706,7 +706,6 @@ MonoBehaviour:
   timeOfTheAttack: 10
   collider: {fileID: 3904276831777882081}
   dashDestination: {fileID: 177065812614315010}
-  monster_Manager: {fileID: 3132927831057079988}
   dashForce: 0
 --- !u!65 &3904276831777882081
 BoxCollider:

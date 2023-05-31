@@ -5,6 +5,7 @@ using UnityEngine.Events;
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using GameplayIngredients;
+using System;
 
 public class PlayerConnectionManager : NetworkBehaviour
 {
@@ -46,6 +47,7 @@ public class PlayerConnectionManager : NetworkBehaviour
 
             joinGame.UpdateSoldierLobbyClientRpc();
         }
+        if (IsOwner) ConnectToVivox();
     }
 
     private new void OnDestroy()
@@ -69,5 +71,15 @@ public class PlayerConnectionManager : NetworkBehaviour
 
         JoinGame_Manager joinGame = FindAnyObjectByType<JoinGame_Manager>();
         joinGame.UpdateSoldierLobbyClientRpc();
+    }
+    private void ConnectToVivox()
+    {
+        JoinGame_Manager joinGame = FindAnyObjectByType<JoinGame_Manager>();
+
+        LoginCredentials.Instance.SetUserName(playerId.Value.ToString());
+        LoginCredentials.Instance.Login();
+
+        LoginCredentials.Instance.SetChannelName(joinGame.joinCode.Value);
+        LoginCredentials.Instance.JoinChannel();
     }
 }

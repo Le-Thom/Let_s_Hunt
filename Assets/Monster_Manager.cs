@@ -22,6 +22,7 @@ public class Monster_Manager : MonoBehaviour
     private Vector3 positionOfTheMonster => monster_Movement.transform.position;
 
     //========
+<<<<<<< Updated upstream
     //MONOBEHAVIOUR
     //========
     private void Update()
@@ -29,6 +30,8 @@ public class Monster_Manager : MonoBehaviour
 
     }
     //========
+=======
+>>>>>>> Stashed changes
     //FONCTIONS
     //========
     public void IsTheMonsterInFightState()
@@ -66,6 +69,7 @@ public class Monster_Manager : MonoBehaviour
         {
             case VisibleState.OnlyVisibleByStreamer:
                 monster_Camera.ChangeCameraState(MonsterCameraState.LockedCam);
+
                 break;
             case VisibleState.Invisible:
                 monster_Camera.ChangeCameraState(MonsterCameraState.FreeCam);
