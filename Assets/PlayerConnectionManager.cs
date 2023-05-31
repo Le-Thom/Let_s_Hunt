@@ -79,10 +79,5 @@ public class PlayerConnectionManager : NetworkBehaviour
 
         LoginCredentials.Instance.SetUserName(playerId.Value.ToString());
         LoginCredentials.Instance.Login();
-
-        await System.Threading.Tasks.Task.Delay(15000);
-
-        LoginCredentials.Instance.SetChannelName(/*joinGame.joinCode.Value*/ "Dudule");
-        LoginCredentials.Instance.JoinChannel();
     }
 }

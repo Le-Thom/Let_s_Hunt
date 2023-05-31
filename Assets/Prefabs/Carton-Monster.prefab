@@ -11250,6 +11250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 2871038976918588050}
+  isActif: 0
 --- !u!1 &7404583851240523823
 GameObject:
   m_ObjectHideFlags: 0

@@ -80,6 +80,9 @@ public class LoginCredentials : Singleton<LoginCredentials>
 
             case LoginState.LoggedIn:
                 Debug.Log($"Logged In {loginSession.LoginSessionId.Name}");
+
+                SetChannelName(/*joinGame.joinCode.Value*/ "Dudule");
+                JoinChannel();
                 break;
 
         }
@@ -136,14 +139,19 @@ public class LoginCredentials : Singleton<LoginCredentials>
             case ConnectionState.Connected:
                 Debug.Log($"{source.Channel.Name} Connected");
                 channelConnected = true;
+                PositionalChannel[] positionalChannel = FindObjectsOfType<PositionalChannel>();
+                foreach (var item in positionalChannel)
+                {
+                    item._Start();
+                }
                 break;
             case ConnectionState.Disconnecting:
                 Debug.Log($"{source.Channel.Name} Disconnecting");
-                channelConnected = true;
+                channelConnected = false;
                 break;
             case ConnectionState.Disconnected:
                 Debug.Log($"{source.Channel.Name} Disconnected");
-                channelConnected = true;
+                channelConnected = false;
                 break;
         }
     }
