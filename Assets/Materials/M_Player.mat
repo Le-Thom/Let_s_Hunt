@@ -30,7 +30,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _Hit_Distortion: 0.692
+    - _Hit_Distortion: 0.09
     - _IsHit: 0
     - _IsRandom: 0
     - _ItsMonster: 1

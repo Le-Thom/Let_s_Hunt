@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-8597102629635218130
+--- !u!114 &-4092600871605949644
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,11 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 554186fd0b9ae594dad66993f12f6ac9, type: 3}
-  m_Name: FogOfWarRenderFeature
+  m_Script: {fileID: 11500000, guid: 92f75fda1b575d0449f730df8720485b, type: 3}
+  m_Name: Blit
   m_EditorClassIdentifier: 
-  m_Active: 1
-  renderPassEvent: 300
+  m_Active: 0
+  settings:
+    Event: 300
+    blitMaterial: {fileID: 0}
+    blitMaterialPassIndex: 0
+    destination: 0
+    textureId: _BlitPassTexture
 --- !u!114 &-1878332245247344467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -66,8 +71,8 @@ MonoBehaviour:
       type: 3}
   m_RendererFeatures:
   - {fileID: -1878332245247344467}
-  - {fileID: -8597102629635218130}
-  m_RendererFeatureMap: adc0de57c6d2eee52e25042fb5f4b088
+  - {fileID: -4092600871605949644}
+  m_RendererFeatureMap: adc0de57c6d2eee5342b79d8302934c7
   m_UseNativeRenderPass: 0
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
   xrSystemData: {fileID: 11400000, guid: 60e1133243b97e347b653163a8c01b64, type: 2}
