@@ -11,7 +11,7 @@ public class Monster_Animator : MonoBehaviour
     private void Update()
     {
         Vector3 vector3 = monster_Movement.transform.position - navMesh.destination;
-        animatorMonster.SetFloat("", vector3.x);
-        animatorMonster.SetFloat("", vector3.z);
+        animatorMonster.SetFloat("XDirection", vector3.x);
+        animatorMonster.SetFloat("YDirection", vector3.z);
     }
 }

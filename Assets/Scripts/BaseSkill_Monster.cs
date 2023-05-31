@@ -13,6 +13,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     //========
 
     [SerializeField] private Slider UI_skillCooldown;
+    public Monster_Manager monster_Manager;
 
     [Header("In-Game ")]
     [SerializeField] private bool isSkillOnCooldown = false;

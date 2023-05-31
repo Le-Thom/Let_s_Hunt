@@ -2,16 +2,18 @@ using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
-[RequireComponent(typeof(PlayerInput))]
 public class Monster_Manager : MonoBehaviour
 {
     //========
     //VARIABLES
     //========
 
-    [SerializeField] private Monster_Movement monster_Movement;
+    public Monster_Movement monster_Movement;
+    public MonsterHitCollider monsterHitCollider;
+    public NavMeshAgent navmesh => monster_Movement.navMeshAgent;
     [SerializeField] private Monster_Camera monster_Camera;
     private VisibleState currentState;
 
@@ -22,13 +24,17 @@ public class Monster_Manager : MonoBehaviour
     //========
     //MONOBEHAVIOUR
     //========
-
+    private void Update()
+    {
+        IsTheMonsterInFightState();
+    }
     //========
     //FONCTIONS
     //========
-    public async void IsTheMonsterInFightState()
+    public void IsTheMonsterInFightState()
     {
-        await Task.Delay(1000);
+        //await Task.Delay(1000);
+        print(IsMonsterCloseToSoldier());
         if(IsMonsterCloseToSoldier())
         {
             SwitchVisibleState(VisibleState.OnlyVisibleByStreamer);
@@ -44,6 +50,7 @@ public class Monster_Manager : MonoBehaviour
         RaycastHit[] sphereCastHits = Physics.SphereCastAll(ray, distanceBetweenMonsterAndSoldier);
         foreach(RaycastHit sphereCastHit in sphereCastHits)
         {
+            print(sphereCastHit.collider.name);
             if(sphereCastHit.collider.TryGetComponent<HunterHitCollider>(out HunterHitCollider hunterCollider))
             {
                 return true;
@@ -54,6 +61,16 @@ public class Monster_Manager : MonoBehaviour
     public void SwitchVisibleState(VisibleState newState)
     {
         currentState = newState;
+        print(newState.ToString());
+        switch(newState)
+        {
+            case VisibleState.OnlyVisibleByStreamer:
+                monster_Camera.ChangeCameraState(MonsterCameraState.LockedCam);
+                break;
+            case VisibleState.Invisible:
+                monster_Camera.ChangeCameraState(MonsterCameraState.FreeCam);
+                break;
+        }
     }
 }
 public enum VisibleState

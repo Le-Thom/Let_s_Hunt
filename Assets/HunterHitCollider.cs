@@ -24,7 +24,14 @@ public class HunterHitCollider : NetworkBehaviour
 
         HealthBarManager.Instance.ChangeHealthBar(indexPlayer.Value, Damage); 
     }
+    public void StunHunter()
+    {
 
+    }
+    public void DeactivateFlashLightForXMillisecondSecond(int milliseconds)
+    {
+
+    }
     public Equipment GetEquipment(sc_Equipment equipment) 
     {
         if (equipment1.GetEquipment() == equipment)

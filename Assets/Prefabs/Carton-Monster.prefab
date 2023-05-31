@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5565599268571159539}
   - component: {fileID: 2816011442643625000}
+  - component: {fileID: 912269387406988213}
   m_Layer: 0
   m_Name: cm
   m_TagString: Untagged
@@ -44,6 +45,49 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac0b09e7857660247b1477e93731de29, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &912269387406988213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55245138313625473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
+  m_LookaheadTime: 0
+  m_LookaheadSmoothing: 0
+  m_LookaheadIgnoreY: 0
+  m_XDamping: 1
+  m_YDamping: 1
+  m_ZDamping: 1
+  m_TargetMovementOnly: 1
+  m_ScreenX: 0.5
+  m_ScreenY: 0.5
+  m_CameraDistance: 10
+  m_DeadZoneWidth: 0
+  m_DeadZoneHeight: 0
+  m_DeadZoneDepth: 0
+  m_UnlimitedSoftZone: 0
+  m_SoftZoneWidth: 0.8
+  m_SoftZoneHeight: 0.8
+  m_BiasX: 0
+  m_BiasY: 0
+  m_CenterOnActivate: 1
+  m_GroupFramingMode: 2
+  m_AdjustmentMode: 0
+  m_GroupFramingSize: 0.8
+  m_MaxDollyIn: 5000
+  m_MaxDollyOut: 5000
+  m_MinimumDistance: 1
+  m_MaximumDistance: 5000
+  m_MinimumFOV: 3
+  m_MaximumFOV: 60
+  m_MinimumOrthoSize: 1
+  m_MaximumOrthoSize: 5000
 --- !u!1 &177065812614315010
 GameObject:
   m_ObjectHideFlags: 0
@@ -53,7 +97,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1141315216927712909}
-  - component: {fileID: 4316078579777109003}
+  - component: {fileID: 7456292689274380308}
   m_Layer: 0
   m_Name: Blackout_Skill
   m_TagString: Untagged
@@ -76,7 +120,7 @@ Transform:
   m_Father: {fileID: 1975943591984984862}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4316078579777109003
+--- !u!114 &7456292689274380308
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,14 +129,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 177065812614315010}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e1a878a26d3c8041aa5f1681be54185, type: 3}
+  m_Script: {fileID: 11500000, guid: 96c5900b7ef9a5543b79677ba448c4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UI_skillCooldown: {fileID: 0}
-  isSkillOnCooldown: 1
+  monster_Manager: {fileID: 3132927831057079988}
+  isSkillOnCooldown: 0
   cooldownMaxTimer: 10
   timeBeforeTheAttack: 10
   timeOfTheAttack: 10
+  maxDistance: 10
+  playerLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  accelerationBoost: 10
+  speedBoost: 10
 --- !u!1 &488958829150866471
 GameObject:
   m_ObjectHideFlags: 0
@@ -118,7 +169,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488958829150866471}
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 8, z: -10}
+  m_LocalPosition: {x: 0, y: 7.071068, z: -7.0710683}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -145,7 +196,7 @@ MonoBehaviour:
   m_Priority: 0
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 0}
+  m_Follow: {fileID: 2871038976918588050}
   m_Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -300,7 +351,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster_Movement: {fileID: 4521430013677688560}
-  monster_Camera: {fileID: 0}
+  monsterHitCollider: {fileID: 801450911233564112}
+  monster_Camera: {fileID: 3159611963219809191}
   distanceBetweenMonsterAndSoldier: 10
 --- !u!114 &4593430181937896699
 MonoBehaviour:
@@ -316,7 +368,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 7254216c2d9ac9c4cbe6f63dd28fc797,
     type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -327,7 +379,119 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 4521430013677688560}
+        m_TargetAssemblyTypeName: Monster_Movement, Assembly-CSharp
+        m_MethodName: OnClickMovement
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: b0be2a3e-8e91-4857-9415-99d06d2e373c
+    m_ActionName: Keyboard/MouseLeftClick[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3159611963219809191}
+        m_TargetAssemblyTypeName: Monster_Camera, Assembly-CSharp
+        m_MethodName: OnCameraMovementWASD
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 3401a7d7-4322-47aa-a3a0-91b1d34c18f0
+    m_ActionName: Keyboard/CameraMovement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7404583851240523823}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 04e1c5bb-905b-41c1-8fd9-3b50200826bf
+    m_ActionName: Keyboard/Cac_Attack[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: da95257e-f0ed-44e2-aa91-22eac0a299f3
+    m_ActionName: Keyboard/MousePosition[/Mouse/position]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1242625454752620529}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 926cf1b8-366c-4817-8d66-731fb793c95c
+    m_ActionName: Keyboard/Projectile_Skill[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1305616105474167925}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 09e5d564-a1f0-490a-b367-06a3f2416b40
+    m_ActionName: Keyboard/Dash_Skill[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 177065812614315010}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: cf354c67-5e7b-4336-ad95-37b3ea5b56f3
+    m_ActionName: Keyboard/Blackout_Skill[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Keyboard
@@ -447,7 +611,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 26017853080751547}
-  - component: {fileID: 2189425861077708754}
+  - component: {fileID: 621328825482526772}
   m_Layer: 0
   m_Name: Projectille_Skill
   m_TagString: Untagged
@@ -470,7 +634,7 @@ Transform:
   m_Father: {fileID: 1975943591984984862}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2189425861077708754
+--- !u!114 &621328825482526772
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -479,10 +643,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1242625454752620529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e1a878a26d3c8041aa5f1681be54185, type: 3}
+  m_Script: {fileID: 11500000, guid: bc8cd081be2b67349a3e1ed9c41e9ad5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   UI_skillCooldown: {fileID: 0}
+  monster_Manager: {fileID: 0}
   isSkillOnCooldown: 0
   cooldownMaxTimer: 10
   timeBeforeTheAttack: 10
@@ -497,6 +662,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8519690313681393653}
   - component: {fileID: 4734797409406161264}
+  - component: {fileID: 3904276831777882081}
   m_Layer: 0
   m_Name: Dash_Skill
   m_TagString: Untagged
@@ -515,7 +681,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3621265650112539187}
   m_Father: {fileID: 1975943591984984862}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -532,12 +699,36 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_skillCooldown: {fileID: 0}
+  monster_Manager: {fileID: 3132927831057079988}
   isSkillOnCooldown: 0
   cooldownMaxTimer: 10
   timeBeforeTheAttack: 10
   timeOfTheAttack: 10
-  collider: {fileID: 0}
-  dashDestination: {fileID: 0}
+  collider: {fileID: 3904276831777882081}
+  dashDestination: {fileID: 177065812614315010}
+  monster_Manager: {fileID: 3132927831057079988}
+  dashForce: 0
+--- !u!65 &3904276831777882081
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1305616105474167925}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1391286107854995455
 GameObject:
   m_ObjectHideFlags: 0
@@ -596,7 +787,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2871038976918588050}
-  - component: {fileID: 2771283348375019324}
   - component: {fileID: 4521430013677688560}
   - component: {fileID: 4126852009630045859}
   - component: {fileID: 7149886935790827215}
@@ -624,101 +814,6 @@ Transform:
   m_Father: {fileID: 6433800500303414543}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2771283348375019324
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1725820427573283541}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 7254216c2d9ac9c4cbe6f63dd28fc797,
-    type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4521430013677688560}
-        m_TargetAssemblyTypeName: Monster_Movement, Assembly-CSharp
-        m_MethodName: OnClickMovement
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: b0be2a3e-8e91-4857-9415-99d06d2e373c
-    m_ActionName: Keyboard/MouseLeftClick[/Mouse/leftButton]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Monster_Camera, Assembly-CSharp
-        m_MethodName: OnCameraMovementWASD
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 3401a7d7-4322-47aa-a3a0-91b1d34c18f0
-    m_ActionName: Keyboard/CameraMovement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: BaseCompetance_Monster, Assembly-CSharp
-        m_MethodName: UseSkill
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 04e1c5bb-905b-41c1-8fd9-3b50200826bf
-    m_ActionName: Keyboard/Cac_Attack[/Keyboard/e]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Monster_Camera, Assembly-CSharp
-        m_MethodName: OnCameraMovementBorderMouse
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: da95257e-f0ed-44e2-aa91-22eac0a299f3
-    m_ActionName: Keyboard/MousePosition[/Mouse/position]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: Keyboard
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!114 &4521430013677688560
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1034,7 +1129,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1094,11 +1189,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5161221099920357222}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 2.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8559030006674474233}
+  m_Father: {fileID: 5915822267449104634}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!198 &3687158503105565147
@@ -5927,8 +6022,8 @@ Transform:
   m_GameObject: {fileID: 5720125176809471846}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 10, y: 10, z: 10}
+  m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 4725717257269446830}
   m_Father: {fileID: 6433800500303414543}
@@ -6063,7 +6158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animatorMonster: {fileID: 2488231773757627374}
-  monster_Movement: {fileID: 0}
+  monster_Movement: {fileID: 4521430013677688560}
   navMesh: {fileID: 4126852009630045859}
 --- !u!1 &6547714277235265276
 GameObject:
@@ -10893,6 +10988,89 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!1 &6763582793861366255
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3621265650112539187}
+  - component: {fileID: 2140842768368575751}
+  - component: {fileID: 64261817850193493}
+  m_Layer: 0
+  m_Name: Sphere
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3621265650112539187
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6763582793861366255}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 5.14}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8519690313681393653}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!33 &2140842768368575751
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6763582793861366255}
+  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &64261817850193493
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6763582793861366255}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: bc6da4580f5514e458fe5def87e138be, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &7404583851240523823
 GameObject:
   m_ObjectHideFlags: 0
@@ -10923,7 +11101,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5915822267449104634}
-  - {fileID: 6527207441920674648}
   m_Father: {fileID: 1975943591984984862}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -10940,12 +11117,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_skillCooldown: {fileID: 0}
+  monster_Manager: {fileID: 0}
   isSkillOnCooldown: 0
   cooldownMaxTimer: 2
-  timeBeforeTheAttack: 1
+  timeBeforeTheAttack: 500
   timeOfTheAttack: 1
-  boxCollider: {fileID: 7492813506648889381}
-  cac_Particule: {fileID: 3687158503105565147}
+  cac_Animation: {fileID: 0}
+  animationName: 
 --- !u!1 &7492813506648889381
 GameObject:
   m_ObjectHideFlags: 0
@@ -10977,7 +11155,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 6527207441920674648}
   m_Father: {fileID: 8559030006674474233}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
