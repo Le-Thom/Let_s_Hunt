@@ -89,6 +89,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
             //Soldier 1 have a player id of 1 but we want him to take the first element of the list so 0
             CinemachineVirtualCamera soldierCamera = soldiersComponent.ElementAt(playerId - 1).Key;
             Tps_PlayerController soldierScript = soldiersComponent.ElementAt(playerId - 1).Value;
+            
 
             SwitchCamera(soldierCamera);
             ActivateInputSoldier(soldierScript);
@@ -105,6 +106,8 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
             {
                 Destroy(tps_PlayerController);
             }
+
+            soldierScript.playerData.monitor.index = playerId;
 
             MiniMapManager.Instance.canvas.SetActive(true);
             MiniMapManager.Instance.SetForHunter();

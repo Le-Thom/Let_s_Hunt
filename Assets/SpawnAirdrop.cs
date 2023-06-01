@@ -7,6 +7,7 @@ using UnityEngine;
 public class SpawnAirdrop : NetworkBehaviour
 {
     [SerializeField] private GameObject prefabAirdrop;
+
     [Button]
     public void Spawn_Airdrop()
     {

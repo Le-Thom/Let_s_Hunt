@@ -563,9 +563,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCanPickUp: {fileID: 4560768609376652458}
-  possibleDrops:
-  - {fileID: 11400000, guid: 940aadb9251953b40b9ae835ec3c2faa, type: 2}
-  - {fileID: 11400000, guid: 113d22a5efe4d2a47a33e9fdc25dedf9, type: 2}
+  listEquipment: {fileID: 0}
   nbInBox: 2
 --- !u!65 &4776035875237519732
 BoxCollider:
