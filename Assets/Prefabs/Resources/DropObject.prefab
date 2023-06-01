@@ -333,6 +333,7 @@ MonoBehaviour:
   layerHitOnSpawn:
     serializedVersion: 2
     m_Bits: 0
+  listEquipment: {fileID: 0}
 --- !u!135 &5144980474294058122
 SphereCollider:
   m_ObjectHideFlags: 0
