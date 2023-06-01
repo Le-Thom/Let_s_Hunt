@@ -26,7 +26,7 @@ public class Radio : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            // if is not owner then return;
+            if (!_hunterCollider.IsOwner) return;
 
             Tps_PlayerController.Instance.interactableObjects.Add(this);
         }
@@ -35,7 +35,7 @@ public class Radio : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            // if is not owner then return;
+            if (!_hunterCollider.IsOwner) return;
 
             if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
@@ -76,6 +76,12 @@ public class Radio : InteractableObject
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
         if (!available && !notAvailable.active) notAvailable.SetActive(true);
         yield return new WaitForSeconds(unavailableTimer);
+        SetAvailableClientRpc();
+    }
+
+    [ClientRpc]
+    public void SetAvailableClientRpc()
+    {
         available = true;
     }
 }

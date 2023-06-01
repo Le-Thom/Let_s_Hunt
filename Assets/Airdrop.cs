@@ -7,11 +7,11 @@ using UnityEngine;
 public class Airdrop : InteractableObject
 {
     [SerializeField] private GameObject onCanPickUp;
-    [SerializeField] private sc_Object[] possibleDrops;
+    [SerializeField] private SC_sc_Object listEquipment;
     [SerializeField] private int nbInBox;
     [SerializeField] private NetworkList<int> whatIsInside = new NetworkList<int>() { };
     [SerializeField] private NetworkList<Vector3> throwObj = new NetworkList<Vector3>() { };
-    public override void OnNetworkSpawn()
+    public void Start()
     {
         isInteractable = true;
         onCanPickUp.SetActive(false);
@@ -20,7 +20,7 @@ public class Airdrop : InteractableObject
 
         for (int i = 0; i < nbInBox; i++)
         {
-            int rng = Random.Range(0, possibleDrops.Length);
+            int rng = Random.Range(0, listEquipment.objects.Count);
             whatIsInside.Add(rng);
 
             Vector3 throwRng = new Vector3(Random.Range(-2f, 2f) * 100, 0, Random.Range(-2f, 2f) * 100) * Time.deltaTime + Vector3.up * 4;
@@ -31,6 +31,7 @@ public class Airdrop : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
+            if (_hunterCollider.IsOwner) return;
             Tps_PlayerController.Instance.interactableObjects.Add(this);
         }
     }
@@ -38,6 +39,7 @@ public class Airdrop : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
+            if (_hunterCollider.IsOwner) return;
             if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
         }
@@ -58,17 +60,19 @@ public class Airdrop : InteractableObject
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
     }
 
-    [ClientRpc]
-    public override void InteractClientRpc()
+    [ServerRpc]
+    public override void InteractServerRpc()
     {
         for (int i = 0; i < nbInBox; i++)
         {
-            sc_Object sc_Object = possibleDrops[whatIsInside[i]];
+            GameObject _drop = Resources.Load<GameObject>("DropObject");
 
-            GameObject _drop = Instantiate(Resources.Load<GameObject>("DropObject"), transform.position, Quaternion.Euler(0, 0, 0));
-            _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(sc_Object, null);
+            GameObject _obj = Instantiate(_drop, transform.position, Quaternion.Euler(0, 0, 0));
+            _obj.GetComponent<NetworkObject>().Spawn(true);
 
-            _drop.GetComponent<Rigidbody>().velocity += throwObj[i];
+            _obj.GetComponentInChildren<ObjectDrop>().SetUpObjClientRpc(nbInBox, null);
+
+            _obj.GetComponent<Rigidbody>().velocity += throwObj[i];
         }
 
         if (Tps_PlayerController.Instance.interactableObjects.Contains(this))

@@ -571,7 +571,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // move the player.
         Move(HunterMoveType.NORMAL);
 
-        UpdateEquipmentCheck();
+        UpdateObjectCheck();
 
         if (playerData.monitor.isAtk1) stateMachine.ChangeState(StateId.ATK1);
         if (playerData.monitor.isAtk2) stateMachine.ChangeState(StateId.ATK2);
@@ -652,7 +652,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // move the player.
         Move(HunterMoveType.NORMAL);
 
-        UpdateEquipmentCheck();
+        UpdateObjectCheck();
 
         if (playerData.monitor.isAtk1)
         {
@@ -899,34 +899,38 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Interact
     private void Interact()
     {
-        if (closestInteractableObject != null) closestInteractableObject.InteractClientRpc();
+        if (closestInteractableObject != null)
+        {
+            closestInteractableObject.InteractClientRpc();
+            closestInteractableObject.InteractServerRpc();
+        }
     }
-    private void UpdateEquipmentCheck()
+    private void UpdateObjectCheck()
     {
-        InteractableObject _closestEquipment = GetClosestItem();
-        if (closestInteractableObject != null && (_closestEquipment == null || _closestEquipment != closestInteractableObject))
+        InteractableObject _closestObject = GetClosestItem();
+        if (closestInteractableObject != null && (_closestObject == null || _closestObject != closestInteractableObject))
         {
             closestInteractableObject.StopBeingTheClosest();
             closestInteractableObject = null;
         }
 
-        if (_closestEquipment == null) return;
+        if (_closestObject == null) return;
 
-        if (_closestEquipment.TryGetComponent<ObjectDrop>(out ObjectDrop _equipmentDrop))
+        if (_closestObject.TryGetComponent<ObjectDrop>(out ObjectDrop _equipmentDrop))
         {
             Equipment _emptyEquipment = IsOneOfEquipmentEmpty();
             if (_emptyEquipment != null)
             {
-                _closestEquipment.IsClosestToInteract();
-                closestInteractableObject = _closestEquipment;
+                _closestObject.IsClosestToInteract();
+                closestInteractableObject = _closestObject;
                 return;
             }
         }
 
         else
         {
-            _closestEquipment.IsClosestToInteract();
-            closestInteractableObject = _closestEquipment;
+            _closestObject.IsClosestToInteract();
+            closestInteractableObject = _closestObject;
         }
 
         closestInteractableObject.IsClosestToInteract();

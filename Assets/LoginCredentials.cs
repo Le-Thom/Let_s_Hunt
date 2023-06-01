@@ -18,6 +18,10 @@ public class LoginCredentials : Singleton<LoginCredentials>
     private ILoginSession loginSession;
     private IChannelSession channelSession;
 
+
+    public bool activeVivox;
+
+
     private string userName;
     private string channelName;
 
@@ -51,6 +55,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
     }
     public void Login()
     {
+        if (!activeVivox) return;
         AccountId accountId = new AccountId(issuer, userName, domain);
         loginSession = client.GetLoginSession(accountId);
 
@@ -110,6 +115,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
     }
     public void JoinChannel()
     {
+        if (!activeVivox) return;
         ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional);
         channelSession = loginSession.GetChannelSession(channelId);
 

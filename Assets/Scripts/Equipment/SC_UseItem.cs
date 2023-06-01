@@ -7,8 +7,8 @@ public abstract class SC_UseItem : NetworkBehaviour
 {
     public virtual void UseItem(Vector3 player, int equipment, Vector2 direction)
     {
-        _UseItemClientRpc(player, equipment, direction);
+        _UseItemServerRpc(player, equipment, direction);
     }
-    [ClientRpc]
-    protected virtual void _UseItemClientRpc(Vector3 player, int equipment, Vector2 direction) { }
+    [ServerRpc]
+    protected virtual void _UseItemServerRpc(Vector3 player, int equipment, Vector2 direction) { }
 }

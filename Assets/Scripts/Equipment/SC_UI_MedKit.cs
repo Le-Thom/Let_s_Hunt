@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SC_UI_MedKit : SC_UseItem
 {
-    [ClientRpc]
-    protected override void _UseItemClientRpc(Vector3 player, int equipment, Vector2 direction)
+    [ServerRpc]
+    protected override void _UseItemServerRpc(Vector3 player, int equipment, Vector2 direction)
     {
         if (!IsHost) return;
 

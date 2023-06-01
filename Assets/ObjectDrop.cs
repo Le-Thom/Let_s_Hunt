@@ -33,7 +33,7 @@ public class ObjectDrop : InteractableObject
     private HunterHitCollider spawnFromPlayerCheck;
 
     [SerializeField] private LayerMask layerHitOnSpawn;
-
+    [SerializeField] private SC_sc_Object listEquipment;
     private void Start()
     {
         isInteractable = true;
@@ -47,12 +47,13 @@ public class ObjectDrop : InteractableObject
         Anim_Breathing();
     }
 
-    public void SetUpObj(sc_Object _object, HunterHitCollider isFromPlayer)
+    [ClientRpc]
+    public void SetUpObjClientRpc(int _object, HunterHitCollider isFromPlayer)
     {
-        sc_object = _object;
+        sc_object = listEquipment.objects[_object];
         nb = 1;
-        spriteMesh.sprite = _object.objectSprite;
-        spriteMesh.m_material = _object.objectMaterial;
+        spriteMesh.sprite = sc_object.objectSprite;
+        spriteMesh.m_material = sc_object.objectMaterial;
 
         spawnFromPlayerCheck = isFromPlayer;
 
@@ -69,8 +70,17 @@ public class ObjectDrop : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            if (spawnFromPlayerCheck == _hunterCollider) return;
-            EquipmentVerification(_hunterCollider);
+            if (_hunterCollider.IsOwner)
+            {
+                if (spawnFromPlayerCheck == _hunterCollider) return;
+                EquipmentVerification(_hunterCollider);
+            } 
+            
+            else
+            {
+                StopCoroutine(attractCoroutine);
+                hunterFollowed = null;
+            }
         }
     }
     private void OnTriggerStay(Collider other)
@@ -79,6 +89,7 @@ public class ObjectDrop : InteractableObject
         {
             if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
             {
+                if (!_hunterCollider.IsOwner) return;
                 EquipmentVerification2(_hunterCollider);
             }
             return;
@@ -87,7 +98,7 @@ public class ObjectDrop : InteractableObject
 
     private void EquipmentVerification(HunterHitCollider _hunterCollider)
     {
-        // If !isOwner then return
+        if (!_hunterCollider.IsOwner) return;
 
         if (sc_object.GetType() == typeof(sc_Equipment))
         {
@@ -100,7 +111,6 @@ public class ObjectDrop : InteractableObject
                 if (attractCoroutine != null) StopCoroutine(attractCoroutine);
                 attractCoroutine = null;
 
-                ChangeAttract(hunterFollowed);
                 hunterFollowed = _hunterCollider;
 
                 attractCoroutine = StartCoroutine(AttractToPlayer(_equipment1));
@@ -111,7 +121,6 @@ public class ObjectDrop : InteractableObject
                 if (attractCoroutine != null) StopCoroutine(attractCoroutine);
                 attractCoroutine = null;
 
-                ChangeAttract(hunterFollowed);
                 hunterFollowed = _hunterCollider;
 
                 attractCoroutine = StartCoroutine(AttractToPlayer(_equipment2));
@@ -130,7 +139,7 @@ public class ObjectDrop : InteractableObject
     }
     private void EquipmentVerification2(HunterHitCollider _hunterCollider)
     {
-        // If !isOwner then return
+        if (!_hunterCollider.IsOwner) return;
 
         if (sc_object.GetType() == typeof(sc_Equipment))
         {
@@ -143,7 +152,6 @@ public class ObjectDrop : InteractableObject
                 if (attractCoroutine != null) StopCoroutine(attractCoroutine);
                 attractCoroutine = null;
 
-                ChangeAttract(hunterFollowed);
                 hunterFollowed = _hunterCollider;
 
                 attractCoroutine = StartCoroutine(AttractToPlayer(_equipment1));
@@ -154,7 +162,6 @@ public class ObjectDrop : InteractableObject
                 if (attractCoroutine != null) StopCoroutine(attractCoroutine);
                 attractCoroutine = null;
 
-                ChangeAttract(hunterFollowed);
                 hunterFollowed = _hunterCollider;
 
                 attractCoroutine = StartCoroutine(AttractToPlayer(_equipment2));
@@ -173,16 +180,16 @@ public class ObjectDrop : InteractableObject
     }
     private void OnTriggerExit(Collider other)
     {
-        // if !isowner then return;
 
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
+            if (_hunterCollider == hunterFollowed) StopCoroutine(attractCoroutine);
+
+            if (!_hunterCollider.IsOwner) return;
             spawnFromPlayerCheck = null;
 
             if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
-
-            if (_hunterCollider == hunterFollowed) StopCoroutine(attractCoroutine);
         }
     }
 
@@ -195,23 +202,20 @@ public class ObjectDrop : InteractableObject
         if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
             Tps_PlayerController.Instance.interactableObjects.Remove(this);
 
-        CallOnAttract(hunterFollowed);
-
-        while ((transform.position.x >= hunterFollowed.transform.position.x + 0.15f ||
-            transform.position.x <= hunterFollowed.transform.position.x - 0.15f) &&
-            (transform.position.y >= hunterFollowed.transform.position.y + 0.15f ||
-            transform.position.y <= hunterFollowed.transform.position.y - 0.15f)
+        while ((parent.transform.position.x >= hunterFollowed.transform.position.x + 0.15f ||
+            parent.transform.position.x <= hunterFollowed.transform.position.x - 0.15f) &&
+            (parent.transform.position.y >= hunterFollowed.transform.position.y + 0.15f ||
+            parent.transform.position.y <= hunterFollowed.transform.position.y - 0.15f)
             )
         {
             // if something go taken while in attract then stop coroutine
             if (_equipment.GetEquipment() != sc_object || _equipment.nbInInventaire >= _equipment.GetEquipment().maxStackEquipment)
             {
-                CallOffAttract(hunterFollowed);
                 debug_dontPass = true;
                 break;
             }
 
-            transform.position = Vector3.Slerp(transform.position, hunterFollowed.transform.position, Time.deltaTime * 2);
+            parent.transform.position = Vector3.Slerp(transform.position, hunterFollowed.transform.position, Time.deltaTime * 2);
             yield return null;
 
         }
@@ -223,39 +227,6 @@ public class ObjectDrop : InteractableObject
             EquipmentVerification(hunterFollowed);
 
         debug_dontPass = false;
-    }
-    private IEnumerator AttractToPlayer()
-    {
-        while ((transform.position.x >= hunterFollowed.transform.position.x + 0.05f ||
-            transform.position.x <= hunterFollowed.transform.position.x - 0.05f) &&
-            (transform.position.y >= hunterFollowed.transform.position.y + 0.05f ||
-            transform.position.y <= hunterFollowed.transform.position.y - 0.05f)
-            )
-        {
-            transform.position = Vector3.Slerp(transform.position, hunterFollowed.transform.position, Time.deltaTime);
-            yield return null;
-        }
-    }
-
-    // Need ClientRpc here
-    private void CallOffAttract(HunterHitCollider wichPlayer) 
-    {
-        if (wichPlayer == hunterFollowed) StopCoroutine(attractCoroutine);
-    }
-
-    // Need ClientRpc here
-    private void ChangeAttract(HunterHitCollider wichPlayer)
-    {
-        if (wichPlayer != hunterFollowed) StopCoroutine(attractCoroutine);
-    }
-
-    // Need ClientRpc here
-    private void CallOnAttract(HunterHitCollider wichPlayer)
-    {
-        // If isowner then return
-        return;
-        hunterFollowed = wichPlayer;
-        attractCoroutine = StartCoroutine(AttractToPlayer());
     }
 
     public override void IsClosestToInteract()
