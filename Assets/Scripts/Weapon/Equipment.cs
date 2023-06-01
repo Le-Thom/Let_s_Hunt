@@ -120,7 +120,17 @@ public class Equipment : MonoBehaviour
         if (onSelected)
         {
             GameObject _drop = Instantiate(Resources.Load<GameObject>("DropObject"), player.transform.position, Quaternion.Euler(0,0,0));
-            _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(equipment, player.GetComponentInChildren<HunterHitCollider>());
+            SC_sc_Object _sc_sc_equipment = Resources.Load<SC_sc_Object>("Equipment/");
+            int _equipmentIndex = 0;
+            for (int i = 0; i < _sc_sc_equipment.objects.Count; i++)
+            {
+                if (_sc_sc_equipment.objects[i] == equipment)
+                {
+                    _equipmentIndex = i;
+                    break;
+                }
+            }
+            _drop.GetComponentInChildren<ObjectDrop>().SetUpObjClientRpc(_equipmentIndex, true, Tps_PlayerController.Instance.playerData.monitor.index);
 
             float _directionX = Mathf.Clamp(player.directionLook.x, -150, 150);
             float _directionY = Mathf.Clamp(player.directionLook.y, -150, 150);

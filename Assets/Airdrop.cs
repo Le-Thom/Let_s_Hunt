@@ -70,7 +70,7 @@ public class Airdrop : InteractableObject
             GameObject _obj = Instantiate(_drop, transform.position, Quaternion.Euler(0, 0, 0));
             _obj.GetComponent<NetworkObject>().Spawn(true);
 
-            _obj.GetComponentInChildren<ObjectDrop>().SetUpObjClientRpc(nbInBox, null);
+            _obj.GetComponentInChildren<ObjectDrop>().SetUpObjClientRpc(nbInBox, false, -1);
 
             _obj.GetComponent<Rigidbody>().velocity += throwObj[i];
         }

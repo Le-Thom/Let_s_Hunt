@@ -30,7 +30,7 @@ public class ObjectDrop : InteractableObject
     [SerializeField] private GameObject onCanPickUp;
     [SerializeField] private Equipment equipment;
 
-    private HunterHitCollider spawnFromPlayerCheck;
+    private bool isFromHost;
 
     [SerializeField] private LayerMask layerHitOnSpawn;
     [SerializeField] private SC_sc_Object listEquipment;
@@ -48,14 +48,17 @@ public class ObjectDrop : InteractableObject
     }
 
     [ClientRpc]
-    public void SetUpObjClientRpc(int _object, HunterHitCollider isFromPlayer)
+    public void SetUpObjClientRpc(int _object, bool isFromPlayer, int wichPlayer)
     {
         sc_object = listEquipment.objects[_object];
         nb = 1;
         spriteMesh.sprite = sc_object.objectSprite;
         spriteMesh.m_material = sc_object.objectMaterial;
 
-        spawnFromPlayerCheck = isFromPlayer;
+        if (wichPlayer == Tps_PlayerController.Instance.playerData.monitor.index)
+        {
+            isFromHost = isFromPlayer;
+        }
 
         sphereCollider.enabled = true;
     }
@@ -72,7 +75,7 @@ public class ObjectDrop : InteractableObject
         {
             if (_hunterCollider.IsOwner)
             {
-                if (spawnFromPlayerCheck == _hunterCollider) return;
+                if (isFromHost) return;
                 EquipmentVerification(_hunterCollider);
             } 
             
@@ -186,7 +189,7 @@ public class ObjectDrop : InteractableObject
             if (_hunterCollider == hunterFollowed) StopCoroutine(attractCoroutine);
 
             if (!_hunterCollider.IsOwner) return;
-            spawnFromPlayerCheck = null;
+            isFromHost = false;
 
             if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
