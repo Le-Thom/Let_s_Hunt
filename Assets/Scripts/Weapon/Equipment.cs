@@ -41,6 +41,7 @@ public class Equipment : MonoBehaviour
     [SerializeField] private Image imageEquipment;
     [SerializeField] private TMP_Text textEquipment;
     [SerializeField] private TMP_Text textNb;
+    [SerializeField] private SC_sc_Object _sc_sc_equipment;
 
     private bool onSelected;
 
@@ -155,8 +156,6 @@ public class Equipment : MonoBehaviour
             return;
         }
 
-
-        SC_sc_Object _sc_sc_equipment = Resources.Load<SC_sc_Object>("Equipment/");
         int equipmentIndex = 0;
         for (int i = 0; i < _sc_sc_equipment.objects.Count; i++)
         {

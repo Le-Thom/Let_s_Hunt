@@ -9,6 +9,6 @@ public abstract class SC_UseItem : NetworkBehaviour
     {
         _UseItemServerRpc(player, equipment, direction);
     }
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     protected virtual void _UseItemServerRpc(Vector3 player, int equipment, Vector2 direction) { }
 }

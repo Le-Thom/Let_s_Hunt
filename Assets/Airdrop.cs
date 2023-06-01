@@ -27,13 +27,13 @@ public class Airdrop : InteractableObject
             throwObj.Add(throwRng);
         }
     }
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
             if (!_hunterCollider.IsOwner) return;
             Tps_PlayerController.Instance.interactableObjects.Add(this);
-            //_hunterCollider.GetComponentInParent<Tps_PlayerController>()
         }
     }
     private void OnTriggerExit(Collider other)
@@ -73,7 +73,7 @@ public class Airdrop : InteractableObject
             GameObject _obj = Instantiate(_drop, transform.position, Quaternion.Euler(0, 0, 0));
             _obj.GetComponent<NetworkObject>().Spawn(true);
 
-            _obj.GetComponentInChildren<ObjectDrop>().SetUpObjClientRpc(nbInBox, false, -1);
+            _obj.GetComponentInChildren<ObjectDrop>().SetUpObjClientRpc(whatIsInside[i], false, -1);
 
             _obj.GetComponent<Rigidbody>().velocity += throwObj[i];
         }

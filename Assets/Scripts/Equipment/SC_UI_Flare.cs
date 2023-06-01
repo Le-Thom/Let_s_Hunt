@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SC_UI_Flare : SC_UseItem
 {
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     protected override void _UseItemServerRpc(Vector3 player, int equipment, Vector2 direction)
     {
         SC_sc_Object _sc_sc_equipment = Resources.Load<SC_sc_Object>("Equipment/");
