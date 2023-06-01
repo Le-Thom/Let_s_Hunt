@@ -22,15 +22,15 @@ public class Blackout_Competance_Monster : BaseCompetance_Monster
                 hunterHitCollider.DeactivateFlashLightForXMillisecondSecond(timeOfTheAttack);
             }
         }
-        monster_Manager.monsterHitCollider.GetMonsterInvincibleForXMiliseconds(timeOfTheAttack);
+        monster_StateMachine.monsterHitCollider.GetMonsterInvincibleForXMiliseconds(timeOfTheAttack);
 
-        float baseAcceleration = monster_Manager.navmesh.acceleration;
-        DOVirtual.Float(baseAcceleration, accelerationBoost, timeOfTheAttack / 1000, v => monster_Manager.navmesh.acceleration = v)
-            .OnComplete(() => DOVirtual.Float(accelerationBoost, baseAcceleration, 1, v => monster_Manager.navmesh.acceleration = v));
+        float baseAcceleration = monster_StateMachine.Navmesh.acceleration;
+        DOVirtual.Float(baseAcceleration, accelerationBoost, timeOfTheAttack / 1000, v => monster_StateMachine.Navmesh.acceleration = v)
+            .OnComplete(() => DOVirtual.Float(accelerationBoost, baseAcceleration, 1, v => monster_StateMachine.Navmesh.acceleration = v));
 
-        float baseSpeed = monster_Manager.navmesh.speed;
-        DOVirtual.Float(baseSpeed, speedBoost, timeOfTheAttack / 1000, v => monster_Manager.navmesh.speed = v)
-            .OnComplete(() => DOVirtual.Float(speedBoost, baseSpeed, 1, v => monster_Manager.navmesh.speed = v));
+        float baseSpeed = monster_StateMachine.Navmesh.speed;
+        DOVirtual.Float(baseSpeed, speedBoost, timeOfTheAttack / 1000, v => monster_StateMachine.Navmesh.speed = v)
+            .OnComplete(() => DOVirtual.Float(speedBoost, baseSpeed, 1, v => monster_StateMachine.Navmesh.speed = v));
     }
     private void OnDrawGizmos()
     {

@@ -9,8 +9,9 @@ public class Dash_Competance_Monster : BaseCompetance_Monster
     [SerializeField] private new Collider collider;
     [SerializeField] private GameObject dashDestination;
     [SerializeField] private float dashForce;
-    private NavMeshAgent monster_navmesh => monster_Manager.navmesh;
-    private Monster_Movement monster_Movement => monster_Manager.monster_Movement;
+
+    private NavMeshAgent Monster_Navmesh => monster_StateMachine.Navmesh;
+    //private Monster_Movement Monster_Movement => monster_StateMachine.monster_Movement;
 
     protected override async void SkillFonction()
     {
@@ -20,7 +21,7 @@ public class Dash_Competance_Monster : BaseCompetance_Monster
         {
             print(hit.position);
             collider.enabled = true;
-            monster_navmesh.destination = hit.position;
+            Monster_Navmesh.destination = hit.position;
             OnEndDash();
         }
     }
