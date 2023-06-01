@@ -5,13 +5,26 @@ using UnityEngine.AI;
 
 public class Monster_Animator : MonoBehaviour
 {
-    [SerializeField] private Animator animatorMonster;
+    [SerializeField] private List<Animator> animatorsMonsterToSeedDirection = new();
+    [SerializeField] private List<Animator> animatorsMonsterToSeedSpeed = new();
     [SerializeField] private Monster_Movement monster_Movement;
     [SerializeField] private NavMeshAgent navMesh;
+    [SerializeField] private float buffer = 0.2f;
     private void Update()
     {
-        Vector3 vector3 = monster_Movement.transform.position - navMesh.destination;
-        animatorMonster.SetFloat("XDirection", vector3.x);
-        animatorMonster.SetFloat("YDirection", vector3.z);
+        Vector3 directionMonster = monster_Movement.transform.position - navMesh.destination;
+        
+        foreach (Animator animatorMonster in animatorsMonsterToSeedDirection)
+        {
+                animatorMonster.SetFloat("XDirection", directionMonster.x);
+                animatorMonster.SetFloat("YDirection", directionMonster.z);
+        }
+
+        float tktSpeed = navMesh.velocity.x + navMesh.velocity.y;
+
+        foreach (Animator animatorMonster in animatorsMonsterToSeedSpeed)
+        {
+            animatorMonster.SetFloat("Speed", tktSpeed);
+        }
     }
 }
