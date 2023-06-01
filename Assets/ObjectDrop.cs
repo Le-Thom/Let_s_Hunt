@@ -4,25 +4,20 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-[RequireComponent(typeof(sc_SpriteMesh))]
 [RequireComponent(typeof(SphereCollider))]
 public class ObjectDrop : InteractableObject
 {
 
     [SerializeField] private GameObject parent;
 
-    private sc_SpriteMesh spriteMesh => GetComponent<sc_SpriteMesh>();
+    [SerializeField] private sc_SpriteMesh spriteMesh;
     private SphereCollider sphereCollider => GetComponent<SphereCollider>();
 
-    [SerializeField] private int nb;
+    [SerializeField] private NetworkVariable<int> nb;
     [SerializeField] private sc_Object sc_object;
 
     [SerializeField] private HunterHitCollider hunterFollowed;
 
-    private float time = 0;
-    [SerializeField] private float BreathingSpeed;
-    [SerializeField] private float BreathingAmplitude;
-    [SerializeField] private AnimationCurve BreathingCurve;
 
     [SerializeField] private HunterHitCollider playerController;
     private Coroutine attractCoroutine;
@@ -32,7 +27,6 @@ public class ObjectDrop : InteractableObject
 
     private bool isFromHost;
 
-    [SerializeField] private LayerMask layerHitOnSpawn;
     [SerializeField] private SC_sc_Object listEquipment;
     private void Start()
     {
@@ -42,31 +36,25 @@ public class ObjectDrop : InteractableObject
         transform.rotation = Quaternion.Euler(0, 0, 0);
     }
 
-    private void Update()
-    {
-        Anim_Breathing();
-    }
-
     [ClientRpc]
     public void SetUpObjClientRpc(int _object, bool isFromPlayer, int wichPlayer)
     {
         sc_object = listEquipment.objects[_object];
-        nb = 1;
+        SetNbServerRpc(1);
         spriteMesh.sprite = sc_object.objectSprite;
         spriteMesh.m_material = sc_object.objectMaterial;
 
-        if (wichPlayer == Tps_PlayerController.Instance.playerData.monitor.index)
+        if (wichPlayer == ScS_PlayerData.Instance.monitor.index)
         {
             isFromHost = isFromPlayer;
         }
 
         sphereCollider.enabled = true;
     }
-
-    private void Anim_Breathing()
+    [ServerRpc(RequireOwnership = true)]
+    public void SetNbServerRpc(int _nb)
     {
-        time += Time.deltaTime;
-        // transform.localPosition += Vector3.up * BreathingAmplitude * BreathingCurve.Evaluate(time * BreathingSpeed) * Time.deltaTime;
+        nb.Value = _nb;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -81,7 +69,7 @@ public class ObjectDrop : InteractableObject
             
             else
             {
-                StopCoroutine(attractCoroutine);
+                if (attractCoroutine != null) StopCoroutine(attractCoroutine);
                 hunterFollowed = null;
             }
         }
@@ -178,8 +166,6 @@ public class ObjectDrop : InteractableObject
     {
         if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
             Tps_PlayerController.Instance.interactableObjects.Remove(this);
-
-        GetComponent<NetworkObject>().Despawn(true);
     }
     private void OnTriggerExit(Collider other)
     {
@@ -246,23 +232,29 @@ public class ObjectDrop : InteractableObject
     {
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
     }
-    [ClientRpc]
-    public override void InteractClientRpc()
+
+    public override void Interact()
     {
-        if (IsHost && sc_object.GetType() == typeof(sc_Equipment))
+        if (sc_object.GetType() == typeof(sc_Equipment))
         {
-            int _howMuchLeft = equipment.AddEquipment(sc_object as sc_Equipment ,nb);
-            if (_howMuchLeft > 0) nb = _howMuchLeft;
-            else Destroy(parent);
+            equipment.AddEquipment(sc_object as sc_Equipment, nb.Value);
+            Destroy(parent);
+            _DespawnServerRpc();
         }
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    private void _DespawnServerRpc()
+    {
+        parent.GetComponent<NetworkObject>().Despawn();
     }
 
     private void AddingEquipment(Equipment _equipment)
     {
-        int _howMuchLeft = _equipment.AddEquipment(nb);
+        int _howMuchLeft = _equipment.AddEquipment(nb.Value);
         if (_howMuchLeft > 0)
         {
-            nb = _howMuchLeft;
+            nb.Value = _howMuchLeft;
             EquipmentVerification(hunterFollowed);
         }
         else Destroy(parent);

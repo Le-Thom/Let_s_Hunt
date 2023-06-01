@@ -161,6 +161,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region PUBLIC FONCTION
     //==============================================================================================================
 
+    public void SetInstance()
+    {
+        instance = this;
+    }
     /// <summary>
     /// Get Current State of State Machine
     /// </summary>
@@ -903,6 +907,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         {
             closestInteractableObject.InteractClientRpc();
             closestInteractableObject.InteractServerRpc();
+            closestInteractableObject.Interact();
         }
     }
     private void UpdateObjectCheck()
@@ -942,14 +947,26 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         InteractableObject _io = null;
         float _distClosest = 10000;
-        for (int i = 0; i < interactableObjects.Count; i++)
+        try
         {
-            if (interactableObjects[i].IsInteractable())
+            for (int i = 0; i < interactableObjects.Count; i++)
             {
-                if (interactableObjects[i].GetType() == typeof(ObjectDrop))
+                if (interactableObjects[i].IsInteractable())
                 {
-                    Equipment _equipment = IsOneOfEquipmentEmpty();
-                    if (_equipment != null)
+                    if (interactableObjects[i].GetType() == typeof(ObjectDrop))
+                    {
+                        Equipment _equipment = IsOneOfEquipmentEmpty();
+                        if (_equipment != null)
+                        {
+                            float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
+                            if (_distMagnitude < _distClosest)
+                            {
+                                _io = interactableObjects[i];
+                                _distClosest = _distMagnitude;
+                            }
+                        }
+                    }
+                    else
                     {
                         float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
                         if (_distMagnitude < _distClosest)
@@ -959,16 +976,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
                         }
                     }
                 }
-                else
-                {
-                    float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
-                    if (_distMagnitude < _distClosest)
-                    {
-                        _io = interactableObjects[i];
-                        _distClosest = _distMagnitude;
-                    }
-                }
             }
+        }
+        catch (Exception)
+        {
+            interactableObjects.RemoveAt(0);
+            throw;
         }
         return _io;
     }

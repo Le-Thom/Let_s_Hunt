@@ -9,10 +9,11 @@ public abstract class InteractableObject : NetworkBehaviour
 
     public virtual void IsClosestToInteract() { }
     public virtual void StopBeingTheClosest() { }
+    public virtual void Interact() { }
 
     [ClientRpc]
     public virtual void InteractClientRpc() { }
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public virtual void InteractServerRpc() { }
     public virtual void SetInteractable(bool value) { }
     public bool IsInteractable() { return isInteractable; }

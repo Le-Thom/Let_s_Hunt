@@ -31,15 +31,16 @@ public class Airdrop : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            if (_hunterCollider.IsOwner) return;
+            if (!_hunterCollider.IsOwner) return;
             Tps_PlayerController.Instance.interactableObjects.Add(this);
+            //_hunterCollider.GetComponentInParent<Tps_PlayerController>()
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            if (_hunterCollider.IsOwner) return;
+            if (!_hunterCollider.IsOwner) return;
             if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
         }
@@ -48,6 +49,8 @@ public class Airdrop : InteractableObject
     private void OnDestroy()
     {
         GetComponent<NetworkObject>().Despawn(true);
+        if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
+            Tps_PlayerController.Instance.interactableObjects.Remove(this);
     }
 
     #region interaction
@@ -60,7 +63,7 @@ public class Airdrop : InteractableObject
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
     }
 
-    [ServerRpc]
+    [ServerRpc(RequireOwnership = false)]
     public override void InteractServerRpc()
     {
         for (int i = 0; i < nbInBox; i++)

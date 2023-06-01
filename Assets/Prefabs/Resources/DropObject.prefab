@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 3414505655043701242}
   - component: {fileID: 2840749341019539342}
   - component: {fileID: 3169151537797464601}
+  - component: {fileID: 4990862226225799053}
+  - component: {fileID: 3720714892322431808}
   m_Layer: 0
   m_Name: DropObject
   m_TagString: Untagged
@@ -158,6 +160,48 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!114 &4990862226225799053
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190610680389894505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92a6b655969ba8b4ab0ec3ead2d668f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 190610680389894505}
+  spriteMesh: {fileID: 583153864052487277}
+  nb: 0
+  sc_object: {fileID: 0}
+  hunterFollowed: {fileID: 0}
+  playerController: {fileID: 0}
+  onCanPickUp: {fileID: 209309281414284941}
+  equipment: {fileID: 0}
+  listEquipment: {fileID: 11400000, guid: 094cbb2e8bcac3e498b21a3fb904be96, type: 2}
+--- !u!135 &3720714892322431808
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190610680389894505}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 0
+  serializedVersion: 3
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8511926328120867966
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,9 +214,6 @@ GameObject:
   - component: {fileID: 1738910290885333532}
   - component: {fileID: 1796016087126540299}
   - component: {fileID: 583153864052487277}
-  - component: {fileID: 4307869100032865564}
-  - component: {fileID: 5144980474294058122}
-  - component: {fileID: 6970660522213804112}
   m_Layer: 0
   m_Name: Body
   m_TagString: Untagged
@@ -267,110 +308,6 @@ MonoBehaviour:
   m_receiveShadows: 1
   m_lightProbeUsage: 1
   m_material: {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
---- !u!114 &4307869100032865564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8511926328120867966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 92a6b655969ba8b4ab0ec3ead2d668f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parent: {fileID: 190610680389894505}
-  nb: 0
-  sc_object: {fileID: 0}
-  hunterFollowed: {fileID: 0}
-  BreathingSpeed: 3
-  BreathingAmplitude: 0.3
-  BreathingCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.057423234
-    - serializedVersion: 3
-      time: 3
-      value: -1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 1
-    - serializedVersion: 3
-      time: 4.056137
-      value: -0.005066663
-      inSlope: 0.94204944
-      outSlope: 0.94204944
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 1
-    m_RotationOrder: 4
-  playerController: {fileID: 0}
-  onCanPickUp: {fileID: 209309281414284941}
-  equipment: {fileID: 0}
-  layerHitOnSpawn:
-    serializedVersion: 2
-    m_Bits: 0
-  listEquipment: {fileID: 0}
---- !u!135 &5144980474294058122
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8511926328120867966}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 0
-  serializedVersion: 3
-  m_Radius: 2
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6970660522213804112
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8511926328120867966}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1001 &6926942337196839396
 PrefabInstance:
   m_ObjectHideFlags: 0

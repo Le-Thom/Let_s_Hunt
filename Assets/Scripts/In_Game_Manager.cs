@@ -108,6 +108,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
             }
 
             soldierScript.playerData.monitor.index = playerId;
+            soldierScript.SetInstance();
 
             MiniMapManager.Instance.canvas.SetActive(true);
             MiniMapManager.Instance.SetForHunter();
