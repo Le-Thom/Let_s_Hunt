@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.InputSystem;
 
 public class Monster_StateMachine : MonoBehaviour
@@ -19,6 +20,8 @@ public class Monster_StateMachine : MonoBehaviour
     public Monster_Camera monster_Camera;
     public PlayerInput monster_Input;
     public Animator monster_Animator;
+    public MonsterHitCollider monsterHitCollider;
+    public NavMeshAgent Navmesh => monster_Movement.navMeshAgent;
 
     //========
     //MONOBEHAVIOUR

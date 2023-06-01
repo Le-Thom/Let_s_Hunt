@@ -14,6 +14,7 @@ public class Monster_Animator : MonoBehaviour
     {
         Vector3 directionMonster = monster_Movement.transform.position - navMesh.destination;
         
+
         foreach (Animator animatorMonster in animatorsMonsterToSeedDirection)
         {
                 animatorMonster.SetFloat("XDirection", directionMonster.x);
