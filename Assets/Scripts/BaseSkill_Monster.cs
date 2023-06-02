@@ -13,7 +13,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     //========
 
     [SerializeField] private Slider UI_skillCooldown;
-    public Monster_Manager monster_Manager;
+    public Monster_StateMachine monster_StateMachine;
 
     [Header("In-Game ")]
     [SerializeField] private bool isSkillOnCooldown = false;
@@ -23,6 +23,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     [SerializeField] protected int timeOfTheAttack = 10;
     private float cooldownCurrentTimer = 0;
     private float _lookTargetRotation;
+    protected bool isAttacking = false;
 
     public float CooldownTimer { get { return cooldownCurrentTimer; } set 
         { 
@@ -36,7 +37,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     //========
     private void Update()
     {
-        SetDirectionMouse();
+        if(!isAttacking) SetDirectionMouse();
         if (isSkillOnCooldown)
         {
             SkillRecharge();
@@ -51,6 +52,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     /// <param name="ctx"></param>
     public void MousePosition(InputAction.CallbackContext ctx)
     {
+        if(!isAttacking)
         SetDirectionMouse();
     }
 

@@ -5,16 +5,19 @@ using UnityEngine;
 
 public class Cac_Competance_Monstre : BaseCompetance_Monster
 {
-    [SerializeField] private Animator cac_Animation;
-    [SerializeField] private string animationName;
+    [SerializeField] private new GameObject collider;
+    [SerializeField] private ParticleSystem cac_particule;
+
     protected override async void SkillFonction()
     {
-        Transform currentParent = transform;
-        cac_Animation.transform.SetParent(monster_Manager.transform);
+        isAttacking = true;
+        cac_particule.Play();
 
-        cac_Animation.Play(animationName);
+        collider.SetActive(true);
+
         await Task.Delay(timeOfTheAttack);
 
-        cac_Animation.transform.SetParent(currentParent);
+        collider.SetActive(false);
+        isAttacking = false;
     }
 }
