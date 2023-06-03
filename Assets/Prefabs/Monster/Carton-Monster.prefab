@@ -489,9 +489,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e1fa1b231a1964b9d5e6ec38b6afa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorMonster: {fileID: 3709031157225421139}
+  animatorsMonsterToSeedDirection: []
+  animatorsMonsterToSeedSpeed: []
   monster_Movement: {fileID: 1924437338012848105}
   navMesh: {fileID: 476607089390100968}
+  buffer: 0.2
 --- !u!1 &2709319656669663959
 GameObject:
   m_ObjectHideFlags: 0
@@ -907,7 +909,6 @@ MonoBehaviour:
   monster_Movement: {fileID: 1924437338012848105}
   monsterHitCollider: {fileID: 7049844946771517815}
   monster_Camera: {fileID: 6972218449254892214}
-  distanceBetweenMonsterAndSoldier: 10
 --- !u!114 &5457530387089195414
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1096,7 +1097,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_skillCooldown: {fileID: 0}
-  monster_Manager: {fileID: 4618043283426791299}
+  monster_StateMachine: {fileID: 0}
   isSkillOnCooldown: 0
   cooldownMaxTimer: 10
   timeBeforeTheAttack: 10
@@ -6265,7 +6266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_skillCooldown: {fileID: 0}
-  monster_Manager: {fileID: 4618043283426791299}
+  monster_StateMachine: {fileID: 0}
   isSkillOnCooldown: 0
   cooldownMaxTimer: 10
   timeBeforeTheAttack: 10
@@ -6502,7 +6503,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_skillCooldown: {fileID: 0}
-  monster_Manager: {fileID: 0}
+  monster_StateMachine: {fileID: 0}
   isSkillOnCooldown: 0
   cooldownMaxTimer: 10
   timeBeforeTheAttack: 10
@@ -11434,13 +11435,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UI_skillCooldown: {fileID: 0}
-  monster_Manager: {fileID: 0}
+  monster_StateMachine: {fileID: 0}
   isSkillOnCooldown: 0
   cooldownMaxTimer: 2
   timeBeforeTheAttack: 500
   timeOfTheAttack: 1
-  cac_Animation: {fileID: 0}
-  animationName: 
+  collider: {fileID: 0}
+  cac_particule: {fileID: 0}
 --- !u!1 &8996313015229524952
 GameObject:
   m_ObjectHideFlags: 0
