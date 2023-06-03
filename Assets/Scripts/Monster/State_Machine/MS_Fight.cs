@@ -8,6 +8,10 @@ public class MS_Fight : Monster_State
     {
 
     }
+    public override void EnterState()
+    {
+
+    }
     public override void ExitState()
     {
         Debug.Log("Game is starting");

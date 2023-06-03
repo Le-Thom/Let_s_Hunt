@@ -25,12 +25,12 @@ public class Blackout_Competance_Monster : BaseCompetance_Monster
         monster_StateMachine.monsterHitCollider.GetMonsterInvincibleForXMiliseconds(timeOfTheAttack);
 
         float baseAcceleration = monster_StateMachine.Navmesh.acceleration;
-        DOVirtual.Float(baseAcceleration, accelerationBoost, timeOfTheAttack / 1000, v => monster_StateMachine.Navmesh.acceleration = v)
-            .OnComplete(() => DOVirtual.Float(accelerationBoost, baseAcceleration, 1, v => monster_StateMachine.Navmesh.acceleration = v));
+        DOVirtual.Float(baseAcceleration, accelerationBoost, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.acceleration = v)
+            .OnComplete(() => DOVirtual.Float(accelerationBoost, baseAcceleration, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.acceleration = v));
 
         float baseSpeed = monster_StateMachine.Navmesh.speed;
-        DOVirtual.Float(baseSpeed, speedBoost, timeOfTheAttack / 1000, v => monster_StateMachine.Navmesh.speed = v)
-            .OnComplete(() => DOVirtual.Float(speedBoost, baseSpeed, 1, v => monster_StateMachine.Navmesh.speed = v));
+        DOVirtual.Float(baseSpeed, speedBoost, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.speed = v)
+            .OnComplete(() => DOVirtual.Float(speedBoost, baseSpeed, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.speed = v));
     }
     private void OnDrawGizmos()
     {
