@@ -18,10 +18,14 @@ public class Monster_StateMachine : MonoBehaviour
     [Header("Ref")]
     public Monster_Movement monster_Movement;
     public Monster_Camera monster_Camera;
+    public Monster_Skills monster_Skills;
     public PlayerInput monster_Input;
     public Animator monster_Animator;
     public MonsterHitCollider monsterHitCollider;
     public NavMeshAgent Navmesh => monster_Movement.navMeshAgent;
+
+    [Header("Stun Variable")]
+    public int stunTimeInMillisecond = 10;
 
     //========
     //MONOBEHAVIOUR
@@ -50,5 +54,9 @@ public class Monster_StateMachine : MonoBehaviour
     public Component GetComponent(Component component)
     {
         return GetComponentInChildren(component.GetType());
+    }
+    public void SetMonsterStateToActive()
+    {
+
     }
 }

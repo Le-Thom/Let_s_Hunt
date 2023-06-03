@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using Unity.Netcode;
 
-public class ActivateObjectByDirection : MonoBehaviour
+public class ActivateObjectByDirection : NetworkBehaviour
 {
     [SerializeField] private GameObject up_Object;
     [SerializeField] private GameObject left_Object;
@@ -18,6 +19,7 @@ public class ActivateObjectByDirection : MonoBehaviour
 
     private void Update()
     {
+        if (!IsOwner) return;
         Vector3 direction = Vector3.zero;
 
         if (isMonster)
@@ -25,9 +27,10 @@ public class ActivateObjectByDirection : MonoBehaviour
         else
         { direction = tps_Controller.directionLook; }
 
-        UpdateDirection(new (direction.x , direction.z));
+        UpdateDirectionClientRpc(new (direction.x , direction.z));
     }
-    public void UpdateDirection(Vector2 newDirection)
+    [ClientRpc]
+    public void UpdateDirectionClientRpc(Vector2 newDirection)
     {
         List<GameObject> objectToDisable = new() { up_Object, left_Object, right_Object, down_Object };
         bool isUpdated = false;
