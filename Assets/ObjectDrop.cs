@@ -61,9 +61,9 @@ public class ObjectDrop : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            if (_hunterCollider.IsOwner)
+            if (_hunterCollider.IsOwner )
             {
-                if (isFromHost) return;
+                if (isFromHost || IsHost) return;
                 EquipmentVerification(_hunterCollider);
             } 
             
@@ -80,7 +80,7 @@ public class ObjectDrop : InteractableObject
         {
             if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
             {
-                if (!_hunterCollider.IsOwner) return;
+                if (!_hunterCollider.IsOwner  || IsHost) return;
                 EquipmentVerification2(_hunterCollider);
             }
             return;
@@ -89,7 +89,7 @@ public class ObjectDrop : InteractableObject
 
     private void EquipmentVerification(HunterHitCollider _hunterCollider)
     {
-        if (!_hunterCollider.IsOwner) return;
+        if (!_hunterCollider.IsOwner || IsHost) return;
 
         if (sc_object.GetType() == typeof(sc_Equipment))
         {
@@ -130,7 +130,7 @@ public class ObjectDrop : InteractableObject
     }
     private void EquipmentVerification2(HunterHitCollider _hunterCollider)
     {
-        if (!_hunterCollider.IsOwner) return;
+        if (!_hunterCollider.IsOwner || IsHost) return;
 
         if (sc_object.GetType() == typeof(sc_Equipment))
         {
@@ -164,6 +164,7 @@ public class ObjectDrop : InteractableObject
 
     private void OnDestroy()
     {
+        if (IsHost) return;
         if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
             Tps_PlayerController.Instance.interactableObjects.Remove(this);
     }
@@ -174,7 +175,7 @@ public class ObjectDrop : InteractableObject
         {
             if (_hunterCollider == hunterFollowed) StopCoroutine(attractCoroutine);
 
-            if (!_hunterCollider.IsOwner) return;
+            if (!_hunterCollider.IsOwner || IsHost) return;
             isFromHost = false;
 
             if (Tps_PlayerController.Instance.interactableObjects.Contains(this))

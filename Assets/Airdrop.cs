@@ -32,7 +32,7 @@ public class Airdrop : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            if (!_hunterCollider.IsOwner) return;
+            if (!_hunterCollider.IsOwner || IsHost) return;
             Tps_PlayerController.Instance.interactableObjects.Add(this);
         }
     }
@@ -40,7 +40,7 @@ public class Airdrop : InteractableObject
     {
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
-            if (!_hunterCollider.IsOwner) return;
+            if (!_hunterCollider.IsOwner || IsHost) return;
             if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
         }
@@ -48,7 +48,7 @@ public class Airdrop : InteractableObject
 
     private void OnDestroy()
     {
-        GetComponent<NetworkObject>().Despawn(true);
+        if (IsHost) return;
         if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
             Tps_PlayerController.Instance.interactableObjects.Remove(this);
     }
@@ -78,10 +78,8 @@ public class Airdrop : InteractableObject
             _obj.GetComponent<Rigidbody>().velocity += throwObj[i];
         }
 
-        if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
-            Tps_PlayerController.Instance.interactableObjects.Remove(this);
-
         Destroy(gameObject);
+        GetComponent<NetworkObject>().Despawn(true);
     }
     #endregion
 

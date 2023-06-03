@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
 using Unity.Services.Lobbies.Models;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,6 +43,7 @@ public class Equipment : MonoBehaviour
     [SerializeField] private TMP_Text textEquipment;
     [SerializeField] private TMP_Text textNb;
     [SerializeField] private SC_sc_Object _sc_sc_equipment;
+    [SerializeField] private EquipmentManager equipmentManager;
 
     private bool onSelected;
 
@@ -143,30 +145,9 @@ public class Equipment : MonoBehaviour
         }
     }
 
-    private void ItemUsed() => nbInInventaire = nbInInventaire - 1;
-
+    public void ItemUsed() => nbInInventaire = nbInInventaire - 1;
     public void UseItem(Tps_PlayerController player)
     {
-        SC_UseItem _script = player.gameObject.AddComponent(System.Type.GetType(equipment.script_equipment.name)) as SC_UseItem;
-
-        Debug.Log(_script.GetType());
-        if (_script.GetType() == typeof(SC_UI_MedKit) && Tps_PlayerController.Instance.GetCurrentState() == AkarisuMD.Player.StateId.HEALING) 
-        {
-            Debug.Log("Bloque");
-            return;
-        }
-
-        int equipmentIndex = 0;
-        for (int i = 0; i < _sc_sc_equipment.objects.Count; i++)
-        {
-            if (equipment == _sc_sc_equipment.objects[i])
-            {
-                equipmentIndex = i;
-                break;
-            }
-        }
-
-        _script.UseItem(player.transform.position, equipmentIndex, player.directionLook);
-        ItemUsed();
+        equipmentManager.UseItem(player, equipment, this);
     }
 }

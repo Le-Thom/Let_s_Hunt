@@ -15,6 +15,7 @@ MonoBehaviour:
   objectSprite: {fileID: 21300000, guid: 70eafbb1249407d468e83c1dfac7df5c, type: 3}
   objectMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
   objectName: Medical Kit
+  type: 2
   maxStackEquipment: 3
   prefab_Object: {fileID: 0}
   script_equipment: {fileID: 11500000, guid: b3eb6bb64e2e7004e94a42fe12c71af5, type: 3}

@@ -21,5 +21,6 @@ public class SC_UI_Flare : SC_UseItem
 
             rb.velocity += new Vector3(-_directionX, 0, -_directionY) * Time.deltaTime + Vector3.up * 4;
         }
+        RemoveComponent();
     }
 }
