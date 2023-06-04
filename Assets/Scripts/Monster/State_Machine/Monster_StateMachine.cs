@@ -22,10 +22,18 @@ public class Monster_StateMachine : MonoBehaviour
     public PlayerInput monster_Input;
     public Animator monster_Animator;
     public MonsterHitCollider monsterHitCollider;
+    public Transform MonsterTransform => monster_Movement.transform; 
     public NavMeshAgent Navmesh => monster_Movement.navMeshAgent;
 
     [Header("Stun Variable")]
     public int stunTimeInMillisecond = 10;
+
+    [Header("Hunter Dectetion Fight Mode")]
+    [SerializeField] private float maxDistance = 10;
+    [SerializeField] private LayerMask playerLayer;
+
+    [Header("Attack Variable")]
+    public int timeOfTheAttackInMillisecond;
 
     //========
     //MONOBEHAVIOUR
@@ -38,7 +46,8 @@ public class Monster_StateMachine : MonoBehaviour
         currentState = factory.GetAnyState(MonsterState.BeforeGame);
         currentState.EnterState();
 
-        //
+        //Dead
+        MonsterHealth.whenTheMonsterDied += SetMonsterStateToDead;
     }
     private void Update()
     {
@@ -46,6 +55,11 @@ public class Monster_StateMachine : MonoBehaviour
         {
             currentState.UpdateState();
         }
+    }
+
+    private void OnDestroy()
+    {
+        MonsterHealth.whenTheMonsterDied -= SetMonsterStateToDead;
     }
 
     //========
@@ -57,6 +71,24 @@ public class Monster_StateMachine : MonoBehaviour
     }
     public void SetMonsterStateToActive()
     {
-
+        currentState.SwitchState(factory.GetAnyState(MonsterState.OnStartGame));
+    }
+    public bool IsMonsterCloseToHunter()
+    {
+        Collider[] colliders = Physics.OverlapSphere(MonsterTransform.position, maxDistance, playerLayer);
+        foreach (Collider collider in colliders)
+        {
+            if (collider.TryGetComponent<HunterHitCollider>(out HunterHitCollider hunterHitCollider))
+            {
+                Debug.Log("Is Monster Close To Huner == true" + hunterHitCollider.transform.parent.parent);
+                return true;
+            }
+        }
+        Debug.Log("Is Monster Close To Huner == false");
+        return false;
+    }
+    private void SetMonsterStateToDead()
+    {
+        currentState.SwitchState(factory.GetAnyState(MonsterState.Dead));
     }
 }

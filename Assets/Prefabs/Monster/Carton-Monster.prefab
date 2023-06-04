@@ -6248,6 +6248,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+<<<<<<< HEAD:Assets/Prefabs/Monster/Carton-Monster.prefab
   - {fileID: 664114849578027669}
   m_Father: {fileID: 221271230396356269}
   m_RootOrder: -1
@@ -6456,6 +6457,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 4390436421013450920}
   m_RootOrder: -1
+=======
+  - {fileID: 4922930607647572612}
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
+>>>>>>> parent of bf9aa8b (Morsure):Assets/Prefabs/Prefab_Morsure.prefab
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7220338127456740684
 GameObject:
@@ -6486,7 +6492,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
+<<<<<<< HEAD:Assets/Prefabs/Monster/Carton-Monster.prefab
   m_Father: {fileID: 221271230396356269}
+=======
+  m_Father: {fileID: 4922930607647572612}
+>>>>>>> parent of bf9aa8b (Morsure):Assets/Prefabs/Prefab_Morsure.prefab
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1748558607868004146
@@ -11364,9 +11374,15 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+<<<<<<< HEAD:Assets/Prefabs/Monster/Carton-Monster.prefab
   - {fileID: 6094630386397147137}
   - {fileID: 7262202262246101304}
   m_Father: {fileID: 806079289078773310}
+=======
+  - {fileID: 2079929187198428182}
+  - {fileID: 3667105613726501338}
+  m_Father: {fileID: 4168376883457034422}
+>>>>>>> parent of bf9aa8b (Morsure):Assets/Prefabs/Prefab_Morsure.prefab
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6972218449254892214

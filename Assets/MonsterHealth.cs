@@ -27,7 +27,6 @@ public class MonsterHealth : MonoBehaviour
     {
         MonsterHitCollider.onMonsterHit += UpdateHpToDamageOrHeal;
 
-
         monsterHP = maxMonsterHp;
         Debug.Log("Init Monster HP");
         

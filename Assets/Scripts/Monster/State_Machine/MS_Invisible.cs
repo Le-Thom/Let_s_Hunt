@@ -10,7 +10,16 @@ public class MS_Invisible : Monster_State
     }
     public override void EnterState()
     {
-        stateMachine.monster_Animator.SetBool("isVisible", false);
+        stateMachine.monster_Camera.ChangeCameraState(MonsterCameraState.FreeCam);
+        stateMachine.monster_Movement.ChangeSpeed(MonsterSpeed.Invisible);
+        stateMachine.monster_Skills.CanMonsterUseSkill(false);
+    }
+    public override void UpdateState()
+    {
+        if(stateMachine.IsMonsterCloseToHunter())
+        {
+            SwitchState(factory.GetAnyState(MonsterState.Fight));
+        }
     }
     public override void ExitState()
     {

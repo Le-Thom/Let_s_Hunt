@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using Cinemachine;
+using NaughtyAttributes;
 
 public class Monster_Camera : MonoBehaviour
 {
@@ -108,6 +109,11 @@ public class Monster_Camera : MonoBehaviour
     {
         freeCamera.Priority = freeCam;
         lockedCamera.Priority = lockedCam;
+    }
+    [Button]
+    public void TestingLockCam()
+    {
+        ChangeCameraState(MonsterCameraState.LockedCam);
     }
 }
 public enum MonsterCameraState

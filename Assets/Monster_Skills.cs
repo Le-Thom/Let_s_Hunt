@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Resources;
@@ -11,7 +12,7 @@ public class Monster_Skills : MonoBehaviour
     //========
     [SerializeField] private List<BaseCompetance_Monster> listOfCompetance = new();
     [SerializeField] private AnimationSequencerController skillUIAnimationController;
-
+    public static Action<int> whenASkillIsUsed;
 
     //========
     //MONOBEHAVIOUR
