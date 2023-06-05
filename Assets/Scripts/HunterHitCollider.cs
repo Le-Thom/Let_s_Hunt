@@ -25,7 +25,7 @@ public class HunterHitCollider : NetworkBehaviour
     }
     public void DeactivateFlashLightForXMillisecondSecond(int milliseconds)
     {
-
+        Debug.Log(indexPlayer.Value + "has no flashlight");
     }
 
     [ServerRpc(RequireOwnership = false)]

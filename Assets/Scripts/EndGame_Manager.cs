@@ -19,11 +19,13 @@ public class EndGame_Manager : NetworkBehaviour
     private void OnEnable()
     {
         MonsterHealth.whenTheMonsterDied += OnSoldierWinningClientRpc;
+        TimeManager.onEndTimer += OnMonsterWinningClientRpc;
     }
 
     private void OnDisable()
     {
         MonsterHealth.whenTheMonsterDied -= OnSoldierWinningClientRpc;
+        TimeManager.onEndTimer -= OnMonsterWinningClientRpc;
     }
 
     //=========

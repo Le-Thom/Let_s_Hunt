@@ -1,11 +1,19 @@
 using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using UnityEngine;
+using Unity.Netcode;
+using TMPro;
+using DG.Tweening;
 
-public class TimeManager : Singleton<TimeManager>
+public class TimeManager : NetworkBehaviour
 {
+    public static Action onEndTimer; 
     [SerializeField] private Transform transformDirectionalLight;
+    [SerializeField] private TextMeshProUGUI _timerText;
+
 
     [SerializeField, ReadOnly] private string timeElapsed;
     [SerializeField, ReadOnly] private string realTimeElapsed;
@@ -22,6 +30,7 @@ public class TimeManager : Singleton<TimeManager>
     [SerializeField] private float inGameTimeInSecond;
     [Tooltip("In second. how much seconds elapsed during the game.")]
     [SerializeField] private float _gameSecondElapsed;
+    private bool isTimerFinish = false;
     private float unQuartTemps => RealTimeForAGameInMinute * 60 / 10;
     private float gameSecondElapsed
     {
@@ -77,16 +86,26 @@ public class TimeManager : Singleton<TimeManager>
     /// <returns></returns>
     public string GetCurrentTimeInGameToDisplay(float value)
     {
-        int _hours, _minutes, _seconds;
+        if (value <= 0)
+            return "00:00:00";
 
-        _hours = Mathf.FloorToInt(value / 3600);
-        _minutes = Mathf.FloorToInt(value / 60);
-        _seconds = Mathf.FloorToInt(value);
+        int _hours = (int)(value / 3600) % 24;
+        int _minutes = (int)(value / 60) % 60;
+        int _seconds = (int)value % 60;
 
-        while (_hours > 23) { _hours -= 23; }
+        return _hours.ToString("00") + ":" + _minutes.ToString("00") + ":" + _seconds.ToString("00");
+
+        //_hours = Mathf.FloorToInt(value / 3600);
+        //_minutes = Mathf.FloorToInt(value / 60);
+        //_seconds = Mathf.FloorToInt(value);
+
+        /*
+        while (_hours > 23) { _hours -= 24; }
         while (_minutes > 59) { _minutes -= 60; }
         while (_seconds > 59) { _seconds -= 60; }
+        */
 
+        /*
         string _hoursString;
         if (_hours < 10) { _hoursString = $"0{_hours}"; }
         else _hoursString = $"{_hours}";
@@ -97,13 +116,44 @@ public class TimeManager : Singleton<TimeManager>
 
         string _secondsString;
         if (_seconds < 10) { _secondsString = $"0{_seconds}"; }
-        else _secondsString = $"{_seconds}";
+        else _secondsString = $"{_seconds}";*/
 
+        //return string.Format("{0:D2}:{0:D2}:{0:D2}", _hours, _minutes, _seconds);
 
-        string _time = $"{_hoursString}:{_minutesString}:{_secondsString}";
-        return _time;
+        //string _time = $"{_hoursString}:{_minutesString}:{_secondsString}";
+        //return _time;
     }
 
+    [ClientRpc]
+    public void StartTimeClientRpc()
+    {
+        this.enabled = true;
+    }
+    [ClientRpc]
+    public void RemoveSecondOfTimeClientRpc(float secondsToRemove)
+    {
+        gameSecondElapsed += secondsToRemove * rationSecondForAnHours;
+        realTimeElapsedInSecond += secondsToRemove;
+        SecondRemaining -= secondsToRemove;
+        realTimeElapsed = GetCurrentTimeInGameToDisplay(realTimeElapsedInSecond);
+
+        FeedbackText();
+    } 
+    private async void FeedbackText()
+    {
+        if (_timerText != null)
+        {
+            _timerText.text = GetCurrentTimeInGameToDisplay(SecondRemaining);
+
+            Color baseTextColor = _timerText.color;
+
+            for (int i = 0; i <= 2; i++)
+            {
+                await _timerText.DOColor(Color.red, 0.5f).AsyncWaitForCompletion();
+                await _timerText.DOColor(baseTextColor, 0.5f).AsyncWaitForCompletion();
+            }
+        }
+    }
     private void Start()
     {
         int _endTimeHour;
@@ -119,11 +169,22 @@ public class TimeManager : Singleton<TimeManager>
     }
     private void Update()
     {
+        //if (!IsOwner) return;
         gameSecondElapsed += Time.deltaTime * rationSecondForAnHours;
         realTimeElapsedInSecond += Time.deltaTime;
         SecondRemaining -= Time.deltaTime;
         realTimeElapsed = GetCurrentTimeInGameToDisplay(realTimeElapsedInSecond);
-    }
 
-    
+        if (_timerText != null) 
+        {
+            _timerText.text = GetCurrentTimeInGameToDisplay(SecondRemaining);
+        }
+
+        if(SecondRemaining <= 0 && !isTimerFinish)
+        {
+            onEndTimer?.Invoke();
+            isTimerFinish = true;
+            print("End Of The Game, Monster Win");
+        }
+    }
 }

@@ -67,7 +67,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 15
+  m_CameraDistance: 20
   m_DeadZoneWidth: 0
   m_DeadZoneHeight: 0
   m_DeadZoneDepth: 0
@@ -142,7 +142,7 @@ MonoBehaviour:
   maxDistance: 10
   playerLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 2147483647
   accelerationBoost: 50
   speedBoost: 50
 --- !u!1 &488958829150866471
@@ -170,7 +170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488958829150866471}
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 12.306602, z: -10.606602}
+  m_LocalPosition: {x: 0, y: 15.842134, z: -14.142136}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -501,6 +501,7 @@ MonoBehaviour:
   monster_Input: {fileID: 4593430181937896699}
   monster_Animator: {fileID: 8239880523886464800}
   monsterHitCollider: {fileID: 801450911233564112}
+  timeManager: {fileID: 0}
   stunTimeInMillisecond: 10
   maxDistanceForEnteringInFight: 10
   maxDistanceForExitingTheFight: 15
@@ -760,11 +761,11 @@ MonoBehaviour:
   isSkillOnCooldown: 0
   cooldownMaxTimer: 10
   timeBeforeTheAttack: 10
-  timeOfTheAttack: 1000
+  timeOfTheAttack: 900
   timeOfMonsterStunWhenAttack: 1000
   collider: {fileID: 3904276831777882081}
   dashDestination: {fileID: 177065812614315010}
-  dashForce: 1
+  dashForce: 0.45
 --- !u!65 &3904276831777882081
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -782,7 +783,7 @@ BoxCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 1
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 3
   m_Size: {x: 3, y: 5, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
@@ -6392,7 +6393,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad8deae8091111f4eb30a56c1f4e0d3e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList: []
+  TransitionStateInfoList:
+  - Layer: 0
+    OriginatingState: 58209074
+    DestinationState: -1931371535
+    TransitionDuration: 0.25
+    TriggerNameHash: -237510120
+    TransitionIndex: 0
+  - Layer: 0
+    OriginatingState: -1459219776
+    DestinationState: 58209074
+    TransitionDuration: 0.25
+    TriggerNameHash: 1188849212
+    TransitionIndex: 0
   m_Animator: {fileID: 8239880523886464800}
 --- !u!114 &2822066508388540129
 MonoBehaviour:
@@ -11792,7 +11805,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 1, y: 3, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &6976235611065134467
 MonoBehaviour:
@@ -11806,7 +11819,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f4d6f265a3a364eb2d154bb54b2638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: -5
+  damage: -50
 --- !u!114 &7600400241765839430
 MonoBehaviour:
   m_ObjectHideFlags: 0
