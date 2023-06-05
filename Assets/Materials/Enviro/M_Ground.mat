@@ -50,9 +50,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _CloudStrenght: 1.35
+    - _CloudStrenght: 0.85
     - _CloudsDensity: 0.15
-    - _CloudsSize: 0.08
+    - _CloudsSize: -0.15
     - _CloudsSpeed: 2.25
     - _QueueControl: 0
     - _QueueOffset: 0
