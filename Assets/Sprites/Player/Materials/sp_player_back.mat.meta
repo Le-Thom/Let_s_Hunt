@@ -1,8 +1,19 @@
 fileFormatVersion: 2
+<<<<<<< HEAD:Assets/Materials/Particule/M_Cloud.mat.meta
+<<<<<<< Updated upstream
+guid: f17614dcd5765e246bc54c7f5152f8db
+=======
 guid: 59382acb9f870b84f8041354b10434e6
+>>>>>>> main:Assets/Sprites/Player/Materials/sp_player_back.mat.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 2100000
+=======
+guid: 9ab67d967d3de9b44ad6817ad651b50e
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+>>>>>>> Stashed changes
   userData: 
   assetBundleName: 
   assetBundleVariant: 

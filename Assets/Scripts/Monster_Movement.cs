@@ -14,7 +14,7 @@ public class Monster_Movement : MonoBehaviour
     [Header("Ref")]
     [SerializeField] private ParticleSystem onClickParticule;
     [SerializeField] private GameObject mousePointeur;
-    [SerializeField] private NavMeshAgent navMeshAgent;
+    public NavMeshAgent navMeshAgent;
 
     [Header("Movement Variable")]
     [SerializeField] private float monsterSpeed = 2;

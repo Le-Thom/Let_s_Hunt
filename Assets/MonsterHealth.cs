@@ -32,6 +32,7 @@ public class MonsterHealth : MonoBehaviour
         Debug.Log("Init Monster HP");
         
         hpBar.maxValue = monsterHP;
+        hpBar.value = monsterHP;
     }
 
     private void OnDisable()

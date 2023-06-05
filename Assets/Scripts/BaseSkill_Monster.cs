@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using NaughtyAttributes;
 
 public class BaseCompetance_Monster : MonoBehaviour
 {
@@ -10,30 +12,33 @@ public class BaseCompetance_Monster : MonoBehaviour
     //VARIABLES
     //========
 
-    [SerializeField] private LayerMask floorLayer;
-    [SerializeField] private Transform positionToMouse;
+    [SerializeField] private Slider UI_skillCooldown;
+    public Monster_StateMachine monster_StateMachine;
+
     [Header("In-Game ")]
-    private bool isSkillOnCooldown = false;
+    [SerializeField] private bool isSkillOnCooldown = false;
     [SerializeField] private float cooldownMaxTimer = 10;
+    [Header("Delay in Milliseconds")]
+    [SerializeField] protected int timeBeforeTheAttack = 10;
+    [SerializeField] protected int timeOfTheAttack = 10;
     private float cooldownCurrentTimer = 0;
-    private Vector2 mousePositionOnViewport;
-    private Camera _camera;
     private float _lookTargetRotation;
+    protected bool isAttacking = false;
+
+    public float CooldownTimer { get { return cooldownCurrentTimer; } set 
+        { 
+            cooldownCurrentTimer = value;
+            UI_skillCooldown.value = cooldownCurrentTimer;
+        } 
+    }
 
     //========
     //MONOBEHAVIOUR
     //========
-    private void Awake()
-    {
-        positionToMouse = PositionToMouse.Instance.transform;
-    }
-    private void OnEnable()
-    {
-        _camera = Camera.main;
-    }
     private void Update()
     {
-        if(isSkillOnCooldown)
+        if(!isAttacking) SetDirectionMouse();
+        if (isSkillOnCooldown)
         {
             SkillRecharge();
         }
@@ -47,7 +52,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     /// <param name="ctx"></param>
     public void MousePosition(InputAction.CallbackContext ctx)
     {
-        mousePositionOnViewport = ctx.ReadValue<Vector2>();
+        if(!isAttacking)
         SetDirectionMouse();
     }
 
@@ -67,20 +72,25 @@ public class BaseCompetance_Monster : MonoBehaviour
     private void GetDirectionFromObjToMouse()
     {
         // target player to it's screen position.
-        Vector3 objPosInViewport = _camera.WorldToScreenPoint(transform.position);
+        Vector3 objPosInViewport = Camera.main.WorldToScreenPoint(transform.position);
+
 
         // direction of the vector from player to mouse.
-        Vector2 _direction = new Vector2(objPosInViewport.x - mousePositionOnViewport.x, objPosInViewport.y - mousePositionOnViewport.y);
+        Vector2 _direction = new Vector2(objPosInViewport.x - Input.mousePosition.x, objPosInViewport.y - Input.mousePosition.y);
 
         // calculate Y rotation from the direction.
         _lookTargetRotation = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg + 180f;
     }
 
+    [Button]
     public void UseSkill()
     {
         //And If not stun
         if (isSkillOnCooldown) return;
+
         SkillFonction();
+        isSkillOnCooldown = true;
+
     }
     protected virtual void SkillFonction()
     {
@@ -91,9 +101,11 @@ public class BaseCompetance_Monster : MonoBehaviour
         if (cooldownCurrentTimer >= 100)
         {
             isSkillOnCooldown = false;
-            cooldownCurrentTimer = 0;
+            CooldownTimer = 0;
         }
         else
-            cooldownCurrentTimer += Time.deltaTime * cooldownMaxTimer / 100;
+        {
+            CooldownTimer += Time.deltaTime * 100 / cooldownMaxTimer;
+        }
     }
 }

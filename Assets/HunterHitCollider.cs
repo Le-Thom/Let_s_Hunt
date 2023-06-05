@@ -6,9 +6,9 @@ using NaughtyAttributes;
 
 public class HunterHitCollider : NetworkBehaviour
 {
-    private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
+    [SerializeField] private Equipment equipment1, equipment2;
 
-    // NEED NETWORK HERE FOR INDEX PLAYER
+    private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
 
     /// <summary>
     /// If collider got hit, transfert info to player.
@@ -20,6 +20,14 @@ public class HunterHitCollider : NetworkBehaviour
         if (IsHost) return; // Monster don't have this.
 
         HealthBarManager.Instance.ChangeHealthBar(indexPlayer.Value, Damage); 
+    }
+    public void StunHunter()
+    {
+
+    }
+    public void DeactivateFlashLightForXMillisecondSecond(int milliseconds)
+    {
+
     }
 
     [ServerRpc(RequireOwnership = false)]

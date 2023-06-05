@@ -7,7 +7,7 @@ public class WeaponAtkCollider : MonoBehaviour
     [SerializeField] private Weapon target;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent<TestTarget>(out TestTarget component))
+        if (other.TryGetComponent<MonsterHitCollider>(out MonsterHitCollider component))
         {
             target.listTarget.Add(component);
         }
