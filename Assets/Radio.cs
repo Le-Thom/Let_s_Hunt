@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
@@ -53,13 +54,14 @@ public class Radio : InteractableObject
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
         if (notAvailable.active) notAvailable.SetActive(false);
     }
-    public override void Interact()
+    [ClientRpc]
+    public override void InteractClientRpc()
     {
         if (!available) return;
 
         available = false;
 
-        StartVote();
+        if (IsHost) StartVote();
     }
 
     // Private fonction

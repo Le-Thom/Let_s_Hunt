@@ -2,10 +2,32 @@
     "name": "Controls",
     "maps": [
         {
-            "name": "Player",
+            "name": "VOIP",
             "id": "e7c85fa8-efcc-4b23-b402-db496a31ce51",
-            "actions": [],
-            "bindings": []
+            "actions": [
+                {
+                    "name": "ToggleMute",
+                    "type": "Button",
+                    "id": "0cd4fb27-b156-4e13-8a50-c5a875d48482",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "598b3f6a-8309-42c8-922b-64298722c0fa",
+                    "path": "<Keyboard>/t",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ToggleMute",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []

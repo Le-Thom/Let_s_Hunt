@@ -24,16 +24,39 @@ public partial class @Controls: IInputActionCollection2, IDisposable
     ""name"": ""Controls"",
     ""maps"": [
         {
-            ""name"": ""Player"",
+            ""name"": ""VOIP"",
             ""id"": ""e7c85fa8-efcc-4b23-b402-db496a31ce51"",
-            ""actions"": [],
-            ""bindings"": []
+            ""actions"": [
+                {
+                    ""name"": ""ToggleMute"",
+                    ""type"": ""Button"",
+                    ""id"": ""0cd4fb27-b156-4e13-8a50-c5a875d48482"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""598b3f6a-8309-42c8-922b-64298722c0fa"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleMute"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
 }");
-        // Player
-        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        // VOIP
+        m_VOIP = asset.FindActionMap("VOIP", throwIfNotFound: true);
+        m_VOIP_ToggleMute = m_VOIP.FindAction("ToggleMute", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -92,44 +115,53 @@ public partial class @Controls: IInputActionCollection2, IDisposable
         return asset.FindBinding(bindingMask, out action);
     }
 
-    // Player
-    private readonly InputActionMap m_Player;
-    private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
-    public struct PlayerActions
+    // VOIP
+    private readonly InputActionMap m_VOIP;
+    private List<IVOIPActions> m_VOIPActionsCallbackInterfaces = new List<IVOIPActions>();
+    private readonly InputAction m_VOIP_ToggleMute;
+    public struct VOIPActions
     {
         private @Controls m_Wrapper;
-        public PlayerActions(@Controls wrapper) { m_Wrapper = wrapper; }
-        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public VOIPActions(@Controls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @ToggleMute => m_Wrapper.m_VOIP_ToggleMute;
+        public InputActionMap Get() { return m_Wrapper.m_VOIP; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
-        public void AddCallbacks(IPlayerActions instance)
+        public static implicit operator InputActionMap(VOIPActions set) { return set.Get(); }
+        public void AddCallbacks(IVOIPActions instance)
         {
-            if (instance == null || m_Wrapper.m_PlayerActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_PlayerActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_VOIPActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_VOIPActionsCallbackInterfaces.Add(instance);
+            @ToggleMute.started += instance.OnToggleMute;
+            @ToggleMute.performed += instance.OnToggleMute;
+            @ToggleMute.canceled += instance.OnToggleMute;
         }
 
-        private void UnregisterCallbacks(IPlayerActions instance)
+        private void UnregisterCallbacks(IVOIPActions instance)
         {
+            @ToggleMute.started -= instance.OnToggleMute;
+            @ToggleMute.performed -= instance.OnToggleMute;
+            @ToggleMute.canceled -= instance.OnToggleMute;
         }
 
-        public void RemoveCallbacks(IPlayerActions instance)
+        public void RemoveCallbacks(IVOIPActions instance)
         {
-            if (m_Wrapper.m_PlayerActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_VOIPActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IPlayerActions instance)
+        public void SetCallbacks(IVOIPActions instance)
         {
-            foreach (var item in m_Wrapper.m_PlayerActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_VOIPActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_PlayerActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_VOIPActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public PlayerActions @Player => new PlayerActions(this);
-    public interface IPlayerActions
+    public VOIPActions @VOIP => new VOIPActions(this);
+    public interface IVOIPActions
     {
+        void OnToggleMute(InputAction.CallbackContext context);
     }
 }
