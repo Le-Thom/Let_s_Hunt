@@ -37,7 +37,7 @@ Material:
     - _Alpha: 0.73
     - _ColorSeed: 0.5
     - _IsHit: 0
-    - _IsRandom: 1
+    - _IsRandom: 0
     - _ItsEmissive: 0
     - _ItsMonster: 0
     - _RandomInMovement: 1

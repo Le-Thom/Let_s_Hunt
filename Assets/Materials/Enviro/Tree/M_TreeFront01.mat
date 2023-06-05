@@ -26,6 +26,7 @@ Material:
     m_TexEnvs: []
     m_Ints: []
     m_Floats:
+    - _IsRandom: 0
     - _Wind_Influence: 0.25
     - _hasWind: 1
     m_Colors: []
