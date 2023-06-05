@@ -38,6 +38,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     public Vector2 directionLook;
 
+    public bool inputAutoActive = false;
+
     #endregion
     //==============================================================================================================
 
@@ -114,7 +116,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void OnEnable()
     {
         // active inputs
-        _inputs.Enable();
+        if (inputAutoActive) _inputs.Enable();
     }
 
     private void Start()

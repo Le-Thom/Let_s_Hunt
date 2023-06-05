@@ -918,6 +918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: ad58c05fe68fa9d4ba41468d749efb11, type: 2}
   directionLook: {x: 0, y: 0}
+  inputAutoActive: 0
   _Body: {fileID: 3304793421507758945}
   _Animator: {fileID: 255212587444027027}
   _targetCamera: {fileID: 5874679347105883748}
