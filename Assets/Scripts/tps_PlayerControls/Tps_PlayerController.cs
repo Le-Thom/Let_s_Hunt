@@ -125,8 +125,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         SetVirtualCamParameters();
 
-        SetEvent();
-
         playerData.monitor.isValid = true;
     }
 
@@ -280,11 +278,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void ActiveInput()
     {
         _inputs.Enable();
-    }
-
-    private void SetEvent()
-    {
-        ScreamMonster.Instance.delegateEventsScream += MonsterScream;
     }
 
     /// <summary>
@@ -838,7 +831,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _Body.transform.position = transform.position + Vector3.up * 1f;
 
         // Set flashlight pos to player pos
-        _flashlightRoot.position = transform.position + Vector3.up * 0.01f;
+        _flashlightRoot.position = transform.position + Vector3.up * 0.75f;
 
         // update animator
         _Animator.SetFloat(_animIDSpeed, _animSpeedBlend);
@@ -1023,7 +1016,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         else if (_equipment2.GetOnSelected()) _equipment2.SetOnSelected();
     }
 
-    private void MonsterScream(Vector3 position, float timer)
+    public void MonsterScream(Vector3 position, float timer)
     {
         _rotationScream.SetActive(true);
 
