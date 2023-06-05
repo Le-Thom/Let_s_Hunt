@@ -302,6 +302,9 @@
         },
         {
             "m_Id": "de53cb022a6a4b72bfe0e136ba8fc176"
+        },
+        {
+            "m_Id": "eae5c6e4104047c089be31e2a98092d3"
         }
     ],
     "m_GroupDatas": [
@@ -318,7 +321,11 @@
             "m_Id": "0f15672289fc4ce5987469ee73ca35ae"
         }
     ],
-    "m_StickyNoteDatas": [],
+    "m_StickyNoteDatas": [
+        {
+            "m_Id": "7e21412b7e444f92b10cfda3e40731e7"
+        }
+    ],
     "m_Edges": [
         {
             "m_OutputSlot": {
@@ -5508,6 +5515,26 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.StickyNoteData",
+    "m_ObjectId": "7e21412b7e444f92b10cfda3e40731e7",
+    "m_Title": "GRADIENT",
+    "m_Content": "Write something here",
+    "m_TextSize": 0,
+    "m_Theme": 0,
+    "m_Position": {
+        "serializedVersion": "2",
+        "x": -2136.0,
+        "y": -512.0,
+        "width": 567.0,
+        "height": 539.0
+    },
+    "m_Group": {
+        "m_Id": ""
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.Vector4MaterialSlot",
     "m_ObjectId": "7ee714b6cca243b993f45c74f67bcba9",
     "m_Id": 4,
@@ -7293,6 +7320,18 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GradientMaterialSlot",
+    "m_ObjectId": "b99b613d27dc4bb1b8aad70a9c2ab87a",
+    "m_Id": 0,
+    "m_DisplayName": "Out",
+    "m_SlotType": 1,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "Out",
+    "m_StageCapability": 3
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.AddNode",
     "m_ObjectId": "bb5e98809ee9457eb33ee0e36d380250",
     "m_Group": {
@@ -8967,6 +9006,67 @@
         "z": 0.0,
         "w": 0.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GradientNode",
+    "m_ObjectId": "eae5c6e4104047c089be31e2a98092d3",
+    "m_Group": {
+        "m_Id": ""
+    },
+    "m_Name": "Gradient",
+    "m_DrawState": {
+        "m_Expanded": true,
+        "m_Position": {
+            "serializedVersion": "2",
+            "x": -1975.0001220703125,
+            "y": -293.9999694824219,
+            "width": 208.0,
+            "height": 104.00007629394531
+        }
+    },
+    "m_Slots": [
+        {
+            "m_Id": "b99b613d27dc4bb1b8aad70a9c2ab87a"
+        }
+    ],
+    "synonyms": [
+        "ramp"
+    ],
+    "m_Precision": 0,
+    "m_PreviewExpanded": true,
+    "m_DismissedVersion": 0,
+    "m_PreviewMode": 0,
+    "m_CustomColors": {
+        "m_SerializableColors": []
+    },
+    "m_Value": 0.0,
+    "m_SerializableColorKeys": [
+        {
+            "x": 0.00784313678741455,
+            "y": 0.5098039507865906,
+            "z": 0.11787612736225128,
+            "w": 0.0
+        },
+        {
+            "x": 0.011975078843533993,
+            "y": 0.1320754885673523,
+            "z": 0.0,
+            "w": 1.0
+        }
+    ],
+    "m_SerializableAlphaKeys": [
+        {
+            "x": 1.0,
+            "y": 0.0
+        },
+        {
+            "x": 1.0,
+            "y": 1.0
+        }
+    ],
+    "m_SerializableMode": 0
 }
 
 {

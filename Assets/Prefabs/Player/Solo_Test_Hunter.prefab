@@ -189,6 +189,8 @@ GameObject:
   - component: {fileID: 1166539293702471267}
   - component: {fileID: 6673561130928972304}
   - component: {fileID: 2973102523423398150}
+  - component: {fileID: 7422192648808101350}
+  - component: {fileID: 6464601709972456402}
   m_Layer: 10
   m_Name: HitCollider
   m_TagString: Untagged
@@ -259,6 +261,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!114 &7422192648808101350
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410530125966673174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed1287b60b4c4c94cafac172d8945445, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6464601709972456402
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 410530125966673174}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 951099334
+  AlwaysReplicateAsRoot: 0
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
 --- !u!1 &1449955411544521185
 GameObject:
   m_ObjectHideFlags: 0
@@ -888,6 +918,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerData: {fileID: 11400000, guid: ad58c05fe68fa9d4ba41468d749efb11, type: 2}
   directionLook: {x: 0, y: 0}
+  inputAutoActive: 0
   _Body: {fileID: 3304793421507758945}
   _Animator: {fileID: 255212587444027027}
   _targetCamera: {fileID: 5874679347105883748}
@@ -1228,7 +1259,7 @@ Transform:
   - {fileID: 2872250107980376960}
   - {fileID: 7484155002877759297}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3863997562566330115
 PrefabInstance:

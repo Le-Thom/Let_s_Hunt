@@ -38,6 +38,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     public Vector2 directionLook;
 
+    public bool inputAutoActive = false;
+
     #endregion
     //==============================================================================================================
 
@@ -114,7 +116,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void OnEnable()
     {
         // active inputs
-        //_inputs.Enable();
+        if (inputAutoActive) _inputs.Enable();
     }
 
     private void Start()
@@ -122,8 +124,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         ResetPlayerData();
 
         SetVirtualCamParameters();
-
-        SetEvent();
 
         playerData.monitor.isValid = true;
     }
@@ -161,6 +161,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region PUBLIC FONCTION
     //==============================================================================================================
 
+    public void SetInstance()
+    {
+        instance = this;
+    }
     /// <summary>
     /// Get Current State of State Machine
     /// </summary>
@@ -274,11 +278,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void ActiveInput()
     {
         _inputs.Enable();
-    }
-
-    private void SetEvent()
-    {
-        ScreamMonster.Instance.delegateEventsScream += MonsterScream;
     }
 
     /// <summary>
@@ -571,7 +570,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // move the player.
         Move(HunterMoveType.NORMAL);
 
-        UpdateEquipmentCheck();
+        UpdateObjectCheck();
 
         if (playerData.monitor.isAtk1) stateMachine.ChangeState(StateId.ATK1);
         if (playerData.monitor.isAtk2) stateMachine.ChangeState(StateId.ATK2);
@@ -652,7 +651,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // move the player.
         Move(HunterMoveType.NORMAL);
 
-        UpdateEquipmentCheck();
+        UpdateObjectCheck();
 
         if (playerData.monitor.isAtk1)
         {
@@ -832,7 +831,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _Body.transform.position = transform.position + Vector3.up * 1f;
 
         // Set flashlight pos to player pos
-        _flashlightRoot.position = transform.position + Vector3.up * 0.01f;
+        _flashlightRoot.position = transform.position + Vector3.up * 0.75f;
 
         // update animator
         _Animator.SetFloat(_animIDSpeed, _animSpeedBlend);
@@ -899,34 +898,39 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Interact
     private void Interact()
     {
-        if (closestInteractableObject != null) closestInteractableObject.InteractClientRpc();
+        if (closestInteractableObject != null)
+        {
+            closestInteractableObject.InteractClientRpc();
+            closestInteractableObject.InteractServerRpc();
+            closestInteractableObject.Interact();
+        }
     }
-    private void UpdateEquipmentCheck()
+    private void UpdateObjectCheck()
     {
-        InteractableObject _closestEquipment = GetClosestItem();
-        if (closestInteractableObject != null && (_closestEquipment == null || _closestEquipment != closestInteractableObject))
+        InteractableObject _closestObject = GetClosestItem();
+        if (closestInteractableObject != null && (_closestObject == null || _closestObject != closestInteractableObject))
         {
             closestInteractableObject.StopBeingTheClosest();
             closestInteractableObject = null;
         }
 
-        if (_closestEquipment == null) return;
+        if (_closestObject == null) return;
 
-        if (_closestEquipment.TryGetComponent<ObjectDrop>(out ObjectDrop _equipmentDrop))
+        if (_closestObject.TryGetComponent<ObjectDrop>(out ObjectDrop _equipmentDrop))
         {
             Equipment _emptyEquipment = IsOneOfEquipmentEmpty();
             if (_emptyEquipment != null)
             {
-                _closestEquipment.IsClosestToInteract();
-                closestInteractableObject = _closestEquipment;
+                _closestObject.IsClosestToInteract();
+                closestInteractableObject = _closestObject;
                 return;
             }
         }
 
         else
         {
-            _closestEquipment.IsClosestToInteract();
-            closestInteractableObject = _closestEquipment;
+            _closestObject.IsClosestToInteract();
+            closestInteractableObject = _closestObject;
         }
 
         closestInteractableObject.IsClosestToInteract();
@@ -938,14 +942,26 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         InteractableObject _io = null;
         float _distClosest = 10000;
-        for (int i = 0; i < interactableObjects.Count; i++)
+        try
         {
-            if (interactableObjects[i].IsInteractable())
+            for (int i = 0; i < interactableObjects.Count; i++)
             {
-                if (interactableObjects[i].GetType() == typeof(ObjectDrop))
+                if (interactableObjects[i].IsInteractable())
                 {
-                    Equipment _equipment = IsOneOfEquipmentEmpty();
-                    if (_equipment != null)
+                    if (interactableObjects[i].GetType() == typeof(ObjectDrop))
+                    {
+                        Equipment _equipment = IsOneOfEquipmentEmpty();
+                        if (_equipment != null)
+                        {
+                            float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
+                            if (_distMagnitude < _distClosest)
+                            {
+                                _io = interactableObjects[i];
+                                _distClosest = _distMagnitude;
+                            }
+                        }
+                    }
+                    else
                     {
                         float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
                         if (_distMagnitude < _distClosest)
@@ -955,16 +971,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
                         }
                     }
                 }
-                else
-                {
-                    float _distMagnitude = (transform.position - interactableObjects[i].transform.position).magnitude;
-                    if (_distMagnitude < _distClosest)
-                    {
-                        _io = interactableObjects[i];
-                        _distClosest = _distMagnitude;
-                    }
-                }
             }
+        }
+        catch (Exception)
+        {
+            interactableObjects.RemoveAt(0);
+            throw;
         }
         return _io;
     }
@@ -1004,7 +1016,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         else if (_equipment2.GetOnSelected()) _equipment2.SetOnSelected();
     }
 
-    private void MonsterScream(Vector3 position, float timer)
+    public void MonsterScream(Vector3 position, float timer)
     {
         _rotationScream.SetActive(true);
 
