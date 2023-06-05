@@ -11,7 +11,7 @@ public class ObjectDrop : InteractableObject
     [SerializeField] private GameObject parent;
 
     [SerializeField] private sc_SpriteMesh spriteMesh;
-    private SphereCollider sphereCollider => GetComponent<SphereCollider>();
+    [SerializeField] private SphereCollider sphereCollider;
 
     [SerializeField] private NetworkVariable<int> nb;
     [SerializeField] private sc_Object sc_object;

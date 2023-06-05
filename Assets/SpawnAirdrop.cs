@@ -8,7 +8,7 @@ public class SpawnAirdrop : NetworkBehaviour
 {
     [SerializeField] private GameObject prefabAirdrop;
 
-    [Button, ServerRpc(RequireOwnership = false)]
+    [Button, ServerRpc(RequireOwnership = true)]
     public void Spawn_AirdropServerRpc()
     {
         GameObject _obj = Instantiate(prefabAirdrop);
