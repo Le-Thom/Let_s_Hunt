@@ -18,11 +18,11 @@ public class VoteRef_UI : MonoBehaviour
 
         pourcentageOfVote.text = "0";
         voteNameText.text = voteName;
-        voteIdText.text = "0";
+        voteIdText.text = voteId.ToString();
     }
     public void UpdatePourcentageOfVote(int newValue)
     {
         voteBar.value = newValue;
-        pourcentageOfVote.text = newValue.ToString();
+        pourcentageOfVote.text = newValue.ToString() + "%";
     }
 }

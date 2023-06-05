@@ -29,7 +29,8 @@ public class Monster_StateMachine : MonoBehaviour
     public int stunTimeInMillisecond = 10;
 
     [Header("Hunter Dectetion Fight Mode")]
-    [SerializeField] private float maxDistance = 10;
+    public float maxDistanceForEnteringInFight = 10;
+    public float maxDistanceForExitingTheFight = 15;
     [SerializeField] private LayerMask playerLayer;
 
     [Header("Attack Variable")]
@@ -73,18 +74,16 @@ public class Monster_StateMachine : MonoBehaviour
     {
         currentState.SwitchState(factory.GetAnyState(MonsterState.OnStartGame));
     }
-    public bool IsMonsterCloseToHunter()
+    public bool IsMonsterCloseToHunter(float distance)
     {
-        Collider[] colliders = Physics.OverlapSphere(MonsterTransform.position, maxDistance, playerLayer);
+        Collider[] colliders = Physics.OverlapSphere(MonsterTransform.position, distance, playerLayer);
         foreach (Collider collider in colliders)
         {
-            if (collider.TryGetComponent<HunterHitCollider>(out HunterHitCollider hunterHitCollider))
+            if (collider.TryGetComponent<HunterHitCollider>(out _))
             {
-                Debug.Log("Is Monster Close To Huner == true" + hunterHitCollider.transform.parent.parent);
                 return true;
             }
         }
-        Debug.Log("Is Monster Close To Huner == false");
         return false;
     }
     private void SetMonsterStateToDead()

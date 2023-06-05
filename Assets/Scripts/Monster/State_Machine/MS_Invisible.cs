@@ -16,7 +16,7 @@ public class MS_Invisible : Monster_State
     }
     public override void UpdateState()
     {
-        if(stateMachine.IsMonsterCloseToHunter())
+        if(stateMachine.IsMonsterCloseToHunter(stateMachine.maxDistanceForEnteringInFight))
         {
             SwitchState(factory.GetAnyState(MonsterState.Fight));
         }

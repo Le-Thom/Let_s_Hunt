@@ -43,7 +43,8 @@ public class TwitchVoting_Manager : MonoBehaviour
     [Button]
     public async void StartTwitchVote()
     {
-        print("yes");
+        print("Strating Vote");
+        if (isVoteStarted) return;
         ResetVoteCount();
 
         List<sc_TwitchVote> listOfChosenVote = listOfAllPossibleVote;
@@ -57,11 +58,11 @@ public class TwitchVoting_Manager : MonoBehaviour
             if (newVoteUI.TryGetComponent<VoteRef_UI>(out VoteRef_UI voteRef_UI))
             {
                 listOfCurrentVote.Add(twitchVote, voteRef_UI);
-                voteRef_UI.InitVoteUI(twitchVote.name, listOfAllPossibleVote.Count);
+                voteRef_UI.InitVoteUI(twitchVote.nameOfTheVote, listOfAllPossibleVote.Count);
             }
         }
         await Task.Delay(voteTime);
-
+        EndTwitchVote();
     }
     public void OnVote(int voteNumber)
     {
