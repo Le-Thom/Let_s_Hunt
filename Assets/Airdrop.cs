@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using Unity.Services.Lobbies.Models;
 using UnityEngine;
 
@@ -7,10 +8,24 @@ public class Airdrop : InteractableObject
 {
     [SerializeField] private GameObject onCanPickUp;
     [SerializeField] private sc_Object[] possibleDrops;
-    private void Start()
+    [SerializeField] private int nbInBox;
+    [SerializeField] private NetworkList<int> whatIsInside = new NetworkList<int>() { };
+    [SerializeField] private NetworkList<Vector3> throwObj = new NetworkList<Vector3>() { };
+    public override void OnNetworkSpawn()
     {
         isInteractable = true;
         onCanPickUp.SetActive(false);
+
+        if (!IsHost) return;
+
+        for (int i = 0; i < nbInBox; i++)
+        {
+            int rng = Random.Range(0, possibleDrops.Length);
+            whatIsInside.Add(rng);
+
+            Vector3 throwRng = new Vector3(Random.Range(-2f, 2f) * 100, 0, Random.Range(-2f, 2f) * 100) * Time.deltaTime + Vector3.up * 4;
+            throwObj.Add(throwRng);
+        }
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -28,6 +43,11 @@ public class Airdrop : InteractableObject
         }
     }
 
+    private void OnDestroy()
+    {
+        GetComponent<NetworkObject>().Despawn(true);
+    }
+
     #region interaction
     public override void IsClosestToInteract()
     {
@@ -37,17 +57,18 @@ public class Airdrop : InteractableObject
     {
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
     }
-    public override void Interact()
+
+    [ClientRpc]
+    public override void InteractClientRpc()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < nbInBox; i++)
         {
-            int rng = Random.Range(0, possibleDrops.Length);
-            sc_Object sc_Object = possibleDrops[rng];
+            sc_Object sc_Object = possibleDrops[whatIsInside[i]];
 
             GameObject _drop = Instantiate(Resources.Load<GameObject>("DropObject"), transform.position, Quaternion.Euler(0, 0, 0));
             _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(sc_Object, null);
 
-            _drop.GetComponent<Rigidbody>().velocity += new Vector3(Random.Range(-2f, 2f) * 100, 0, Random.Range(-2f, 2f) * 100) * Time.deltaTime + Vector3.up * 4;
+            _drop.GetComponent<Rigidbody>().velocity += throwObj[i];
         }
 
         if (Tps_PlayerController.Instance.interactableObjects.Contains(this))

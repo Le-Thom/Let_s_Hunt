@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/_externals/NaughtyAttributes/Samples/DemoScene/TestAssets/TestScriptableObjectB.asset.meta
+guid: 5a62f37733d32734d86f6f047598a8ab
+=======
+guid: 6a7524817a676aa4c9bf6b6b521500de
+>>>>>>> main:Assets/Scriptables/TwitchVote/sc_TV_Crie.asset.meta
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

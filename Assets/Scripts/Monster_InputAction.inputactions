@@ -7,7 +7,7 @@
             "actions": [
                 {
                     "name": "MouseLeftClick",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "b0be2a3e-8e91-4857-9415-99d06d2e373c",
                     "expectedControlType": "Button",
                     "processors": "",
@@ -24,7 +24,16 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Cac_Attack",
+                    "name": "MousePosition",
+                    "type": "PassThrough",
+                    "id": "da95257e-f0ed-44e2-aa91-22eac0a299f3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Cac_Skill",
                     "type": "Button",
                     "id": "04e1c5bb-905b-41c1-8fd9-3b50200826bf",
                     "expectedControlType": "Button",
@@ -33,10 +42,28 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "MousePosition",
-                    "type": "PassThrough",
-                    "id": "da95257e-f0ed-44e2-aa91-22eac0a299f3",
-                    "expectedControlType": "Vector2",
+                    "name": "Projectile_Skill",
+                    "type": "Button",
+                    "id": "926cf1b8-366c-4817-8d66-731fb793c95c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash_Skill",
+                    "type": "Button",
+                    "id": "09e5d564-a1f0-490a-b367-06a3f2416b40",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Blackout_Skill",
+                    "type": "Button",
+                    "id": "cf354c67-5e7b-4336-ad95-37b3ea5b56f3",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -111,23 +138,56 @@
                 },
                 {
                     "name": "",
-                    "id": "a07d3e1b-1974-46cc-aacf-0f15a6f078bf",
-                    "path": "<Keyboard>/space",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cac_Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "51c95ee2-af13-4846-9ca3-26b7b1238436",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "MousePosition",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "40ba787f-5085-4659-94a3-46b732c652cd",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Dash_Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "84f17524-0b5d-47cc-b609-b4c5fae689e9",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Projectile_Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a07d3e1b-1974-46cc-aacf-0f15a6f078bf",
+                    "path": "<Keyboard>/shift",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Cac_Skill",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "80b2fda0-0896-4a06-b98b-0b93dde3847f",
+                    "path": "<Keyboard>/r",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Blackout_Skill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

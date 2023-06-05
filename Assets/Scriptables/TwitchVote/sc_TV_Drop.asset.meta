@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+<<<<<<< HEAD:Assets/_externals/NaughtyAttributes/Samples/DemoScene/TestAssets/NaughtyScriptableObject.asset.meta
+guid: e57b80d1574941848a2ac5b5d10b0fc2
+timeCreated: 1518639643
+licenseType: Store
+=======
+guid: 19e6132e28ec48942a0889e65a0af1cb
+>>>>>>> main:Assets/Scriptables/TwitchVote/sc_TV_Drop.asset.meta
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 11400000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

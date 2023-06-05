@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_grass
+  m_Name: M_grass_2
   m_Shader: {fileID: -6465566751694194690, guid: 84c8b4f0ee170774fb88c3392e326b71,
     type: 3}
   m_Parent: {fileID: 2100000, guid: aa8768adca0791e45bde07c4da971d62, type: 2}
@@ -24,6 +24,10 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - _MainTex:
+        m_Texture: {fileID: 2800000, guid: 8c5fc648c27a9694493379ff721677a0, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _Sprite_Texture:
         m_Texture: {fileID: 2800000, guid: 8c5fc648c27a9694493379ff721677a0, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -34,10 +38,12 @@ Material:
     - _ColorSeed: 0.5
     - _IsHit: 0
     - _IsRandom: 1
+    - _ItsEmissive: 0
+    - _ItsMonster: 0
     - _RandomInMovement: 1
-    - _WindSpeed: 1.93
-    - _WindStrenght: 1.24
-    - _Wind_Influence: 0.085
+    - _WindSpeed: 1.82
+    - _WindStrenght: 0.88
+    - _Wind_Influence: 0.149
     - _hasWind: 1
     m_Colors: []
   m_BuildTextureStacks: []

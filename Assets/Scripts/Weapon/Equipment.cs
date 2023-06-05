@@ -145,7 +145,19 @@ public class Equipment : MonoBehaviour
             return;
         }
 
-        _script.UseItem(player, equipment);
+
+        SC_sc_Object _sc_sc_equipment = Resources.Load<SC_sc_Object>("Equipment/");
+        int equipmentIndex = 0;
+        for (int i = 0; i < _sc_sc_equipment.objects.Count; i++)
+        {
+            if (equipment == _sc_sc_equipment.objects[i])
+            {
+                equipmentIndex = i;
+                break;
+            }
+        }
+
+        _script.UseItem(player.transform.position, equipmentIndex, player.directionLook);
         ItemUsed();
     }
 }

@@ -20,13 +20,25 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Gameplay Ingredient/G_INGRENDIENT_GAME.unity
     guid: 25c0b8a3b619fa8428011452b839d11a
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/LOUIS_SCENE.unity
     guid: dd032e4132d098a46baa1652eb2ecff2
   - enabled: 0
     path: 
     guid: 00000000000000000000000000000000
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/BUNDLE.unity
     guid: 0aa7ee44800cd4c4eab23f544da09b1d
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 0
+    path: 
+    guid: 00000000000000000000000000000000
+  - enabled: 1
+    path: Assets/Scenes/MAXIME_NETWORKTEST.unity
+    guid: 9b7ab5cd8e42a4444aa168c77f693724
   m_configObjects: {}

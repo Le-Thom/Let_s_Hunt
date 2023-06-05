@@ -1,13 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Unity.Netcode;
 
-public abstract class SC_UseItem : MonoBehaviour
+public abstract class SC_UseItem : NetworkBehaviour
 {
-    public virtual void UseItem(Tps_PlayerController player, sc_Equipment equipment)
+    public virtual void UseItem(Vector3 player, int equipment, Vector2 direction)
     {
-        _UseItem(player, equipment);
-        Destroy(this);
+        _UseItemClientRpc(player, equipment, direction);
     }
-    protected virtual void _UseItem(Tps_PlayerController player, sc_Equipment equipment) { }
+    [ClientRpc]
+    protected virtual void _UseItemClientRpc(Vector3 player, int equipment, Vector2 direction) { }
 }

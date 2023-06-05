@@ -1,7 +1,11 @@
 using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using NaughtyAttributes;
 
 public class TwitchVoting_Manager : MonoBehaviour
 {
@@ -12,7 +16,12 @@ public class TwitchVoting_Manager : MonoBehaviour
     public static Action<int> addingVote;
 
     public List<sc_TwitchVote> listOfAllPossibleVote = new();
-    public List<sc_TwitchVote> listOfCurrentVote = new();
+    public List<VoteRef_UI> listOfVoteUI = new();
+    public Dictionary<sc_TwitchVote, VoteRef_UI> listOfCurrentVote = new();
+    [SerializeField] private GameObject voteUI;
+    [SerializeField] private VerticalLayoutGroup voteGroupUI;
+    [SerializeField] private int voteTime = 100000;
+    private bool isVoteStarted = false;
 
     //========
     //MONOBEHAVIOUR
@@ -31,20 +40,56 @@ public class TwitchVoting_Manager : MonoBehaviour
     //FONCTION
     //========
 
-    public void StartTwitchVote()
+    [Button]
+    public async void StartTwitchVote()
     {
+        print("yes");
         ResetVoteCount();
 
-        List<sc_TwitchVote> listOfCurrentVote = ChoseXRandomFromList(listOfAllPossibleVote, 4);
+        List<sc_TwitchVote> listOfChosenVote = listOfAllPossibleVote;
 
-        foreach(sc_TwitchVote twitchVote in listOfCurrentVote)
+        isVoteStarted = true;
+
+        foreach (sc_TwitchVote twitchVote in listOfChosenVote)
         {
             onStartingVote?.Invoke(twitchVote.name);
+            Transform newVoteUI = Instantiate(voteUI.transform, voteGroupUI.transform);
+            if (newVoteUI.TryGetComponent<VoteRef_UI>(out VoteRef_UI voteRef_UI))
+            {
+                listOfCurrentVote.Add(twitchVote, voteRef_UI);
+                voteRef_UI.InitVoteUI(twitchVote.name, listOfAllPossibleVote.Count);
+            }
         }
+        await Task.Delay(voteTime);
+
     }
     public void OnVote(int voteNumber)
     {
-        listOfCurrentVote[voteNumber].voteCount++;
+        sc_TwitchVote key = listOfCurrentVote.Keys.ToList()[voteNumber];
+        key.voteCount++;
+        listOfCurrentVote.Values.ToList()[voteNumber].UpdatePourcentageOfVote(key.voteCount);
+    }
+    public void EndTwitchVote()
+    {
+        sc_TwitchVote winningVote = null;
+        foreach(sc_TwitchVote sc_TwitchVote in listOfCurrentVote.Keys)
+        {
+            if(winningVote == null)
+            {
+                winningVote = sc_TwitchVote;
+                continue;
+            }
+            if(sc_TwitchVote.voteCount > winningVote.voteCount)
+            {
+                winningVote = sc_TwitchVote;
+                continue;
+            }
+        }
+        isVoteStarted = false;
+        if (winningVote.objectToSpawnOnVoteSuccess != null)
+        {
+            Instantiate(winningVote.objectToSpawnOnVoteSuccess, Vector3.zero, Quaternion.identity);
+        }
     }
     private void ResetVoteCount()
     {
