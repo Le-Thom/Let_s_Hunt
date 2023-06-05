@@ -19,7 +19,7 @@ public class Dash_Competance_Monster : BaseCompetance_Monster
 
         isDashStarted = true;
         collider.enabled = true;
-
+        isAttacking = true;
         /*if(!Monster_Navmesh.Warp(transform.position + transform.forward * dashForce))
         {
             print("warp failed");
@@ -31,6 +31,8 @@ public class Dash_Competance_Monster : BaseCompetance_Monster
 
         isDashStarted = false;
         collider.enabled = false;
+        isAttacking = false;
+        Monster_Navmesh.SetDestination(Monster_Navmesh.transform.position);
         /*
         if (NavMesh.SamplePosition(dashDestination.transform.position, out NavMeshHit hit, 999f, -1))
         {

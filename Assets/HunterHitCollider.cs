@@ -23,7 +23,7 @@ public class HunterHitCollider : NetworkBehaviour
     }
     public void StunHunter()
     {
-
+        Debug.Log(indexPlayer.Value + "is Stun");
     }
     public void DeactivateFlashLightForXMillisecondSecond(int milliseconds)
     {

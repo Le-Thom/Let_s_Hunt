@@ -73,23 +73,35 @@ public class TwitchVoting_Manager : MonoBehaviour
     public void EndTwitchVote()
     {
         sc_TwitchVote winningVote = null;
-        foreach(sc_TwitchVote sc_TwitchVote in listOfCurrentVote.Keys)
+        foreach (sc_TwitchVote sc_TwitchVote in listOfCurrentVote.Keys)
         {
-            if(winningVote == null)
+            if (winningVote == null)
             {
                 winningVote = sc_TwitchVote;
                 continue;
             }
-            if(sc_TwitchVote.voteCount > winningVote.voteCount)
+            if (sc_TwitchVote.voteCount > winningVote.voteCount)
             {
                 winningVote = sc_TwitchVote;
                 continue;
             }
         }
         isVoteStarted = false;
-        if (winningVote.objectToSpawnOnVoteSuccess != null)
+        //
+        switch (winningVote.twitchVote)
         {
-            Instantiate(winningVote.objectToSpawnOnVoteSuccess, Vector3.zero, Quaternion.identity);
+            case TwitchVote.Drop:
+
+                break;
+            case TwitchVote.Scream:
+
+                break;
+            case TwitchVote.Light:
+
+                break;
+            case TwitchVote.Revive:
+
+                break;
         }
     }
     private void ResetVoteCount()
@@ -111,4 +123,8 @@ public class TwitchVoting_Manager : MonoBehaviour
 
         return chosenList;
     }
+}
+public enum TwitchVote
+{
+    Drop, Scream, Light, Revive
 }
