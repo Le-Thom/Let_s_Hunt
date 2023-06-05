@@ -1,11 +1,9 @@
 fileFormatVersion: 2
-<<<<<<< Updated upstream
-=======
 <<<<<<<< HEAD:Assets/Prefabs/Monster/Carton-Monster.prefab.meta
-guid: 581f743de51ae6a4a878ab97d815657e
+guid: f75d18af36d89d742a1eb5fe4d2c4d8b
 ========
->>>>>>> Stashed changes
 guid: e928a81fa2b995f4e8cfe7f7cca7ffa1
+>>>>>>>> origin/Lucas:Assets/Prefabs/Pa_Hit.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
