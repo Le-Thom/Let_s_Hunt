@@ -3,6 +3,7 @@ using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using NaughtyAttributes;
+using Unity.Mathematics;
 
 [CreateAssetMenu(fileName = "PlayerData", menuName = "Data/Player")]
 public class ScS_PlayerData : ScriptableObject
@@ -15,7 +16,7 @@ public class ScS_PlayerData : ScriptableObject
         {
             if (instance == null)
             {
-                instance = Resources.Load<ScS_PlayerData>("PlayerData");
+                instance = Resources.Load<ScS_PlayerData>("ManagerSingleton/PlayerData");
             }
             return instance;
         }
@@ -33,6 +34,10 @@ public class ScS_PlayerData : ScriptableObject
     [Serializable]
     public struct PlayerMonitor
     {
+        /// <summary>
+        /// Index of the player in the network.
+        /// </summary>
+        public int index;
         /// <summary>
         /// can Player start working.
         /// </summary>
@@ -84,6 +89,11 @@ public class ScS_PlayerData : ScriptableObject
         public bool canGetHealed;
 
         /// <summary>
+        /// Someone is reviving player.
+        /// </summary>
+        public bool getRevive;
+
+        /// <summary>
         /// is Player ded. obviously.
         /// </summary>
         public bool isDead;
@@ -126,12 +136,48 @@ public class ScS_PlayerData : ScriptableObject
 
         [Tooltip("Acceleration and deceleration (Default = 10.0f)")]
         public float speedChangeRate;
+
+        [Tooltip("Time to god mode cooldown when got hit")]
+        public float hitCooldown;
+
+        [Tooltip("Hp of player")]
+        public int hp;
+
+        [Tooltip("Time to get revived")]
+        public int reviveTime;
+
+        [Tooltip("maximum Hp of player")]
+        public int maxHp;
     }
 
     /// <summary>
     /// Clear no importante data.
     /// </summary>
     public void ClearInGameData() { }
+
+    /// <summary>
+    /// Modify hp (positive value if heal, negative value if damage) and return the real modified value.
+    /// </summary>
+    /// <param name="value"></param>
+    public int ChangeHp(int value)
+    {
+        int _hp = inGameDataValue.hp;
+
+        inGameDataValue.hp = Mathf.Clamp(inGameDataValue.hp + value, 0, inGameDataValue.maxHp);
+        if (inGameDataValue.hp == 0) PlayerDied();
+
+        int hpToReturn = _hp - inGameDataValue.hp;
+        return hpToReturn;
+    }
+
+    /// <summary>
+    /// Player got 0hp left.
+    /// </summary>
+    public void PlayerDied()
+    {
+        monitor.isDead = true;
+        Tps_PlayerController.Instance.Died();
+    }
 
     // ==================================================
     // need cloud save here
