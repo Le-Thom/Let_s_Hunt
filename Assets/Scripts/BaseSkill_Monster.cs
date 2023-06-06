@@ -19,8 +19,9 @@ public class BaseCompetance_Monster : MonoBehaviour
     [SerializeField] private bool isSkillOnCooldown = false;
     [SerializeField] private float cooldownMaxTimer = 10;
     [Header("Delay in Milliseconds")]
-    [SerializeField] protected int timeBeforeTheAttack = 10;
-    [SerializeField] protected int timeOfTheAttack = 10;
+    [SerializeField] protected int timeBeforeTheAttack = 1000;
+    [SerializeField] protected int timeOfTheAttack = 1000;
+    [SerializeField] protected int timeOfMonsterStunWhenAttack = 1000;
     private float cooldownCurrentTimer = 0;
     private float _lookTargetRotation;
     protected bool isAttacking = false;
@@ -90,7 +91,7 @@ public class BaseCompetance_Monster : MonoBehaviour
 
         SkillFonction();
         isSkillOnCooldown = true;
-
+        Monster_Skills.whenASkillIsUsed?.Invoke(timeOfMonsterStunWhenAttack);
     }
     protected virtual void SkillFonction()
     {

@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SC_UI_Flare : SC_UseItem
 {
-    [ClientRpc]
-    protected override void _UseItemClientRpc(Vector3 player, int equipment, Vector2 direction)
+    [ServerRpc(RequireOwnership = false)]
+    protected override void _UseItemServerRpc(Vector3 player, int equipment, Vector2 direction)
     {
         SC_sc_Object _sc_sc_equipment = Resources.Load<SC_sc_Object>("Equipment/");
         sc_Equipment _sc_equipment = _sc_sc_equipment.objects[equipment];
@@ -21,5 +21,6 @@ public class SC_UI_Flare : SC_UseItem
 
             rb.velocity += new Vector3(-_directionX, 0, -_directionY) * Time.deltaTime + Vector3.up * 4;
         }
+        RemoveComponent();
     }
 }

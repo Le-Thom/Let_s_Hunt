@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/_externals/NaughtyAttributes/Samples/DemoScene/DemoSceneSettings.lighting.meta
-guid: ac6d9b74f69155e458c99e5ba7df2d08
-=======
 guid: 8da058d25dde49d48b3efad9ec2231ed
->>>>>>> main:Assets/Sprites/Player/Idle_animation/Idle_side.anim.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000

@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/_externals/NaughtyAttributes/Samples/DemoScene/TestAssets/TestScriptableObjectA.asset.meta
-guid: 8fe9f78f71b784545af85e8d21286d7d
-=======
 guid: 094cbb2e8bcac3e498b21a3fb904be96
->>>>>>> main:Assets/Scriptables/Resources/Equipment/ListEquipment.asset.meta
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 11400000

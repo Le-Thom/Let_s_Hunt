@@ -1,11 +1,6 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/_externals/NaughtyAttributes/README.html.meta
-guid: f2c69173641c5684a8b63d8d30d1b665
-TextScriptImporter:
-=======
 guid: a190e337a6276ca46b9d7d9df65ab14f
 PrefabImporter:
->>>>>>> main:Assets/Prefabs/UI/MonsterCooldownUI.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
