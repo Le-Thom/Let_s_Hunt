@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4765114327393420791}
   - component: {fileID: 7661575223291158997}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Not available
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8835148427718538672}
   - component: {fileID: 924446685372589222}
   - component: {fileID: 6517554285690050078}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Radio
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -121,7 +121,7 @@ Transform:
   - {fileID: 7197201330479755415}
   - {fileID: 4765114327393420791}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &892296805681931371
 MeshFilter:
@@ -255,6 +255,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6140195217726645065}
     m_Modifications:
+    - target: {fileID: 1385950977271371135, guid: 7b8dc779609660b4bb4be505c9e6b27d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 1488868230940501344, guid: 7b8dc779609660b4bb4be505c9e6b27d,
         type: 3}
       propertyPath: m_RootOrder
@@ -314,6 +319,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prefab_PickupObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117636795346409321, guid: 7b8dc779609660b4bb4be505c9e6b27d,
+        type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
