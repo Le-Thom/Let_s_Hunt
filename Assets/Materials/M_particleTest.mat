@@ -24,17 +24,26 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Layer_D530453E:
+        m_Texture: {fileID: 2800000, guid: 3569a6262d835ad4388d074a53cff828, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _MainTex:
         m_Texture: {fileID: 2800000, guid: a4331e9c02ccc9e429df55b72d3c220c, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _IsFirstplayer: 0
+    - _IsFront: 1
     - _IsHit: 0
-    - _ItsEmissive: 0
+    - _IsPlayer: 1
+    - _IsSecondPlayer: 0
+    - _IsThirdPlayer: 0
+    - _ItsEmissive: 1
     m_Colors:
     - _Character_HitColor: {r: 1, g: 1, b: 1, a: 0}
-    - _EmisionColor: {r: 0.043060116, g: 0.0947323, b: 0, a: 0}
+    - _EmisionColor: {r: 24.251463, g: 24.251463, b: 24.251463, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &3699229743538239815
 MonoBehaviour:
