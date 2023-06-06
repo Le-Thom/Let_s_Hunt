@@ -68,10 +68,12 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
         GameObject newPlayer = null;
         if (playerId == 0)
         {
-            SwitchCamera(monsterComponent.Item1);
-            ActivateInputMonster(monsterComponent.Item2);
+            //SwitchCamera(monsterComponent.Item1);
+            //ActivateInputMonster(monsterComponent.Item2);
 
+            startCamera.Priority = 0;
             newPlayer = monsterGameObject;
+            monsterGameObject.GetComponent<Monster_StateMachine>().SetMonsterStateToActive();
 
             UIGlobal_Manager.Instance.SwitchUIState(UIState.Monster);
 

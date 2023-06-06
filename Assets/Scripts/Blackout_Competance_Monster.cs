@@ -14,16 +14,17 @@ public class Blackout_Competance_Monster : BaseCompetance_Monster
     protected override async void SkillFonction()
     {
         await Task.Delay(timeBeforeTheAttack);
-        RaycastHit[] hits = Physics.SphereCastAll(transform.position, maxDistance, Vector3.zero, playerLayer);
-        foreach(RaycastHit hit in hits)
+        Collider[] colliders = Physics.OverlapSphere(transform.position, maxDistance, playerLayer);
+        foreach(Collider collider in colliders)
         {
-            if(hit.collider.TryGetComponent<HunterHitCollider>(out HunterHitCollider hunterHitCollider))
+            if(collider.TryGetComponent<HunterHitCollider>(out HunterHitCollider hunterHitCollider))
             {
                 hunterHitCollider.DeactivateFlashLightForXMillisecondSecond(timeOfTheAttack);
             }
         }
         monster_StateMachine.monsterHitCollider.GetMonsterInvincibleForXMiliseconds(timeOfTheAttack);
 
+        /*
         float baseAcceleration = monster_StateMachine.Navmesh.acceleration;
         DOVirtual.Float(baseAcceleration, accelerationBoost, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.acceleration = v)
             .OnComplete(() => DOVirtual.Float(accelerationBoost, baseAcceleration, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.acceleration = v));
@@ -31,6 +32,8 @@ public class Blackout_Competance_Monster : BaseCompetance_Monster
         float baseSpeed = monster_StateMachine.Navmesh.speed;
         DOVirtual.Float(baseSpeed, speedBoost, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.speed = v)
             .OnComplete(() => DOVirtual.Float(speedBoost, baseSpeed, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.speed = v));
+        */
+        monster_StateMachine.monster_Movement.ChangeSpeed(MonsterSpeed.Blackout);
     }
     private void OnDrawGizmos()
     {

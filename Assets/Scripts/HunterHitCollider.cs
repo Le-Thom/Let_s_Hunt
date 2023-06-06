@@ -21,11 +21,11 @@ public class HunterHitCollider : NetworkBehaviour
     }
     public void StunHunter()
     {
-
+        Debug.Log(indexPlayer.Value + "is Stun");
     }
     public void DeactivateFlashLightForXMillisecondSecond(int milliseconds)
     {
-
+        Debug.Log(indexPlayer.Value + "has no flashlight");
     }
 
     [ServerRpc(RequireOwnership = false)]

@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: sc_TV_Drop
   m_EditorClassIdentifier: 
   voteCount: 0
-  nameOfTheVote: blank
+  nameOfTheVote: Drop
   objectToSpawnOnVoteSuccess: {fileID: 0}

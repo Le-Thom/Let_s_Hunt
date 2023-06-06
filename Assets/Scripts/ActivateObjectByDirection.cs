@@ -20,20 +20,21 @@ public class ActivateObjectByDirection : NetworkBehaviour
     private void Update()
     {
         if (!IsOwner) return;
-        Vector3 direction = Vector3.zero;
+        Vector3 direction;
 
         if (isMonster)
         { direction = navMesh.desiredVelocity; }
         else
         { direction = tps_Controller.directionLook; }
 
-        UpdateDirectionClientRpc(new (direction.x , direction.z));
+        UpdateDirection(new (direction.x , direction.z));
     }
-    [ClientRpc]
-    public void UpdateDirectionClientRpc(Vector2 newDirection)
+
+    public void UpdateDirection(Vector2 newDirection)
     {
         List<GameObject> objectToDisable = new() { up_Object, left_Object, right_Object, down_Object };
         bool isUpdated = false;
+        GameObject directionToActivate = null;
 
         if(Mathf.Abs(newDirection.y) > Mathf.Abs(newDirection.x))
         {
@@ -42,13 +43,13 @@ public class ActivateObjectByDirection : NetworkBehaviour
             {
                 if (newDirection.y < 0)
                 {
-                    down_Object.SetActive(true);
+                    directionToActivate = down_Object;
                     objectToDisable.Remove(down_Object);
                     isUpdated = true;
                 }
                 if (newDirection.y > 0)
                 {
-                    up_Object.SetActive(true);
+                    directionToActivate = up_Object;
                     objectToDisable.Remove(up_Object);
                     isUpdated = true;
                 }
@@ -62,28 +63,26 @@ public class ActivateObjectByDirection : NetworkBehaviour
             {
                 if(newDirection.x < 0)
                 {
-                    left_Object.SetActive(true);
+                    directionToActivate = left_Object;
                     objectToDisable.Remove(left_Object);
                     isUpdated = true;
                 }
                 if (newDirection.x > 0)
                 {
-                    right_Object.SetActive(true);
+                    directionToActivate = right_Object;
                     objectToDisable.Remove(right_Object);
                     isUpdated = true;
                 }
             }
         }
 
-        print(isUpdated);
-
         if(isUpdated) 
         {
             foreach (GameObject direction in objectToDisable)
             {
-                print(direction);
                 direction.SetActive(false);
             }
+            directionToActivate.SetActive(true);
         }
     }
 }
