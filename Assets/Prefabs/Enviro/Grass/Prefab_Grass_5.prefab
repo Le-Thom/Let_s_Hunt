@@ -54,7 +54,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 2100000, guid: b883cf4a235c87444b0bd19d8980a2ea, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,4 +104,4 @@ MonoBehaviour:
   m_shadowCastingMode: 1
   m_receiveShadows: 1
   m_lightProbeUsage: 1
-  m_material: {fileID: 2100000, guid: d5315db6c56df6840b5b785e7051495f, type: 2}
+  m_material: {fileID: 2100000, guid: b883cf4a235c87444b0bd19d8980a2ea, type: 2}
