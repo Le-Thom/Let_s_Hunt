@@ -832,7 +832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7484155002877759297
 Transform:
   m_ObjectHideFlags: 0
@@ -840,12 +840,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2902979864493648293}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2210312946992758906}
+  m_Father: {fileID: 2403324170589150992}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7309681137719932174
@@ -862,6 +862,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 2403324170589150992}
   isActif: 0
+  toggleMute: 0
+  forcedMute: 0
+  vivoxManager: {fileID: 0}
+  audioToggleMute:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  vocToggle: {fileID: 0}
 --- !u!114 &7628223629269391792
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1112,6 +1123,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1166539293702471267}
+  - {fileID: 7484155002877759297}
   m_Father: {fileID: 2210312946992758906}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1138,6 +1150,7 @@ MonoBehaviour:
   _equipment1: {fileID: 0}
   _equipment2: {fileID: 0}
   _rotationScream: {fileID: 7206197390183313524}
+  vivoxAudio: {fileID: 2902979864493648293}
   weapon: {fileID: 11400000, guid: 33a7d1fb9ba12a541b2644d66a2aaae6, type: 2}
   stateMachine:
     currentState: 0
@@ -1813,10 +1826,9 @@ Transform:
   - {fileID: 2403324170589150992}
   - {fileID: 4526460632237465321}
   - {fileID: 2872250107980376960}
-  - {fileID: 7484155002877759297}
   - {fileID: 2674402867351051456}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &3863997562566330115
 PrefabInstance:

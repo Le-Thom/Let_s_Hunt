@@ -28,7 +28,7 @@ public class JoinGame_Manager : NetworkBehaviour
     [SerializeField] private Testing_Relay relayScript;
 
     [Header("Network Variable")]
-    [SerializeField] private NetworkVariable<bool> isTheGameStarted = new NetworkVariable<bool>(false);
+    public NetworkVariable<bool> isTheGameStarted = new NetworkVariable<bool>(false);
     //public NetworkVariable<string> joinCode = new NetworkVariable<string>("");
 
     //========

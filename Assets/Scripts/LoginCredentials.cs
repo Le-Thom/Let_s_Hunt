@@ -7,7 +7,7 @@ using VivoxUnity;
 
 public class LoginCredentials : Singleton<LoginCredentials>
 {
-    VivoxUnity.Client client;
+    public VivoxUnity.Client client;
     private Uri server = new Uri("https://unity.vivox.com/appconfig/90718-let_s-74999-udash");
     private string domain = "mtu1xp.vivox.com";
     private string issuer = "90718-let_s-74999-udash";
@@ -116,7 +116,8 @@ public class LoginCredentials : Singleton<LoginCredentials>
     public void JoinChannel()
     {
         if (!activeVivox) return;
-        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional);
+
+        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional, new Channel3DProperties());
         channelSession = loginSession.GetChannelSession(channelId);
 
         Bind_Channel_Callback_Listeners(true, channelSession);
@@ -150,6 +151,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 {
                     item._Start();
                 }
+                Tps_PlayerController.instance.SetVivoxOn();
                 break;
             case ConnectionState.Disconnecting:
                 Debug.Log($"{source.Channel.Name} Disconnecting");
@@ -240,6 +242,28 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 }
             });
         };
+    }
+
+    public void AdjustVolume(float value)
+    {
+        IAudioDevices devices = client.AudioInputDevices;
+        // Refresh list of devices to have it up to date
+        var ar = devices.BeginRefresh(new AsyncCallback((IAsyncResult result) =>
+        {
+            // Set the volume for the device
+            devices.VolumeAdjustment = Mathf.RoundToInt(value);
+        }));
+    }
+    public void AdjustVolumeOfOther(int indexPlayer, int volume)
+    {
+        foreach (var participant in channelSession.Participants)
+        {
+            if (indexPlayer.ToString() == participant.Account.Name)
+            {
+                participant.LocalVolumeAdjustment = volume;
+                break;
+            }
+        }
     }
 
     #endregion

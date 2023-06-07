@@ -91,6 +91,7 @@ MonoBehaviour:
   _equipment1: {fileID: 0}
   _equipment2: {fileID: 0}
   _rotationScream: {fileID: 0}
+  vivoxAudio: {fileID: 0}
   weapon: {fileID: 11400000, guid: 33a7d1fb9ba12a541b2644d66a2aaae6, type: 2}
   stateMachine:
     currentState: 0
@@ -1008,6 +1009,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 2586729399586778145}
   isActif: 0
+  toggleMute: 0
+  forcedMute: 0
+  vivoxManager: {fileID: 0}
+  audioToggleMute:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  vocToggle: {fileID: 0}
 --- !u!1 &4588989074849487982
 GameObject:
   m_ObjectHideFlags: 0
