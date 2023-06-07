@@ -12,9 +12,9 @@ public class Monster_StateFactory
 
         _statesList.Add(MonsterState.BeforeGame, new MS_BeforeGame(stateMachine, this));
         _statesList.Add(MonsterState.OnStartGame, new MS_OnStartGame(stateMachine, this));
-        _statesList.Add(MonsterState.Invisible, new MS_OnStartGame(stateMachine, this));
-        _statesList.Add(MonsterState.Fight, new MS_OnStartGame(stateMachine, this));
-        _statesList.Add(MonsterState.Stun, new MS_OnStartGame(stateMachine, this));
+        _statesList.Add(MonsterState.Invisible, new MS_Invisible(stateMachine, this));
+        _statesList.Add(MonsterState.Fight, new MS_Fight(stateMachine, this));
+        _statesList.Add(MonsterState.Stun, new MS_Stun(stateMachine, this));
         _statesList.Add(MonsterState.Dead, new MS_OnStartGame(stateMachine, this));
     }
     public Monster_State GetAnyState(MonsterState stateToGet)

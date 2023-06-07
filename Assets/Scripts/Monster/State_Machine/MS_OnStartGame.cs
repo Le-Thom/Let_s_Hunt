@@ -16,9 +16,11 @@ public class MS_OnStartGame : Monster_State
         await Task.Delay(5000);
         stateMachine.monster_Input.enabled = true;
         SwitchState(factory.GetAnyState(MonsterState.Invisible));
+
+        stateMachine.timeManager.StartTimeClientRpc();
     }
     public override void ExitState()
     {
-
+        Debug.Log("Quiting Starting State");
     }
 }

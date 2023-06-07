@@ -1,9 +1,4 @@
-using GameplayIngredients.Events;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using TMPro;
-using Unity.Services.Lobbies.Models;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -41,6 +36,8 @@ public class Equipment : MonoBehaviour
     [SerializeField] private Image imageEquipment;
     [SerializeField] private TMP_Text textEquipment;
     [SerializeField] private TMP_Text textNb;
+    [SerializeField] private SC_sc_Object _sc_sc_equipment;
+    [SerializeField] private EquipmentManager equipmentManager;
 
     private bool onSelected;
 
@@ -120,7 +117,17 @@ public class Equipment : MonoBehaviour
         if (onSelected)
         {
             GameObject _drop = Instantiate(Resources.Load<GameObject>("DropObject"), player.transform.position, Quaternion.Euler(0,0,0));
-            _drop.GetComponentInChildren<ObjectDrop>().SetUpObj(equipment, player.GetComponentInChildren<HunterHitCollider>());
+            SC_sc_Object _sc_sc_equipment = Resources.Load<SC_sc_Object>("Equipment/");
+            int _equipmentIndex = 0;
+            for (int i = 0; i < _sc_sc_equipment.objects.Count; i++)
+            {
+                if (_sc_sc_equipment.objects[i] == equipment)
+                {
+                    _equipmentIndex = i;
+                    break;
+                }
+            }
+            _drop.GetComponentInChildren<ObjectDrop>().SetUpObjClientRpc(_equipmentIndex, true, Tps_PlayerController.Instance.playerData.monitor.index);
 
             float _directionX = Mathf.Clamp(player.directionLook.x, -150, 150);
             float _directionY = Mathf.Clamp(player.directionLook.y, -150, 150);
@@ -132,32 +139,9 @@ public class Equipment : MonoBehaviour
         }
     }
 
-    private void ItemUsed() => nbInInventaire = nbInInventaire - 1;
-
+    public void ItemUsed() => nbInInventaire = nbInInventaire - 1;
     public void UseItem(Tps_PlayerController player)
     {
-        SC_UseItem _script = player.gameObject.AddComponent(System.Type.GetType(equipment.script_equipment.name)) as SC_UseItem;
-
-        Debug.Log(_script.GetType());
-        if (_script.GetType() == typeof(SC_UI_MedKit) && Tps_PlayerController.Instance.GetCurrentState() == AkarisuMD.Player.StateId.HEALING) 
-        {
-            Debug.Log("Bloque");
-            return;
-        }
-
-
-        SC_sc_Object _sc_sc_equipment = Resources.Load<SC_sc_Object>("Equipment/");
-        int equipmentIndex = 0;
-        for (int i = 0; i < _sc_sc_equipment.objects.Count; i++)
-        {
-            if (equipment == _sc_sc_equipment.objects[i])
-            {
-                equipmentIndex = i;
-                break;
-            }
-        }
-
-        _script.UseItem(player.transform.position, equipmentIndex, player.directionLook);
-        ItemUsed();
+        equipmentManager.UseItem(player, equipment, this);
     }
 }

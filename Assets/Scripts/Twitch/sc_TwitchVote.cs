@@ -8,5 +8,5 @@ public class sc_TwitchVote : ScriptableObject
 {
     public int voteCount = 0;
     public string nameOfTheVote = "blank";
-    public GameObject objectToSpawnOnVoteSuccess; 
+    public TwitchVote twitchVote; 
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Equipment", menuName = "Game/Equipment")]
 public class sc_Equipment : sc_Object
 {
+    public equipmentType type;
+
     public int maxStackEquipment;
     public GameObject prefab_Object;
 

@@ -1,22 +1,8 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Materials/Particule/M_Morsure 1.mat.meta
-<<<<<<< Updated upstream
-guid: 572463d734d9eba418f6ec94b20ae8b8
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 2100000
-=======
-guid: d8334addd2e16ec4fb805aca105abd09
-NativeFormatImporter:
-  externalObjects: {}
-  mainObjectFileID: 0
->>>>>>> Stashed changes
-=======
 guid: 5d5aba528bdafad408faab1eda2b4936
 NativeFormatImporter:
   externalObjects: {}
   mainObjectFileID: 7400000
->>>>>>> main:Assets/Sprites/Player/Idle_animation/Idle_face.anim.meta
   userData: 
   assetBundleName: 
   assetBundleVariant: 
