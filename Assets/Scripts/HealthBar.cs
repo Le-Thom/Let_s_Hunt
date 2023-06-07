@@ -25,6 +25,7 @@ public class HealthBar : MonoBehaviour
 
     public void ChangeValueHealthBar(int value)
     {
+        if (value > slider.maxValue || value < slider.minValue) return;
         slider.value = value;
     }
     

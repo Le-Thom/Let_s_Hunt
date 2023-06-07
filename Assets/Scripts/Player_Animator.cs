@@ -1,14 +1,15 @@
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.AI;
 using NaughtyAttributes;
 using DG.Tweening;
 
-public class Monster_Animator : MonoBehaviour
+public class Player_Animator : NetworkBehaviour
 {
-    [SerializeField] private List<Animator> animatorsToSeedSpeed = new();
+    [SerializeField] private List<Animator> animatorToSendSpeed;
     [SerializeField] private Monster_StateMachine monster_Statemachine;
     [SerializeField] private float buffer = 0.2f;
     [SerializeField] private string alphaMaterialParameterName = "_Alpha";
@@ -20,11 +21,12 @@ public class Monster_Animator : MonoBehaviour
     private int numberOfParrelIsHitIsPlayed = 0;
     private void OnEnable()
     {
-        MonsterHitCollider.onMonsterHit += HitMonsterFeedback;
+        MonsterHitCollider.onMonsterHit += HitFeedback;
+
     }
     private void OnDisable()
     {
-        MonsterHitCollider.onMonsterHit -= HitMonsterFeedback;
+        MonsterHitCollider.onMonsterHit -= HitFeedback;
     }
     private void Awake()
     {
@@ -34,15 +36,7 @@ public class Monster_Animator : MonoBehaviour
             spritesMaterials.Add(spriteRenderer.material);
         }
     }
-    private void Update()
-    {
-        float tktSpeed = navMesh.velocity.magnitude;
 
-        foreach (Animator animatorMonster in animatorsToSeedSpeed)
-        {
-            animatorMonster.SetFloat("Speed", tktSpeed);
-        }
-    }
     [Button]
     public void SetInvisible()
     {
@@ -60,23 +54,58 @@ public class Monster_Animator : MonoBehaviour
         }
     }
     [Button]
-    public async void HitMonsterFeedback(int damage = 0)
+    public async void HitFeedback(int damage = 0)
     {
         numberOfParrelIsHitIsPlayed++;
-        foreach (Material material in spritesMaterials)
-        {
-            material.SetFloat("_IsHit", 1);
-        }
+
+        IsHitFeedbackClientRpc(true);
 
         await System.Threading.Tasks.Task.Delay(500);
 
         if (numberOfParrelIsHitIsPlayed <= 1)
+        {
+            IsHitFeedbackClientRpc(false);
+        }
+        numberOfParrelIsHitIsPlayed--;
+    }
+    [ClientRpc]
+    public void IsHitFeedbackClientRpc(bool value)
+    {
+        if(value)
+        {
+            foreach (Material material in spritesMaterials)
+            {
+                material.SetFloat("_IsHit", 1);
+            }
+        }
+        else
         {
             foreach (Material material in spritesMaterials)
             {
                 material.SetFloat("_IsHit", 0);
             }
         }
-        numberOfParrelIsHitIsPlayed--;
+    }
+    public void SendSpeedToAnimator(float speed)
+    {
+        speed = Mathf.Clamp(speed, 0, 1);
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.SetFloat("speed", speed);
+        }
+    }
+    public void AttackAnimator()
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.SetTrigger("whenAttack");
+        }
+    }
+    public void DashAnimator()
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.SetTrigger("whenDash");
+        }
     }
 }
