@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40f64275bc1314b48a8d80c43c5c1db2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_sprite: {fileID: 21300000, guid: 529032a185de6f04fa70ef9850ba1c85, type: 3}
+  m_sprite: {fileID: 21300000, guid: 63d9581a808bb9e4ea44e51e8d326693, type: 3}
   m_color: {r: 1, g: 1, b: 1, a: 1}
   m_alphaCutoff: 0.5
   m_flipX: 0
@@ -295,5 +295,5 @@ Transform:
   - {fileID: 2797674930791360669}
   - {fileID: 1713639462658883526}
   m_Father: {fileID: 0}
-  m_RootOrder: 20
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
