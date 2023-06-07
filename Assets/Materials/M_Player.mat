@@ -42,9 +42,10 @@ Material:
     m_Ints: []
     m_Floats:
     - _Hit_Distortion: 0.38
-    - _IsBack: 1
+    - _IsBack: 0
     - _IsFirstplayer: 1
-    - _IsPlayer: 1
+    - _IsFront: 0
+    - _IsPlayer: 0
     - _ItsEmissive: 0
     - _ItsMonster: 1
     - _QueueControl: 0
