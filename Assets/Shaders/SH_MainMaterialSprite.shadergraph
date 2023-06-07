@@ -2481,6 +2481,160 @@
 
 {
     "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GradientInputMaterialSlot",
+    "m_ObjectId": "0fe9bfd1c25846f69104044089fb7d44",
+    "m_Id": 1159331269,
+    "m_DisplayName": "LeavesGradient",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_LeavesGradient",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "serializedVersion": "2",
+        "key0": {
+            "r": 0.079488106071949,
+            "g": 0.17924529314041139,
+            "b": 0.03280526027083397,
+            "a": 1.0
+        },
+        "key1": {
+            "r": 0.04140014201402664,
+            "g": 0.2924528121948242,
+            "b": 0.02317548356950283,
+            "a": 1.0
+        },
+        "key2": {
+            "r": 0.09758736193180084,
+            "g": 0.3813261091709137,
+            "b": 0.05612849444150925,
+            "a": 0.0
+        },
+        "key3": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key4": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key5": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key6": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key7": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "ctime0": 21627,
+        "ctime1": 43176,
+        "ctime2": 65535,
+        "ctime3": 0,
+        "ctime4": 0,
+        "ctime5": 0,
+        "ctime6": 0,
+        "ctime7": 0,
+        "atime0": 0,
+        "atime1": 65535,
+        "atime2": 0,
+        "atime3": 0,
+        "atime4": 0,
+        "atime5": 0,
+        "atime6": 0,
+        "atime7": 0,
+        "m_Mode": 1,
+        "m_ColorSpace": -1,
+        "m_NumColorKeys": 3,
+        "m_NumAlphaKeys": 2
+    },
+    "m_DefaultValue": {
+        "serializedVersion": "2",
+        "key0": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+        },
+        "key1": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+        },
+        "key2": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key3": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key4": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key5": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key6": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key7": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "ctime0": 0,
+        "ctime1": 65535,
+        "ctime2": 0,
+        "ctime3": 0,
+        "ctime4": 0,
+        "ctime5": 0,
+        "ctime6": 0,
+        "ctime7": 0,
+        "atime0": 0,
+        "atime1": 65535,
+        "atime2": 0,
+        "atime3": 0,
+        "atime4": 0,
+        "atime5": 0,
+        "atime6": 0,
+        "atime7": 0,
+        "m_Mode": 0,
+        "m_ColorSpace": -1,
+        "m_NumColorKeys": 2,
+        "m_NumAlphaKeys": 2
+    }
+}
+
+{
+    "m_SGVersion": 0,
     "m_Type": "UnityEditor.ShaderGraph.DynamicVectorMaterialSlot",
     "m_ObjectId": "103bec5272cc4b649ae6a3e91a4f2ceb",
     "m_Id": 1,
@@ -2863,6 +3017,21 @@
             "m_Id": "3a3a928b8dac49ab9ce8a254f5507f5f"
         },
         {
+            "m_Id": "d89fb1627081463b8717b22bd96820a6"
+        },
+        {
+            "m_Id": "0fe9bfd1c25846f69104044089fb7d44"
+        },
+        {
+            "m_Id": "dbef79478a544a7fa44bb0cd2cb25aaa"
+        },
+        {
+            "m_Id": "3f49eb12591747e7bfdf45ad2241143d"
+        },
+        {
+            "m_Id": "1a4077bde04044cda30d7f75b0dc8ede"
+        },
+        {
             "m_Id": "0172216e388b4ed79ad0d871f1a25829"
         }
     ],
@@ -2877,11 +3046,21 @@
     "m_SerializedSubGraph": "{\n    \"subGraph\": {\n        \"fileID\": -5475051401550479605,\n        \"guid\": \"5073ef123d9756e42a5dac505dcca62d\",\n        \"type\": 3\n    }\n}",
     "m_PropertyGuids": [
         "3a74e48f-9793-40da-9091-8039a0530319",
-        "d1d9cdc7-e02a-41aa-b453-70f432480073"
+        "d1d9cdc7-e02a-41aa-b453-70f432480073",
+        "9bafb583-dc11-43ef-9fd9-5738b2efc0c5",
+        "3ba474bf-eb71-4882-8ddb-29a786b91691",
+        "b19de22e-15b8-44d1-94d6-66dd5911b96b",
+        "84c25351-0bd4-48a0-a34e-232a6c45ef2b",
+        "c82c2687-4a9d-44d3-af39-b488e79c0c30"
     ],
     "m_PropertyIds": [
         1512943916,
-        386086507
+        386086507,
+        634871743,
+        1159331269,
+        1133719643,
+        -844213430,
+        877119826
     ],
     "m_Dropdowns": [],
     "m_DropdownSelectedEntries": []
@@ -3038,6 +3217,20 @@
     },
     "m_Labels": [],
     "m_Space": 0
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
+    "m_ObjectId": "1a4077bde04044cda30d7f75b0dc8ede",
+    "m_Id": 877119826,
+    "m_DisplayName": "Istrunk",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_Istrunk",
+    "m_StageCapability": 3,
+    "m_Value": false,
+    "m_DefaultValue": false
 }
 
 {
@@ -4528,10 +4721,10 @@
     "m_Type": "UnityEditor.ShaderGraph.GradientInputMaterialSlot",
     "m_ObjectId": "3a3a928b8dac49ab9ce8a254f5507f5f",
     "m_Id": 386086507,
-    "m_DisplayName": "ColorGradient",
+    "m_DisplayName": "GrassGradient (1)",
     "m_SlotType": 0,
     "m_Hidden": false,
-    "m_ShaderOutputName": "_ColorGradient",
+    "m_ShaderOutputName": "_GrassGradient_1",
     "m_StageCapability": 3,
     "m_Value": {
         "serializedVersion": "2",
@@ -4796,6 +4989,160 @@
         "y": 0.0,
         "z": 0.0,
         "w": 0.0
+    }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.GradientInputMaterialSlot",
+    "m_ObjectId": "3f49eb12591747e7bfdf45ad2241143d",
+    "m_Id": -844213430,
+    "m_DisplayName": "TreeGradient",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_TreeGradient",
+    "m_StageCapability": 3,
+    "m_Value": {
+        "serializedVersion": "2",
+        "key0": {
+            "r": 0.2874408960342407,
+            "g": 0.14412850141525269,
+            "b": 0.04518621414899826,
+            "a": 1.0
+        },
+        "key1": {
+            "r": 0.2862745225429535,
+            "g": 0.1015406921505928,
+            "b": 0.047058816999197009,
+            "a": 1.0
+        },
+        "key2": {
+            "r": 0.1320754885673523,
+            "g": 0.07060094177722931,
+            "b": 0.02791028469800949,
+            "a": 0.0
+        },
+        "key3": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key4": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key5": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key6": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key7": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "ctime0": 21627,
+        "ctime1": 43253,
+        "ctime2": 65535,
+        "ctime3": 0,
+        "ctime4": 0,
+        "ctime5": 0,
+        "ctime6": 0,
+        "ctime7": 0,
+        "atime0": 0,
+        "atime1": 65535,
+        "atime2": 0,
+        "atime3": 0,
+        "atime4": 0,
+        "atime5": 0,
+        "atime6": 0,
+        "atime7": 0,
+        "m_Mode": 1,
+        "m_ColorSpace": -1,
+        "m_NumColorKeys": 3,
+        "m_NumAlphaKeys": 2
+    },
+    "m_DefaultValue": {
+        "serializedVersion": "2",
+        "key0": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+        },
+        "key1": {
+            "r": 1.0,
+            "g": 1.0,
+            "b": 1.0,
+            "a": 1.0
+        },
+        "key2": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key3": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key4": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key5": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key6": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "key7": {
+            "r": 0.0,
+            "g": 0.0,
+            "b": 0.0,
+            "a": 0.0
+        },
+        "ctime0": 0,
+        "ctime1": 65535,
+        "ctime2": 0,
+        "ctime3": 0,
+        "ctime4": 0,
+        "ctime5": 0,
+        "ctime6": 0,
+        "ctime7": 0,
+        "atime0": 0,
+        "atime1": 65535,
+        "atime2": 0,
+        "atime3": 0,
+        "atime4": 0,
+        "atime5": 0,
+        "atime6": 0,
+        "atime7": 0,
+        "m_Mode": 0,
+        "m_ColorSpace": -1,
+        "m_NumColorKeys": 2,
+        "m_NumAlphaKeys": 2
     }
 }
 
@@ -10957,6 +11304,20 @@
 }
 
 {
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
+    "m_ObjectId": "d89fb1627081463b8717b22bd96820a6",
+    "m_Id": 634871743,
+    "m_DisplayName": "IsGrass",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_IsGrass",
+    "m_StageCapability": 3,
+    "m_Value": false,
+    "m_DefaultValue": false
+}
+
+{
     "m_SGVersion": 3,
     "m_Type": "UnityEditor.ShaderGraph.Internal.ColorShaderProperty",
     "m_ObjectId": "da31da605ff24ba89172d31d5ed0a635",
@@ -11141,6 +11502,20 @@
         "e32": 0.0,
         "e33": 1.0
     }
+}
+
+{
+    "m_SGVersion": 0,
+    "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
+    "m_ObjectId": "dbef79478a544a7fa44bb0cd2cb25aaa",
+    "m_Id": 1133719643,
+    "m_DisplayName": "IsLeaves",
+    "m_SlotType": 0,
+    "m_Hidden": false,
+    "m_ShaderOutputName": "_IsLeaves",
+    "m_StageCapability": 3,
+    "m_Value": false,
+    "m_DefaultValue": false
 }
 
 {

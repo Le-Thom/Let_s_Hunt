@@ -33,10 +33,11 @@ Material:
     - _HaveMask: 1
     - _IsLeaves: 1
     - _IsRandom: 1
+    - _ItsEmissive: 0
     - _Wind_Influence: 0.25
     - _hasWind: 1
     m_Colors:
-    - _EmisionColor: {r: 1, g: 1, b: 1, a: 0}
+    - _EmisionColor: {r: 4.9245777, g: 0.42080653, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &947448034966653881
 MonoBehaviour:

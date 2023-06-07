@@ -37,6 +37,7 @@ Material:
     - _HaveMask: 1
     - _IsLeaves: 1
     - _IsRandom: 1
+    - _ItsEmissive: 0
     - _Wind_Influence: 0.25
     - _hasWind: 1
     m_Colors:
