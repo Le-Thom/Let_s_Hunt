@@ -44,12 +44,12 @@ Material:
     m_Ints: []
     m_Floats:
     - _HaveMask: 1
-    - _IsFirstplayer: 0
+    - _IsFirstplayer: 1
     - _IsFourthPlayer: 0
     - _IsHit: 0
     - _IsPlayer: 0
     - _IsSecondPlayer: 0
-    - _IsThirdPlayer: 1
+    - _IsThirdPlayer: 0
     - _ItsEmissive: 1
     - _Recalculate: 1
     m_Colors:
