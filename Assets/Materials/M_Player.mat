@@ -45,8 +45,8 @@ Material:
     - _IsBack: 0
     - _IsFirstplayer: 1
     - _IsFront: 0
-    - _IsPlayer: 0
-    - _ItsEmissive: 0
+    - _IsPlayer: 1
+    - _ItsEmissive: 1
     - _ItsMonster: 1
     - _QueueControl: 0
     - _Speed_Distortion: 183.5
