@@ -18,18 +18,25 @@ public class ActivateObjectByDirection : NetworkBehaviour
     [SerializeField] private float buffer = 0.5f;
     [SerializeField] private bool debug = false;
 
+    private List<GameObject> listOfDirection = new();
+    private void Awake()
+    {
+        listOfDirection.Add(up_Object);
+        listOfDirection.Add(left_Object);
+        listOfDirection.Add(right_Object);
+        listOfDirection.Add(down_Object);
+    }
     private void Update()
     {
         if (!IsOwner && !debug) return;
         Vector3 direction;
 
         if (isMonster)
-        { direction = navMesh.desiredVelocity; 
+        { direction = navMesh.desiredVelocity;
 
-        UpdateDirection(new(direction.x, direction.z));
+            UpdateDirection(new(direction.x, direction.z));
         }
     }
-
     public void UpdateDirection(Vector2 newDirection)
     {
         List<GameObject> objectToDisable = new() { up_Object, left_Object, right_Object, down_Object };
@@ -37,6 +44,8 @@ public class ActivateObjectByDirection : NetworkBehaviour
         GameObject directionToActivate = null;
         float absY = Mathf.Abs(newDirection.y);
         float absX = Mathf.Abs(newDirection.x);
+
+        int idOfObjectToDiable = 0;
 
         if (debug) print(absY.ToString()+ " : " + absX.ToString() + "= Direction");
         if (absY > absX)
@@ -47,12 +56,14 @@ public class ActivateObjectByDirection : NetworkBehaviour
                 if (newDirection.y < 0)
                 {
                     directionToActivate = down_Object;
+                    idOfObjectToDiable = 3;
                     objectToDisable.Remove(down_Object);
                     isUpdated = true;
                 }
                 if (newDirection.y > 0)
                 {
                     directionToActivate = up_Object;
+                    idOfObjectToDiable = 0;
                     objectToDisable.Remove(up_Object);
                     isUpdated = true;
                 }
@@ -67,12 +78,14 @@ public class ActivateObjectByDirection : NetworkBehaviour
                 if(newDirection.x < 0)
                 {
                     directionToActivate = left_Object;
+                    idOfObjectToDiable = 1;
                     objectToDisable.Remove(left_Object);
                     isUpdated = true;
                 }
                 if (newDirection.x > 0)
                 {
                     directionToActivate = right_Object;
+                    idOfObjectToDiable = 2;
                     objectToDisable.Remove(right_Object);
                     isUpdated = true;
                 }
@@ -81,11 +94,30 @@ public class ActivateObjectByDirection : NetworkBehaviour
 
         if(isUpdated) 
         {
-            foreach (GameObject direction in objectToDisable)
+            SetActiveObjectInNetworkCServerRpc(0, false);
+            SetActiveObjectInNetworkCServerRpc(1, false);
+            SetActiveObjectInNetworkCServerRpc(2, false);
+            SetActiveObjectInNetworkCServerRpc(3, false);
+
+            SetActiveObjectInNetworkCServerRpc(idOfObjectToDiable, true);
+            /* (GameObject direction in objectToDisable)
             {
                 direction.SetActive(false);
             }
-            directionToActivate.SetActive(true);
+            directionToActivate.SetActive(true);*/
         }
+    }
+    [ServerRpc]
+    private void SetActiveObjectInNetworkCServerRpc(int objectToDeactivate, bool value)
+    {
+        print("fusiiii");
+        listOfDirection[objectToDeactivate].SetActive(value);
+        SetActiveObjectInNetworkClientRpc(objectToDeactivate, value);
+    }
+    [ClientRpc]
+    private void SetActiveObjectInNetworkClientRpc(int objectToDeactivate, bool value)
+    {
+        print("fusiiii2");
+        listOfDirection[objectToDeactivate].SetActive(value);
     }
 }
