@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -24,7 +23,6 @@ public class Monster_StateMachine : MonoBehaviour
     public Animator monster_Animator;
     public MonsterHitCollider monsterHitCollider;
     public TimeManager timeManager;
-    public Player_Animator player_Animator;
     public Transform MonsterTransform => monster_Movement.transform; 
     public NavMeshAgent Navmesh => monster_Movement.navMeshAgent;
 
@@ -53,14 +51,12 @@ public class Monster_StateMachine : MonoBehaviour
         //Dead
         MonsterHealth.whenTheMonsterDied += SetMonsterStateToDead;
     }
-
     private void Update()
     {
         if(currentState != null)
         {
             currentState.UpdateState();
         }
-        UpdateSpeedAnimator();
     }
 
     private void OnDestroy()
@@ -94,10 +90,5 @@ public class Monster_StateMachine : MonoBehaviour
     private void SetMonsterStateToDead()
     {
         currentState.SwitchState(factory.GetAnyState(MonsterState.Dead));
-    }
-    private void UpdateSpeedAnimator()
-    {
-        player_Animator.SendSpeedToAnimator(Navmesh.velocity.magnitude);
-        print(Navmesh.velocity.magnitude + "Navmesh");
     }
 }

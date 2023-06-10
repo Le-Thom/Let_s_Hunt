@@ -20,15 +20,6 @@ public class Monster_Movement : MonoBehaviour
     [SerializeField] private float monsterInvisibleSpeed, monsterFightSpeed, monsterHitSpeed, monsterBlackoutSpeed;
 
     [SerializeField] private LayerMask cameraCastLayer;
-
-    //========
-    //MONOBEHAVIOUR
-    //========
-    private void Awake()
-    {
-        navMeshAgent.updateRotation = false;
-    }
-
     //========
     //FONCTION
     //========

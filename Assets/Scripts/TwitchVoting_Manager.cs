@@ -91,20 +91,16 @@ public class TwitchVoting_Manager : MonoBehaviour
         switch (winningVote.twitchVote)
         {
             case TwitchVote.Drop:
-                AirdropManager _airdropManager = GameObject.FindFirstObjectByType<AirdropManager>();
-                _airdropManager.CallAirdropServerRpc();
+
                 break;
             case TwitchVote.Scream:
-                ScreamMonster _screamMonster = GameObject.FindFirstObjectByType<ScreamMonster>();
-                Monster_Movement _monster_Movement = GameObject.FindFirstObjectByType<Monster_Movement>();
-                _screamMonster.ScreamClientRpc(_monster_Movement.transform.position);
+
                 break;
             case TwitchVote.Light:
-                SpotlightManager _spotlightManager = GameObject.FindFirstObjectByType<SpotlightManager>();
-                _spotlightManager.CallSpotlightOnClientRpc();
+
                 break;
             case TwitchVote.Revive:
-                Debug.LogError("Not Implemantend");
+
                 break;
         }
     }

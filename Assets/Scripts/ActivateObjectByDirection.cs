@@ -16,18 +16,18 @@ public class ActivateObjectByDirection : NetworkBehaviour
     [SerializeField] private Tps_PlayerController tps_Controller;
 
     [SerializeField] private float buffer = 0.5f;
-    [SerializeField] private bool debug = false;
 
     private void Update()
     {
-        if (!IsOwner && !debug) return;
+        if (!IsOwner) return;
         Vector3 direction;
 
         if (isMonster)
-        { direction = navMesh.desiredVelocity; 
+        { direction = navMesh.desiredVelocity; }
+        else
+        { direction = tps_Controller.directionLook; }
 
-        UpdateDirection(new(direction.x, direction.z));
-        }
+        UpdateDirection(new (direction.x , direction.z));
     }
 
     public void UpdateDirection(Vector2 newDirection)
@@ -35,13 +35,10 @@ public class ActivateObjectByDirection : NetworkBehaviour
         List<GameObject> objectToDisable = new() { up_Object, left_Object, right_Object, down_Object };
         bool isUpdated = false;
         GameObject directionToActivate = null;
-        float absY = Mathf.Abs(newDirection.y);
-        float absX = Mathf.Abs(newDirection.x);
 
-        if (debug) print(absY.ToString()+ " : " + absX.ToString() + "= Direction");
-        if (absY > absX)
+        if(Mathf.Abs(newDirection.y) > Mathf.Abs(newDirection.x))
         {
-            if(debug) print("Y is big");
+            print("Y is big");
             if (Mathf.Abs(newDirection.y) > buffer)
             {
                 if (newDirection.y < 0)
@@ -61,7 +58,7 @@ public class ActivateObjectByDirection : NetworkBehaviour
         }
         else
         {
-            if (debug) print("X is big");
+            print("X is big");
             if(Mathf.Abs(newDirection.x) > buffer)
             {
                 if(newDirection.x < 0)

@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: PlayerData
   m_EditorClassIdentifier: 
   monitor:
-    index: 0
     isValid: 1
     isChangingState: 0
     isInit: 1
@@ -35,11 +34,11 @@ MonoBehaviour:
   variables:
     playerPosition: {x: 0, y: 0, z: 0}
     playerRotation: {x: 0, y: 0, z: 0}
-    speed: 0
+    speed: 0.1592044
   inGameDataValue:
-    speed: 5
+    speed: 10
     sprintSpeed: 5.333
-    speedChangeRate: 5
+    speedChangeRate: 10
     hitCooldown: 2
     hp: 10
     reviveTime: 0
