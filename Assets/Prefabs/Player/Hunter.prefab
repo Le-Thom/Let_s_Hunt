@@ -91,8 +91,6 @@ MonoBehaviour:
   _equipment1: {fileID: 0}
   _equipment2: {fileID: 0}
   _rotationScream: {fileID: 0}
-  directionScript: {fileID: 0}
-  player_Animator: {fileID: 0}
   vivoxAudio: {fileID: 0}
   weapon: {fileID: 11400000, guid: 33a7d1fb9ba12a541b2644d66a2aaae6, type: 2}
   stateMachine:
@@ -949,7 +947,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1287b60b4c4c94cafac172d8945445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  feedback_animator: {fileID: 0}
 --- !u!114 &3811475238906001762
 MonoBehaviour:
   m_ObjectHideFlags: 0

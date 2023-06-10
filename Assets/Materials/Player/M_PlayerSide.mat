@@ -29,6 +29,7 @@ Material:
     - _IsBack: 0
     - _IsFront: 0
     - _IsSide: 1
+    - _ItsEmissive: 0
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &449294087752660085

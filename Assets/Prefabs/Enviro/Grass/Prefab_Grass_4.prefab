@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 3490593814032476061}
   - component: {fileID: 8418136394134800513}
   - component: {fileID: 1621143790616572352}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Prefab_Grass_4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6546181749999649724
 Transform:

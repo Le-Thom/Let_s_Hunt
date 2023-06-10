@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 330271148921568957}
   - component: {fileID: 909466131908641348}
   - component: {fileID: 8873552337842709362}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Prefab_Grass_5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &7895941139326672974
 Transform:
@@ -32,7 +32,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 19
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &330271148921568957
 MeshRenderer:

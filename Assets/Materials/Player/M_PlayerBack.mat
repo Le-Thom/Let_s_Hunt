@@ -54,6 +54,7 @@ Material:
     - _IsRandom: 0
     - _IsSecondPlayer: 0
     - _IsThirdPlayer: 0
+    - _ItsEmissive: 0
     - _QueueControl: 0
     - _hasWind: 0
     m_Colors:

@@ -48,6 +48,7 @@ Material:
     - _IsRandom: 0
     - _IsSecondPlayer: 1
     - _IsThirdPlayer: 0
+    - _ItsEmissive: 0
     - _ItsMonster: 0
     m_Colors: []
   m_BuildTextureStacks: []
