@@ -1,13 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using Unity.Netcode;
 using UnityEngine;
 using NaughtyAttributes;
 
 public class HunterHitCollider : NetworkBehaviour
 {
+    [SerializeField] private Player_Animator feedback_animator;
     private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
-
+    
     /// <summary>
     /// If collider got hit, transfert info to player.
     /// </summary>
@@ -17,9 +19,10 @@ public class HunterHitCollider : NetworkBehaviour
         // change the healthbar
         if (IsHost) return; // Monster don't have this.
 
-        HealthBarManager.Instance.ChangeHealthBar(indexPlayer.Value, Damage); 
-    }
-    public void StunHunter()
+        feedback_animator.HitFeedback();
+        HealthBarManager.Instance.ChangeHealthBar(indexPlayer.Value, Damage);
+}
+public void StunHunter()
     {
         Debug.Log(indexPlayer.Value + "is Stun");
     }

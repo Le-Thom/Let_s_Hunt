@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Side_Hunter-Animator
+  m_Controller: {fileID: 9100000, guid: 48362f12ac9d1ab42808e92bc616d6aa, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 5d5aba528bdafad408faab1eda2b4936, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8da058d25dde49d48b3efad9ec2231ed, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 8924ba8f3cfe2d444b5f3c022f4db6ed, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 79fe95b8ece1f6842b9e068699cf7cee, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b49b38ab7024dd54fba20b09b22e6380, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 2390030087bc5b54fa7a110f7543ce70, type: 2}

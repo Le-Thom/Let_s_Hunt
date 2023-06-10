@@ -58,6 +58,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private Equipment _equipment1, _equipment2;
 
     [SerializeField] private GameObject _rotationScream;
+    [SerializeField] private ActivateObjectByDirection directionScript;
+    [SerializeField] private Player_Animator player_Animator;
 
     [SerializeField] private GameObject vivoxAudio;
 
@@ -137,7 +139,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // gather all input of player.
         GatherInput();
 
+
         if (!playerData.monitor.isValid) return;
+
+        player_Animator.SendSpeedToAnimator(playerData.variables.speed);
 
         stateMachine.Update();
 
@@ -397,6 +402,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         Vector2 mousePosition = _inputs.Player.LocationLook.ReadValue<Vector2>();
         Vector3 mousePositionInWorld = _Camera.ScreenToWorldPoint(mousePosition);
         LookDirectionRelativeToTransformOfPlayer(mousePosition);
+        UpdateDirection(-movementInput);
     }
 
     #endregion
@@ -884,6 +890,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     private void FlipBody()
     {
+        /*
         if (_lookTargetRotation > 90)
         {
             _Body.transform.localScale = new Vector3(-1, 1, 1);
@@ -892,7 +899,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         else
         {
             _Body.transform.localScale = new Vector3(1, 1, 1);
-        }
+        }*/
     }
 
     private void IsGettingRevived()
@@ -1022,7 +1029,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         if (_equipment1.GetOnSelected()) _equipment1.SetOnSelected();
         else if (_equipment2.GetOnSelected()) _equipment2.SetOnSelected();
     }
-
+    private void UpdateDirection(Vector2 currentDirectionLook)
+    {
+        directionScript.UpdateDirection(currentDirectionLook);
+    }
     public void MonsterScream(Vector3 position, float timer)
     {
         _rotationScream.SetActive(true);

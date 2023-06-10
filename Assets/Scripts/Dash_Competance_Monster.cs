@@ -51,6 +51,7 @@ public class Dash_Competance_Monster : BaseCompetance_Monster
         if(other.TryGetComponent<HunterHitCollider>(out HunterHitCollider hunterCollider))
         {
             hunterCollider.StunHunter();
+            hunterCollider.HunterGetHitClientRpc(-5);
         }
     }
     private Vector3 GetDashDirection()
