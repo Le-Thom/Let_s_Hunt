@@ -38,6 +38,17 @@ Material:
     serializedVersion: 3
     m_TexEnvs: []
     m_Ints: []
-    m_Floats: []
-    m_Colors: []
+    m_Floats:
+    - _HaveMask: 0
+    - _IsFirstplayer: 0
+    - _IsFourthPlayer: 0
+    - _IsPlayer: 0
+    - _ItsEmissive: 1
+    - _PlayerEmissiveColor: 0
+    - _Recalculate: 82.57
+    - _WindRotation: 2.58
+    - _Wind_Influence: 0.1
+    - _hasWind: 0
+    m_Colors:
+    - _OrEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []

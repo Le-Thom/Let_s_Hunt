@@ -61,19 +61,21 @@ Material:
     - _HaveMask: 0
     - _Hit_Distortion: 0.01
     - _IsBack: 0
-    - _IsFirstplayer: 0
-    - _IsFourthPlayer: 1
+    - _IsFirstplayer: 1
+    - _IsFourthPlayer: 0
     - _IsFront: 0
     - _IsHit: 0
     - _IsLeaves: 0
-    - _IsPlayer: 0
+    - _IsPlayer: 1
     - _IsRandom: 0
-    - _IsSecondPlayer: 0
+    - _IsSecondPlayer: 1
     - _IsSide: 0
     - _IsThirdPlayer: 0
     - _IsTrunk: 0
-    - _ItsEmissive: 1
+    - _ItsEmissive: 0
     - _ItsMonster: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _Recalculate: 4
     - _Speed_Distortion: 100
     - _Stenght_Distortion: 20
