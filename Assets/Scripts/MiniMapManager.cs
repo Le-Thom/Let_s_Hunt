@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MiniMapManager : Singleton<MiniMapManager>
 {
+    public bool mapTuto;
+
     // Reference
     [SerializeField] public GameObject canvas; 
     [SerializeField] private RectTransform _MM_UI;
@@ -80,11 +82,12 @@ public class MiniMapManager : Singleton<MiniMapManager>
     // Private fonction
     private void SetUpZone()
     {
-        currentActifZone = monsterZone_Top_Left;
         monsterZone_Top_Left.SetActive(false);
         monsterZone_Top_Right.SetActive(false);
         monsterZone_Bottom_Left.SetActive(false);
         monsterZone_Bottom_Right.SetActive(false);
+        if (mapTuto || isHunter) return;
+        currentActifZone = monsterZone_Top_Left;
     }
     private void SetUpVariableMap()
     {
@@ -93,7 +96,7 @@ public class MiniMapManager : Singleton<MiniMapManager>
     }
     private void MM_Updater()
     {
-        if (!isHunter)
+        if (!isHunter && !mapTuto)
         {
             MonsterPosition();
             CameraPosition();

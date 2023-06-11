@@ -15,8 +15,17 @@ public class Monster_Animator : MonoBehaviour
 
     private List<SpriteRenderer> allTheSpriteRender = new();
     private List<Material> spritesMaterials = new();
-
+    private Tween onHitChange;
     private NavMeshAgent navMesh => monster_Statemachine.monster_Movement.navMeshAgent;
+    private int numberOfParrelIsHitIsPlayed = 0;
+    private void OnEnable()
+    {
+        MonsterHitCollider.onMonsterHit += HitMonsterFeedback;
+    }
+    private void OnDisable()
+    {
+        MonsterHitCollider.onMonsterHit -= HitMonsterFeedback;
+    }
     private void Awake()
     {
         allTheSpriteRender = gameObject.GetComponentsInChildren<SpriteRenderer>().ToList();
@@ -49,5 +58,25 @@ public class Monster_Animator : MonoBehaviour
         {
             material.DOFloat(1, alphaMaterialParameterName, 3);
         }
+    }
+    [Button]
+    public async void HitMonsterFeedback(int damage = 0)
+    {
+        numberOfParrelIsHitIsPlayed++;
+        foreach (Material material in spritesMaterials)
+        {
+            material.SetFloat("_IsHit", 1);
+        }
+
+        await System.Threading.Tasks.Task.Delay(500);
+
+        if (numberOfParrelIsHitIsPlayed <= 1)
+        {
+            foreach (Material material in spritesMaterials)
+            {
+                material.SetFloat("_IsHit", 0);
+            }
+        }
+        numberOfParrelIsHitIsPlayed--;
     }
 }

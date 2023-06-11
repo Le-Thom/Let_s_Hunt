@@ -59,6 +59,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     [SerializeField] private GameObject _rotationScream;
 
+    [SerializeField] private GameObject vivoxAudio;
+
     #endregion
     //==============================================================================================================
 
@@ -160,6 +162,11 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     //==============================================================================================================
     #region PUBLIC FONCTION
     //==============================================================================================================
+
+    public void SetVivoxOn()
+    {
+        vivoxAudio.SetActive(true);
+    }
 
     public void SetInstance()
     {

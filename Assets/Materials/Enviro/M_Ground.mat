@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: b0c83b1a47b341e4db14aa05c8057d87, type: 3}
+        m_Texture: {fileID: 2800000, guid: e6e8a1b1ccd9505489eafa065ea99a48, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SampleTexture2D_34cd9c9b0b1840b0b6d8fc44bef70619_Texture_1:
@@ -58,7 +58,7 @@ Material:
     - _QueueOffset: 0
     m_Colors:
     - _CloudsDirection: {r: 1.27, g: 0.31, b: 0, a: 0}
-    - _Color: {r: 0.005787062, g: 1.2810919, b: 1.5336015, a: 1}
+    - _Color: {r: 0.820923, g: 1.8473562, b: 2.0474784, a: 1}
     - _Offset: {r: 1, g: 1, b: 0, a: 0}
     - _Tiling: {r: 100, g: 100, b: 0, a: 0}
   m_BuildTextureStacks: []

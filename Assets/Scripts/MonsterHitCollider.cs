@@ -28,8 +28,10 @@ public class MonsterHitCollider : NetworkBehaviour
     {
         if(canGetHit)
         {
+            Debug.Log("Monster is Invicible for " + milliseconds * 100 + "seconds");
             canGetHit = false;
             await Task.Delay(milliseconds);
+            Debug.Log("Monster end of invicible time");
             canGetHit = true;
         }
     }

@@ -36,15 +36,18 @@ Material:
     m_Floats:
     - _Alpha: 0.73
     - _ColorSeed: 0.5
+    - _HaveMask: 0
     - _IsHit: 0
+    - _IsLeaves: 0
     - _IsRandom: 1
     - _ItsEmissive: 0
     - _ItsMonster: 0
     - _RandomInMovement: 1
-    - _WindSpeed: 2.3
-    - _WindStrenght: 0.6
-    - _Wind_Influence: 0.204
+    - _WindSpeed: 2
+    - _WindStrenght: 1
+    - _Wind_Influence: 0.1
     - _hasWind: 1
+    - _isGrass: 1
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &5155014910642195051

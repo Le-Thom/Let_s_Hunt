@@ -47,12 +47,12 @@ Material:
     - _ItsMonster: 0
     - _RandomInMovement: 1
     - _WindSpeed: 2
-    - _WindStrenght: 0.8
-    - _Wind_Influence: 0.188
-    - _hasWind: 0
+    - _WindStrenght: 1
+    - _Wind_Influence: 0.1
+    - _hasWind: 1
     - _isGrass: 1
     m_Colors:
-    - _EmisionColor: {r: 445.72186, g: 445.72186, b: 445.72186, a: 1}
+    - _EmisionColor: {r: 1, g: 1, b: 1, a: 1}
   m_BuildTextureStacks: []
 --- !u!114 &5155014910642195051
 MonoBehaviour:
