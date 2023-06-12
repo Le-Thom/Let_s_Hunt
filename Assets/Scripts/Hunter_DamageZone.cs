@@ -10,6 +10,11 @@ public class Hunter_DamageZone : MonoBehaviour
         print(other.name);
         if(other.TryGetComponent<HunterHitCollider>(out HunterHitCollider hunterCollider))
         {
+            if(hunterCollider.isThePlayerDodging())
+            {
+                print("player dodge");
+                return;
+            }
             hunterCollider.HunterGetHitClientRpc(damage);
         }
     }

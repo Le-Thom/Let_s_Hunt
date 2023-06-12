@@ -108,4 +108,12 @@ public class Player_Animator : NetworkBehaviour
             animator.SetTrigger("whenDash");
         }
     }
+    public Animator GetPlayerAnimator(int index)
+    {
+        if (animatorToSendSpeed.Count > index)
+        {
+            return animatorToSendSpeed[index];
+        }
+        else return animatorToSendSpeed[0];
+    }
 }

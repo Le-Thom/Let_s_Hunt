@@ -7,7 +7,7 @@ using NaughtyAttributes;
 
 public class HunterHitCollider : NetworkBehaviour
 {
-    [SerializeField] private Player_Animator feedback_animator;
+    [SerializeField] private Player_Animator player_Animator;
     private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
     
     /// <summary>
@@ -19,10 +19,10 @@ public class HunterHitCollider : NetworkBehaviour
         // change the healthbar
         if (IsHost) return; // Monster don't have this.
 
-        feedback_animator.HitFeedback();
+        player_Animator.HitFeedback();
         HealthBarManager.Instance.ChangeHealthBar(indexPlayer.Value, Damage);
-}
-public void StunHunter()
+    }
+    public void StunHunter()
     {
         Debug.Log(indexPlayer.Value + "is Stun");
     }
@@ -35,6 +35,11 @@ public void StunHunter()
     public void SetPlayerIdServerRpc(int newPlayerId)
     {
         indexPlayer.Value = newPlayerId;
+    }
+    public bool isThePlayerDodging()
+    {
+        Animator animator = player_Animator.GetPlayerAnimator(0);
+        return animator.GetCurrentAnimatorStateInfo(0).IsName("Dodge");
     }
     public int GetPlayerId()
     {

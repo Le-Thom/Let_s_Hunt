@@ -8,4 +8,12 @@ AnimatorOverrideController:
   m_PrefabAsset: {fileID: 0}
   m_Name: Monster_Side_Animator
   m_Controller: {fileID: 9100000, guid: 48362f12ac9d1ab42808e92bc616d6aa, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 8924ba8f3cfe2d444b5f3c022f4db6ed, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ffeaaff2397ceb14fbcbead51e46a5d9, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 76a434f7b4a772a4380a1b9f5baa7433, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 1fd369216e57efa4ab86cc70a340f17a, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b49b38ab7024dd54fba20b09b22e6380, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 17e56bf66b8e22648b84fe9053801547, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: 5d5aba528bdafad408faab1eda2b4936, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 578a2d303976260418db4e046d4f9a1d, type: 2}

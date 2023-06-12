@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AI;
 using Unity.Netcode;
@@ -19,12 +20,15 @@ public class ActivateObjectByDirection : NetworkBehaviour
     [SerializeField] private bool debug = false;
 
     private List<GameObject> listOfDirection = new();
+    public void SetDebug(bool value) => debug = value;
     private void Awake()
     {
         listOfDirection.Add(up_Object);
         listOfDirection.Add(left_Object);
         listOfDirection.Add(right_Object);
         listOfDirection.Add(down_Object);
+
+        UpdateDirection(new Vector2 (0, -1));
     }
     private void Update()
     {
@@ -39,6 +43,7 @@ public class ActivateObjectByDirection : NetworkBehaviour
     }
     public void UpdateDirection(Vector2 newDirection)
     {
+        if (!IsOwner && !debug) return;
         List<GameObject> objectToDisable = new() { up_Object, left_Object, right_Object, down_Object };
         bool isUpdated = false;
         GameObject directionToActivate = null;
@@ -100,24 +105,34 @@ public class ActivateObjectByDirection : NetworkBehaviour
             SetActiveObjectInNetworkCServerRpc(3, false);
 
             SetActiveObjectInNetworkCServerRpc(idOfObjectToDiable, true);
-            /* (GameObject direction in objectToDisable)
+
+            foreach(GameObject gameObject in listOfDirection)
             {
-                direction.SetActive(false);
+                SetEnableToAllRendererOfGameObject(gameObject, false);
             }
-            directionToActivate.SetActive(true);*/
+            SetEnableToAllRendererOfGameObject(listOfDirection[idOfObjectToDiable], true);
         }
     }
     [ServerRpc]
     private void SetActiveObjectInNetworkCServerRpc(int objectToDeactivate, bool value)
     {
-        print("fusiiii");
-        listOfDirection[objectToDeactivate].SetActive(value);
+        if (!IsOwner)
+            SetEnableToAllRendererOfGameObject(listOfDirection[objectToDeactivate], value);
+        //Set To Other Client
         SetActiveObjectInNetworkClientRpc(objectToDeactivate, value);
     }
     [ClientRpc]
     private void SetActiveObjectInNetworkClientRpc(int objectToDeactivate, bool value)
     {
-        print("fusiiii2");
-        listOfDirection[objectToDeactivate].SetActive(value);
+        if (!IsOwner)
+            SetEnableToAllRendererOfGameObject(listOfDirection[objectToDeactivate], value);
+    }
+    private static void SetEnableToAllRendererOfGameObject(GameObject gameObject, bool value)
+    {
+        List<SpriteRenderer> spriteRenderers = gameObject.GetComponentsInChildren<SpriteRenderer>().ToList();
+        foreach(SpriteRenderer sprite in  spriteRenderers)
+        {
+            sprite.enabled = value;
+        }
     }
 }

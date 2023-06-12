@@ -25,6 +25,7 @@ public class Monster_StateMachine : MonoBehaviour
     public MonsterHitCollider monsterHitCollider;
     public TimeManager timeManager;
     public Player_Animator player_Animator;
+    public Monster_Hider monster_Hider;
     public Transform MonsterTransform => monster_Movement.transform; 
     public NavMeshAgent Navmesh => monster_Movement.navMeshAgent;
 

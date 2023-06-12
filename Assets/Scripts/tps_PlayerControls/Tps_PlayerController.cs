@@ -7,6 +7,7 @@ using UnityEngine;
 using AkarisuMD.Player;
 using NaughtyAttributes;
 using UnityEngine.AI;
+using DG.Tweening;
 
 /// <summary>
 /// tps player using starter pack model.
@@ -102,6 +103,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private InteractableObject closestInteractableObject;
 
     private bool WasOnSelectEquipment;
+
+    private bool isDirectionLocked = false;
 
     #endregion
     //==============================================================================================================
@@ -570,7 +573,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void InitStateIdle()
     {
         playerData.monitor.canMove = true;
-        playerData.monitor.canDodge = true;
         playerData.monitor.canAtk1 = true;
         playerData.monitor.canAtk2 = true;
         playerData.monitor.canGetHit = true;
@@ -587,6 +589,18 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         if (playerData.monitor.isAtk1) stateMachine.ChangeState(StateId.ATK1);
         if (playerData.monitor.isAtk2) stateMachine.ChangeState(StateId.ATK2);
+        if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
+
+        if(!playerData.monitor.canDodge)
+        {
+            if(playerData.inGameDataValue.dashCooldown < playerData.variables.currentDashCooldownTimer)
+            {
+                playerData.variables.currentDashCooldownTimer = 0;
+                playerData.monitor.canDodge = true;
+            }
+            else playerData.variables.currentDashCooldownTimer += Time.deltaTime;
+
+        }
     }
     private void ExitStateIdle()
     {
@@ -597,29 +611,91 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void InitStateDodge()
     {
         playerData.variables.speed = 0.0f;
-        _Animator.SetFloat(_animIDSpeed, 0.0f);
-        _Animator.SetTrigger(_animIDDodge);
+        //_Animator.SetFloat(_animIDSpeed, 0.0f);
+        //_Animator.SetTrigger(_animIDDodge);
+
+        directionScript.UpdateDirection(directionLook);
+
+        isDirectionLocked = true;
+        player_Animator.DashAnimator();
+
+        Vector3 clampDirectionLook = new(directionLook.x / Screen.height, 0f, directionLook.y / Screen.width);
+        //divide by 100 to minilize the impact of the mouse position in the dash strenght
+
+        Vector3 dashEndPosition = transform.position + -clampDirectionLook.normalized * playerData.inGameDataValue.dashForce;
+
+        //Remove Y
+        dashEndPosition = new Vector3(dashEndPosition.x, transform.position.y, dashEndPosition.z);
 
         playerData.monitor.isChangingState = false;
+
+        if (NavMesh.SamplePosition(dashEndPosition, out NavMeshHit hit, 2, NavMesh.AllAreas))
+        {
+            transform.position = hit.position;
+            if(_Body.TryGetComponent<FollowGameObject>(out FollowGameObject followGameObject))
+            {
+                followGameObject.lerp = true;
+            }
+            playerData.monitor.canDodge = false;
+        }
     }
     private void UpdateStateDodge()
     {
         MoveFlashlight();
+        Move(HunterMoveType.STOP);
+        if (Vector3.Distance(_Body.transform.position, transform.position) <= 1.2f)
+        {
+            ChangeStateToIdle();
+        }
     }
     private void ExitStateDodge()
     {
+        isDirectionLocked = false;
+        if (_Body.TryGetComponent<FollowGameObject>(out FollowGameObject followGameObject))
+        {
+            followGameObject.lerp = false;
+        }
         playerData.monitor.isChangingState = true;
-
-        playerData.monitor.canGetHit = true;
     }
     #endregion
     #region Atk1
-    private void InitStateAtk1()
+    private async void InitStateAtk1()
     {
-        _Animator.SetFloat(_animIDSpeed, 0.0f);
-        _Animator.SetTrigger(_animIDAtk1);
+        //_Animator.SetFloat(_animIDSpeed, 0.0f);
+        //_Animator.SetTrigger(_animIDAtk1);
+
+        directionScript.UpdateDirection(directionLook);
+
+        isDirectionLocked = true;
+        player_Animator.AttackAnimator();
+
 
         playerData.monitor.isChangingState = false;
+
+        Vector3 clampDirectionLook = new(directionLook.x / Screen.height, 0f, directionLook.y / Screen.width);
+        //divide by 100 to minilize the impact of the mouse position in the dash strenght
+
+        Vector3 dashEndPosition = transform.position + -clampDirectionLook.normalized * 2f;
+
+        //Remove Y
+        dashEndPosition = new Vector3(dashEndPosition.x, transform.position.y, dashEndPosition.z);
+
+        playerData.monitor.isChangingState = false;
+
+        if (NavMesh.SamplePosition(dashEndPosition, out NavMeshHit hit, 2, NavMesh.AllAreas))
+        {
+            transform.position = hit.position;
+            if (_Body.TryGetComponent<FollowGameObject>(out FollowGameObject followGameObject))
+            {
+                followGameObject.lerp = true;
+            }
+            playerData.monitor.canDodge = false;
+        }
+
+        await System.Threading.Tasks.Task.Delay(1000);
+        if(GetCurrentState() == StateId.ATK1)
+        ChangeStateToIdle();
+
     }
     private void UpdateStateAtk1()
     {
@@ -630,25 +706,44 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void ExitStateAtk1()
     {
+        isDirectionLocked = false;
+        if (_Body.TryGetComponent<FollowGameObject>(out FollowGameObject followGameObject))
+        {
+            followGameObject.lerp = false;
+        }
         playerData.monitor.isChangingState = true;
     }
     #endregion
     #region Atk2
-    private void InitStateAtk2()
+    private async void InitStateAtk2()
     {
-        _Animator.SetFloat(_animIDSpeed, 0.0f);
-        _Animator.SetTrigger(_animIDAtk2);
+        //_Animator.SetFloat(_animIDSpeed, 0.0f);
+        //_Animator.SetTrigger(_animIDAtk2);
+
+
+        directionScript.UpdateDirection(directionLook);
+
+        isDirectionLocked = true;
+
+        player_Animator.AttackAnimator();
 
         playerData.monitor.isChangingState = false;
+
+
+        await System.Threading.Tasks.Task.Delay(1000);
+        if (GetCurrentState() == StateId.ATK2)
+            ChangeStateToIdle();
     }
     private void UpdateStateAtk2()
     {
         MoveFlashlight();
         FlipBody();
         Move(HunterMoveType.STOP);
+        if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
     }
     private void ExitStateAtk2()
     {
+        isDirectionLocked = false;
         playerData.monitor.isChangingState = true;
     }
     #endregion
@@ -838,10 +933,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             transform.position = hit.position; // movement
 
         // Set camera target to it's position.
-        _targetCamera.transform.position = transform.position + Vector3.up * 1.65f;
+        //_targetCamera.transform.position = transform.position + Vector3.up * 1.65f;
 
         // Set sprite pos to player pos.
-        _Body.transform.position = transform.position + Vector3.up * 1f;
+        //_Body.transform.position = transform.position + Vector3.up * 1f;
 
         // Set flashlight pos to player pos
         _flashlightRoot.position = transform.position + Vector3.up * 0.75f;
@@ -872,7 +967,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         Vector3 playerPosInViewport = _Camera.WorldToScreenPoint(_targetCamera.transform.position);
 
         // direction of the vector from player to mouse.
-        directionLook = new Vector2(playerPosInViewport.x - objectif.x, playerPosInViewport.y - objectif.y);
+        directionLook = new Vector2(playerPosInViewport.x - objectif.x, playerPosInViewport.y - objectif.y).normalized;
 
         // calculate Y rotation from the direction.
         _lookTargetRotation = Mathf.Atan2(directionLook.x, directionLook.y) * Mathf.Rad2Deg + 90;
@@ -1031,6 +1126,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void UpdateDirection(Vector2 currentDirectionLook)
     {
+        if (isDirectionLocked) return;
         directionScript.UpdateDirection(currentDirectionLook);
     }
     public void MonsterScream(Vector3 position, float timer)
