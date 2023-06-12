@@ -667,8 +667,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         directionScript.UpdateDirection(directionLook);
 
         isDirectionLocked = true;
-        player_Animator.AttackAnimator();
 
+        player_Animator.AttackAnimator();
 
         playerData.monitor.isChangingState = false;
 
@@ -702,6 +702,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         MoveFlashlight();
         FlipBody();
         Move(HunterMoveType.STOP);
+        
         if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
     }
     private void ExitStateAtk1()

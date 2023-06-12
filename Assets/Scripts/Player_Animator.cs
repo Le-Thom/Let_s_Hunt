@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.AI;
 using NaughtyAttributes;
 using DG.Tweening;
-
+using UnityEditor;
 public class Player_Animator : NetworkBehaviour
 {
     [SerializeField] private List<Animator> animatorToSendSpeed;

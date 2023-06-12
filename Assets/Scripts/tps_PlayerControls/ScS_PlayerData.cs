@@ -155,6 +155,12 @@ public class ScS_PlayerData : ScriptableObject
 
         [Tooltip("maximum Hp of player")]
         public int maxHp;
+
+        [Tooltip("The flow of the attack 1")]
+        public AnimationCurve atk1Curve;
+
+        [Tooltip("The flow of the attack 2")]
+        public AnimationCurve atk2Curve;
     }
 
     /// <summary>
