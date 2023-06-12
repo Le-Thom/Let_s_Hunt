@@ -89,14 +89,14 @@ public class Revive : InteractableObject
     {
         if (playerController == null) return;
 
-        playerController.ReviveAnim();
+        //playerController.ReviveAnim();
     }
     [ClientRpc]
     public void _StopGetReviveClientRpc()
     {
         if (playerController == null) return;
 
-        playerController.StopReviveAnim();
+        //playerController.StopReviveAnim();
     }
 
     private void OnTriggerEnter(Collider other)
