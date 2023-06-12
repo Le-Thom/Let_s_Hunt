@@ -30,7 +30,7 @@ Transform:
   m_Children:
   - {fileID: 5573046640115494194}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8760287629787704584
 GameObject:
@@ -4867,7 +4867,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 839a7068c663bd54abd0121ca65416af, type: 2}
+  - {fileID: 2100000, guid: 174ae369598206c4ba545dab4e20bc64, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
