@@ -8,9 +8,9 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_PlayerSide
-  m_Shader: {fileID: -6465566751694194690, guid: cffa0f3418beaab44a992755061c9801,
+  m_Shader: {fileID: -6465566751694194690, guid: a3343623535f4da49aa491325fcc89d7,
     type: 3}
-  m_Parent: {fileID: 2100000, guid: 2826acb0fe6f8d449b74f90295753e22, type: 2}
+  m_Parent: {fileID: 2100000, guid: 6565054a29f1fe143ab0e83055d275e3, type: 2}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -23,12 +23,18 @@ Material:
   m_LockedProperties: 
   m_SavedProperties:
     serializedVersion: 3
-    m_TexEnvs: []
+    m_TexEnvs:
+    - _SpriteMask_Texture:
+        m_Texture: {fileID: 2800000, guid: 3e14553a635e70d4bb754fc47c3e902a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
     - _IsBack: 0
     - _IsFront: 0
     - _IsSide: 1
+    - _ItsEmissive: 0
+    - _QueueControl: 0
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &449294087752660085

@@ -43,12 +43,17 @@ Material:
     m_Floats:
     - _Hit_Distortion: 0.38
     - _IsBack: 0
-    - _IsFirstplayer: 1
+    - _IsFirstplayer: 0
+    - _IsFourthPlayer: 0
     - _IsFront: 0
+    - _IsHit: 0
     - _IsPlayer: 1
-    - _ItsEmissive: 1
+    - _IsRandom: 0
+    - _IsSide: 0
+    - _ItsEmissive: 0
     - _ItsMonster: 1
     - _QueueControl: 0
+    - _Recalculate: 3.58
     - _Speed_Distortion: 183.5
     - _Stenght_Distortion: 9
     - _Wind_Influence: 0.829
@@ -58,6 +63,7 @@ Material:
     - _FirstPlayerColor: {r: 8.280883, g: 0, b: 0, a: 1}
     - _FourthPlayerColor: {r: 0, g: 0.30960578, b: 1, a: 1}
     - _Monster_HitColor: {r: 1, g: 0, b: 0, a: 0}
+    - _OrEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
     - _SecondPlayerColor: {r: 0.034550365, g: 0.4433962, b: 0, a: 0}
     - _ThirdPlayerColor: {r: 0.7735849, g: 0.32380757, b: 0, a: 1}
   m_BuildTextureStacks: []

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
+using static UnityEngine.ParticleSystem;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Radio : InteractableObject
@@ -12,6 +13,8 @@ public class Radio : InteractableObject
     // private
     [SerializeField] private bool available;
     [SerializeField] private float unavailableTimer = 120f;
+
+    [SerializeField] private ParticleSystem particle1, particle2;
 
     // Monobehaviour
     private void Start()
@@ -58,6 +61,9 @@ public class Radio : InteractableObject
     public override void InteractClientRpc()
     {
         if (!available) return;
+
+        particle1.Play();
+        particle2.Play();
 
         available = false;
 
