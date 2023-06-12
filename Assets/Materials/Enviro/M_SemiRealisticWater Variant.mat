@@ -28,10 +28,10 @@ Material:
     m_Floats:
     - _Artstation_Lucas_Barlet: 0
     - _Itchio_Reltony_Lucas_Barlet: 0
-    - _Scale: 5.44
-    - _Speed: 0.15
-    - _Strenght: 3.72
-    - _WaterHeight: 0.1
+    - _Scale: 8
+    - _Speed: 0.02
+    - _Strenght: 3
+    - _WaterHeight: 0
     - _WaterNoiseScale: 1.42
     - _WaterSpeed: 0.1
     - _waterDistance: 27.93
