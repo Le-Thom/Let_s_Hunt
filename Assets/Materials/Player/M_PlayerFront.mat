@@ -37,8 +37,12 @@ Material:
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Layer_594E39B9:
+        m_Texture: {fileID: 2800000, guid: fe7bd8d460a9cd8429cd52d740d271ed, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpriteMask_Texture:
-        m_Texture: {fileID: 2800000, guid: 3e14553a635e70d4bb754fc47c3e902a, type: 3}
+        m_Texture: {fileID: 2800000, guid: fe7bd8d460a9cd8429cd52d740d271ed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
@@ -50,7 +54,7 @@ Material:
     - _IsFront: 1
     - _IsHit: 0
     - _IsRandom: 0
-    - _IsSecondPlayer: 1
+    - _IsSecondPlayer: 0
     - _IsThirdPlayer: 0
     - _ItsEmissive: 0
     - _ItsMonster: 0

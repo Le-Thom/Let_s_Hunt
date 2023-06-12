@@ -5699,7 +5699,7 @@
     "m_Type": "UnityEditor.ShaderGraph.BooleanMaterialSlot",
     "m_ObjectId": "2df5f0b718b74358a2954432c9eb0d5e",
     "m_Id": 0,
-    "m_DisplayName": "ItsEmissive",
+    "m_DisplayName": "PlayerEmissiveColor",
     "m_SlotType": 1,
     "m_Hidden": false,
     "m_ShaderOutputName": "Out",
