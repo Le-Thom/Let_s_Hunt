@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Drapaux
+  m_Name: M_Drapeau
   m_Shader: {fileID: -6465566751694194690, guid: 84c8b4f0ee170774fb88c3392e326b71,
     type: 3}
   m_Parent: {fileID: 2100000, guid: aa8768adca0791e45bde07c4da971d62, type: 2}
@@ -48,7 +48,7 @@ Material:
     - _Recalculate: 82.57
     - _WindRotation: 2.58
     - _Wind_Influence: 0.1
-    - _hasWind: 0
+    - _hasWind: 1
     m_Colors:
     - _OrEmissiveColor: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
