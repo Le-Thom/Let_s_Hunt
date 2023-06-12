@@ -43,7 +43,7 @@ public class Revive : InteractableObject
 
     public override void Interact()
     {
-        Tps_PlayerController.Instance.ReviveSomeone();
+        //Tps_PlayerController.Instance.ReviveSomeone();
         if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(CheckRevive());
     }
@@ -52,7 +52,7 @@ public class Revive : InteractableObject
     {
         slider.gameObject.SetActive(true);
         _GetReviveClientRpc();
-        while (playerController.isInteracting)
+        while (true)//playerController.isInteracting)
         {
             slider.value += 1 / timerRevive * Time.deltaTime;
             yield return Time.deltaTime;
@@ -89,14 +89,14 @@ public class Revive : InteractableObject
     {
         if (playerController == null) return;
 
-        playerController.ReviveAnim();
+        //playerController.ReviveAnim();
     }
     [ClientRpc]
     public void _StopGetReviveClientRpc()
     {
         if (playerController == null) return;
 
-        playerController.StopReviveAnim();
+        //playerController.StopReviveAnim();
     }
 
     private void OnTriggerEnter(Collider other)

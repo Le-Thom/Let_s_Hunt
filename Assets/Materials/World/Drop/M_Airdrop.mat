@@ -42,6 +42,7 @@ Material:
     - _ColorSeed: 0.5
     - _HaveMask: 1
     - _IsFourthPlayer: 0
+    - _IsHiding: 0
     - _IsHit: 0
     - _IsRandom: 1
     - _IsTrunk: 1
