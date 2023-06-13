@@ -31,7 +31,7 @@ Material:
     - _Scale: 8
     - _Speed: 0.02
     - _Strenght: 3
-    - _WaterHeight: 0
+    - _WaterHeight: -1
     - _WaterNoiseScale: 1.42
     - _WaterSpeed: 0.1
     - _waterDistance: 27.93

@@ -14,7 +14,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &6479050577425836679
 Transform:
@@ -192,6 +192,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_Mousse_002
       objectReference: {fileID: 0}
+    - target: {fileID: 8450426719021092990, guid: e924fd1fd2405404c8a100d540777c5f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -276,6 +281,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_Mousse_001
       objectReference: {fileID: 0}
+    - target: {fileID: 8450426719021092990, guid: e924fd1fd2405404c8a100d540777c5f,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -359,6 +369,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prefab_Mousse_003
+      objectReference: {fileID: 0}
+    - target: {fileID: 6820857820426797560, guid: 6c69994bac8f67348bb1e86a6c5881c6,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 2147483647
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
