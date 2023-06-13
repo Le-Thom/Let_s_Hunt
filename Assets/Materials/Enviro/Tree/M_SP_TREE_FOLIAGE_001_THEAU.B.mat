@@ -41,6 +41,7 @@ Material:
     - _Alpha: 0.73
     - _ColorSeed: 0.5
     - _HaveMask: 1
+    - _IsHiding: 1
     - _IsHit: 0
     - _IsLeaves: 1
     - _IsRandom: 1

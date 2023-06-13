@@ -28,13 +28,13 @@ Material:
     m_Floats:
     - _Artstation_Lucas_Barlet: 0
     - _Itchio_Reltony_Lucas_Barlet: 0
-    - _Scale: 2.32
-    - _Speed: 4.2
-    - _Strenght: 34.3
-    - _WaterHeight: 0.1
-    - _WaterNoiseScale: 10
+    - _Scale: 8
+    - _Speed: 0.02
+    - _Strenght: 3
+    - _WaterHeight: 0
+    - _WaterNoiseScale: 1.42
     - _WaterSpeed: 0.1
-    - _waterDistance: 4.72
+    - _waterDistance: 27.93
     m_Colors:
     - _Shallow: {r: 0.5330188, g: 0.84989905, b: 1, a: 0.8862745}
   m_BuildTextureStacks: []

@@ -150,6 +150,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 foreach (var item in positionalChannel)
                 {
                     item._Start();
+                    item.gameObject.SetActive(false);
                 }
                 Tps_PlayerController.instance.SetVivoxOn();
                 break;
