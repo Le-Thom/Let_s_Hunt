@@ -53,4 +53,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/LEVEL_BUILDING_2.unity
     guid: 5de1003389ff59a4f8c27e9c5d8659ee
+  - enabled: 1
+    path: Assets/NEW_LUCAS_SCNE.unity
+    guid: 7d9dde4665b60674c9603bbd1ea54e09
   m_configObjects: {}

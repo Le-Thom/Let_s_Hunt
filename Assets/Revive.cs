@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class Revive : InteractableObject
 {
+    /*
     [SerializeField] private GameObject onCanPickUp;
     private Tps_PlayerController playerController;
     [SerializeField] private SphereCollider sphereCollider;
@@ -120,5 +121,5 @@ public class Revive : InteractableObject
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
 
         }
-    }
+    }*/
 }
