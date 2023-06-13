@@ -52,12 +52,12 @@ Material:
     - _HaveMask: 1
     - _Hit_Distortion: 0.002
     - _IsFace: 1
-    - _IsFirstplayer: 0
+    - _IsFirstplayer: 1
     - _IsFourthPlayer: 0
     - _IsFront: 1
     - _IsHiding: 0
     - _IsHit: 0
-    - _IsPlayer: 0
+    - _IsPlayer: 1
     - _IsRandom: 0
     - _IsSecondPlayer: 0
     - _IsThirdPlayer: 0

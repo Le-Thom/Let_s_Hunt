@@ -25,7 +25,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - Layer_259E03C1:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -8328923581568760697, guid: aa03b26e8783bc04bb2bddfae03f2ab3,
+          type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - Layer_594E39B9:
@@ -45,11 +46,13 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -8328923581568760697, guid: 4371fedbce196a04ab5cd0d302293eca,
+          type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask_Texture:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: -8328923581568760697, guid: aa03b26e8783bc04bb2bddfae03f2ab3,
+          type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _Sprite_Texture:
@@ -74,19 +77,19 @@ Material:
     - _Brightness: 1
     - _Brightnessoutline: 2
     - _ColorSeed: 0
-    - _HaveMask: 0
+    - _HaveMask: 1
     - _Hit_Distortion: 0.01
     - _IsBack: 0
-    - _IsFirstplayer: 0
+    - _IsFirstplayer: 1
     - _IsFourthPlayer: 0
     - _IsFront: 0
     - _IsHiding: 0
     - _IsHit: 0
     - _IsLeaves: 0
-    - _IsPlayer: 0
+    - _IsPlayer: 1
     - _IsRandom: 0
     - _IsSecondPlayer: 0
-    - _IsSide: 0
+    - _IsSide: 1
     - _IsThirdPlayer: 0
     - _IsTrunk: 0
     - _ItsEmissive: 0
