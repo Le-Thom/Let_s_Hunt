@@ -10,9 +10,11 @@ public class OnDamageBox : NetworkBehaviour
     {
         if (other.TryGetComponent<MonsterHitCollider>(out MonsterHitCollider component))
         {
-            if(IsOwner)
-            component.MonsterGetHitServerRpc(damage);
-            Debug.LogError("yes");
+            if (IsOwner)
+            {
+                component.MonsterGetHitServerRpc(damage);
+            }
+            component.FeedbackMonsterHit();
         }
     }
 }

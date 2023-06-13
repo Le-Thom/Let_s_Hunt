@@ -706,10 +706,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             {
                 followGameObject.lerp = true;
             }
-            playerData.monitor.canDodge = false;
         }
 
-        await System.Threading.Tasks.Task.Delay(1000);
+        await System.Threading.Tasks.Task.Delay(550);
         if(GetCurrentState() == StateId.ATK1)
         ChangeStateToIdle();
 

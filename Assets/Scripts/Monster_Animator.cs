@@ -21,12 +21,12 @@ public class Player_Animator : NetworkBehaviour
     private int numberOfParrelIsHitIsPlayed = 0;
     private void OnEnable()
     {
-        MonsterHitCollider.onMonsterHit += HitFeedback;
+        //MonsterHitCollider.onMonsterHit += HitFeedback;
 
     }
     private void OnDisable()
     {
-        MonsterHitCollider.onMonsterHit -= HitFeedback;
+        //MonsterHitCollider.onMonsterHit -= HitFeedback;
     }
     private void Awake()
     {
@@ -36,40 +36,22 @@ public class Player_Animator : NetworkBehaviour
             spritesMaterials.Add(spriteRenderer.material);
         }
     }
-
-    [Button]
-    public void SetInvisible()
-    {
-        foreach(Material material in spritesMaterials)
-        {
-            material.DOFloat(0, alphaMaterialParameterName, 3);
-        }
-    }
-    [Button]
-    public void SetVisible()
-    {
-        foreach (Material material in spritesMaterials)
-        {
-            material.DOFloat(1, alphaMaterialParameterName, 3);
-        }
-    }
     [Button]
     public async void HitFeedback(int damage = 0)
     {
         numberOfParrelIsHitIsPlayed++;
 
-        IsHitFeedbackClientRpc(true);
+        HitFeedback(true);
 
         await System.Threading.Tasks.Task.Delay(500);
 
         if (numberOfParrelIsHitIsPlayed <= 1)
         {
-            IsHitFeedbackClientRpc(false);
+            HitFeedback(false);
         }
         numberOfParrelIsHitIsPlayed--;
     }
-    [ClientRpc]
-    public void IsHitFeedbackClientRpc(bool value)
+    public void HitFeedback(bool value)
     {
         if(value)
         {

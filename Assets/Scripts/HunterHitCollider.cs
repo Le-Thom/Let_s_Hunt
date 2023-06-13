@@ -19,8 +19,12 @@ public class HunterHitCollider : NetworkBehaviour
         // change the healthbar
         if (IsHost) return; // Monster don't have this.
 
-        player_Animator.HitFeedback();
+
         HealthBarManager.Instance.ChangeHealthBar(indexPlayer.Value, Damage);
+    }
+    public void HitFeedback()
+    {
+        player_Animator.HitFeedback();
     }
     public void StunHunter()
     {
