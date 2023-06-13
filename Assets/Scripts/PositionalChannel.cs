@@ -22,6 +22,7 @@ class PositionalChannel : NetworkBehaviour
         _inputs.Enable();
         _loginCredentials = LoginCredentials.Instance;
         isActif = true;
+        _inputs.VOIP.ToggleMute.started += ctx => ChangeMute();
     }
 
     void Update()

@@ -7,6 +7,7 @@ using UnityEngine.AI;
 using NaughtyAttributes;
 using DG.Tweening;
 using UnityEditor;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 public class Player_Animator : NetworkBehaviour
 {
     [SerializeField] private List<Animator> animatorToSendSpeed;
@@ -80,7 +81,7 @@ public class Player_Animator : NetworkBehaviour
     {
         foreach (Animator animator in animatorToSendSpeed)
         {
-            animator.SetTrigger("whenAttack");
+            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenAttack");
         }
     }
     public void DashAnimator()

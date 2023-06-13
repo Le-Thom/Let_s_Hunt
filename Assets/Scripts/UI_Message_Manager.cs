@@ -10,9 +10,25 @@ public class UI_Message_Manager : Singleton<UI_Message_Manager>
 {
     [SerializeField] private GameObject messageParent;
     [SerializeField] private TextMeshProUGUI messagePrefab;
-    public async void ShowMessage(Color color, string text, string fmodEventName = null)
+    [SerializeField] private Transform DownPoint;
+    [SerializeField] private Transform LeftDownPoint;
+    [SerializeField] private Transform LeftUpPoint;
+    public async void ShowMessage(Color color, string text, string fmodEventName = null, MessagePosition messagePosition = MessagePosition.Down)
     {
         GameObject newMessage = Instantiate(messagePrefab.gameObject, messageParent.transform);
+
+        switch(messagePosition)
+        {
+            case MessagePosition.Down:
+                newMessage.transform.position = DownPoint.position;
+                break;
+            case MessagePosition.LeftDown:
+                newMessage.transform.position = LeftDownPoint.position;
+                break;
+            case MessagePosition.LeftUp:
+                newMessage.transform.position = LeftUpPoint.position;
+                break;
+        }
         TextMeshProUGUI messageTMPro = newMessage.GetComponent<TextMeshProUGUI>();
 
         messageTMPro.color = color;
@@ -21,4 +37,8 @@ public class UI_Message_Manager : Singleton<UI_Message_Manager>
         await messageTMPro.DOColor(new Color( messageTMPro.color.r, messageTMPro.color.g, messageTMPro.color.b, 0), 5).AsyncWaitForCompletion();
         Destroy(newMessage);
     }
+}
+public enum MessagePosition
+{
+    Down, LeftDown, LeftUp
 }
