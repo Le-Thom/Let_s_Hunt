@@ -68,6 +68,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     [SerializeField] private Revive _reviveObj;
 
+    [SerializeField] private List<OnDamageBox> hunterDamageColliders;
+
     #endregion
     //==============================================================================================================
 
@@ -681,6 +683,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         //_Animator.SetFloat(_animIDSpeed, 0.0f);
         //_Animator.SetTrigger(_animIDAtk1);
 
+        SetDamage(-25);
+
         directionScript.UpdateDirection(directionLook);
 
         isDirectionLocked = true;
@@ -708,9 +712,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             }
         }
 
+        playerData.monitor.canAtk1 = false;
         await System.Threading.Tasks.Task.Delay(550);
+        
         if(GetCurrentState() == StateId.ATK1)
         ChangeStateToIdle();
+
+        await System.Threading.Tasks.Task.Delay(1000);
+        playerData.monitor.canAtk1 = true;
 
     }
     private void UpdateStateAtk1()
@@ -718,8 +727,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         MoveFlashlight();
         FlipBody();
         Move(HunterMoveType.STOP);
-        
-        if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
     }
     private void ExitStateAtk1()
     {
@@ -728,6 +735,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         {
             followGameObject.lerp = false;
         }
+
         playerData.monitor.isChangingState = true;
     }
     #endregion
@@ -756,7 +764,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         MoveFlashlight();
         FlipBody();
         Move(HunterMoveType.STOP);
-        if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
+        //if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
     }
     private void ExitStateAtk2()
     {
@@ -862,6 +870,11 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _inputs.Disable();
         _reviveObj.IsActiveClientRpc();
 
+        directionScript.UpdateDirection(new Vector2 (directionLook.x , 0));
+
+        isDirectionLocked = true;
+        player_Animator.DeathAnimator();
+
         vivoxAudio.GetComponent<PositionalChannel>().ForceMute();
 
         playerData.monitor.isChangingState = false;
@@ -879,6 +892,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     {
         vivoxAudio.GetComponent<PositionalChannel>().UnforceMute();
         _inputs.Enable();
+        isDirectionLocked = false;
         _reviveObj.IsInactiveClientRpc();
     }
     #endregion
@@ -1176,7 +1190,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         yield return new WaitForSeconds(timer);
         _rotationScream.SetActive(false);
     }
-
+    private void SetDamage(int newDamage)
+    {
+        foreach(OnDamageBox damageBox in hunterDamageColliders)
+        {
+            damageBox.damage = newDamage;
+        }
+    }
     #endregion
     //==============================================================================================================
 }

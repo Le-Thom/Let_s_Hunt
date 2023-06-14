@@ -27,7 +27,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
 
     public bool channelConnected;
 
-    private void Awake()
+    private void Start()
     {
         client = new Client();
         client.Uninitialize();
@@ -86,8 +86,12 @@ public class LoginCredentials : Singleton<LoginCredentials>
             case LoginState.LoggedIn:
                 Debug.Log($"Logged In {loginSession.LoginSessionId.Name}");
 
-                SetChannelName(/*joinGame.joinCode.Value*/ "Dudule");
+                JoinGame_Manager joinGame = FindAnyObjectByType<JoinGame_Manager>();
+                SetChannelName(joinGame.joinCode.Value.ToString());
                 JoinChannel();
+                break;
+            case LoginState.LoggedOut:
+                UI_Message_Manager.Instance.ShowMessage(Color.red, "Connection To Voice chat Failed, Please Restart");
                 break;
 
         }
@@ -137,7 +141,6 @@ public class LoginCredentials : Singleton<LoginCredentials>
     private void Channel_Status(object sender, PropertyChangedEventArgs loginArgs)
     {
         var source = (IChannelSession)sender;
-
         switch (source.ChannelState)
         {
             case ConnectionState.Connecting:
@@ -152,10 +155,20 @@ public class LoginCredentials : Singleton<LoginCredentials>
                     item._Start();
                     item.gameObject.SetActive(false);
                 }
-                if (ScS_PlayerData.Instance.monitor.index != 0)
-                    Tps_PlayerController.instance.SetVivoxOn();
+                PlayerConnectionManager[] connectionsManager = FindObjectsOfType<PlayerConnectionManager>();
+                PlayerConnectionManager currentPlayerConnectionManager = null;
+                foreach(PlayerConnectionManager connectionManager in connectionsManager)
+                {
+                    if(connectionManager.IsOwner)
+                    {
+                        currentPlayerConnectionManager = connectionManager;
+                    }
+                }
+                if (currentPlayerConnectionManager.playerId.Value != 0)
+                    currentPlayerConnectionManager.SetVivoxOn();
                 else
                     MonsterVoice.instance.positionalChannel.SetActive(true);
+                Debug.LogError("Error 404");
                 break;
             case ConnectionState.Disconnecting:
                 Debug.Log($"{source.Channel.Name} Disconnecting");
@@ -164,6 +177,9 @@ public class LoginCredentials : Singleton<LoginCredentials>
             case ConnectionState.Disconnected:
                 Debug.Log($"{source.Channel.Name} Disconnected");
                 channelConnected = false;
+                break;
+            default:
+                Debug.LogError("Strange");
                 break;
         }
     }

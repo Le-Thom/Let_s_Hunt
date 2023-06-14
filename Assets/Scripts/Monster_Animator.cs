@@ -84,11 +84,25 @@ public class Player_Animator : NetworkBehaviour
             animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenAttack");
         }
     }
+    public void PlayAttackAnimator(int time)
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.Play("Attack", 0, time);
+        }
+    }
     public void DashAnimator()
     {
         foreach (Animator animator in animatorToSendSpeed)
         {
             animator.SetTrigger("whenDash");
+        }
+    }
+    public void DeathAnimator()
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenDied");
         }
     }
     public Animator GetPlayerAnimator(int index)
@@ -98,5 +112,46 @@ public class Player_Animator : NetworkBehaviour
             return animatorToSendSpeed[index];
         }
         else return animatorToSendSpeed[0];
+    }
+
+    [ClientRpc]
+    public void SetHunterColorViaIdClientRpc(int idPlayer)
+    {
+        switch(idPlayer)
+        {
+            case 1:
+                foreach(Material material in spritesMaterials)
+                {
+                    material.SetFloat("_IsFirstplayer", 1);
+                }
+                break;
+            case 2:
+                foreach (Material material in spritesMaterials)
+                {
+                    material.SetFloat("_IsSecondPlayer", 1);
+                }
+                break;
+            case 3:
+                foreach (Material material in spritesMaterials)
+                {
+                    material.SetFloat("_IsThirdPlayer", 1);
+                }
+                break;
+            case 4:
+                foreach (Material material in spritesMaterials)
+                {
+                    material.SetFloat("_IsFourthPlayer", 1);
+                }
+                break;
+            default:
+                return;
+        }
+    }
+    public void SetUpdateTime(float value)
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.Update(value);
+        }
     }
 }

@@ -21,7 +21,7 @@ MonoBehaviour:
     tryToMove: 0
     canMove: 1
     tryToDodge: 0
-    canDodge: 0
+    canDodge: 1
     tryToAtk1: 0
     canAtk1: 1
     tryToAtk2: 0
@@ -31,11 +31,12 @@ MonoBehaviour:
     canHeal: 0
     canGetHealed: 0
     getRevive: 0
-    isDead: 1
+    isDead: 0
   variables:
     playerPosition: {x: 0, y: 0, z: 0}
     playerRotation: {x: 0, y: 0, z: 0}
-    currentDashCooldownTimer: 0.0347039
+    currentDashCooldownTimer: 0
+    currentAttaqueTime: 0
     speed: 0
   inGameDataValue:
     speed: 6
@@ -49,7 +50,25 @@ MonoBehaviour:
     maxHp: 0
     atk1Curve:
       serializedVersion: 2
-      m_Curve: []
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0
+        outSlope: 0
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
+      - serializedVersion: 3
+        time: 0.8208313
+        value: 20
+        inSlope: 2
+        outSlope: 2
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4

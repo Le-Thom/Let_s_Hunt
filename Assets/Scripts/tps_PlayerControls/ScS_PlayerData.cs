@@ -113,6 +113,8 @@ public class ScS_PlayerData : ScriptableObject
         public Vector3 playerPosition;
         public Vector3 playerRotation;
         public float currentDashCooldownTimer;
+        public float currentAttaqueTime;
+
 
         public float speed;
     }

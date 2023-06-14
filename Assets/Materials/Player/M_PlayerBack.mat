@@ -53,7 +53,7 @@ Material:
     m_Floats:
     - _HaveMask: 1
     - _IsBack: 1
-    - _IsFirstplayer: 1
+    - _IsFirstplayer: 0
     - _IsFourthPlayer: 0
     - _IsHiding: 0
     - _IsHit: 0

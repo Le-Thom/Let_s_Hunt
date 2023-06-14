@@ -134,5 +134,10 @@ public class ActivateObjectByDirection : NetworkBehaviour
         {
             sprite.enabled = value;
         }
+        List<TrailRenderer> trailRenderers = gameObject.GetComponentsInChildren<TrailRenderer>().ToList();
+        foreach (TrailRenderer trail in trailRenderers)
+        {
+            trail.enabled = value;
+        }
     }
 }

@@ -6,11 +6,10 @@ using UnityEngine.UI;
 
 public class Revive : InteractableObject
 {
-    /*
+    
     [SerializeField] private GameObject onCanPickUp;
     private Tps_PlayerController playerController;
     [SerializeField] private SphereCollider sphereCollider;
-    [SerializeField] private Animator animator;
     [SerializeField] private float timerRevive = 1f;
     [SerializeField] private Slider slider;
     private Coroutine coroutine;
@@ -44,7 +43,7 @@ public class Revive : InteractableObject
 
     public override void Interact()
     {
-        //Tps_PlayerController.Instance.ReviveSomeone();
+        Tps_PlayerController.Instance.ReviveSomeone();
         if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(CheckRevive());
     }
@@ -53,7 +52,7 @@ public class Revive : InteractableObject
     {
         slider.gameObject.SetActive(true);
         _GetReviveClientRpc();
-        while (true)//playerController.isInteracting)
+        while (playerController.isInteracting)
         {
             slider.value += 1 / timerRevive * Time.deltaTime;
             yield return Time.deltaTime;
@@ -121,5 +120,5 @@ public class Revive : InteractableObject
                 Tps_PlayerController.Instance.interactableObjects.Remove(this);
 
         }
-    }*/
+    }
 }

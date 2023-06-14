@@ -9,27 +9,30 @@ using DG.Tweening;
 public class UI_Message_Manager : Singleton<UI_Message_Manager>
 {
     [SerializeField] private GameObject messageParent;
-    [SerializeField] private TextMeshProUGUI messagePrefab;
-    [SerializeField] private Transform DownPoint;
-    [SerializeField] private Transform LeftDownPoint;
-    [SerializeField] private Transform LeftUpPoint;
+    [SerializeField] private GameObject messagePrefab;
+    [SerializeField] private RectTransform DownPoint;
+    [SerializeField] private RectTransform LeftDownPoint;
+    [SerializeField] private RectTransform LeftUpPoint;
     public async void ShowMessage(Color color, string text, string fmodEventName = null, MessagePosition messagePosition = MessagePosition.Down)
     {
-        GameObject newMessage = Instantiate(messagePrefab.gameObject, messageParent.transform);
+        GameObject newMessage = Instantiate(messagePrefab, messageParent.transform);
 
         switch(messagePosition)
         {
             case MessagePosition.Down:
                 newMessage.transform.position = DownPoint.position;
+                //newMessage.GetComponent<RectTransform>().anchoredPosition = DownPoint.anchoredPosition;
                 break;
             case MessagePosition.LeftDown:
                 newMessage.transform.position = LeftDownPoint.position;
+                //newMessage.GetComponent<RectTransform>().anchoredPosition = LeftDownPoint.anchoredPosition;
                 break;
             case MessagePosition.LeftUp:
                 newMessage.transform.position = LeftUpPoint.position;
+                //newMessage.GetComponent<RectTransform>().anchoredPosition = LeftUpPoint.anchoredPosition;
                 break;
         }
-        TextMeshProUGUI messageTMPro = newMessage.GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI messageTMPro = newMessage.GetComponentInChildren<TextMeshProUGUI>();
 
         messageTMPro.color = color;
         messageTMPro.text = text;
