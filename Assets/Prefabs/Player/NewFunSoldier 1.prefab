@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e1fa1b231a1964b9d5e6ec38b6afa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorsToSeedSpeed: []
+  animatorToSendSpeed: []
   monster_Statemachine: {fileID: 0}
   buffer: 0.2
   alphaMaterialParameterName: _Alpha
@@ -948,6 +948,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed1287b60b4c4c94cafac172d8945445, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player_Animator: {fileID: 0}
 --- !u!114 &7966520266703612838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1479,6 +1480,8 @@ MonoBehaviour:
   _equipment1: {fileID: 0}
   _equipment2: {fileID: 0}
   _rotationScream: {fileID: 6124753819410127214}
+  directionScript: {fileID: 0}
+  player_Animator: {fileID: 0}
   vivoxAudio: {fileID: 5216584379529825612}
   _reviveObj: {fileID: 3750528114546879103}
   weapon: {fileID: 11400000, guid: 33a7d1fb9ba12a541b2644d66a2aaae6, type: 2}
@@ -1906,7 +1909,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList: []
+  TransitionStateInfoList:
+  - Layer: 0
+    OriginatingState: -520071671
+    DestinationState: 1080829965
+    TransitionDuration: 0.02
+    TriggerNameHash: -1568094750
+    TransitionIndex: 0
+  - Layer: 0
+    OriginatingState: -520071671
+    DestinationState: 1353639306
+    TransitionDuration: 0.25
+    TriggerNameHash: 205069891
+    TransitionIndex: 1
   m_Animator: {fileID: 5871290021799663420}
 --- !u!114 &6179829330957493389
 MonoBehaviour:

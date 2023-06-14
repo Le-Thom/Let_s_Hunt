@@ -80,7 +80,7 @@ Material:
     - _IsFirstplayer: 0
     - _IsFourthPlayer: 0
     - _IsFront: 0
-    - _IsHiding: 1
+    - _IsHiding: 0
     - _IsHit: 0
     - _IsLeaves: 0
     - _IsPlayer: 0

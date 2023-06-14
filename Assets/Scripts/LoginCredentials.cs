@@ -150,8 +150,14 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 foreach (var item in positionalChannel)
                 {
                     item._Start();
+                    item.gameObject.SetActive(false);
                 }
-                Tps_PlayerController.instance.SetVivoxOn();
+
+                if (ScS_PlayerData.Instance.monitor.index != 0)
+                    Tps_PlayerController.instance.SetVivoxOn();
+                else
+                    MonsterVoice.instance.positionalChannel.SetActive(true);
+
                 break;
             case ConnectionState.Disconnecting:
                 Debug.Log($"{source.Channel.Name} Disconnecting");

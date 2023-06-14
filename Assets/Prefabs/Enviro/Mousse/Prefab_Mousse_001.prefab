@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1709209065228430126}
   - component: {fileID: 4165004629048669477}
   - component: {fileID: 2309114657596753992}
+  - component: {fileID: 1944405076855263314}
   m_Layer: 0
   m_Name: Prefab_Mousse_001
   m_TagString: Untagged
@@ -105,3 +106,22 @@ MonoBehaviour:
   m_receiveShadows: 1
   m_lightProbeUsage: 1
   m_material: {fileID: 2100000, guid: 954b7d5e7561a4b49ab2278ad2d1f02e, type: 2}
+--- !u!205 &1944405076855263314
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8450426719021092990}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.075
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 1709209065228430126}
+  m_Enabled: 1

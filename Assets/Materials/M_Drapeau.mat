@@ -46,7 +46,9 @@ Material:
     - _HaveMask: 1
     - _IsFirstplayer: 0
     - _IsFourthPlayer: 0
+    - _IsHiding: 0
     - _IsPlayer: 0
+    - _IsSecondPlayer: 0
     - _ItsEmissive: 1
     - _PlayerEmissiveColor: 0
     - _Recalculate: 82.57

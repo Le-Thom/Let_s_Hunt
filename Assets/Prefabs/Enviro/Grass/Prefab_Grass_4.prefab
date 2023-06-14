@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3490593814032476061}
   - component: {fileID: 8418136394134800513}
   - component: {fileID: 1621143790616572352}
+  - component: {fileID: 1768269948789378087}
   m_Layer: 14
   m_Name: Prefab_Grass_4
   m_TagString: Untagged
@@ -105,3 +106,22 @@ MonoBehaviour:
   m_receiveShadows: 1
   m_lightProbeUsage: 1
   m_material: {fileID: 2100000, guid: cbbd541aa23e11f41944cab4cc9e8f9f, type: 2}
+--- !u!205 &1768269948789378087
+LODGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8599115022877288958}
+  serializedVersion: 2
+  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
+  m_Size: 1
+  m_FadeMode: 0
+  m_AnimateCrossFading: 0
+  m_LastLODIsBillboard: 0
+  m_LODs:
+  - screenRelativeHeight: 0.05
+    fadeTransitionWidth: 0
+    renderers:
+    - renderer: {fileID: 3490593814032476061}
+  m_Enabled: 1
