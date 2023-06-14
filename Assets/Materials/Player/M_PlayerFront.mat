@@ -64,6 +64,7 @@ Material:
     - _ItsEmissive: 0
     - _ItsMonster: 0
     - _PlayerEmissiveColor: 0
+    - _Power: 0.2
     - _QueueControl: 0
     - _Recalculate: 5.34
     m_Colors:
