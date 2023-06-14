@@ -159,10 +159,34 @@ public class ScS_PlayerData : ScriptableObject
         public int maxHp;
 
         [Tooltip("The flow of the attack 1")]
-        public AnimationCurve atk1Curve;
+        public int atk1Damage;
 
-        [Tooltip("The flow of the attack 2")]
-        public AnimationCurve atk2Curve;
+        [Tooltip("The flow of the attack 1")]
+        public float atk1Speed;
+
+        [Tooltip("The flow of the attack 1")]
+        public float atk1MovementSpeed;
+
+        [Tooltip("The flow of the attack 1")]
+        public int atk1Delay;
+
+        [Tooltip("The flow of the attack 1")]
+        public int atk1DelayBeforeIdle;
+
+        [Tooltip("The flow of the attack 1")]
+        public int atk2Damage;
+
+        [Tooltip("The flow of the attack 1")]
+        public float atk2Speed;
+
+        [Tooltip("The flow of the attack 1")]
+        public float atk2MovementSpeed;
+
+        [Tooltip("The flow of the attack 1")]
+        public int atk2Delay;
+
+        [Tooltip("The flow of the attack 1")]
+        public int atk2DelayBeforeIdle;
     }
 
     /// <summary>

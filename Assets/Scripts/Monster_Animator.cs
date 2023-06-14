@@ -10,6 +10,8 @@ using UnityEditor;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 public class Player_Animator : NetworkBehaviour
 {
+    public bool debug = false;
+    public void SetDebug(bool value) => debug = value;
     [SerializeField] private List<Animator> animatorToSendSpeed;
     [SerializeField] private Monster_StateMachine monster_Statemachine;
     [SerializeField] private float buffer = 0.2f;
@@ -82,6 +84,7 @@ public class Player_Animator : NetworkBehaviour
         foreach (Animator animator in animatorToSendSpeed)
         {
             animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenAttack");
+            if(debug) animator.SetTrigger("whenAttack");
         }
     }
     public void PlayAttackAnimator(int time)
@@ -151,7 +154,7 @@ public class Player_Animator : NetworkBehaviour
     {
         foreach (Animator animator in animatorToSendSpeed)
         {
-            animator.Update(value);
+            animator.speed = value;
         }
     }
 }

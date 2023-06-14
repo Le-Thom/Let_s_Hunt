@@ -142,7 +142,7 @@ Material:
     - _IsSide: 0
     - _IsThirdPlayer: 0
     - _IsTrunk: 0
-    - _ItsMonster: 0
+    - _ItsMonster: 1
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005

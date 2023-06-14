@@ -37,7 +37,7 @@ MonoBehaviour:
     playerRotation: {x: 0, y: 0, z: 0}
     currentDashCooldownTimer: 0
     currentAttaqueTime: 0
-    speed: 0
+    speed: 2.468913e-10
   inGameDataValue:
     speed: 6
     sprintSpeed: 5.333
@@ -45,38 +45,18 @@ MonoBehaviour:
     dashForce: 5
     dashCooldown: 0.5
     hitCooldown: 2
-    hp: 0
-    reviveTime: 0
-    maxHp: 0
-    atk1Curve:
-      serializedVersion: 2
-      m_Curve:
-      - serializedVersion: 3
-        time: 0
-        value: 0
-        inSlope: 0
-        outSlope: 0
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      - serializedVersion: 3
-        time: 0.8208313
-        value: 20
-        inSlope: 2
-        outSlope: 2
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0
-        outWeight: 0
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    atk2Curve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
+    hp: 10
+    reviveTime: 5
+    maxHp: 10
+    atk1Damage: -25
+    atk1Speed: 1
+    atk1MovementSpeed: 2.1
+    atk1Delay: 0
+    atk1DelayBeforeIdle: 450
+    atk2Damage: -60
+    atk2Speed: 0.3
+    atk2MovementSpeed: 0.5
+    atk2Delay: 0
+    atk2DelayBeforeIdle: 1350
   persistentPlayerGameData:
     globalTimeMove: 0
