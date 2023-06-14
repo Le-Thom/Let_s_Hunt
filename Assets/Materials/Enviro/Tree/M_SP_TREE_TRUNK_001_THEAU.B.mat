@@ -47,6 +47,7 @@ Material:
     - _IsTrunk: 1
     - _ItsEmissive: 0
     - _ItsMonster: 0
+    - _Power: 0.21
     - _RandomInMovement: 1
     - _WindSpeed: 2
     - _WindStrenght: 0.4
