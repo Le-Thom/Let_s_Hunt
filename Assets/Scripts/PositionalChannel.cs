@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Windows;
 using VivoxUnity;
 
-class PositionalChannel : NetworkBehaviour
+public class PositionalChannel : NetworkBehaviour
 {
     [SerializeField] private Transform playerPosition;
     private float _nextPosUpdate = 0;
@@ -20,7 +20,6 @@ class PositionalChannel : NetworkBehaviour
         _inputs = new();
         _inputs.Enable();
         isActif = true;
-        vivoxManager.client.AudioInputDevices.Muted = false;
         _inputs.VOIP.ToggleMute.started += ctx => ChangeMute();
     }
 

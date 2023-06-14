@@ -20,7 +20,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
 
 
     public bool activeVivox;
-
+    public List<PositionalChannel> positionalChannel;
 
     private string userName;
     private string channelName;
@@ -150,38 +150,27 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 Debug.Log($"{source.Channel.Name} Connected");
                 channelConnected = true;
 
-                Debug.Log($"pass 1");
-                PositionalChannel[] positionalChannel = FindObjectsOfType<PositionalChannel>();
-                Debug.Log($"pass 2");
                 foreach (var item in positionalChannel)
                 {
                     item._Start();
                     item.gameObject.SetActive(false);
-                    Debug.Log($"pass 3.5");
                 }
                 PlayerConnectionManager[] connectionsManager = FindObjectsOfType<PlayerConnectionManager>();
-                Debug.Log($"pass 4");
                 PlayerConnectionManager currentPlayerConnectionManager = null;
-                Debug.Log($"pass 5");
                 foreach (PlayerConnectionManager connectionManager in connectionsManager)
                 {
-                    Debug.Log($"pass 6");
                     if (connectionManager.IsOwner)
                     {
                         currentPlayerConnectionManager = connectionManager;
-                        Debug.Log($"pass 7");
                     }
                 }
                 if (currentPlayerConnectionManager.playerId.Value != 0)
                 {
-                    Debug.Log($"pass 7.5");
                     currentPlayerConnectionManager.SetVivoxOn();
-                    Debug.Log($"pass 8");
                 }
                 else
                 {
                     MonsterVoice.Instance.positionalChannel.SetActive(true);
-                    Debug.Log($"pass 9");
                 }
                 break;
             case ConnectionState.Disconnecting:
