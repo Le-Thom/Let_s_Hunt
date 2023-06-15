@@ -21,7 +21,6 @@ public class Monster_StateMachine : MonoBehaviour
     public Monster_Camera monster_Camera;
     public Monster_Skills monster_Skills;
     public PlayerInput monster_Input;
-    public Animator monster_Animator;
     public MonsterHitCollider monsterHitCollider;
     public TimeManager timeManager;
     public Player_Animator player_Animator;
@@ -99,6 +98,5 @@ public class Monster_StateMachine : MonoBehaviour
     private void UpdateSpeedAnimator()
     {
         player_Animator.SendSpeedToAnimator(Navmesh.velocity.magnitude);
-        print(Navmesh.velocity.magnitude + "Navmesh");
     }
 }

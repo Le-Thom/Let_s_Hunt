@@ -129,7 +129,7 @@ Material:
     - _Glossiness: 0
     - _GlossyReflections: 0
     - _HaveMask: 0
-    - _Hit_Distortion: 0.01
+    - _Hit_Distortion: 0.005
     - _IsBack: 0
     - _IsFirstplayer: 0
     - _IsFourthPlayer: 1
