@@ -38,6 +38,9 @@ public class Monster_StateMachine : MonoBehaviour
 
     [Header("Attack Variable")]
     public int timeOfTheAttackInMillisecond;
+    [SerializeField] private LayerMask groundLayer;
+
+    public bool isAOEBeingCast = false;
 
     //========
     //MONOBEHAVIOUR
@@ -71,9 +74,30 @@ public class Monster_StateMachine : MonoBehaviour
     //========
     //FONCTION
     //========
-    public Component GetComponent(Component component)
+    public void OnMonsterClick(InputAction.CallbackContext context)
     {
-        return GetComponentInChildren(component.GetType());
+        if (context.ReadValue<float>() == 0) return;
+
+        (Vector3, GameObject) newDestination = GetMouseWorldPosition(groundLayer);
+        
+        Debug.Log("Monster Click Detected / Position = " + newDestination);
+        if (newDestination.Item2 == null) return;
+
+        if(isAOEBeingCast)
+        {
+            CastAOE(newDestination.Item1);
+            isAOEBeingCast = false;
+        }
+
+        switch(newDestination.Item2.tag)
+        {
+            case "Corpse":
+                return;
+            default:
+                //Movement
+                monster_Movement.OnClickMovement(newDestination.Item1);
+                break;
+        }
     }
     public void SetMonsterStateToActive()
     {
@@ -98,5 +122,22 @@ public class Monster_StateMachine : MonoBehaviour
     private void UpdateSpeedAnimator()
     {
         player_Animator.SendSpeedToAnimator(Navmesh.velocity.magnitude);
+    }
+    private void CastAOE(Vector3 position)
+    {
+
+    }
+    private static (Vector3, GameObject) GetMouseWorldPosition(LayerMask layerMask)
+    {
+        //using old Inputs System
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit raycastHit, 999f, layerMask))
+        {
+            return (raycastHit.point, raycastHit.collider.gameObject);
+        }
+        else
+        {
+            return (Vector3.zero, null);
+        }
     }
 }
