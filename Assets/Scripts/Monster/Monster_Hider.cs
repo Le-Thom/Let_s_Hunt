@@ -12,14 +12,28 @@ public class Monster_Hider : HiderBehavior
     public GameObject[] ObjectsToHide;
     public float alphaOnHide = 0;
     public float alphaOnReveal = 1;
+    public bool isHide;
     protected override void OnHide()
     {
         HideGameobjects();
+        isHide = true;
     }
 
     protected override void OnReveal()
     {
         RevealGameObjects();
+        isHide = false;
+    }
+    public void RefreshHide()
+    {
+        if(isHide)
+        {
+            HideGameobjects();
+        }
+        else
+        {
+            RevealGameObjects();
+        }
     }
     public void HideGameobjects()
     {

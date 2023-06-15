@@ -41,6 +41,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     public bool inputAutoActive = false;
 
+    public bool isInteracting = false;
+
     #endregion
     //==============================================================================================================
 
@@ -63,6 +65,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private Player_Animator player_Animator;
 
     [SerializeField] private GameObject vivoxAudio;
+
+    [SerializeField] private Revive _reviveObj;
 
     #endregion
     //==============================================================================================================
@@ -264,13 +268,25 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
 
     /// <summary>
-    /// Revive player with 4hp.
+    /// Revive player with full life.
     /// </summary>
     public void Revive()
     {
-
+        HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
+        stateMachine.ChangeState(StateId.IDLE);
     }
-
+    public void ReviveAnim()
+    {
+        _Animator.SetBool(_animIDRevive, true);
+    }
+    public void StopReviveAnim()
+    {
+        _Animator.SetBool(_animIDRevive, false);
+    }
+    public void ReviveSomeone()
+    {
+        stateMachine.ChangeState(StateId.PAUSED);
+    }
     public void Died() { 
         stateMachine.ChangeState(StateId.DEATH);
         WasOnSelectEquipment = false; 
@@ -389,6 +405,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _inputs.Player.Equipment2.started += ctx => OnEquipment2();
         // Interact
         _inputs.Player.Interact.started += ctx => Interact();
+        _inputs.Player.Interact.canceled += ctx => StopInteract();
         // Drop
         _inputs.Player.Drop.started += ctx => _equipment1.Drop(this);
         _inputs.Player.Drop.started += ctx => _equipment2.Drop(this);
@@ -689,10 +706,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             {
                 followGameObject.lerp = true;
             }
-            playerData.monitor.canDodge = false;
         }
 
-        await System.Threading.Tasks.Task.Delay(1000);
+        await System.Threading.Tasks.Task.Delay(550);
         if(GetCurrentState() == StateId.ATK1)
         ChangeStateToIdle();
 
@@ -841,9 +857,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Death
     private void InitDeath()
     {
-        _Animator.SetTrigger(_animIDDeath);
+        //_Animator.SetTrigger(_animIDDeath);
 
         _inputs.Disable();
+        _reviveObj.IsActiveClientRpc();
+
+        vivoxAudio.GetComponent<PositionalChannel>().ForceMute();
+
         playerData.monitor.isChangingState = false;
     }
     private void UpdateDeath()
@@ -857,7 +877,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void ExitDeath()
     {
+        vivoxAudio.GetComponent<PositionalChannel>().UnforceMute();
         _inputs.Enable();
+        _reviveObj.IsInactiveClientRpc();
     }
     #endregion
 
@@ -1008,12 +1030,17 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Interact
     private void Interact()
     {
+        isInteracting = true;
         if (closestInteractableObject != null)
         {
             closestInteractableObject.InteractClientRpc();
             closestInteractableObject.InteractServerRpc();
             closestInteractableObject.Interact();
         }
+    }
+    private void StopInteract()
+    {
+        isInteracting = false;
     }
     private void UpdateObjectCheck()
     {

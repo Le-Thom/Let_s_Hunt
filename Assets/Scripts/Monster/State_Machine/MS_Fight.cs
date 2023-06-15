@@ -14,7 +14,7 @@ public class MS_Fight : Monster_State
         stateMachine.monster_Movement.ChangeSpeed(MonsterSpeed.Fight);
         stateMachine.monster_Skills.CanMonsterUseSkill(true);
         stateMachine.monster_Hider.alphaOnHide = 0.15f;
-        stateMachine.monster_Hider.HideGameobjects();
+        stateMachine.monster_Hider.RefreshHide();
     }
     public override void UpdateState()
     {

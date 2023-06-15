@@ -43,6 +43,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _IsHiding: 1
     - _IsRandom: 0
     - _ItsEmissive: 0
     - _ItsMonster: 0

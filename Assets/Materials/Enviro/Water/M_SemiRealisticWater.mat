@@ -42,16 +42,16 @@ Material:
     - _Itchio_Reltony_Lucas_Barlet: 0
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Scale: 1.76
-    - _Speed: 0.02
-    - _Strenght: 2.03
+    - _Scale: 3.76
+    - _Speed: -0.8
+    - _Strenght: 1.12
     - _WaterHeight: 0.1
-    - _WaterNoiseScale: 0.35
+    - _WaterNoiseScale: 0.02
     - _WaterSpeed: 0.89
-    - _waterDistance: 1.6
+    - _waterDistance: 25.77
     m_Colors:
-    - _Deep: {r: 0, g: 0.23921567, b: 1, a: 0.5607843}
-    - _Shallow: {r: 0.56037736, g: 0.85717344, b: 1, a: 0.8862745}
+    - _Deep: {r: 0, g: 0.372565, b: 0.8773585, a: 0.5607843}
+    - _Shallow: {r: 1, g: 1, b: 1, a: 0.8862745}
   m_BuildTextureStacks: []
 --- !u!114 &8333923097105162461
 MonoBehaviour:
