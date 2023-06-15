@@ -80,7 +80,7 @@ Material:
     - _HaveMask: 1
     - _Hit_Distortion: 0.01
     - _IsBack: 0
-    - _IsFirstplayer: 1
+    - _IsFirstplayer: 0
     - _IsFourthPlayer: 0
     - _IsFront: 0
     - _IsHiding: 0
@@ -94,8 +94,10 @@ Material:
     - _IsTrunk: 0
     - _ItsEmissive: 0
     - _ItsMonster: 0
+    - _JustTheMask: 0
     - _Offset: -0.24
     - _PlayerEmissiveColor: 0
+    - _Power: 0.2
     - _QueueControl: 0
     - _QueueOffset: 0
     - _RandomInMovement: 1
@@ -111,6 +113,7 @@ Material:
     - _isGrass: 0
     m_Colors:
     - _Character_HitColor: {r: 87.47353, g: 87.47353, b: 87.47353, a: 0}
+    - _EmissiveColor: {r: 1, g: 1, b: 1, a: 0}
     - _FirstPlayerColor: {r: 1, g: 1, b: 1, a: 0}
     - _FourthPlayerColor: {r: 0, g: 0.3096058, b: 1, a: 1}
     - _Monster_HitColor: {r: 89.55003, g: 0, b: 0, a: 0}

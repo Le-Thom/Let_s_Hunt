@@ -1143,6 +1143,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: ad58c05fe68fa9d4ba41468d749efb11, type: 2}
   directionLook: {x: 0, y: 0}
   inputAutoActive: 0
+  isInteracting: 0
   _Body: {fileID: 3304793421507758945}
   _Animator: {fileID: 255212587444027027}
   _targetCamera: {fileID: 5874679347105883748}
@@ -1154,6 +1155,8 @@ MonoBehaviour:
   directionScript: {fileID: 0}
   player_Animator: {fileID: 0}
   vivoxAudio: {fileID: 2902979864493648293}
+  _reviveObj: {fileID: 0}
+  hunterDamageColliders: []
   weapon: {fileID: 11400000, guid: 33a7d1fb9ba12a541b2644d66a2aaae6, type: 2}
   stateMachine:
     currentState: 0

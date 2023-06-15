@@ -7,8 +7,11 @@ using UnityEngine.AI;
 using NaughtyAttributes;
 using DG.Tweening;
 using UnityEditor;
+using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
 public class Player_Animator : NetworkBehaviour
 {
+    public bool debug = false;
+    public void SetDebug(bool value) => debug = value;
     [SerializeField] private List<Animator> animatorToSendSpeed;
     [SerializeField] private Monster_StateMachine monster_Statemachine;
     [SerializeField] private float buffer = 0.2f;
@@ -80,14 +83,23 @@ public class Player_Animator : NetworkBehaviour
     {
         foreach (Animator animator in animatorToSendSpeed)
         {
-            animator.SetTrigger("whenAttack");
+            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenAttack");
+            if(debug) animator.SetTrigger("whenAttack");
         }
     }
     public void DashAnimator()
     {
         foreach (Animator animator in animatorToSendSpeed)
         {
-            animator.SetTrigger("whenDash");
+            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenDodge");
+            if (debug) animator.SetTrigger("whenDodge");
+        }
+    }
+    public void DeathAnimator()
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenDied");
         }
     }
     public Animator GetPlayerAnimator(int index)
@@ -97,5 +109,46 @@ public class Player_Animator : NetworkBehaviour
             return animatorToSendSpeed[index];
         }
         else return animatorToSendSpeed[0];
+    }
+
+    [ClientRpc]
+    public void SetHunterColorViaIdClientRpc(int idPlayer)
+    {
+        switch(idPlayer)
+        {
+            case 1:
+                foreach(Material material in spritesMaterials)
+                {
+                    material.SetFloat("_IsFirstplayer", 1);
+                }
+                break;
+            case 2:
+                foreach (Material material in spritesMaterials)
+                {
+                    material.SetFloat("_IsSecondPlayer", 1);
+                }
+                break;
+            case 3:
+                foreach (Material material in spritesMaterials)
+                {
+                    material.SetFloat("_IsThirdPlayer", 1);
+                }
+                break;
+            case 4:
+                foreach (Material material in spritesMaterials)
+                {
+                    material.SetFloat("_IsFourthPlayer", 1);
+                }
+                break;
+            default:
+                return;
+        }
+    }
+    public void SetUpdateTime(float value)
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.speed = value;
+        }
     }
 }

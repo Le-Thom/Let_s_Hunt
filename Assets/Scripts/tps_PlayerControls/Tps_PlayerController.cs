@@ -68,6 +68,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     [SerializeField] private Revive _reviveObj;
 
+    [SerializeField] private List<OnDamageBox> hunterDamageColliders;
+
     #endregion
     //==============================================================================================================
 
@@ -560,6 +562,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         playerData.monitor.isActive = true;
         playerData.monitor.isChangingState = false;
 
+        playerData.monitor.canAtk1 = true;
+        playerData.monitor.canAtk2 = true;
+
         stateMachine.ChangeState(StateId.IDLE);
     }
     private void UpdateStateInit()
@@ -590,8 +595,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void InitStateIdle()
     {
         playerData.monitor.canMove = true;
-        playerData.monitor.canAtk1 = true;
-        playerData.monitor.canAtk2 = true;
         playerData.monitor.canGetHit = true;
 
         playerData.monitor.isChangingState = false;
@@ -678,8 +681,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Atk1
     private async void InitStateAtk1()
     {
-        //_Animator.SetFloat(_animIDSpeed, 0.0f);
-        //_Animator.SetTrigger(_animIDAtk1);
+
+        SetDamage(playerData.inGameDataValue.atk1Damage);
 
         directionScript.UpdateDirection(directionLook);
 
@@ -687,12 +690,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         player_Animator.AttackAnimator();
 
+        player_Animator.SetUpdateTime(playerData.inGameDataValue.atk1Speed);
+
         playerData.monitor.isChangingState = false;
 
         Vector3 clampDirectionLook = new(directionLook.x / Screen.height, 0f, directionLook.y / Screen.width);
         //divide by 100 to minilize the impact of the mouse position in the dash strenght
 
-        Vector3 dashEndPosition = transform.position + -clampDirectionLook.normalized * 2f;
+        Vector3 dashEndPosition = transform.position + -clampDirectionLook.normalized * playerData.inGameDataValue.atk1MovementSpeed;
 
         //Remove Y
         dashEndPosition = new Vector3(dashEndPosition.x, transform.position.y, dashEndPosition.z);
@@ -708,9 +713,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             }
         }
 
-        await System.Threading.Tasks.Task.Delay(550);
-        if(GetCurrentState() == StateId.ATK1)
+        playerData.monitor.canAtk1 = false;
+
+        await System.Threading.Tasks.Task.Delay(playerData.inGameDataValue.atk1DelayBeforeIdle);
+        
         ChangeStateToIdle();
+
+        await System.Threading.Tasks.Task.Delay(playerData.inGameDataValue.atk1Delay);
+        playerData.monitor.canAtk1 = true;
 
     }
     private void UpdateStateAtk1()
@@ -718,8 +728,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         MoveFlashlight();
         FlipBody();
         Move(HunterMoveType.STOP);
-        
-        if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
     }
     private void ExitStateAtk1()
     {
@@ -728,15 +736,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         {
             followGameObject.lerp = false;
         }
+        player_Animator.SetUpdateTime(1);
         playerData.monitor.isChangingState = true;
     }
     #endregion
     #region Atk2
     private async void InitStateAtk2()
     {
-        //_Animator.SetFloat(_animIDSpeed, 0.0f);
-        //_Animator.SetTrigger(_animIDAtk2);
-
+        SetDamage(playerData.inGameDataValue.atk2Damage);
 
         directionScript.UpdateDirection(directionLook);
 
@@ -744,23 +751,53 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         player_Animator.AttackAnimator();
 
+        player_Animator.SetUpdateTime(playerData.inGameDataValue.atk2Speed);
+
         playerData.monitor.isChangingState = false;
 
+        Vector3 clampDirectionLook = new(directionLook.x / Screen.height, 0f, directionLook.y / Screen.width);
+        //divide by 100 to minilize the impact of the mouse position in the dash strenght
 
-        await System.Threading.Tasks.Task.Delay(1000);
-        if (GetCurrentState() == StateId.ATK2)
-            ChangeStateToIdle();
+        Vector3 dashEndPosition = transform.position + -clampDirectionLook.normalized * playerData.inGameDataValue.atk2MovementSpeed;
+
+        //Remove Y
+        dashEndPosition = new Vector3(dashEndPosition.x, transform.position.y, dashEndPosition.z);
+
+        playerData.monitor.isChangingState = false;
+
+        if (NavMesh.SamplePosition(dashEndPosition, out NavMeshHit hit, 2, NavMesh.AllAreas))
+        {
+            transform.position = hit.position;
+            if (_Body.TryGetComponent<FollowGameObject>(out FollowGameObject followGameObject))
+            {
+                followGameObject.lerp = true;
+            }
+        }
+
+        playerData.monitor.canAtk2 = false;
+
+        await System.Threading.Tasks.Task.Delay(playerData.inGameDataValue.atk2DelayBeforeIdle);
+
+        ChangeStateToIdle();
+
+        await System.Threading.Tasks.Task.Delay(playerData.inGameDataValue.atk2Delay);
+        playerData.monitor.canAtk2 = true;
     }
     private void UpdateStateAtk2()
     {
         MoveFlashlight();
         FlipBody();
         Move(HunterMoveType.STOP);
-        if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
+        //if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
     }
     private void ExitStateAtk2()
     {
         isDirectionLocked = false;
+        if (_Body.TryGetComponent<FollowGameObject>(out FollowGameObject followGameObject))
+        {
+            followGameObject.lerp = false;
+        }
+        player_Animator.SetUpdateTime(1);
         playerData.monitor.isChangingState = true;
     }
     #endregion
@@ -862,6 +899,11 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _inputs.Disable();
         _reviveObj.IsActiveClientRpc();
 
+        directionScript.UpdateDirection(new Vector2 (directionLook.x , 0));
+
+        isDirectionLocked = true;
+        player_Animator.DeathAnimator();
+
         vivoxAudio.GetComponent<PositionalChannel>().ForceMute();
 
         playerData.monitor.isChangingState = false;
@@ -879,6 +921,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     {
         vivoxAudio.GetComponent<PositionalChannel>().UnforceMute();
         _inputs.Enable();
+        isDirectionLocked = false;
         _reviveObj.IsInactiveClientRpc();
     }
     #endregion
@@ -1176,7 +1219,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         yield return new WaitForSeconds(timer);
         _rotationScream.SetActive(false);
     }
-
+    private void SetDamage(int newDamage)
+    {
+        foreach(OnDamageBox damageBox in hunterDamageColliders)
+        {
+            damageBox.damage = newDamage;
+        }
+    }
     #endregion
     //==============================================================================================================
 }
