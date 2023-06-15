@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b919b273b4560ad4cb691200d118177f
+guid: bc68aa2540389a34596b72f9576e57aa
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -9,7 +9,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Play Pretend
+  - PT Serif
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
