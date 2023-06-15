@@ -121,7 +121,8 @@ public class LoginCredentials : Singleton<LoginCredentials>
     {
         if (!activeVivox) return;
 
-        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional, new Channel3DProperties());
+        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional, 
+            new Channel3DProperties(32, 1, 1.0f, AudioFadeModel.InverseByDistance));
         channelSession = loginSession.GetChannelSession(channelId);
 
         Bind_Channel_Callback_Listeners(true, channelSession);

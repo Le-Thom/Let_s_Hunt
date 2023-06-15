@@ -6,7 +6,6 @@ using VivoxUnity;
 
 public class PositionalChannel : NetworkBehaviour
 {
-    [SerializeField] private Transform playerPosition;
     private float _nextPosUpdate = 0;
     public bool isActif = false;
     public bool toggleMute = false;
@@ -27,7 +26,7 @@ public class PositionalChannel : NetworkBehaviour
     {
         if (IsOwner && isActif && Time.time > _nextPosUpdate)
         {
-            vivoxManager.Update3DPosition(playerPosition, playerPosition);
+            vivoxManager.Update3DPosition(transform, transform);
             _nextPosUpdate += 0.3f; // Only update after 0.3 or more seconds
         }
     }
