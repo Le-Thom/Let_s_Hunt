@@ -39,6 +39,7 @@ public class HunterHitCollider : NetworkBehaviour
     public void SetPlayerIdServerRpc(int newPlayerId)
     {
         indexPlayer.Value = newPlayerId;
+        SetColorToHunter();
     }
     public bool isThePlayerDodging()
     {
@@ -48,5 +49,9 @@ public class HunterHitCollider : NetworkBehaviour
     public int GetPlayerId()
     {
         return indexPlayer.Value;
+    }
+    public void SetColorToHunter()
+    {
+        player_Animator.SetHunterColorViaIdClientRpc(indexPlayer.Value);
     }
 }

@@ -4,11 +4,9 @@ using UnityEngine.UI;
 using UnityEngine.Windows;
 using VivoxUnity;
 
-class PositionalChannel : NetworkBehaviour
+public class PositionalChannel : NetworkBehaviour
 {
-    [SerializeField] private Transform playerPosition;
     private float _nextPosUpdate = 0;
-    private LoginCredentials _loginCredentials;
     public bool isActif = false;
     public bool toggleMute = false;
     public bool forcedMute = false;
@@ -20,15 +18,15 @@ class PositionalChannel : NetworkBehaviour
     {
         _inputs = new();
         _inputs.Enable();
-        _loginCredentials = LoginCredentials.Instance;
         isActif = true;
+        _inputs.VOIP.ToggleMute.started += ctx => ChangeMute();
     }
 
     void Update()
     {
         if (IsOwner && isActif && Time.time > _nextPosUpdate)
         {
-            _loginCredentials.Update3DPosition(playerPosition, playerPosition);
+            vivoxManager.Update3DPosition(transform, transform);
             _nextPosUpdate += 0.3f; // Only update after 0.3 or more seconds
         }
     }

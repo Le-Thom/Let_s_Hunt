@@ -1216,7 +1216,7 @@ Transform:
   - {fileID: 5050062232254755382}
   - {fileID: 3936658209199441906}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &1323619400919814694
 Animator:
@@ -1251,6 +1251,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: DamageBox
+      objectReference: {fileID: 0}
+    - target: {fileID: 2276923644230217745, guid: 349b7b8b3f716b346b4af85494e00693,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2368539253103870573, guid: 349b7b8b3f716b346b4af85494e00693,
         type: 3}
