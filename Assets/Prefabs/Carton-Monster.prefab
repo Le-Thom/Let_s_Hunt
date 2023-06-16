@@ -170,7 +170,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 488958829150866471}
   m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 15.842135, z: -14.142137}
+  m_LocalPosition: {x: 0, y: 15.842135, z: -14.142136}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -338,7 +338,7 @@ Transform:
   - {fileID: 2230011327260780932}
   - {fileID: 1975943591984984862}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4593430181937896699
 MonoBehaviour:
@@ -503,6 +503,8 @@ MonoBehaviour:
   monster_Animator: {fileID: 8239880523886464800}
   monsterHitCollider: {fileID: 801450911233564112}
   timeManager: {fileID: 0}
+  player_Animator: {fileID: 0}
+  monster_Hider: {fileID: 0}
   stunTimeInMillisecond: 10
   maxDistanceForEnteringInFight: 10
   maxDistanceForExitingTheFight: 15
@@ -523,6 +525,7 @@ GameObject:
   - component: {fileID: 3905867235997976316}
   - component: {fileID: 6050371187921578694}
   - component: {fileID: 6555405990501135489}
+  - component: {fileID: 1888004075832349300}
   m_Layer: 13
   m_Name: Hider
   m_TagString: Untagged
@@ -584,6 +587,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToFollow: {fileID: 2871038976918588050}
+  offset: {x: 0, y: 0, z: 0}
+  lerp: 0
+  lerpSpeed: 10
+  lerpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &6050371187921578694
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -614,6 +626,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ObjectsToHide:
   - {fileID: 7750541305078560991}
+--- !u!114 &1888004075832349300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1003848978070361442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0faf3401ebc492e4299d143f80ac7703, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  positionalChannel: {fileID: 7368810905299510440}
 --- !u!1 &1166225067323951566
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +753,10 @@ MonoBehaviour:
   timeBeforeTheAttack: 10
   timeOfTheAttack: 10
   timeOfMonsterStunWhenAttack: 1000
+  startParticule: {fileID: 0}
+  colliderToActivate: {fileID: 0}
+  mainObject: {fileID: 0}
+  numberOfAttack: 10
 --- !u!1 &1305616105474167925
 GameObject:
   m_ObjectHideFlags: 0
@@ -855,6 +884,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToFollow: {fileID: 2871038976918588050}
+  offset: {x: 0, y: 0, z: 0}
+  lerp: 0
+  lerpSpeed: 10
+  lerpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!114 &3025346966295556749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1004,7 +1042,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb1dfab86e264574fa79c98c326b8f36, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  onClickParticule: {fileID: 7214356002587595678}
+  onClickAnimation: {fileID: 0}
   mousePointeur: {fileID: 599166749124628217}
   navMeshAgent: {fileID: 4126852009630045859}
   monsterInvisibleSpeed: 10
@@ -6113,9 +6151,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e8899cb52b8b834f9992883021dee56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  freeCamera: {fileID: 3554854897714117670}
+  monster_camera: {fileID: 0}
   freeCamFollowLockedScript: {fileID: 8939539676791070247}
-  lockedCamera: {fileID: 213625281511612994}
+  cameraRoot: {fileID: 0}
   cameraWASDSpeed: 0.5
   cameraMouseSpeed: 7
   screenSizeThickness: 50
@@ -6206,6 +6244,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToFollow: {fileID: 4937436128517798215}
+  offset: {x: 0, y: 0, z: 0}
+  lerp: 0
+  lerpSpeed: 10
+  lerpCurve:
+    serializedVersion: 2
+    m_Curve: []
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &3455180074475982908
 GameObject:
   m_ObjectHideFlags: 0
@@ -6275,6 +6322,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0666d0320d6709746a1364df769b1caa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player_Animator: {fileID: 0}
 --- !u!114 &2816713264461587588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6514,7 +6562,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e1fa1b231a1964b9d5e6ec38b6afa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animatorsToSeedSpeed: []
+  animatorToSendSpeed: []
   monster_Statemachine: {fileID: 2748436198010493292}
   buffer: 0.2
   alphaMaterialParameterName: _Alpha
@@ -11740,6 +11788,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPosition: {fileID: 2871038976918588050}
   isActif: 0
+  toggleMute: 0
+  forcedMute: 0
+  vivoxManager: {fileID: 0}
+  audioToggleMute:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  vocToggle: {fileID: 0}
 --- !u!1 &7404583851240523823
 GameObject:
   m_ObjectHideFlags: 0
@@ -11793,8 +11852,7 @@ MonoBehaviour:
   timeBeforeTheAttack: 1000
   timeOfTheAttack: 1000
   timeOfMonsterStunWhenAttack: 1000
-  collider: {fileID: 7492813506648889381}
-  cac_particule: {fileID: 2220187399141728779}
+  animator: {fileID: 0}
 --- !u!1 &7492813506648889381
 GameObject:
   m_ObjectHideFlags: 0
@@ -12019,6 +12077,7 @@ MonoBehaviour:
   navMesh: {fileID: 4126852009630045859}
   tps_Controller: {fileID: 0}
   buffer: 0.5
+  debug: 0
 --- !u!114 &8895207442779446251
 MonoBehaviour:
   m_ObjectHideFlags: 0

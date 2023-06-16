@@ -937,7 +937,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5bc81da098a944abb8cdc881126fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPosition: {fileID: 2403324170589150992}
   isActif: 0
   toggleMute: 0
   forcedMute: 0
@@ -1321,6 +1320,7 @@ MonoBehaviour:
   playerData: {fileID: 11400000, guid: ad58c05fe68fa9d4ba41468d749efb11, type: 2}
   directionLook: {x: 0, y: 0}
   inputAutoActive: 0
+  isInteracting: 0
   _Body: {fileID: 3304793421507758945}
   _Animator: {fileID: 255212587444027027}
   _targetCamera: {fileID: 5874679347105883748}
@@ -1332,6 +1332,8 @@ MonoBehaviour:
   directionScript: {fileID: 0}
   player_Animator: {fileID: 0}
   vivoxAudio: {fileID: 2902979864493648293}
+  _reviveObj: {fileID: 0}
+  hunterDamageColliders: []
   weapon: {fileID: 11400000, guid: 33a7d1fb9ba12a541b2644d66a2aaae6, type: 2}
   stateMachine:
     currentState: 0
@@ -1557,7 +1559,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCanPickUp: {fileID: 9034472043759093140}
   sphereCollider: {fileID: 4129706924681848443}
-  animator: {fileID: 255212587444027027}
   timerRevive: 1
   slider: {fileID: 6168984187995404260}
 --- !u!114 &3358802289959921533
