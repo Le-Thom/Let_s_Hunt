@@ -6,7 +6,7 @@ using UnityEngine;
 public class MiniMapManager : Singleton<MiniMapManager>
 {
     public bool mapTuto;
-
+    
     // Reference
     [SerializeField] public GameObject canvas; 
     [SerializeField] private RectTransform _MM_UI;
@@ -18,6 +18,7 @@ public class MiniMapManager : Singleton<MiniMapManager>
     [SerializeField] private GameObject monsterZone_Top_Left, monsterZone_Top_Right, monsterZone_Bottom_Left, monsterZone_Bottom_Right;
     
     [SerializeField] private RectTransform _fightBroke;
+    [SerializeField] private RectTransform playerIcon;
 
     // Private var
     [SerializeField] private float mapSizeX, mapSizeY;
@@ -31,6 +32,8 @@ public class MiniMapManager : Singleton<MiniMapManager>
 
 
     [SerializeField] private float fightBrokeTimer = 10;
+
+    private Transform playerPos;
 
 
     // Monobehaviour
@@ -64,19 +67,22 @@ public class MiniMapManager : Singleton<MiniMapManager>
     {
         isHunter = false;
     }
+
+    [Button]
     public void SetForHunter()
     {
         isHunter = true; 
         _MM_MonsterCamera.gameObject.SetActive(false);
+        playerIcon.gameObject.SetActive(true);
+        playerPos = Tps_PlayerController.instance.transform;
     }
 
     [Button]
     public void FightBroke()
     {
-        if (!isHunter)
-        {
-            StartCoroutine(_FightBroke());
-        }
+        if (fightBroke_Coroutine != null) StopCoroutine(fightBroke_Coroutine);
+
+        fightBroke_Coroutine = StartCoroutine(_FightBroke());
     }
 
     // Private fonction
@@ -101,6 +107,17 @@ public class MiniMapManager : Singleton<MiniMapManager>
             MonsterPosition();
             CameraPosition();
         }
+
+        if (isHunter)
+        {
+            PlayerPosition();
+        }
+    }
+
+    private void PlayerPosition()
+    {
+        Vector3 _playerPos = playerPos.position;
+        playerIcon.localPosition = new Vector3(_playerPos.x * mapRatio + midMapX, _playerPos.z * mapRatio + midMapY, 0);
     }
 
     private void MonsterPosition()
@@ -163,6 +180,7 @@ public class MiniMapManager : Singleton<MiniMapManager>
         _MM_MonsterCamera.localPosition = new Vector3(_camPos.x * mapRatio + midMapX, _camPos.z * mapRatio + midMapY, 0);
     }
 
+    private Coroutine fightBroke_Coroutine;
     private IEnumerator _FightBroke()
     {
         _fightBroke.gameObject.SetActive(true);
