@@ -17,8 +17,7 @@ public class Hunter_DamageZone : NetworkBehaviour
                 print("player dodge");
                 return;
             }*/
-            if(IsOwner)
-            hunterCollider.HunterGetHitClientRpc(damage);
+            if(IsOwner) hunterCollider.HunterGetHitClientRpc(damage);
 
             hunterCollider.HitFeedback();
             Vector3 positionOfHit = other.ClosestPoint(transform.position);

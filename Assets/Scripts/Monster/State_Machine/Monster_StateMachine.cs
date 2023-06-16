@@ -11,6 +11,8 @@ public class Monster_StateMachine : MonoBehaviour
     //VARIABLES
     //========
 
+    public static Action whenSkillHaveToBeUsed;
+
     [Header("State Machine")]
     public Monster_State currentState;
     private Monster_StateFactory factory;
@@ -25,6 +27,7 @@ public class Monster_StateMachine : MonoBehaviour
     public TimeManager timeManager;
     public Player_Animator player_Animator;
     public Monster_Hider monster_Hider;
+    public ActivateObjectByDirection directional_Animator;
     public Transform MonsterTransform => monster_Movement.transform; 
     public NavMeshAgent Navmesh => monster_Movement.navMeshAgent;
 
@@ -40,7 +43,7 @@ public class Monster_StateMachine : MonoBehaviour
     public int timeOfTheAttackInMillisecond;
     [SerializeField] private LayerMask groundLayer;
 
-    public bool isAOEBeingCast = false;
+    public bool isSkillBeingCast = false;
 
     //========
     //MONOBEHAVIOUR
@@ -83,10 +86,9 @@ public class Monster_StateMachine : MonoBehaviour
         Debug.Log("Monster Click Detected / Position = " + newDestination);
         if (newDestination.Item2 == null) return;
 
-        if(isAOEBeingCast)
+        if(isSkillBeingCast)
         {
-            CastAOE(newDestination.Item1);
-            isAOEBeingCast = false;
+            whenSkillHaveToBeUsed?.Invoke();
         }
 
         switch(newDestination.Item2.tag)
@@ -122,10 +124,6 @@ public class Monster_StateMachine : MonoBehaviour
     private void UpdateSpeedAnimator()
     {
         player_Animator.SendSpeedToAnimator(Navmesh.velocity.magnitude);
-    }
-    private void CastAOE(Vector3 position)
-    {
-
     }
     private static (Vector3, GameObject) GetMouseWorldPosition(LayerMask layerMask)
     {

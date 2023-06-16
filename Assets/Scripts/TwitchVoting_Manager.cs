@@ -90,16 +90,34 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
         {
             case TwitchVote.Drop:
 
+                AirdropManager _airdropManager = GameObject.FindFirstObjectByType<AirdropManager>();
+                _airdropManager.CallAirdropServerRpc();
+
+                UI_Message_Manager.Instance.ShowMessage(Color.blue, "Renforcement Materiel en chemin");
                 break;
             case TwitchVote.Scream:
 
+                ScreamMonster _screamMonster = GameObject.FindFirstObjectByType<ScreamMonster>();
+                Monster_Movement _monster_Movement = GameObject.FindFirstObjectByType<Monster_Movement>();
+                _screamMonster.ScreamClientRpc(_monster_Movement.transform.position);
+
+                UI_Message_Manager.Instance.ShowMessage(Color.blue, "Show The Location Of The Monster To Soldier");
                 break;
             case TwitchVote.Light:
 
+                SpotlightManager _spotlightManager = GameObject.FindFirstObjectByType<SpotlightManager>();
+                _spotlightManager.CallSpotlightOnClientRpc();
+
+                UI_Message_Manager.Instance.ShowMessage(Color.blue, "Activation des spotlights");
                 break;
             case TwitchVote.Revive:
 
+                UI_Message_Manager.Instance.ShowMessage(Color.blue, "Reanimation des Soldats en cours");
                 break;
+        }
+        foreach(VoteRef_UI voteRef_UI in listOfCurrentVote.Values.ToList())
+        {
+            voteRef_UI.AutoDestroy();
         }
     }
     private void ResetVoteCount()

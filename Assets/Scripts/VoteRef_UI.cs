@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DG.Tweening;
 
 public class VoteRef_UI : MonoBehaviour
 {
@@ -24,5 +25,9 @@ public class VoteRef_UI : MonoBehaviour
     {
         voteBar.value = newValue;
         pourcentageOfVote.text = newValue.ToString() + "%";
+    }
+    public void AutoDestroy()
+    {
+        transform.DOScale(0, 1f).SetEase(Ease.OutExpo).OnComplete(() => Destroy(gameObject));
     }
 }

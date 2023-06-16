@@ -34,39 +34,39 @@
                 },
                 {
                     "name": "Cac_Skill",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "04e1c5bb-905b-41c1-8fd9-3b50200826bf",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Projectile_Skill",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "926cf1b8-366c-4817-8d66-731fb793c95c",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Dash_Skill",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "09e5d564-a1f0-490a-b367-06a3f2416b40",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Blackout_Skill",
-                    "type": "Button",
+                    "type": "Value",
                     "id": "cf354c67-5e7b-4336-ad95-37b3ea5b56f3",
-                    "expectedControlType": "Button",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [

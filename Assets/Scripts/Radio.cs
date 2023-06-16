@@ -91,9 +91,15 @@ public class Radio : InteractableObject
     {
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
         if (!available && !notAvailable.active) notAvailable.SetActive(true);
-        yield return new WaitForSeconds(unavailableTimer);
+        TwitchVote_Timer_Manager.Instance.UpdateTimerTest(unavailableTimer.ToString());
+        for(int i = 0; i < unavailableTimer; i++)
+        {
+            yield return new WaitForSeconds(1);
+            TwitchVote_Timer_Manager.Instance.UpdateTimerTest((unavailableTimer - i).ToString());
+        }
         SetAvailableClientRpc();
         TwitchVoting_Manager.Instance.EndTwitchVote();
+        TwitchVote_Timer_Manager.Instance.UpdateTimerTest("");
     }
 
     [ClientRpc]

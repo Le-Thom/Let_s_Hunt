@@ -18,6 +18,8 @@ public class BaseCompetance_Monster : MonoBehaviour
     [Header("In-Game ")]
     [SerializeField] private bool isSkillOnCooldown = false;
     [SerializeField] private float cooldownMaxTimer = 10;
+    [SerializeField] private GameObject previewSpell;
+
     [Header("Delay in Milliseconds")]
     [SerializeField] protected int timeBeforeTheAttack = 1000;
     [SerializeField] protected int timeOfTheAttack = 1000;
@@ -48,6 +50,12 @@ public class BaseCompetance_Monster : MonoBehaviour
     //========
     //FONCTION
     //========
+
+    public void ShowPreviewOfSpell(bool value = true)
+    {
+        previewSpell.SetActive(value);
+    }
+
     /// <summary>
     /// Input action of mouse position from player input in monster. (deliver a Vector2)
     /// </summary>
@@ -84,14 +92,39 @@ public class BaseCompetance_Monster : MonoBehaviour
         _lookTargetRotation = Mathf.Atan2(_direction.x, _direction.y) * Mathf.Rad2Deg + 180f;
     }
 
+
+    public void StartingUsingSkill(InputAction.CallbackContext context)
+    {
+        if (isSkillOnCooldown) return;
+        if (context.ReadValue<float>() == 1)
+        {
+            Debug.LogError("testing1");
+            if (monster_StateMachine.isSkillBeingCast) return;
+            monster_StateMachine.isSkillBeingCast = true;
+            Monster_StateMachine.whenSkillHaveToBeUsed += UseSkill;
+            Monster_StateMachine.whenSkillHaveToBeUsed += CastingSkill;
+            ShowPreviewOfSpell(true);
+        }
+        if (monster_StateMachine.isSkillBeingCast && context.ReadValue<float>() == 0)
+        {
+            Debug.LogError("testing2");
+            Monster_StateMachine.whenSkillHaveToBeUsed?.Invoke();
+        }
+
+    }
+    public void CastingSkill()
+    {
+        ShowPreviewOfSpell(false);
+        monster_StateMachine.isSkillBeingCast = false;
+        Monster_StateMachine.whenSkillHaveToBeUsed -= UseSkill;
+        Monster_StateMachine.whenSkillHaveToBeUsed -= CastingSkill;
+        isSkillOnCooldown = true;
+    }
+
     [Button]
     public void UseSkill()
     {
-        //And If not stun
-        if (isSkillOnCooldown) return;
-
         SkillFonction();
-        isSkillOnCooldown = true;
         Monster_Skills.whenASkillIsUsed?.Invoke(timeOfMonsterStunWhenAttack, animationTrigger);
     }
     protected virtual void SkillFonction()
