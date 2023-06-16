@@ -49,7 +49,11 @@ public class Equipment : MonoBehaviour
     {
         if (equipment == null) return; 
         onSelected = !onSelected;
-        if (otherEquipment.onSelected) otherEquipment.onSelected = false;
+        if (otherEquipment.onSelected)
+        {
+            otherEquipment.onSelected = false;
+            GameManager.Instance.OnMouseOverAudio();
+        }
     }
     public bool GetOnSelected() { return onSelected; }
 

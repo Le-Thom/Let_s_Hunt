@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3117031776682902955
 MonoBehaviour:
@@ -45,7 +45,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d961404735d399a418abd62991e84a8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefabAirdrop: {fileID: 1477185272097411168, guid: 4d990dd558107254cae44e8603595824,
+  prefabAirdrop1: {fileID: 1477185272097411168, guid: 4d990dd558107254cae44e8603595824,
+    type: 3}
+  prefabAirdrop2: {fileID: 1477185272097411168, guid: 1b663b8c386760b48a92e89a809ede89,
     type: 3}
 --- !u!114 &5364789625422555452
 MonoBehaviour:

@@ -64,7 +64,12 @@ public class ObjectDrop : InteractableObject
             if (_hunterCollider.IsOwner )
             {
                 if (isFromHost || IsHost) return;
-                EquipmentVerification(_hunterCollider);
+
+                if (sc_object.GetType() == typeof(sc_Equipment))
+                    EquipmentVerification(_hunterCollider);
+
+                else
+                    Tps_PlayerController.Instance.interactableObjects.Add(this);
             } 
             
             else
@@ -81,9 +86,26 @@ public class ObjectDrop : InteractableObject
             if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
             {
                 if (!_hunterCollider.IsOwner  || IsHost) return;
-                EquipmentVerification2(_hunterCollider);
+
+
+                if (sc_object.GetType() == typeof(sc_Equipment))
+                    EquipmentVerification2(_hunterCollider);
             }
             return;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+
+        if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
+        {
+            if (_hunterCollider == hunterFollowed) StopCoroutine(attractCoroutine);
+
+            if (!_hunterCollider.IsOwner || IsHost) return;
+            isFromHost = false;
+
+            if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
+                Tps_PlayerController.Instance.interactableObjects.Remove(this);
         }
     }
 
@@ -168,20 +190,6 @@ public class ObjectDrop : InteractableObject
         if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
             Tps_PlayerController.Instance.interactableObjects.Remove(this);
     }
-    private void OnTriggerExit(Collider other)
-    {
-
-        if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
-        {
-            if (_hunterCollider == hunterFollowed) StopCoroutine(attractCoroutine);
-
-            if (!_hunterCollider.IsOwner || IsHost) return;
-            isFromHost = false;
-
-            if (Tps_PlayerController.Instance.interactableObjects.Contains(this))
-                Tps_PlayerController.Instance.interactableObjects.Remove(this);
-        }
-    }
 
     // we never know what can happen.
     bool debug_dontPass = false;
@@ -239,6 +247,23 @@ public class ObjectDrop : InteractableObject
         if (sc_object.GetType() == typeof(sc_Equipment))
         {
             equipment.AddEquipment(sc_object as sc_Equipment, nb.Value);
+            Destroy(parent);
+            _DespawnServerRpc();
+        }
+        else
+        {
+            if (sc_object.objectName == "DamageUp")
+            {
+                
+            }
+            else if (sc_object.objectName == "Axe")
+            {
+                
+            }
+            else if (sc_object.objectName == "Dash")
+            {
+
+            }
             Destroy(parent);
             _DespawnServerRpc();
         }

@@ -79,7 +79,7 @@ public class Radio : InteractableObject
 
         available = false;
 
-
+        RuntimeManager.PlayOneShot(UsingAudio, transform.position);
 
         if (IsHost) StartVote();
     }
@@ -104,5 +104,6 @@ public class Radio : InteractableObject
     public void SetAvailableClientRpc()
     {
         available = true;
+        RuntimeManager.PlayOneShot(ResetAudio, transform.position);
     }
 }

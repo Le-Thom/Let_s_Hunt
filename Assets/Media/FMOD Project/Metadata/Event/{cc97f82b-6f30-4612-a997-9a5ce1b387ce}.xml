@@ -61,7 +61,7 @@
 	</object>
 	<object class="EventAutomatableProperties" id="{5948e212-5b13-41e0-bb91-c55cd4370e00}">
 		<property name="maximumDistance">
-			<value>6.80000019</value>
+			<value>15</value>
 		</property>
 	</object>
 	<object class="MarkerTrack" id="{5800d837-f463-4a9f-ba55-4e9c06e1a866}" />
@@ -108,11 +108,18 @@
 		<property name="volume">
 			<value>-22.5</value>
 		</property>
+		<property name="looping">
+			<value>true</value>
+		</property>
 		<relationship name="audioFile">
 			<destination>{7f00a404-91c2-4324-bf1d-ad791e81a1d8}</destination>
 		</relationship>
 	</object>
 	<object class="MixerBusFader" id="{d5f0a11a-a54a-4011-9408-b5b8e2fc7335}" />
 	<object class="MixerBusFader" id="{223c6ca4-cd36-4bbe-90c2-b61c7010626e}" />
-	<object class="SpatialiserEffect" id="{f2192c5c-68d5-45cf-8c5d-092588975ab5}" />
+	<object class="SpatialiserEffect" id="{f2192c5c-68d5-45cf-8c5d-092588975ab5}">
+		<property name="maximumDistance">
+			<value>15</value>
+		</property>
+	</object>
 </objects>

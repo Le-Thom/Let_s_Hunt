@@ -5,5 +5,5 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="ListEquipment", menuName ="Data/Equipment list")]
 public class SC_sc_Object : ScriptableObject
 {
-    public List<sc_Equipment> objects;
+    public List<sc_Object> objects;
 }

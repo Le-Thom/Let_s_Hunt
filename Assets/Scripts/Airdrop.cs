@@ -11,6 +11,7 @@ public class Airdrop : InteractableObject
     [SerializeField] private int nbInBox;
     [SerializeField] private NetworkList<int> whatIsInside = new NetworkList<int>() { };
     [SerializeField] private NetworkList<Vector3> throwObj = new NetworkList<Vector3>() { };
+    [SerializeField] private FMODUnity.EventReference PickUp;
     public void Start()
     {
         isInteractable = true;
@@ -80,7 +81,15 @@ public class Airdrop : InteractableObject
 
         Destroy(gameObject);
         GetComponent<NetworkObject>().Despawn(true);
+        AudioPickUpClientRpc();
     }
+
+    [ClientRpc]
+    private void AudioPickUpClientRpc()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(PickUp, transform.position);
+    }
+
     #endregion
 
 

@@ -9,7 +9,7 @@ public class SC_UI_Flare : SC_UseItem
     protected override void _UseItemServerRpc(Vector3 player, int equipment, Vector2 direction)
     {
         SC_sc_Object _sc_sc_equipment = Resources.Load<SC_sc_Object>("Equipment/");
-        sc_Equipment _sc_equipment = _sc_sc_equipment.objects[equipment];
+        sc_Equipment _sc_equipment = _sc_sc_equipment.objects[equipment] as sc_Equipment;
 
         GameObject _objSpawn = Instantiate(_sc_equipment.prefab_Object, player + Vector3.up * 1.5f, Quaternion.Euler(0, 0, 0));
         _objSpawn.GetComponent<NetworkObject>().Spawn(true);
