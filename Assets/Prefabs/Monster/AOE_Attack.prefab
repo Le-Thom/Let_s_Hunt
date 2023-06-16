@@ -14,6 +14,8 @@ GameObject:
   - component: {fileID: 5076573689396662453}
   - component: {fileID: 4815728000105174079}
   - component: {fileID: 448366493783925539}
+  - component: {fileID: 5648511915285188427}
+  - component: {fileID: 1182470718789876173}
   m_Layer: 13
   m_Name: AOE_Attack
   m_TagString: Untagged
@@ -86,7 +88,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList: []
+  TransitionStateInfoList:
+  - Layer: 0
+    OriginatingState: -499022955
+    DestinationState: -1573483454
+    TransitionDuration: 0.25
+    TriggerNameHash: 1190500458
+    TransitionIndex: 0
   m_Animator: {fileID: 7874343931684231234}
 --- !u!65 &4815728000105174079
 BoxCollider:
@@ -107,7 +115,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
+  m_Size: {x: 24, y: 12, z: 24}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &448366493783925539
 MonoBehaviour:
@@ -122,9 +130,51 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: -2
-  hitParticule: {fileID: 5600114602144515440, guid: b38d57dde07beb74fbd89fd120dbadcd,
-    type: 3}
+  second: 2
   offsetHit: {x: 1, y: -2}
+  trigger: {fileID: 4815728000105174079}
+--- !u!114 &5648511915285188427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941898924492376264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3bfe7209b5cff4f49b13217ed25f16dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onAwake:
+  - {fileID: 1182470718789876173}
+--- !u!114 &1182470718789876173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 941898924492376264}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0e98867b2173494983582dfb1a01d0b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Name: Call UnityEvent(s)
+  OnExecute:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5076573689396662453}
+        m_TargetAssemblyTypeName: Unity.Netcode.Components.NetworkAnimator, Unity.Netcode.Components
+        m_MethodName: SetTrigger
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: onStarted
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1001 &5286338237523423069
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -192,6 +242,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_AOE_Impact
+      objectReference: {fileID: 0}
+    - target: {fileID: 3600488154137025127, guid: 1ca6c68c6c7b47a4a8eb16748abf4ed6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

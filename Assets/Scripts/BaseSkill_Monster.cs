@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using NaughtyAttributes;
+using TMPro;
 
 public class BaseCompetance_Monster : MonoBehaviour
 {
@@ -13,10 +14,11 @@ public class BaseCompetance_Monster : MonoBehaviour
     //========
 
     [SerializeField] private Slider UI_skillCooldown;
+    [SerializeField] private TextMeshProUGUI UI_skillCooldownText;
     public Monster_StateMachine monster_StateMachine;
 
     [Header("In-Game ")]
-    [SerializeField] private bool isSkillOnCooldown = false;
+    public bool isSkillOnCooldown = false;
     [SerializeField] private float cooldownMaxTimer = 10;
     [SerializeField] private GameObject previewSpell;
 
@@ -32,7 +34,13 @@ public class BaseCompetance_Monster : MonoBehaviour
     public float CooldownTimer { get { return cooldownCurrentTimer; } set 
         { 
             cooldownCurrentTimer = value;
-            UI_skillCooldown.value = cooldownCurrentTimer;
+            UI_skillCooldown.value = cooldownCurrentTimer / 100;
+            float secondsLeft = cooldownMaxTimer - (cooldownCurrentTimer / 10);
+
+            if (secondsLeft > 0 && secondsLeft < cooldownMaxTimer)
+                UI_skillCooldownText.text = secondsLeft.ToString().Substring(0, 3);
+            else 
+                UI_skillCooldownText.text = "";
         } 
     }
 
@@ -98,7 +106,6 @@ public class BaseCompetance_Monster : MonoBehaviour
         if (isSkillOnCooldown) return;
         if (context.ReadValue<float>() == 1)
         {
-            Debug.LogError("testing1");
             if (monster_StateMachine.isSkillBeingCast) return;
             monster_StateMachine.isSkillBeingCast = true;
             Monster_StateMachine.whenSkillHaveToBeUsed += UseSkill;
@@ -107,7 +114,6 @@ public class BaseCompetance_Monster : MonoBehaviour
         }
         if (monster_StateMachine.isSkillBeingCast && context.ReadValue<float>() == 0)
         {
-            Debug.LogError("testing2");
             Monster_StateMachine.whenSkillHaveToBeUsed?.Invoke();
         }
 

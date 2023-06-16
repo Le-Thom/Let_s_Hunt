@@ -6,7 +6,7 @@ using UnityEngine.AI;
 using DG.Tweening;
 public class Dash_Competance_Monster : BaseCompetance_Monster
 {
-    [SerializeField] private new Collider collider;
+    [SerializeField] private Hunter_DamageZone damageHunter;
     [SerializeField] private GameObject dashDestination;
     [SerializeField] private float dashForce;
 
@@ -18,7 +18,7 @@ public class Dash_Competance_Monster : BaseCompetance_Monster
         await Task.Delay(timeBeforeTheAttack);
 
         isDashStarted = true;
-        collider.enabled = true;
+        damageHunter.SetTriggerClientRpc(true);
         isAttacking = true;
         /*if(!Monster_Navmesh.Warp(transform.position + transform.forward * dashForce))
         {
@@ -30,7 +30,7 @@ public class Dash_Competance_Monster : BaseCompetance_Monster
 
 
         isDashStarted = false;
-        collider.enabled = false;
+        damageHunter.SetTriggerClientRpc(false);
         isAttacking = false;
         Monster_Navmesh.SetDestination(Monster_Navmesh.transform.position);
         /*

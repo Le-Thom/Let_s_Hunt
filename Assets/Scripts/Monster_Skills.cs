@@ -46,6 +46,8 @@ public class Monster_Skills : MonoBehaviour
     {
         foreach (BaseCompetance_Monster skill in listOfCompetance)
         {
+            //skill.isSkillOnCooldown = true;
+            //skill.CooldownTimer = 0;
             skill.enabled = true;
         }
     }

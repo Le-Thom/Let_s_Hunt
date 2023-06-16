@@ -48,7 +48,14 @@ public class Monster_StateMachine : MonoBehaviour
     //========
     //MONOBEHAVIOUR
     //========
-
+    private void OnEnable()
+    {
+        whenSkillHaveToBeUsed +=(() => Navmesh.destination = monster_Movement.transform.position);
+    }
+    private void OnDisable()
+    {
+        whenSkillHaveToBeUsed -= (() => Navmesh.destination = monster_Movement.transform.position);
+    }
     private void Start()
     {
         factory = new Monster_StateFactory(this);
@@ -89,6 +96,7 @@ public class Monster_StateMachine : MonoBehaviour
         if(isSkillBeingCast)
         {
             whenSkillHaveToBeUsed?.Invoke();
+            return;
         }
 
         switch(newDestination.Item2.tag)

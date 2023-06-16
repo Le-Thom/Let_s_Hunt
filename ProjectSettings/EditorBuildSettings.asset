@@ -44,10 +44,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MAXIME_NETWORKTEST.unity
     guid: ee51d7a7d8c75cf4c8fe1b4fe913c883
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MAIN.unity
     guid: f8b6de816b5642545adf5e26925f36af
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/NEW_LOUIS_SCENE_3.unity
     guid: d3b08733b55cb8843aec9d3bf936cbac
   - enabled: 0

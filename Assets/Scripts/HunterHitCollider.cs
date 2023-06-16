@@ -9,7 +9,8 @@ public class HunterHitCollider : NetworkBehaviour
 {
     [SerializeField] private Player_Animator player_Animator;
     private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
-    
+    public GameObject hitParticule;
+
     /// <summary>
     /// If collider got hit, transfert info to player.
     /// </summary>

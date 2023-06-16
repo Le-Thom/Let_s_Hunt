@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80906e50c97f904da150c8b5a07cdfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPositionLocked: 0
   up_Object: {fileID: 6090753395214966024}
   left_Object: {fileID: 1591549847438579079}
   right_Object: {fileID: 3754815676800201451}
@@ -751,6 +752,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_Animator: {fileID: 4350977423259523069}
+  hitParticule: {fileID: 8602834174220738234, guid: c788b656de905944bbf952881951637f,
+    type: 3}
 --- !u!114 &7966520266703612838
 MonoBehaviour:
   m_ObjectHideFlags: 0
