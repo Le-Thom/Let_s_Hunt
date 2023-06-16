@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using System;
+using FMODUnity;
 
 [RequireComponent(typeof(SphereCollider))]
 public class Radio : InteractableObject
@@ -16,6 +17,8 @@ public class Radio : InteractableObject
     [SerializeField] private float unavailableTimer = 120f;
 
     [SerializeField] private ParticleSystem particle1, particle2;
+
+    [SerializeField] private FMODUnity.EventReference UsingAudio, ResetAudio;
 
     // Monobehaviour
     private void OnEnable()
@@ -75,6 +78,8 @@ public class Radio : InteractableObject
         particle2.Play();
 
         available = false;
+
+
 
         if (IsHost) StartVote();
     }
