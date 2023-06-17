@@ -9,15 +9,17 @@ public class Airdrop : InteractableObject
     [SerializeField] private GameObject onCanPickUp;
     [SerializeField] private SC_sc_Object listEquipment;
     [SerializeField] private int nbInBox;
-    [SerializeField] private NetworkList<int> whatIsInside = new NetworkList<int>() { };
-    [SerializeField] private NetworkList<Vector3> throwObj = new NetworkList<Vector3>() { };
+    [SerializeField] private NetworkList<int> whatIsInside;
+    [SerializeField] private NetworkList<Vector3> throwObj;
+    [SerializeField] private FMODUnity.EventReference PickUp;
     public void Start()
     {
         isInteractable = true;
         onCanPickUp.SetActive(false);
 
         if (!IsHost) return;
-
+        whatIsInside = new NetworkList<int>() { };
+        throwObj = new NetworkList<Vector3>() { };
         for (int i = 0; i < nbInBox; i++)
         {
             int rng = Random.Range(0, listEquipment.objects.Count);
@@ -80,7 +82,15 @@ public class Airdrop : InteractableObject
 
         Destroy(gameObject);
         GetComponent<NetworkObject>().Despawn(true);
+        AudioPickUpClientRpc();
     }
+
+    [ClientRpc]
+    private void AudioPickUpClientRpc()
+    {
+        FMODUnity.RuntimeManager.PlayOneShot(PickUp, transform.position);
+    }
+
     #endregion
 
 

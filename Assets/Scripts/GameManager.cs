@@ -24,6 +24,9 @@ public class GameManager : Singleton<GameManager>
     #region REFERENCE
     //==============================================================================================================
 
+    [SerializeField] private FMODUnity.EventReference onClickAudio;
+    [SerializeField] private FMODUnity.EventReference onMouseOverAudio;
+
     #endregion
     //==============================================================================================================
 
@@ -72,6 +75,8 @@ public class GameManager : Singleton<GameManager>
     #region PUBLIC FONCTION
     //==============================================================================================================
 
+    public void OnMouseOverAudio() { FMODUnity.RuntimeManager.PlayOneShot(onMouseOverAudio); }
+
     #endregion
     //==============================================================================================================
 
@@ -97,7 +102,7 @@ public class GameManager : Singleton<GameManager>
         cursorInputActions.Cursor.CursorClick.started += ctx => OnClickStarted();
         cursorInputActions.Cursor.CursorClick.canceled += ctx => OnClickCanceled();
     }
-    private void OnClickStarted() { if (Cursor.visible) Cursor.SetCursor(cursor_Click, offset_Cursor, cursorMode); }
+    private void OnClickStarted() { if (Cursor.visible) Cursor.SetCursor(cursor_Click, offset_Cursor, cursorMode); FMODUnity.RuntimeManager.PlayOneShot(onClickAudio); }
     private void OnClickCanceled() { if (Cursor.visible) Cursor.SetCursor(cursor_Normal, offset_Cursor, cursorMode); }
 
     /// <summary>

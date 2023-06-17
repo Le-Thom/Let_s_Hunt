@@ -72,6 +72,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e1fa1b231a1964b9d5e6ec38b6afa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  debug: 0
   animatorToSendSpeed: []
   monster_Statemachine: {fileID: 0}
   buffer: 0.2
@@ -1149,7 +1150,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ae5bc81da098a944abb8cdc881126fa0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerPosition: {fileID: 1857879530867298297}
   isActif: 0
   toggleMute: 0
   forcedMute: 0
@@ -1484,6 +1484,7 @@ MonoBehaviour:
   player_Animator: {fileID: 0}
   vivoxAudio: {fileID: 5216584379529825612}
   _reviveObj: {fileID: 3750528114546879103}
+  hunterDamageColliders: []
   weapon: {fileID: 11400000, guid: 33a7d1fb9ba12a541b2644d66a2aaae6, type: 2}
   stateMachine:
     currentState: 0
@@ -1783,7 +1784,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCanPickUp: {fileID: 6612640744272409244}
   sphereCollider: {fileID: 1744208392182759521}
-  animator: {fileID: 6933130439547403805}
   timerRevive: 1
   slider: {fileID: 4821456386206048713}
 --- !u!114 &4516776697772887861
@@ -1909,19 +1909,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e8d0727d5ae3244e3b569694d3912374, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TransitionStateInfoList:
-  - Layer: 0
-    OriginatingState: -520071671
-    DestinationState: 1080829965
-    TransitionDuration: 0.02
-    TriggerNameHash: -1568094750
-    TransitionIndex: 0
-  - Layer: 0
-    OriginatingState: -520071671
-    DestinationState: 1353639306
-    TransitionDuration: 0.25
-    TriggerNameHash: 205069891
-    TransitionIndex: 1
+  TransitionStateInfoList: []
   m_Animator: {fileID: 5871290021799663420}
 --- !u!114 &6179829330957493389
 MonoBehaviour:

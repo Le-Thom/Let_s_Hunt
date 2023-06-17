@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 3169151537797464601}
   - component: {fileID: 4990862226225799053}
   - component: {fileID: 3720714892322431808}
+  - component: {fileID: 6415877299077737319}
   m_Layer: 0
   m_Name: DropObject
   m_TagString: Untagged
@@ -204,6 +205,37 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6415877299077737319
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 190610680389894505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: -1279607813
+      Data2: 1208644440
+      Data3: 1237922210
+      Data4: 378533518
+    Path: event:/SFX/World/Drop/Grounded_Drop
+  Event: 
+  PlayEvent: 7
+  StopEvent: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  AllowNonRigidbodyDoppler: 0
+  Params: []
+  OverrideAttenuation: 1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 10
 --- !u!1 &8511926328120867966
 GameObject:
   m_ObjectHideFlags: 0

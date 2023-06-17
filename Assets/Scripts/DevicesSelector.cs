@@ -11,9 +11,8 @@ public class DevicesSelector : MonoBehaviour
     [SerializeField] private VivoxUnity.IReadOnlyDictionary<string, VivoxUnity.IAudioDevice> allDevices;
     [SerializeField] private TMP_Dropdown dropdown;
 
-    private IEnumerator Start()
+    private void OnEnable()
     {
-        yield return new WaitForSeconds(0.01f);
         allDevices = LoginCredentials.Instance.GetAllDevices();
         currentDevice = LoginCredentials.Instance.GetCurrentDevices();
         foreach (var device in allDevices)

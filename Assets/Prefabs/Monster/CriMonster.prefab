@@ -31,7 +31,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7707701854188139620
 MonoBehaviour:
@@ -47,11 +47,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   SoundReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 280036304
+      Data2: 1092161171
+      Data3: -1079654993
+      Data4: -439027746
+    Path: event:/SFX/Monster/Scream_Monster
   timerScream: 2
   cooldownScream: 4
   canScreaming: 1

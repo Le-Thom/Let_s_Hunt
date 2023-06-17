@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33da90c140a61ba409c28209155f8990, type: 3}
   m_Name: Flare
   m_EditorClassIdentifier: 
-  objectSprite: {fileID: 21300000, guid: 9a105babce3ef4c42b92a29b14897bfa, type: 3}
+  objectSprite: {fileID: 21300000, guid: 5bab16a81f741e54e89505e21af625b1, type: 3}
   objectMaterial: {fileID: 2100000, guid: bc6da4580f5514e458fe5def87e138be, type: 2}
   objectName: Flare
+  type: 0
   maxStackEquipment: 3
   prefab_Object: {fileID: 3965260193904146956, guid: 38cf6fc8bfe297d459d54231356dad5a,
     type: 3}

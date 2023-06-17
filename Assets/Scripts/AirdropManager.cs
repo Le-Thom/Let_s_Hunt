@@ -10,7 +10,7 @@ public class AirdropManager : NetworkBehaviour
 
 
     [ServerRpc(RequireOwnership = true)]
-    public void CallAirdropServerRpc()
+    public void CallAirdropServerRpc(int index)
     {
         List<SpawnAirdrop> _list = new();
 
@@ -33,7 +33,7 @@ public class AirdropManager : NetworkBehaviour
 
         foreach (SpawnAirdrop airdrop in _list)
         {
-            airdrop.Spawn_AirdropServerRpc();
+            airdrop.Spawn_AirdropServerRpc(index);
         }
     }
 }
