@@ -44,10 +44,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/MAXIME_NETWORKTEST.unity
     guid: ee51d7a7d8c75cf4c8fe1b4fe913c883
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/MAIN.unity
     guid: f8b6de816b5642545adf5e26925f36af
   - enabled: 1
+    path: Assets/Scenes/MAIN_SUB.unity
+    guid: 3ae5658186d70a2488907d5b34c5c841
+  - enabled: 0
     path: Assets/Scenes/NEW_LOUIS_SCENE_3.unity
     guid: d3b08733b55cb8843aec9d3bf936cbac
   - enabled: 0
@@ -56,7 +59,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/NEW_LUCAS_SCNE.unity
     guid: 7d9dde4665b60674c9603bbd1ea54e09
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/NEW_Lucas_SCENE3.unity
     guid: 3d4ac45d2b8129b41a17a7dfa70d73c0
   m_configObjects: {}

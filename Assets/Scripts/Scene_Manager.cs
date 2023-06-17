@@ -4,6 +4,7 @@ using UnityEngine;
 using GameplayIngredients.Actions;
 using GameplayIngredients;
 using Unity.Netcode;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(FullScreenFadeAction))]
 [RequireComponent(typeof(GameLevelLoadAction))]

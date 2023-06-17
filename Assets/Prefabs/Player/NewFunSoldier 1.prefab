@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c80906e50c97f904da150c8b5a07cdfa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isPositionLocked: 0
   up_Object: {fileID: 2478584492871065677}
   left_Object: {fileID: 7460340041262776910}
   right_Object: {fileID: 4526901206119464314}
@@ -950,6 +951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_Animator: {fileID: 0}
+  hitParticule: {fileID: 0}
 --- !u!114 &7966520266703612838
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1482,6 +1484,7 @@ MonoBehaviour:
   _rotationScream: {fileID: 6124753819410127214}
   directionScript: {fileID: 0}
   player_Animator: {fileID: 0}
+  hunterHitCollider: {fileID: 0}
   vivoxAudio: {fileID: 5216584379529825612}
   _reviveObj: {fileID: 3750528114546879103}
   hunterDamageColliders: []
@@ -1783,6 +1786,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   onCanPickUp: {fileID: 6612640744272409244}
+  playerController: {fileID: 0}
   sphereCollider: {fileID: 1744208392182759521}
   timerRevive: 1
   slider: {fileID: 4821456386206048713}
