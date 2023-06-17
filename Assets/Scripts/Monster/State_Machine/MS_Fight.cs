@@ -17,6 +17,8 @@ public class MS_Fight : Monster_State
         stateMachine.monster_Hider.RefreshHide();
 
         Monster_Skills.whenASkillIsUsed += OnSkillUsed;
+
+        stateMachine.onUpdate += UpdateState;
     }
     public override void UpdateState()
     {
@@ -31,6 +33,7 @@ public class MS_Fight : Monster_State
         {
             Monster_Skills.whenASkillIsUsed -= OnSkillUsed;
         } catch { }
+        stateMachine.onUpdate -= UpdateState;
         Debug.Log("End Fight State");
     }
     private void OnSkillUsed(int timeOfStunOfTheAttack, AttackAnim attackAnim)

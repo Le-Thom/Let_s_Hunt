@@ -13,6 +13,7 @@ public class TwitchCommand_Manager : MonoBehaviour
 
     public UnityEvent<string, string> onChatSendMessage;
     public UnityEvent<string, string> onChatSendVote;
+    public UnityEvent<string, string> onChatSendDynamo;
 
     //========
     //MONOBEHAVIOUR
@@ -20,6 +21,7 @@ public class TwitchCommand_Manager : MonoBehaviour
     private void Awake()
     {
         commandList.Add("!vote", onChatSendVote);
+        commandList.Add("!dynamo", onChatSendDynamo);
         onChatSendVote.AddListener(SortVoteChoice);
     }
     //========
@@ -27,24 +29,17 @@ public class TwitchCommand_Manager : MonoBehaviour
     //========
     public void SortTwitchMessage(string user, string message)
     {
-        if (message.StartsWith("!"))
+        bool commandFound = false;
+        foreach (string command in commandList.Keys)
         {
-            bool commandFound = false;
-            foreach (string command in commandList.Keys)
+            if (message.Contains(command))
             {
-                if (message.Contains(command))
-                {
                     commandList.TryGetValue(command, out UnityEvent<string, string> eventOfCommand);
                     if (eventOfCommand != null) eventOfCommand.Invoke(user, message);
                     commandFound = true;
-                }
-            }
-
-            if(!commandFound)
-            {
-                if (onChatSendMessage != null) onChatSendMessage.Invoke(user, message);
             }
         }
+        if (onChatSendMessage != null && message.StartsWith("!") && !commandFound) onChatSendMessage.Invoke(user, message);
     }
     public void SortVoteChoice(string user, string message)
     {

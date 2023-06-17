@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   voteCount: 0
   nameOfTheVote: Heli
-  objectToSpawnOnVoteSuccess: {fileID: 0}
+  twitchVote: 3

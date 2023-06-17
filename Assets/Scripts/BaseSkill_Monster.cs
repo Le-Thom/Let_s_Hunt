@@ -104,7 +104,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     public void StartingUsingSkill(InputAction.CallbackContext context)
     {
         if (isSkillOnCooldown) return;
-        if (context.ReadValue<float>() == 1)
+        if (context.ReadValue<float>() == 1 && this.enabled)
         {
             if (monster_StateMachine.isSkillBeingCast) return;
             monster_StateMachine.isSkillBeingCast = true;

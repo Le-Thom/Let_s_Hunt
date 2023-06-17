@@ -22,6 +22,8 @@ public class Scene_Manager : Singleton<Scene_Manager>
     //========
     private void Awake()
     {
+        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+
         fadeAction = gameObject.GetComponent<FullScreenFadeAction>();
         loadAction = gameObject.GetComponent<GameLevelLoadAction>();
 

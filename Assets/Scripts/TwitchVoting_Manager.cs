@@ -47,6 +47,8 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
         if (isVoteStarted) return;
         ResetVoteCount();
 
+        listOfCurrentVote.Clear();
+
         isVoteStarted = true;
 
         List<sc_TwitchVote> listOfChosenVote = listOfAllPossibleVote;

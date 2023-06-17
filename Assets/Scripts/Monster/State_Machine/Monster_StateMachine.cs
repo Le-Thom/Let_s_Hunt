@@ -17,6 +17,7 @@ public class Monster_StateMachine : MonoBehaviour
     public Monster_State currentState;
     private Monster_StateFactory factory;
     public string nameOfTheCurrentState;
+    public Action onUpdate;
 
     [Header("Ref")]
     public Monster_Movement monster_Movement;
@@ -56,10 +57,12 @@ public class Monster_StateMachine : MonoBehaviour
     {
         whenSkillHaveToBeUsed -= (() => Navmesh.destination = monster_Movement.transform.position);
     }
-    private void Start()
+    private void Awake()
     {
         factory = new Monster_StateFactory(this);
-
+    }
+    private void Start()
+    {
         currentState = factory.GetAnyState(MonsterState.BeforeGame);
         currentState.EnterState();
 
@@ -69,10 +72,7 @@ public class Monster_StateMachine : MonoBehaviour
 
     private void Update()
     {
-        if(currentState != null)
-        {
-            currentState.UpdateState();
-        }
+        onUpdate?.Invoke();
         UpdateSpeedAnimator();
     }
 
@@ -116,10 +116,12 @@ public class Monster_StateMachine : MonoBehaviour
     public bool IsMonsterCloseToHunter(float distance)
     {
         Collider[] colliders = Physics.OverlapSphere(MonsterTransform.position, distance, playerLayer);
+        print("wesh2");
         foreach (Collider collider in colliders)
         {
             if (collider.TryGetComponent<HunterHitCollider>(out _))
             {
+                print("wesh");
                 return true;
             }
         }

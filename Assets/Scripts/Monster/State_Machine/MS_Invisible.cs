@@ -15,6 +15,8 @@ public class MS_Invisible : Monster_State
         stateMachine.monster_Skills.CanMonsterUseSkill(false);
         stateMachine.monster_Hider.alphaOnHide = 0;
         stateMachine.monster_Hider.RefreshHide();
+
+        stateMachine.onUpdate += UpdateState;
     }
     public override void UpdateState()
     {
@@ -25,6 +27,7 @@ public class MS_Invisible : Monster_State
     }
     public override void ExitState()
     {
+        stateMachine.onUpdate -= UpdateState;
         Debug.Log("Exiting Invisiblity");
     }
 }
