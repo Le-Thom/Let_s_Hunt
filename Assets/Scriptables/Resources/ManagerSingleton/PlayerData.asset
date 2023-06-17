@@ -37,7 +37,7 @@ MonoBehaviour:
     playerRotation: {x: 0, y: 0, z: 0}
     currentDashCooldownTimer: 0
     currentAttaqueTime: 0
-    speed: 2.468913e-10
+    speed: 0
   inGameDataValue:
     speed: 6
     sprintSpeed: 5.333
@@ -45,7 +45,7 @@ MonoBehaviour:
     dashForce: 5
     dashCooldown: 0.5
     hitCooldown: 2
-    hp: 10
+    hp: 0
     reviveTime: 5
     maxHp: 10
     atk1Damage: -25

@@ -63,6 +63,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private GameObject _rotationScream;
     [SerializeField] private ActivateObjectByDirection directionScript;
     [SerializeField] private Player_Animator player_Animator;
+    [SerializeField] private HunterHitCollider hunterHitCollider;
 
     [SerializeField] private GameObject vivoxAudio;
 
@@ -274,8 +275,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// </summary>
     public void Revive()
     {
-        HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
+        Debug.LogError("yesn't bro");
+        //HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
+        player_Animator.ReanimationAnimator();
+
         stateMachine.ChangeState(StateId.IDLE);
+        hunterHitCollider.HunterGetHitClientRpc(10);
     }
     public void ReviveAnim()
     {
@@ -895,9 +900,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void InitDeath()
     {
         //_Animator.SetTrigger(_animIDDeath);
-
+        Debug.LogError("yes");
         _inputs.Disable();
-        _reviveObj.IsActiveClientRpc();
+        _reviveObj.IsActiveServerRpc(true);
 
         directionScript.UpdateDirection(new Vector2 (directionLook.x , 0));
 
@@ -922,7 +927,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         vivoxAudio.GetComponent<PositionalChannel>().UnforceMute();
         _inputs.Enable();
         isDirectionLocked = false;
-        _reviveObj.IsInactiveClientRpc();
+        _reviveObj.IsActiveServerRpc(false);
     }
     #endregion
 

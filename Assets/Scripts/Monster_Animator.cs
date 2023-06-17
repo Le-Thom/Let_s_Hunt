@@ -102,6 +102,13 @@ public class Player_Animator : NetworkBehaviour
             animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenDied");
         }
     }
+    public void ReanimationAnimator()
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenRevived");
+        }
+    }
     public Animator GetPlayerAnimator(int index)
     {
         if (animatorToSendSpeed.Count > index)

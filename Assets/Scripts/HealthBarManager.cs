@@ -41,6 +41,7 @@ public class HealthBarManager : Singleton<HealthBarManager>
 
     public void ChangeHealthBar(int indexPlayer, int value) 
     {
+        print("testing");
         HealthBar _healthBar = GetHealthFromIndex(indexPlayer);
         int newHp = Mathf.Clamp(_healthBar.GetHpValue() + value, 0, 10);
         _healthBar.ChangeValueHealthBar(newHp);

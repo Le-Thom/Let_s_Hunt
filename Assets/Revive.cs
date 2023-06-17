@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 using UnityEngine.UI;
+using System.Threading.Tasks;
+using DG.Tweening;
 
 public class Revive : InteractableObject
 {
     
     [SerializeField] private GameObject onCanPickUp;
-    private Tps_PlayerController playerController;
+    [SerializeField] private Tps_PlayerController playerController;
     [SerializeField] private SphereCollider sphereCollider;
     [SerializeField] private float timerRevive = 1f;
     [SerializeField] private Slider slider;
@@ -22,12 +24,23 @@ public class Revive : InteractableObject
         slider.gameObject.SetActive(false);
     }
 
+    [ServerRpc(RequireOwnership = false)] 
+    public void IsActiveServerRpc(bool value)
+    {
+        if (value)
+            IsActiveClientRpc();
+        else
+            IsInactiveClientRpc();
+    }
+
     [ClientRpc]
     public void IsActiveClientRpc()
     {
-        playerController.GetComponentInParent<Tps_PlayerController>();
+        Debug.LogError("no");
+        UI_Message_Manager.Instance.ShowMessage(Color.red, "Player has died");
         isInteractable = true;
         sphereCollider.enabled = true;
+        //playerController.GetComponentInParent<Tps_PlayerController>();
     }
 
     [ClientRpc]
@@ -41,11 +54,26 @@ public class Revive : InteractableObject
 
     }
 
-    public override void Interact()
+    public override async void Interact()
     {
+        UI_Message_Manager.Instance.ShowMessage(Color.red, "Starting to Revive");
         Tps_PlayerController.Instance.ReviveSomeone();
+
         if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(CheckRevive());
+
+        slider.gameObject.SetActive(true);
+        //_ReviveServerRpc();
+
+       slider.maxValue = timerRevive;
+       await DOVirtual.Float(slider.value, timerRevive, timerRevive, v => slider.value = v).AsyncWaitForCompletion();
+
+       _ReviveServerRpc();
+
+        slider.value = 0;
+        slider.gameObject.SetActive(false);
+
+        revive = false;
     }
 
     private IEnumerator CheckRevive()
@@ -57,9 +85,9 @@ public class Revive : InteractableObject
             slider.value += 1 / timerRevive * Time.deltaTime;
             yield return Time.deltaTime;
 
-            if (slider.value == slider.maxValue)
+            if (slider.value >= slider.maxValue)
             {
-                _InteractClientRpc();
+                _ReviveServerRpc();
                 revive = true;
                 break;
             }
@@ -77,12 +105,31 @@ public class Revive : InteractableObject
         if (coroutine != null) StopCoroutine(coroutine);
     }
 
+    [ServerRpc(RequireOwnership = false)]
+    public void _ReviveServerRpc()
+    {
+        UI_Message_Manager.Instance.ShowMessage(Color.red, "Success Player is Being Revied");
+        _InteractClientRpc();
+    }
+
     [ClientRpc]
     public void _InteractClientRpc()
     {
-        if (playerController == null) return;
+        if (playerController == null) 
+        {
+            Debug.LogError("Yes bro");
+            return; 
+        }
 
+
+        UI_Message_Manager.Instance.ShowMessage(Color.red, "You are Revived");
         playerController.Revive();
+        if (IsOwner)
+        {
+            Debug.LogError("No bro");
+            Tps_PlayerController tps_PlayerController = FindAnyObjectByType<Tps_PlayerController>();
+            tps_PlayerController.Revive();
+        }
     }
     [ClientRpc]
     public void _GetReviveClientRpc()
@@ -96,12 +143,13 @@ public class Revive : InteractableObject
     {
         if (playerController == null) return;
 
+        Tps_PlayerController.Instance.ChangeStateToIdle();
         //playerController.StopReviveAnim();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (isInteractable) return;
+        if (!isInteractable) return;
 
         if (other.TryGetComponent<HunterHitCollider>(out HunterHitCollider _hunterCollider))
         {
