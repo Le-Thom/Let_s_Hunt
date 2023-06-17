@@ -57,7 +57,6 @@ public class Revive : InteractableObject
     public override async void Interact()
     {
         UI_Message_Manager.Instance.ShowMessage(Color.red, "Starting to Revive");
-        Tps_PlayerController.Instance.ReviveSomeone();
 
         if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(CheckRevive());

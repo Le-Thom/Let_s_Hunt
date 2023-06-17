@@ -5,7 +5,7 @@
 			<value>Wind</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{150c02dd-cb12-4e31-91c1-d2b254d28bb2}</destination>
@@ -59,7 +59,11 @@
 			<destination>{363de5f3-b730-4194-996e-802f75fcbf72}</destination>
 		</relationship>
 	</object>
-	<object class="EventAutomatableProperties" id="{d5d508e1-f7d7-4ffb-ab8b-a2bb864ab8ee}" />
+	<object class="EventAutomatableProperties" id="{d5d508e1-f7d7-4ffb-ab8b-a2bb864ab8ee}">
+		<property name="maximumDistance">
+			<value>90</value>
+		</property>
+	</object>
 	<object class="MarkerTrack" id="{44d192df-9896-4e2e-8a59-b670f70bd7b8}" />
 	<object class="Timeline" id="{0ae3f569-91f6-4acd-ae9c-a6b6bd6af68d}">
 		<property name="isProxyEnabled">
@@ -82,7 +86,11 @@
 			<destination>{563e5c7a-c7d8-45e2-934f-268934fb6323}</destination>
 		</relationship>
 	</object>
-	<object class="MultiSound" id="{a31597c8-2dab-45e5-aa12-2cc33ac3e754}" />
+	<object class="MultiSound" id="{a31597c8-2dab-45e5-aa12-2cc33ac3e754}">
+		<relationship name="sounds">
+			<destination>{1b3d8a63-ac1a-409e-8f8e-dd48975a28c5}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusEffectChain" id="{91562928-2aa6-4311-a579-3ac915955360}">
 		<relationship name="effects">
 			<destination>{96abb56d-8ac6-4a69-98b4-314d478f5dcb}</destination>
@@ -94,7 +102,16 @@
 			<destination>{91dc3525-77c5-4edf-b0dd-3fbc7feff071}</destination>
 		</relationship>
 	</object>
-	<object class="MixerBusPanner" id="{fae14d8d-5107-4f7d-9acd-3cb6a3268204}" />
+	<object class="MixerBusPanner" id="{fae14d8d-5107-4f7d-9acd-3cb6a3268204}">
+		<property name="surroundLFELevel">
+			<value>-1.5</value>
+		</property>
+	</object>
+	<object class="SingleSound" id="{1b3d8a63-ac1a-409e-8f8e-dd48975a28c5}">
+		<relationship name="audioFile">
+			<destination>{ec031225-c812-476a-94e6-27e8612d3bd9}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{96abb56d-8ac6-4a69-98b4-314d478f5dcb}" />
 	<object class="MixerBusFader" id="{91dc3525-77c5-4edf-b0dd-3fbc7feff071}" />
 </objects>

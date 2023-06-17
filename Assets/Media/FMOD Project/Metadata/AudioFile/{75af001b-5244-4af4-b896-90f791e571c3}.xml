@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{75af001b-5244-4af4-b896-90f791e571c3}">
+		<property name="assetPath">
+			<value>World/something falling from sky sound effect.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>5.929795918367347</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{37887119-cf52-46f1-b147-067968bbf422}</destination>
+		</relationship>
+	</object>
+</objects>

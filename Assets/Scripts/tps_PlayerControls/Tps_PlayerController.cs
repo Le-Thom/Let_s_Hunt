@@ -43,6 +43,21 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     public bool isInteracting = false;
 
+    [SerializeField] private sc_Weapon _weapon;
+    public sc_Weapon weapon
+    {
+        get { return _weapon; }
+        set 
+        {
+            _weapon = value;
+            canHit = true;
+            foreach (var item in _axeRenderer)
+            {
+                item.enabled = true;
+            }
+        }
+    }
+
     #endregion
     //==============================================================================================================
 
@@ -71,6 +86,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     [SerializeField] private List<OnDamageBox> hunterDamageColliders;
 
+    [SerializeField] private List<SpriteRenderer> _axeRenderer;
+
     #endregion
     //==============================================================================================================
 
@@ -78,8 +95,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region PRIVATE
     //==============================================================================================================
     private Tps_Player_Inputs _inputs;
-
-    [SerializeField] private sc_Weapon weapon;
 
     [Space(5), Header("Machine state")]
     [SerializeField] private StateMachine<Tps_PlayerController> stateMachine;
@@ -112,6 +127,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private bool WasOnSelectEquipment;
 
     private bool isDirectionLocked = false;
+
+    private bool canHit;
 
     #endregion
     //==============================================================================================================
@@ -276,23 +293,11 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     public void Revive()
     {
         Debug.LogError("yesn't bro");
-        //HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
+        HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
         player_Animator.ReanimationAnimator();
 
         stateMachine.ChangeState(StateId.IDLE);
         hunterHitCollider.HunterGetHitClientRpc(10);
-    }
-    public void ReviveAnim()
-    {
-        _Animator.SetBool(_animIDRevive, true);
-    }
-    public void StopReviveAnim()
-    {
-        _Animator.SetBool(_animIDRevive, false);
-    }
-    public void ReviveSomeone()
-    {
-        stateMachine.ChangeState(StateId.PAUSED);
     }
     public void Died() { 
         stateMachine.ChangeState(StateId.DEATH);
@@ -612,8 +617,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         UpdateObjectCheck();
 
-        if (playerData.monitor.isAtk1) stateMachine.ChangeState(StateId.ATK1);
-        if (playerData.monitor.isAtk2) stateMachine.ChangeState(StateId.ATK2);
+        if (playerData.monitor.isAtk1 && canHit) stateMachine.ChangeState(StateId.ATK1);
+        if (playerData.monitor.isAtk2 && canHit) stateMachine.ChangeState(StateId.ATK2);
         if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
 
         if(!playerData.monitor.canDodge)
@@ -915,12 +920,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     }
     private void UpdateDeath()
     {
-        if (playerData.monitor.getRevive) IsGettingRevived();
-        else
-        {
-            revivingTimer = 0;
-            _Animator.SetBool(_animIDRevive, false);
-        }
+
     }
     private void ExitDeath()
     {
@@ -1066,13 +1066,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         {
             _Body.transform.localScale = new Vector3(1, 1, 1);
         }*/
-    }
-
-    private void IsGettingRevived()
-    {
-        _Animator.SetBool(_animIDRevive, true);
-        revivingTimer += Time.deltaTime;
-        if (revivingTimer > playerData.inGameDataValue.reviveTime) stateMachine.ChangeState(StateId.IDLE);
     }
 
     #region Interact

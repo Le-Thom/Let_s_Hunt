@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39152212995f989449ea28bab8c44a85, type: 3}
   m_Name: Dash
   m_EditorClassIdentifier: 
-  objectSprite: {fileID: 8042328478216560826, guid: c5a06fd559812654d9dd205d82a4fbd6,
-    type: 3}
+  objectSprite: {fileID: 21300000, guid: 648db9a8a373cc6409386828f1fc48c9, type: 3}
   objectMaterial: {fileID: 0}
   objectName: Dash
