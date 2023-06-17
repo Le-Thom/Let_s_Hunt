@@ -122,6 +122,8 @@ public class MiniMapManager : Singleton<MiniMapManager>
 
     private void MonsterPosition()
     {
+        if (_monster == null) return;
+
         Vector3 _monsterPos = _monster.transform.position;
 
         // monster on Right

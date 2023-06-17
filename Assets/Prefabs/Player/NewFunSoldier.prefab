@@ -1022,7 +1022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6535725718218904450
 Transform:
   m_ObjectHideFlags: 0
@@ -2074,6 +2074,7 @@ MonoBehaviour:
       Data3: 1559242913
       Data4: -89061800
     Path: event:/SFX/Player/Torchlight_broken
+  timer: 0
   dynamoIntensity: 0
   rationTime: 100
   addingTime: 1

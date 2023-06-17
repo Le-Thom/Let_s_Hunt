@@ -9,8 +9,8 @@ public class Airdrop : InteractableObject
     [SerializeField] private GameObject onCanPickUp;
     [SerializeField] private SC_sc_Object listEquipment;
     [SerializeField] private int nbInBox;
-    [SerializeField] private NetworkList<int> whatIsInside = new NetworkList<int>() { };
-    [SerializeField] private NetworkList<Vector3> throwObj = new NetworkList<Vector3>() { };
+    [SerializeField] private NetworkList<int> whatIsInside;
+    [SerializeField] private NetworkList<Vector3> throwObj;
     [SerializeField] private FMODUnity.EventReference PickUp;
     public void Start()
     {
@@ -18,7 +18,8 @@ public class Airdrop : InteractableObject
         onCanPickUp.SetActive(false);
 
         if (!IsHost) return;
-
+        whatIsInside = new NetworkList<int>() { };
+        throwObj = new NetworkList<Vector3>() { };
         for (int i = 0; i < nbInBox; i++)
         {
             int rng = Random.Range(0, listEquipment.objects.Count);

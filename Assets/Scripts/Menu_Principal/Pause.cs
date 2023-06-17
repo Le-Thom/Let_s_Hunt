@@ -38,9 +38,8 @@ public class Pause : MonoBehaviour
     [Tooltip("Button to test audio.")]
     [SerializeField] private Button _TestAudioButton;
 
-    [SerializeField] string pathAudioTest;
+    [SerializeField] private FMODUnity.EventReference pathAudioTest;
 
-    [SerializeField] private Slider _VoiceVolumeSlider;
 
     private bool _fullscreen
     {
@@ -171,7 +170,7 @@ public class Pause : MonoBehaviour
             }
         }
 
-        _VoiceVolumeSlider.value = LoginCredentials.Instance.client.AudioInputDevices.VolumeAdjustment;
+       
     }
 
     //==========**
@@ -315,7 +314,7 @@ public class Pause : MonoBehaviour
     /// <summary>
     /// Test of a sound audio.
     /// </summary>
-    private void TestAudio() => FMODUnity.RuntimeManager.PlayOneShot(pathAudioTest, transform.position);
+    public void TestAudio() => FMODUnity.RuntimeManager.PlayOneShot(pathAudioTest);
 
     /// <summary>
     /// Reset value inside the dropdown of the resolution settings.
@@ -355,11 +354,6 @@ public class Pause : MonoBehaviour
         _ResolutionDropdown.value = currentResolutionIndex;
         _ResolutionDropdown.RefreshShownValue();
 
-    }
-
-    public void VoiceInputVolume(float volume)
-    {
-        LoginCredentials.Instance.AdjustVolume(volume);
     }
 
     #endregion
