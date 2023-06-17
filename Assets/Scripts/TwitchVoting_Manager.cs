@@ -88,10 +88,17 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
         //
         switch (winningVote.twitchVote)
         {
-            case TwitchVote.Drop:
+            case TwitchVote.DropMedkit:
 
                 AirdropManager _airdropManager = GameObject.FindFirstObjectByType<AirdropManager>();
-                _airdropManager.CallAirdropServerRpc();
+                _airdropManager.CallAirdropServerRpc(0);
+
+                UI_Message_Manager.Instance.ShowMessage(Color.blue, "Renforcement Materiel en chemin");
+                break;
+            case TwitchVote.DropWeapon:
+
+                AirdropManager _airdropManager1 = GameObject.FindFirstObjectByType<AirdropManager>();
+                _airdropManager1.CallAirdropServerRpc(1);
 
                 UI_Message_Manager.Instance.ShowMessage(Color.blue, "Renforcement Materiel en chemin");
                 break;
@@ -142,5 +149,5 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
 }
 public enum TwitchVote
 {
-    Drop, Scream, Light, Revive
+    DropMedkit, DropWeapon, Scream, Light, Revive
 }
