@@ -5,7 +5,7 @@ using UnityEngine;
 public class EquipmentManager : NetworkBehaviour
 {
     [SerializeField] private SC_sc_Object _sc_sc_equipment;
-    [SerializeField] private sc_Object flare;
+    [SerializeField] private sc_Equipment flare;
     [SerializeField] private sc_Object medkit;
 
     public void UseItem(Tps_PlayerController player, sc_Equipment _equipment, Equipment _equip)
@@ -52,9 +52,7 @@ public class EquipmentManager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     protected void _UseFlareServerRpc(Vector3 player, Vector2 direction)
     {
-        sc_Equipment _sc_equipment = flare as sc_Equipment;
-
-        GameObject _objSpawn = Instantiate(_sc_equipment.prefab_Object, player + Vector3.up * 1.5f, Quaternion.Euler(0, 0, 0));
+        GameObject _objSpawn = Instantiate(flare.prefab_Object, player + Vector3.up * 1.5f, Quaternion.Euler(0, 0, 0));
         _objSpawn.GetComponent<NetworkObject>().Spawn(true);
 
         if (_objSpawn.TryGetComponent<Rigidbody>(out Rigidbody rb))

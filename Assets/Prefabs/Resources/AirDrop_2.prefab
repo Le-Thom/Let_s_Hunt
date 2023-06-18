@@ -445,7 +445,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onCanPickUp: {fileID: 4560768609376652458}
   listEquipment: {fileID: 11400000, guid: 6db2b76384f54db4099ca61cd6f023b3, type: 2}
-  nbInBox: 3
+  listGlobal: {fileID: 11400000, guid: 8f73a8414e767564cb80309cda0ada23, type: 2}
   PickUp:
     Guid:
       Data1: -372943891

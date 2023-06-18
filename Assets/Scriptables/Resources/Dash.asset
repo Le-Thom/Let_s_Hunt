@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Dash
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 21300000, guid: 648db9a8a373cc6409386828f1fc48c9, type: 3}
-  objectMaterial: {fileID: 0}
+  objectMaterial: {fileID: 2100000, guid: aa8768adca0791e45bde07c4da971d62, type: 2}
   objectName: Dash

@@ -1,3 +1,4 @@
+using GameplayIngredients.Rigs;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
@@ -7,27 +8,12 @@ using UnityEngine;
 public class Airdrop : InteractableObject
 {
     [SerializeField] private GameObject onCanPickUp;
-    [SerializeField] private SC_sc_Object listEquipment;
-    [SerializeField] private int nbInBox;
-    [SerializeField] private NetworkList<int> whatIsInside;
-    [SerializeField] private NetworkList<Vector3> throwObj;
+    [SerializeField] private SC_sc_Object listEquipment, listGlobal;
     [SerializeField] private FMODUnity.EventReference PickUp;
     public void Start()
     {
         isInteractable = true;
         onCanPickUp.SetActive(false);
-
-        if (!IsHost) return;
-        whatIsInside = new NetworkList<int>() { };
-        throwObj = new NetworkList<Vector3>() { };
-        for (int i = 0; i < nbInBox; i++)
-        {
-            int rng = Random.Range(0, listEquipment.objects.Count);
-            whatIsInside.Add(rng);
-
-            Vector3 throwRng = new Vector3(Random.Range(-2f, 2f) * 100, 0, Random.Range(-2f, 2f) * 100) * Time.deltaTime + Vector3.up * 4;
-            throwObj.Add(throwRng);
-        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -68,16 +54,24 @@ public class Airdrop : InteractableObject
     [ServerRpc(RequireOwnership = false)]
     public override void InteractServerRpc()
     {
-        for (int i = 0; i < nbInBox; i++)
+        for (int i = 0; i < listEquipment.objects.Count; i++)
         {
             GameObject _drop = Resources.Load<GameObject>("DropObject");
 
             GameObject _obj = Instantiate(_drop, transform.position, Quaternion.Euler(0, 0, 0));
             _obj.GetComponent<NetworkObject>().Spawn(true);
 
-            _obj.GetComponentInChildren<ObjectDrop>().SetUpObjClientRpc(whatIsInside[i], false, -1);
+            for (int y = 0; y < listGlobal.objects.Count; y++)
+            {
+                if (listGlobal.objects[y] == listEquipment.objects[i])
+                {
+                    _obj.GetComponentInChildren<ObjectDrop>().SetUpObjClientRpc(y, false, -1);
+                    break;
+                }
+            }
 
-            _obj.GetComponent<Rigidbody>().velocity += throwObj[i];
+            Vector3 _throwRng = new Vector3(Random.Range(-2f, 2f) * 100, 0, Random.Range(-2f, 2f) * 100) * Time.deltaTime + Vector3.up * 4;
+            _obj.GetComponent<Rigidbody>().velocity += _throwRng;
         }
 
         Destroy(gameObject);

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Flare
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 21300000, guid: 5bab16a81f741e54e89505e21af625b1, type: 3}
-  objectMaterial: {fileID: 2100000, guid: bc6da4580f5514e458fe5def87e138be, type: 2}
+  objectMaterial: {fileID: 2100000, guid: aa8768adca0791e45bde07c4da971d62, type: 2}
   objectName: Flare
   type: 0
   maxStackEquipment: 3

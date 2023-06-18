@@ -93,14 +93,14 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
             case TwitchVote.DropMedkit:
 
                 AirdropManager _airdropManager = GameObject.FindFirstObjectByType<AirdropManager>();
-                _airdropManager.CallAirdrop(0);
+                _airdropManager.CallAirdrop(1);
 
                 UI_Message_Manager.Instance.ShowMessage(Color.blue, "Renforcement Materiel en chemin");
                 break;
             case TwitchVote.DropWeapon:
 
                 AirdropManager _airdropManager1 = GameObject.FindFirstObjectByType<AirdropManager>();
-                _airdropManager1.CallAirdrop(1);
+                _airdropManager1.CallAirdrop(2);
 
                 UI_Message_Manager.Instance.ShowMessage(Color.blue, "Renforcement Materiel en chemin");
                 break;

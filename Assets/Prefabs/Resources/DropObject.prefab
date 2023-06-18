@@ -183,7 +183,7 @@ MonoBehaviour:
   playerController: {fileID: 0}
   onCanPickUp: {fileID: 209309281414284941}
   equipment: {fileID: 0}
-  listEquipment: {fileID: 11400000, guid: 094cbb2e8bcac3e498b21a3fb904be96, type: 2}
+  listEquipment: {fileID: 11400000, guid: 8f73a8414e767564cb80309cda0ada23, type: 2}
 --- !u!135 &3720714892322431808
 SphereCollider:
   m_ObjectHideFlags: 0

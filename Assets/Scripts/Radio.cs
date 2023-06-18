@@ -75,6 +75,7 @@ public class Radio : InteractableObject
         base.InteractServerRpc();
         StartVote();
         print("radioZ");
+        InteractClientRpc();
     }
     [ClientRpc]
     public override void InteractClientRpc()

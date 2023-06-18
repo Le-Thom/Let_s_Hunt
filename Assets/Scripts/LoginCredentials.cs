@@ -162,7 +162,9 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 {
                     if (connectionManager.IsOwner)
                     {
+                        Debug.Log(connectionManager);
                         currentPlayerConnectionManager = connectionManager;
+                        break;
                     }
                 }
                 if (currentPlayerConnectionManager.playerId.Value != 0)

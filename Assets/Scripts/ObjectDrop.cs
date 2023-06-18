@@ -51,7 +51,7 @@ public class ObjectDrop : InteractableObject
 
         sphereCollider.enabled = true;
     }
-    [ServerRpc(RequireOwnership = true)]
+    [ServerRpc(RequireOwnership = false)]
     public void SetNbServerRpc(int _nb)
     {
         nb.Value = _nb;
@@ -247,14 +247,12 @@ public class ObjectDrop : InteractableObject
         if (sc_object.GetType() == typeof(sc_Equipment))
         {
             equipment.AddEquipment(sc_object as sc_Equipment, nb.Value);
-            Destroy(parent);
-            _DespawnServerRpc();
         }
         else
         {
             if (sc_object.objectName == "DamageUp")
             {
-                Tps_PlayerController.Instance.damage += Mathf.RoundToInt(Tps_PlayerController.Instance.damage + Tps_PlayerController.Instance.damageMultiplicator);
+                Tps_PlayerController.Instance.damage = Mathf.RoundToInt(Tps_PlayerController.Instance.damage + Tps_PlayerController.Instance.damageMultiplicator);
                 Tps_PlayerController.Instance.damageMultiplicator = (Tps_PlayerController.Instance.damageMultiplicator) * 0.9f ;
             }
             else if (sc_object.objectName == "Axe")
@@ -268,15 +266,14 @@ public class ObjectDrop : InteractableObject
             {
                 Tps_PlayerController.Instance.dash += 10;
             }
-            Destroy(parent);
-            _DespawnServerRpc();
         }
+        DestroyObjServerRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]
-    private void _DespawnServerRpc()
+    private void DestroyObjServerRpc()
     {
-        parent.GetComponent<NetworkObject>().Despawn();
+        Destroy(gameObject);
     }
 
     private void AddingEquipment(Equipment _equipment)
@@ -287,7 +284,7 @@ public class ObjectDrop : InteractableObject
             nb.Value = _howMuchLeft;
             EquipmentVerification(hunterFollowed);
         }
-        else Destroy(parent);
+        else DestroyObjServerRpc();
     }
 
     

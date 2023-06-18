@@ -1,19 +1,20 @@
+using GameplayIngredients.Rigs;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.Netcode;
 using UnityEngine;
 
-public class AirdropManager : NetworkBehaviour
+public class AirdropManager : MonoBehaviour
 {
     [SerializeField] private List<SpawnAirdrop> airdropList = new();
     [SerializeField] private int airdropCount = 2;
-    [SerializeField] private NetworkList<int> airdropIndex = new NetworkList<int>();
+    [SerializeField] private List<int> airdropIndex = new();
 
     public void CallAirdrop(int index)
     {
         List<SpawnAirdrop> _list = new();
-
         int y = airdropCount;
+        airdropIndex = new();
         for (int i = 0; i < y; i++)
         {
             int rng = Random.Range(0, airdropList.Count);
@@ -21,9 +22,9 @@ public class AirdropManager : NetworkBehaviour
             if (!_list.Contains(airdropList[rng]))
             {
                 _list.Add(airdropList[rng]);
-                airdropIndex.Add(rng);
+                airdropIndex.Add(i);
             }
-            else 
+            else
             {
                 y++;
 
@@ -31,17 +32,9 @@ public class AirdropManager : NetworkBehaviour
             }
         }
 
-        CallAirdropServerRpc(index);
-    }
-    
-    [ServerRpc(RequireOwnership = true)]
-    public void CallAirdropServerRpc(int index)
-    {
-        for (int i = 0;i < airdropIndex.Count;i++)
+        for (int i = 0; i < airdropIndex.Count; i++)
         {
             airdropList[airdropIndex[i]].Spawn_AirdropServerRpc(index);
         }
-        airdropIndex.Clear();
-        airdropIndex = new();
     }
 }

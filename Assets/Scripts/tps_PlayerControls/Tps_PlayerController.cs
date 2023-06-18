@@ -852,6 +852,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             playerData.monitor.tryToAtk1 = false;
             UnselectAllEquipment();
             if (stateMachine.currentState == StateId.EQUIPEMENT) stateMachine.ChangeState(StateId.IDLE);
+            WasOnSelectEquipment = false;
         }
         if (playerData.monitor.isAtk2)
         {
@@ -859,6 +860,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             playerData.monitor.tryToAtk2 = false;
             UnselectAllEquipment();
             if (stateMachine.currentState == StateId.EQUIPEMENT) stateMachine.ChangeState(StateId.IDLE);
+            WasOnSelectEquipment = false;
         }
     }
     private void ExitStateEquipement()
@@ -1176,8 +1178,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         }
         catch (Exception)
         {
-            interactableObjects.RemoveAt(0);
-            throw;
+            interactableObjects.Clear();
         }
         return _io;
     }
