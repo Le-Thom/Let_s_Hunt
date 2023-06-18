@@ -95,7 +95,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1723938251025586973}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 2
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 1
@@ -154,7 +154,7 @@ MonoBehaviour:
   m_alphaCutoff: 0.5
   m_flipX: 0
   m_flipY: 0
-  m_shadowCastingMode: 1
+  m_shadowCastingMode: 2
   m_receiveShadows: 1
   m_lightProbeUsage: 1
   m_material: {fileID: 2100000, guid: 4274ba361a65a3447a673e4df86630fe, type: 2}
@@ -262,7 +262,7 @@ MeshRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7604213750686124843}
   m_Enabled: 1
-  m_CastShadows: 1
+  m_CastShadows: 2
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
   m_StaticShadowCaster: 1
@@ -321,7 +321,7 @@ MonoBehaviour:
   m_alphaCutoff: 0.5
   m_flipX: 0
   m_flipY: 0
-  m_shadowCastingMode: 1
+  m_shadowCastingMode: 2
   m_receiveShadows: 1
   m_lightProbeUsage: 1
   m_material: {fileID: 2100000, guid: 493ae18739327bb4999647aa1f32bcb3, type: 2}

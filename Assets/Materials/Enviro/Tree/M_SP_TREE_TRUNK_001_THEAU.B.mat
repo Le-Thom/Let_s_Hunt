@@ -25,7 +25,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 5887600e09a53fc46b797a2ef52d481f, type: 3}
+        m_Texture: {fileID: 2800000, guid: bc84e002eb27dad4ab37807b9c6d3db9, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _SpriteMask_Texture:
@@ -52,7 +52,7 @@ Material:
     - _WindSpeed: 2
     - _WindStrenght: 0.4
     - _Wind_Influence: 0.1
-    - _hasWind: 1
+    - _hasWind: 0
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &5155014910642195051

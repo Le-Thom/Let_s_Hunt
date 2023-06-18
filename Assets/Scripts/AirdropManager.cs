@@ -7,10 +7,9 @@ public class AirdropManager : NetworkBehaviour
 {
     [SerializeField] private List<SpawnAirdrop> airdropList = new();
     [SerializeField] private int airdropCount = 2;
+    [SerializeField] private NetworkList<int> airdropIndex = new NetworkList<int>();
 
-
-    [ServerRpc(RequireOwnership = true)]
-    public void CallAirdropServerRpc(int index)
+    public void CallAirdrop(int index)
     {
         List<SpawnAirdrop> _list = new();
 
@@ -22,6 +21,7 @@ public class AirdropManager : NetworkBehaviour
             if (!_list.Contains(airdropList[rng]))
             {
                 _list.Add(airdropList[rng]);
+                airdropIndex.Add(rng);
             }
             else 
             {
@@ -31,9 +31,17 @@ public class AirdropManager : NetworkBehaviour
             }
         }
 
-        foreach (SpawnAirdrop airdrop in _list)
+        CallAirdropServerRpc(index);
+    }
+    
+    [ServerRpc(RequireOwnership = true)]
+    public void CallAirdropServerRpc(int index)
+    {
+        for (int i = 0;i < airdropIndex.Count;i++)
         {
-            airdrop.Spawn_AirdropServerRpc(index);
+            airdropList[airdropIndex[i]].Spawn_AirdropServerRpc(index);
         }
+        airdropIndex.Clear();
+        airdropIndex = new();
     }
 }
