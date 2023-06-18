@@ -42,8 +42,8 @@ Material:
     - _ColorSeed: 0.5
     - _HaveMask: 1
     - _IsHit: 0
-    - _IsLeaves: 1
-    - _IsRainbow: 0
+    - _IsLeaves: 0
+    - _IsRainbow: 1
     - _IsRandom: 1
     - _IsTrunk: 0
     - _ItsEmissive: 0
