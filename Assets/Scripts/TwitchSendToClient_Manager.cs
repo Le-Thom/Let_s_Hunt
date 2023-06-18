@@ -16,6 +16,12 @@ public class TwitchSendToClient_Manager : NetworkBehaviour
     //FONCTIONS
     //========
 
+    [ServerRpc]
+    public void SendToHunterChatInfoServerRpc(string user, string message)
+    {
+        SendToHunterChatInfoClientRpc(user, message);
+    }
+
     [ClientRpc]
     public void SendToHunterChatInfoClientRpc(string user, string message)
     {

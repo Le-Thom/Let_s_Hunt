@@ -23,11 +23,11 @@ public class Radio : InteractableObject
     // Monobehaviour
     private void OnEnable()
     {
-        TwitchVoting_Manager.onStartingVote += () => StartCoroutine(AvailableTimer());
+        TwitchVoting_Manager.onStartingVote += AvailableTimer;
     }
     private void OnDisable()
     {
-        TwitchVoting_Manager.onStartingVote -= () => StartCoroutine(AvailableTimer());
+        TwitchVoting_Manager.onStartingVote -= AvailableTimer;
     }
     private void Start()
     {
@@ -69,6 +69,13 @@ public class Radio : InteractableObject
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
         if (notAvailable.active) notAvailable.SetActive(false);
     }
+    [ServerRpc(RequireOwnership = false)]
+    public override void InteractServerRpc()
+    {
+        base.InteractServerRpc();
+        StartVote();
+        print("radioZ");
+    }
     [ClientRpc]
     public override void InteractClientRpc()
     {
@@ -80,8 +87,7 @@ public class Radio : InteractableObject
         available = false;
 
         RuntimeManager.PlayOneShot(UsingAudio, transform.position);
-
-        if (IsHost) StartVote();
+        print("radio");
     }
 
     // Private fonction
@@ -91,14 +97,14 @@ public class Radio : InteractableObject
         TwitchVoting_Manager.Instance.StartTwitchVote();
     }
 
-    private IEnumerator AvailableTimer()
+    private async void AvailableTimer()
     {
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
         if (!available && !notAvailable.active) notAvailable.SetActive(true);
         TwitchVote_Timer_Manager.Instance.UpdateTimerTest(unavailableTimer.ToString());
         for(int i = 0; i < unavailableTimer; i++)
         {
-            yield return new WaitForSeconds(1);
+            await System.Threading.Tasks.Task.Delay(1000);
             TwitchVote_Timer_Manager.Instance.UpdateTimerTest((unavailableTimer - i).ToString());
         }
         SetAvailableClientRpc();

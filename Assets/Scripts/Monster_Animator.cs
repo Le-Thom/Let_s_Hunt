@@ -87,6 +87,14 @@ public class Player_Animator : NetworkBehaviour
             if(debug) animator.SetTrigger("whenAttack");
         }
     }
+    public void Attack2Animator()
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenAttack2");
+            if (debug) animator.SetTrigger("whenAttack2");
+        }
+    }
     public void DashAnimator()
     {
         foreach (Animator animator in animatorToSendSpeed)

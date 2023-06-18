@@ -759,7 +759,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         isDirectionLocked = true;
 
-        player_Animator.AttackAnimator();
+        player_Animator.Attack2Animator();
 
         player_Animator.SetUpdateTime(playerData.inGameDataValue.atk2Speed);
 
