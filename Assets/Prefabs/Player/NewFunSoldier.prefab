@@ -1059,11 +1059,11 @@ MonoBehaviour:
   vivoxManager: {fileID: 0}
   audioToggleMute:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 427970938
+      Data2: 1251985583
+      Data3: 1622869384
+      Data4: -767730743
+    Path: event:/SFX/Option/Toggle_Audio
   vocToggle: {fileID: 0}
 --- !u!114 &261698209788485719
 MonoBehaviour:
@@ -1311,7 +1311,10 @@ MonoBehaviour:
   directionLook: {x: 0, y: 0}
   inputAutoActive: 0
   isInteracting: 0
-  _weapon: {fileID: 0}
+  _weapon: {fileID: 11400000, guid: 33a7d1fb9ba12a541b2644d66a2aaae6, type: 2}
+  dash: 0
+  damage: 1
+  damageMultiplicator: 1
   _Body: {fileID: 7004353723762604658}
   _Animator: {fileID: 6933130439547403805}
   _targetCamera: {fileID: 4607736137387591851}
@@ -1323,6 +1326,7 @@ MonoBehaviour:
   directionScript: {fileID: 4834422717477308230}
   player_Animator: {fileID: 4350977423259523069}
   hunterHitCollider: {fileID: 8897543698253293148}
+  hunterAnimationController: {fileID: 8489318065920784239}
   vivoxAudio: {fileID: 5216584379529825612}
   _reviveObj: {fileID: 6215641937863873781}
   hunterDamageColliders:
@@ -1434,6 +1438,55 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerController: {fileID: 8723022597400929184}
   anim_Healing: {fileID: 8920732988265619111}
+  audio_Healing:
+    Guid:
+      Data1: -525318114
+      Data2: 1240060377
+      Data3: -476061010
+      Data4: 615148736
+    Path: event:/SFX/Player/Healing
+  audio_Atk1:
+    Guid:
+      Data1: -1523667927
+      Data2: 1331350153
+      Data3: -155081577
+      Data4: -930652588
+    Path: event:/SFX/Weapon/Axe_Atk1
+  audio_Atk2:
+    Guid:
+      Data1: 1115679161
+      Data2: 1169293831
+      Data3: 108336794
+      Data4: 1336587
+    Path: event:/SFX/Weapon/Axe_Atk2
+  audio_Death:
+    Guid:
+      Data1: 986732848
+      Data2: 1332261199
+      Data3: -1225190504
+      Data4: 717107298
+    Path: event:/SFX/Player/Death
+  audio_Dodge:
+    Guid:
+      Data1: 189797505
+      Data2: 1176234620
+      Data3: 460311696
+      Data4: -1228137674
+    Path: event:/SFX/Player/Dodge
+  audio_Get_Hit:
+    Guid:
+      Data1: 1799289064
+      Data2: 1261351330
+      Data3: -1637587276
+      Data4: -968880990
+    Path: event:/SFX/Player/Get_Hit
+  audio_Revive:
+    Guid:
+      Data1: 923747739
+      Data2: 1269044181
+      Data3: -1062931025
+      Data4: 1482787963
+    Path: event:/SFX/Player/Revive
 --- !u!95 &6933130439547403805
 Animator:
   serializedVersion: 5
@@ -2144,7 +2197,7 @@ Transform:
   - {fileID: 7202710442627676995}
   - {fileID: 1171405874049563249}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9013098282540401922
 GameObject:
@@ -2403,6 +2456,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 6574371552224952051}
+    - targetCorrespondingSourceObject: {fileID: 4307432798151312801, guid: bef4b1367e19b00428b6063aa6db0d18,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8412222619341358885}
   m_SourcePrefab: {fileID: 100100000, guid: bef4b1367e19b00428b6063aa6db0d18, type: 3}
 --- !u!4 &2653694549413931656 stripped
 Transform:
@@ -2458,6 +2515,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 2659800850599523462}
+--- !u!114 &8412222619341358885
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3754815676800201451}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38df913ca032fa459426dcf67492690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audio_Foot_step:
+    Guid:
+      Data1: -285678620
+      Data2: 1261533149
+      Data3: -2135593847
+      Data4: -948978429
+    Path: event:/SFX/Player/Foot_step
 --- !u!1001 &3182897698427314417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2743,6 +2819,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 27031457740032709}
+    - targetCorrespondingSourceObject: {fileID: 4307432798151312801, guid: bef4b1367e19b00428b6063aa6db0d18,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7281217256416479542}
   m_SourcePrefab: {fileID: 100100000, guid: bef4b1367e19b00428b6063aa6db0d18, type: 3}
 --- !u!4 &494916519167004132 stripped
 Transform:
@@ -2798,6 +2878,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 496548357777200106}
+--- !u!114 &7281217256416479542
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1591549847438579079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38df913ca032fa459426dcf67492690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audio_Foot_step:
+    Guid:
+      Data1: -285678620
+      Data2: 1261533149
+      Data3: -2135593847
+      Data4: -948978429
+    Path: event:/SFX/Player/Foot_step
 --- !u!1001 &3449927133828500471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2896,6 +2995,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lucas_Sp_player_face Variant
       objectReference: {fileID: 0}
+    - target: {fileID: 8891840154635769599, guid: cd104c0e1a2f6174d9a2b0d2ad2365b8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -2912,6 +3016,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 8182433566813455651}
+    - targetCorrespondingSourceObject: {fileID: 8891840154635769599, guid: cd104c0e1a2f6174d9a2b0d2ad2365b8,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7386121831930358712}
   m_SourcePrefab: {fileID: 100100000, guid: cd104c0e1a2f6174d9a2b0d2ad2365b8, type: 3}
 --- !u!212 &1786293850337757707 stripped
 SpriteRenderer:
@@ -3004,7 +3112,7 @@ MonoBehaviour:
     TransitionIndex: 3
   - Layer: 0
     OriginatingState: -2062199845
-    DestinationState: 398494287
+    DestinationState: -520071671
     TransitionDuration: 0.25
     TriggerNameHash: 1943871914
     TransitionIndex: 0
@@ -3015,6 +3123,25 @@ MonoBehaviour:
     TriggerNameHash: 82843585
     TransitionIndex: 1
   m_Animator: {fileID: 4715191107335376612}
+--- !u!114 &7386121831930358712
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6090753395214966024}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38df913ca032fa459426dcf67492690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audio_Foot_step:
+    Guid:
+      Data1: -285678620
+      Data2: 1261533149
+      Data3: -2135593847
+      Data4: -948978429
+    Path: event:/SFX/Player/Foot_step
 --- !u!1001 &3984932657953975718
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3451,6 +3578,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 7085682274462578877}
+    - targetCorrespondingSourceObject: {fileID: 8856071834028242334, guid: ed582e5b2561e114cbb57d542ac28481,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6927111798375008372}
   m_SourcePrefab: {fileID: 100100000, guid: ed582e5b2561e114cbb57d542ac28481, type: 3}
 --- !u!1 &3007537264302932649 stripped
 GameObject:
@@ -3488,6 +3619,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 4685306608018433297}
+--- !u!114 &6927111798375008372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3007537264302932649}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c38df913ca032fa459426dcf67492690, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audio_Foot_step:
+    Guid:
+      Data1: -285678620
+      Data2: 1261533149
+      Data3: -2135593847
+      Data4: -948978429
+    Path: event:/SFX/Player/Foot_step
 --- !u!212 &3354380945430957128 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9067675618830646143, guid: ed582e5b2561e114cbb57d542ac28481,

@@ -254,15 +254,19 @@ public class ObjectDrop : InteractableObject
         {
             if (sc_object.objectName == "DamageUp")
             {
-                
+                Tps_PlayerController.Instance.damage += Mathf.RoundToInt(Tps_PlayerController.Instance.damage + Tps_PlayerController.Instance.damageMultiplicator);
+                Tps_PlayerController.Instance.damageMultiplicator = (Tps_PlayerController.Instance.damageMultiplicator) * 0.9f ;
             }
             else if (sc_object.objectName == "Axe")
             {
-                
+                if (Tps_PlayerController.Instance.weaponIsActive == false)
+                {
+                    Tps_PlayerController.Instance.weaponIsActive = true;
+                }
             }
             else if (sc_object.objectName == "Dash")
             {
-
+                Tps_PlayerController.Instance.dash += 10;
             }
             Destroy(parent);
             _DespawnServerRpc();

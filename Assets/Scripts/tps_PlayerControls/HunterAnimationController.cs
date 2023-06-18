@@ -1,9 +1,10 @@
 using BrunoMikoski.AnimationSequencer;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Netcode;
 using UnityEngine;
 
-public class HunterAnimationController : MonoBehaviour
+public class HunterAnimationController : NetworkBehaviour
 {
     [SerializeField] private Tps_PlayerController playerController;
     private bool isOwner 
@@ -16,6 +17,13 @@ public class HunterAnimationController : MonoBehaviour
     }
 
     [SerializeField] private GameObject anim_Healing;
+    [SerializeField] private FMODUnity.EventReference audio_Healing;
+    [SerializeField] private FMODUnity.EventReference audio_Atk1;
+    [SerializeField] private FMODUnity.EventReference audio_Atk2;
+    [SerializeField] private FMODUnity.EventReference audio_Death;
+    [SerializeField] private FMODUnity.EventReference audio_Dodge;
+    [SerializeField] private FMODUnity.EventReference audio_Get_Hit;
+    [SerializeField] private FMODUnity.EventReference audio_Revive;
 
     //==============================================================================================================
     #region PRIVATE FONCTION
@@ -61,40 +69,40 @@ public class HunterAnimationController : MonoBehaviour
 
 
     // AUDIO
-
-    private void AudioOnFootstep()
+    [ClientRpc]
+    public void PlayAudioHealingClientRpc(Vector3 position)
     {
-
+        FMODUnity.RuntimeManager.PlayOneShot(audio_Healing, position);
     }
-
-    private void AudioOnDodge()
+    [ClientRpc]
+    public void PlayAudioAtk1ClientRpc(Vector3 position)
     {
-
+        FMODUnity.RuntimeManager.PlayOneShot(audio_Atk1, position);
     }
-
-    private void AudioOnATK1()
+    [ClientRpc]
+    public void PlayAudioAtk2ClientRpc(Vector3 position)
     {
-
+        FMODUnity.RuntimeManager.PlayOneShot(audio_Atk2, position);
     }
-
-    private void AudioOnATK2()
+    [ClientRpc]
+    public void PlayAudioDeathClientRpc(Vector3 position)
     {
-
+        FMODUnity.RuntimeManager.PlayOneShot(audio_Death, position);
     }
-
-    private void AudioOnGetHit()
+    [ClientRpc]
+    public void PlayAudioReviveClientRpc(Vector3 position)
     {
-
+        FMODUnity.RuntimeManager.PlayOneShot(audio_Revive, position);
     }
-
-    private void AudioOnDeath()
+    [ClientRpc]
+    public void PlayAudioGetHitClientRpc(Vector3 position)
     {
-
+        FMODUnity.RuntimeManager.PlayOneShot(audio_Get_Hit, position);
     }
-
-    private void AudioOnRevive()
+    [ClientRpc]
+    public void PlayAudioDodgeClientRpc(Vector3 position)
     {
-
+        FMODUnity.RuntimeManager.PlayOneShot(audio_Dodge, position);
     }
 
     #endregion

@@ -8,6 +8,8 @@ using AkarisuMD.Player;
 using NaughtyAttributes;
 using UnityEngine.AI;
 using DG.Tweening;
+using Unity.Netcode;
+using UnityEngine.UIElements;
 
 /// <summary>
 /// tps player using starter pack model.
@@ -44,12 +46,13 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     public bool isInteracting = false;
 
     [SerializeField] private sc_Weapon _weapon;
-    public sc_Weapon weapon
+    private bool _weaponIsActive;
+    public bool weaponIsActive
     {
-        get { return _weapon; }
+        get { return _weaponIsActive; }
         set 
         {
-            _weapon = value;
+            _weaponIsActive = value;
             canHit = true;
             foreach (var item in _axeRenderer)
             {
@@ -57,6 +60,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             }
         }
     }
+
+    public int dash;
+    public int damage;
+    public float damageMultiplicator;
 
     #endregion
     //==============================================================================================================
@@ -79,6 +86,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private ActivateObjectByDirection directionScript;
     [SerializeField] private Player_Animator player_Animator;
     [SerializeField] private HunterHitCollider hunterHitCollider;
+    public HunterAnimationController hunterAnimationController;
 
     [SerializeField] private GameObject vivoxAudio;
 
@@ -87,6 +95,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [SerializeField] private List<OnDamageBox> hunterDamageColliders;
 
     [SerializeField] private List<SpriteRenderer> _axeRenderer;
+
 
     #endregion
     //==============================================================================================================
@@ -142,6 +151,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         // create inputs.
         _inputs = new();
         _Camera = Camera.main;
+
+        dash = 0;
+        damage = 1;
+        damageMultiplicator = 2;
     }
 
     private void OnEnable()
@@ -262,9 +275,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// </summary>
     public void Atk1()
     {
-        GameObject obj_weapon = Instantiate(weapon.go_Weapon_Hit_Prefab, _Body.transform);
-        Weapon _weapon = obj_weapon.GetComponent<Weapon>();
-        _weapon.Atk1();
+        GameObject obj_weapon = Instantiate(_weapon.go_Weapon_Hit_Prefab, _Body.transform);
+        Weapon __weapon = obj_weapon.GetComponent<Weapon>();
+        __weapon.Atk1();
 
     }
 
@@ -273,9 +286,9 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// </summary>
     public void Atk2()
     {
-        GameObject obj_weapon = Instantiate(weapon.go_Weapon_Hit_Prefab, _Body.transform);
-        Weapon _weapon = obj_weapon.GetComponent<Weapon>();
-        _weapon.Atk2();
+        GameObject obj_weapon = Instantiate(_weapon.go_Weapon_Hit_Prefab, _Body.transform);
+        Weapon __weapon = obj_weapon.GetComponent<Weapon>();
+        __weapon.Atk2();
 
     }
 
@@ -619,7 +632,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         if (playerData.monitor.isAtk1 && canHit) stateMachine.ChangeState(StateId.ATK1);
         if (playerData.monitor.isAtk2 && canHit) stateMachine.ChangeState(StateId.ATK2);
-        if (playerData.monitor.isDodging) stateMachine.ChangeState(StateId.DODGE);
+        if (playerData.monitor.isDodging && dash > 0) stateMachine.ChangeState(StateId.DODGE);
 
         if(!playerData.monitor.canDodge)
         {
@@ -640,6 +653,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Dodge
     private void InitStateDodge()
     {
+        dash--;
         playerData.variables.speed = 0.0f;
         //_Animator.SetFloat(_animIDSpeed, 0.0f);
         //_Animator.SetTrigger(_animIDDodge);
@@ -668,6 +682,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
             }
             playerData.monitor.canDodge = false;
         }
+
+        hunterAnimationController.PlayAudioDodgeClientRpc(transform.position);
     }
     private void UpdateStateDodge()
     {
@@ -692,13 +708,15 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private async void InitStateAtk1()
     {
 
-        SetDamage(playerData.inGameDataValue.atk1Damage);
+        SetDamage(playerData.inGameDataValue.atk1Damage * damage);
 
         directionScript.UpdateDirection(directionLook);
 
         isDirectionLocked = true;
 
         player_Animator.AttackAnimator();
+
+        hunterAnimationController.PlayAudioAtk1ClientRpc(transform.position);
 
         player_Animator.SetUpdateTime(playerData.inGameDataValue.atk1Speed);
 
@@ -732,6 +750,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         await System.Threading.Tasks.Task.Delay(playerData.inGameDataValue.atk1Delay);
         playerData.monitor.canAtk1 = true;
 
+
     }
     private void UpdateStateAtk1()
     {
@@ -753,13 +772,15 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Atk2
     private async void InitStateAtk2()
     {
-        SetDamage(playerData.inGameDataValue.atk2Damage);
+        SetDamage(playerData.inGameDataValue.atk2Damage * damage * 5);
 
         directionScript.UpdateDirection(directionLook);
 
         isDirectionLocked = true;
 
         player_Animator.Attack2Animator();
+
+        hunterAnimationController.PlayAudioAtk2ClientRpc(transform.position);
 
         player_Animator.SetUpdateTime(playerData.inGameDataValue.atk2Speed);
 
@@ -849,7 +870,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void InitStateHealing()
     {
         _Animator.SetTrigger(_animIDHealing);
-
+        hunterAnimationController.PlayAudioHealingClientRpc(transform.position);
         playerData.monitor.isChangingState = false;
     }
     private void UpdateStateHealing()
@@ -869,6 +890,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         playerData.variables.speed = 0.0f;
         _Animator.SetFloat(_animIDSpeed, 0.0f);
         _Animator.SetTrigger(_animIDGetHit);
+        hunterAnimationController.PlayAudioGetHitClientRpc(transform.position);
         StartCoroutine(CooldownHit());
 
         playerData.monitor.isChangingState = false;
@@ -909,6 +931,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         _inputs.Disable();
         _reviveObj.IsActiveServerRpc(true);
 
+        hunterAnimationController.PlayAudioDeathClientRpc(transform.position);
         directionScript.UpdateDirection(new Vector2 (directionLook.x , 0));
 
         isDirectionLocked = true;
@@ -1225,5 +1248,10 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         }
     }
     #endregion
+
+    // Audio
+
+
+
     //==============================================================================================================
 }

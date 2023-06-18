@@ -48,12 +48,12 @@ MonoBehaviour:
     hp: 0
     reviveTime: 5
     maxHp: 10
-    atk1Damage: -25
+    atk1Damage: -5
     atk1Speed: 1
     atk1MovementSpeed: 2.1
     atk1Delay: 0
     atk1DelayBeforeIdle: 450
-    atk2Damage: -60
+    atk2Damage: -5
     atk2Speed: 1
     atk2MovementSpeed: 0.5
     atk2Delay: 0
