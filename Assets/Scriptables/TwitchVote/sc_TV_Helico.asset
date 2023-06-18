@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: sc_TV_Helico
   m_EditorClassIdentifier: 
   voteCount: 0
-  nameOfTheVote: Heli
+  nameOfTheVote: Lights
   twitchVote: 3

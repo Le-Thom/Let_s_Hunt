@@ -45,14 +45,14 @@ public class TwitchCommand_Manager : MonoBehaviour
     {
         int voteChoice = -1;
 
-        for(int i = 0; i < 5; i++)
+        for(int i = 0; i < 6; i++)
         {
             if (message.Contains(i.ToString()))
             {
                 voteChoice = i;
             }
         }
-        if (voteChoice == -1 || voteChoice == 4) return;
+        if (voteChoice == -1 || voteChoice == 6) return;
         TwitchVoting_Manager.addingVote(voteChoice);
     }
 }

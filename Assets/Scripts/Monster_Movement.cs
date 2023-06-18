@@ -20,6 +20,7 @@ public class Monster_Movement : MonoBehaviour
     [SerializeField] private float monsterInvisibleSpeed, monsterFightSpeed, monsterHitSpeed, monsterBlackoutSpeed;
 
     [SerializeField] private LayerMask cameraCastLayer;
+    public MonsterSpeed monsterSpeedState;
     //========
     //FONCTION
     //========
@@ -54,8 +55,9 @@ public class Monster_Movement : MonoBehaviour
 
         return positionOnNavmesh;
     }
-    public void ChangeSpeed(MonsterSpeed monsterSpeed)
+    public void ChangeSpeed(MonsterSpeed monsterSpeed, bool changeEvenInBlackout = false)
     {
+        if (monsterSpeedState == MonsterSpeed.Blackout && !changeEvenInBlackout) return;
         float nextSpeed = 0;
 
         switch (monsterSpeed)
@@ -80,6 +82,7 @@ public class Monster_Movement : MonoBehaviour
                 break;
         }
         navMeshAgent.speed = nextSpeed;
+        monsterSpeedState = monsterSpeed;
         //navMeshAgent.acceleration = nextSpeed;
     }
 }

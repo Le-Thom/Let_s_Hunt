@@ -752,6 +752,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player_Animator: {fileID: 4350977423259523069}
+  dynamo: {fileID: 6836855645100356042}
   hitParticule: {fileID: 8602834174220738234, guid: c788b656de905944bbf952881951637f,
     type: 3}
 --- !u!114 &7966520266703612838
@@ -2406,7 +2407,7 @@ Transform:
   - {fileID: 7202710442627676995}
   - {fileID: 1171405874049563249}
   m_Father: {fileID: 0}
-  m_RootOrder: 14
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9013098282540401922
 GameObject:

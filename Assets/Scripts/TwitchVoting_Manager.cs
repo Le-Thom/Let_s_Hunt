@@ -53,13 +53,16 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
 
         List<sc_TwitchVote> listOfChosenVote = listOfAllPossibleVote;
 
+
+        int voteId = 0;
         foreach (sc_TwitchVote twitchVote in listOfChosenVote)
         {
             Transform newVoteUI = Instantiate(voteUI.transform, voteGroupUI.transform);
             if (newVoteUI.TryGetComponent<VoteRef_UI>(out VoteRef_UI voteRef_UI))
             {
                 listOfCurrentVote.Add(twitchVote, voteRef_UI);
-                voteRef_UI.InitVoteUI(twitchVote.nameOfTheVote, listOfAllPossibleVote.Count);
+                voteRef_UI.InitVoteUI(twitchVote.nameOfTheVote, voteId);
+                voteId++;
             }
         }
         onStartingVote?.Invoke();

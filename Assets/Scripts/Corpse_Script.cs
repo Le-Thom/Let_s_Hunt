@@ -65,5 +65,20 @@ public class Corpse_Script : NetworkBehaviour
         objectToDeactivateWhenMonsterUseCorpse.SetActive(false);
         Destroy(this);
         objectToActivateWhenMonsterNear.SetActive(false);
+        DeacrivateObjectServerRpc();
+    }
+    [ServerRpc]
+    public void DeacrivateObjectServerRpc()
+    {
+        DeacrivateObjectClientRpc();
+    }
+    [ClientRpc]
+    public void DeacrivateObjectClientRpc()
+    {
+        if (IsHost) return;
+        objectToActivateWhenMonsterUseCorpse.SetActive(true);
+        objectToDeactivateWhenMonsterUseCorpse.SetActive(false);
+        Destroy(this);
+        objectToActivateWhenMonsterNear.SetActive(false);
     }
 }

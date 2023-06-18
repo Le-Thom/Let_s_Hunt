@@ -10,6 +10,7 @@ public class Blackout_Competance_Monster : BaseCompetance_Monster
     [SerializeField] private LayerMask playerLayer;
     [SerializeField] private float accelerationBoost = 10;
     [SerializeField] private float speedBoost = 10;
+    [SerializeField] private int blackoutTime;
 
     protected override async void SkillFonction()
     {
@@ -34,6 +35,13 @@ public class Blackout_Competance_Monster : BaseCompetance_Monster
             .OnComplete(() => DOVirtual.Float(speedBoost, baseSpeed, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.speed = v));
         */
         monster_StateMachine.monster_Movement.ChangeSpeed(MonsterSpeed.Blackout);
+
+        await Task.Delay(blackoutTime);
+
+        if (monster_StateMachine.monster_Movement.monsterSpeedState == MonsterSpeed.Blackout)
+        {
+            monster_StateMachine.monster_Movement.ChangeSpeed(MonsterSpeed.Fight, true);
+        }
     }
     private void OnDrawGizmos()
     {

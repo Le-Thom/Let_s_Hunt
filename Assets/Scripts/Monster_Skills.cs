@@ -43,30 +43,33 @@ public class Monster_Skills : MonoBehaviour
         }
     }
     private void ActivateSkill()
-    {
+    {   if (listOfCompetance[0].enabled) return;
         foreach (BaseCompetance_Monster skill in listOfCompetance)
         {
-            //skill.isSkillOnCooldown = true;
-            //skill.CooldownTimer = 0;
+            skill.isSkillOnCooldown = true;
+            skill.CooldownTimer = 0;
             skill.enabled = true;
         }
+        ActivateSkillUI();
     }
     private void DeactivateAllSkill()
     {
-        foreach(BaseCompetance_Monster skill in listOfCompetance)
+        //if (!listOfCompetance[0].enabled) return;
+        foreach (BaseCompetance_Monster skill in listOfCompetance)
         {
             skill.enabled = false;
         }
+        DeactivateSkillUI();
     }
     private void ActivateSkillUI()
     {
-        skillUIAnimationController.SetPlayType(AnimationSequencerController.PlayType.Forward);
-        skillUIAnimationController.Play();
+        //skillUIAnimationController.SetProgress(0);
+        skillUIAnimationController.PlayForward();
     }
     private void DeactivateSkillUI()
     {
-        skillUIAnimationController.SetPlayType(AnimationSequencerController.PlayType.Backward);
-        skillUIAnimationController.Play();
+        //skillUIAnimationController.SetProgress(1);
+        skillUIAnimationController.PlayBackwards();
     }
 }
 public enum AttackAnim

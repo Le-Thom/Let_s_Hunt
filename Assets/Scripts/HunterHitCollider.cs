@@ -8,8 +8,10 @@ using NaughtyAttributes;
 public class HunterHitCollider : NetworkBehaviour
 {
     [SerializeField] private Player_Animator player_Animator;
+    [SerializeField] private Dynamo dynamo;
     private NetworkVariable<int> indexPlayer = new NetworkVariable<int>(0);
     public GameObject hitParticule;
+    
 
     /// <summary>
     /// If collider got hit, transfert info to player.
@@ -34,6 +36,7 @@ public class HunterHitCollider : NetworkBehaviour
     public void DeactivateFlashLightForXMillisecondSecond(int milliseconds)
     {
         Debug.Log(indexPlayer.Value + "has no flashlight");
+        dynamo.BlackOutClientRpc();
     }
 
     [ServerRpc(RequireOwnership = false)]

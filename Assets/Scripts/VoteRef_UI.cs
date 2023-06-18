@@ -19,7 +19,7 @@ public class VoteRef_UI : MonoBehaviour
 
         pourcentageOfVote.text = "0";
         voteNameText.text = voteName;
-        voteIdText.text = voteId.ToString();
+        voteIdText.text = "!vote" + voteId.ToString();
     }
     public void UpdatePourcentageOfVote(int newValue)
     {
