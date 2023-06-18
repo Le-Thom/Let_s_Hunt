@@ -14,6 +14,7 @@ public class Scene_Manager : Singleton<Scene_Manager>
     //VARIABLES
     //========
 
+    [SerializeField] private bool loadSubScene;
     private FullScreenFadeAction fadeAction;
     private GameLevelLoadAction loadAction;
 
@@ -22,7 +23,8 @@ public class Scene_Manager : Singleton<Scene_Manager>
     //========
     private void Awake()
     {
-        SceneManager.LoadScene(1, LoadSceneMode.Additive);
+        if (loadSubScene)
+            SceneManager.LoadScene(1, LoadSceneMode.Additive);
 
         fadeAction = gameObject.GetComponent<FullScreenFadeAction>();
         loadAction = gameObject.GetComponent<GameLevelLoadAction>();
