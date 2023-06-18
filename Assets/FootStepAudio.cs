@@ -6,10 +6,12 @@ using UnityEngine;
 public class FootStepAudio : MonoBehaviour
 {
     [SerializeField] private FMODUnity.EventReference audio_Foot_step;
+    [SerializeField] private ScS_PlayerData playerData;
 
     [ClientRpc]
     public void PlayAudioFootStepClientRpc()
     {
-        FMODUnity.RuntimeManager.PlayOneShot(audio_Foot_step, transform.position);
+        if (playerData.monitor.isMoving)
+            FMODUnity.RuntimeManager.PlayOneShot(audio_Foot_step, transform.position);
     }
 }

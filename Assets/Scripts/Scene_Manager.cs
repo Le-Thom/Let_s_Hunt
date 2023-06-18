@@ -58,7 +58,7 @@ public class Scene_Manager : Singleton<Scene_Manager>
         }
         catch (System.Exception)
         {
-            Application.Quit();
+
             throw;
         }
     }
