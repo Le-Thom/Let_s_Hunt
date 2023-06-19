@@ -30,6 +30,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     private float _lookTargetRotation;
     protected bool isAttacking = false;
     [SerializeField] private AttackAnim animationTrigger;
+    public bool canUsedSkill = true;
 
     public float CooldownTimer { get { return cooldownCurrentTimer; } set 
         { 
@@ -104,7 +105,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     public void StartingUsingSkill(InputAction.CallbackContext context)
     {
         if (isSkillOnCooldown) return;
-        if (context.ReadValue<float>() == 1 && this.enabled)
+        if (context.ReadValue<float>() == 1 && canUsedSkill)
         {
             if (monster_StateMachine.isSkillBeingCast) return;
             monster_StateMachine.isSkillBeingCast = true;

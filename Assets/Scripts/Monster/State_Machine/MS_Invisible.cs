@@ -15,6 +15,7 @@ public class MS_Invisible : Monster_State
         stateMachine.monster_Skills.CanMonsterUseSkill(false);
         stateMachine.monster_Hider.alphaOnHide = 0;
         stateMachine.monster_Hider.RefreshHide();
+        stateMachine.isInFightState = false;
 
         stateMachine.onUpdate += UpdateState;
     }

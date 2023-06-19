@@ -15,7 +15,7 @@ public class Monster_StateMachine : MonoBehaviour
 
     [Header("State Machine")]
     public Monster_State currentState;
-    private Monster_StateFactory factory;
+    public Monster_StateFactory factory;
     public string nameOfTheCurrentState;
     public Action onUpdate;
 
@@ -45,7 +45,7 @@ public class Monster_StateMachine : MonoBehaviour
     [SerializeField] private LayerMask groundLayer;
 
     public bool isSkillBeingCast = false;
-
+    public bool isInFightState = false;
     //========
     //MONOBEHAVIOUR
     //========

@@ -5,12 +5,14 @@ using System.Resources;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using BrunoMikoski.AnimationSequencer;
+using DG.Tweening;
 
 public class Monster_Skills : MonoBehaviour
 {
     //========
     //VARIABLES
     //========
+    [SerializeField] private Monster_StateMachine monster_StateMachine;
     [SerializeField] private List<BaseCompetance_Monster> listOfCompetance = new();
     [SerializeField] private AnimationSequencerController skillUIAnimationController;
     public static Action<int, AttackAnim> whenASkillIsUsed;
@@ -18,6 +20,33 @@ public class Monster_Skills : MonoBehaviour
     //========
     //MONOBEHAVIOUR
     //========
+
+    private void Update()
+    {
+        if (IsPlayerInStateFighting()) return;
+        if(AllCooldownAreFinished())
+        {
+            DeactivateSkillUI();
+        }
+    }
+
+    private bool IsPlayerInStateFighting()
+    {
+        return monster_StateMachine.isInFightState;
+    }
+
+    private bool AllCooldownAreFinished()
+    {
+        bool value = true;
+        foreach (BaseCompetance_Monster skill in listOfCompetance)
+        {
+            if (skill.isSkillOnCooldown)
+            {
+                value = false;
+            }
+        }
+        return value;
+    }
 
     //========
     //FONCTION
@@ -43,12 +72,11 @@ public class Monster_Skills : MonoBehaviour
         }
     }
     private void ActivateSkill()
-    {   if (listOfCompetance[0].enabled) return;
+    {   
+        if (listOfCompetance[0].canUsedSkill) return;
         foreach (BaseCompetance_Monster skill in listOfCompetance)
         {
-            skill.isSkillOnCooldown = true;
-            skill.CooldownTimer = 0;
-            skill.enabled = true;
+            skill.canUsedSkill = true;
         }
         ActivateSkillUI();
     }
@@ -57,19 +85,19 @@ public class Monster_Skills : MonoBehaviour
         //if (!listOfCompetance[0].enabled) return;
         foreach (BaseCompetance_Monster skill in listOfCompetance)
         {
-            skill.enabled = false;
+            skill.canUsedSkill = false;
         }
-        DeactivateSkillUI();
     }
     private void ActivateSkillUI()
     {
         //skillUIAnimationController.SetProgress(0);
+        skillUIAnimationController.transform.DOScale(1, 1);
         skillUIAnimationController.PlayForward();
     }
     private void DeactivateSkillUI()
     {
         //skillUIAnimationController.SetProgress(1);
-        skillUIAnimationController.PlayBackwards();
+        skillUIAnimationController.transform.DOScale(Vector3.zero, 1);
     }
 }
 public enum AttackAnim
