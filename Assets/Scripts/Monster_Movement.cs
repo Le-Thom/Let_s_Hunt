@@ -17,7 +17,7 @@ public class Monster_Movement : MonoBehaviour
     public NavMeshAgent navMeshAgent;
 
     [Header("Movement Variable")]
-    [SerializeField] private float monsterInvisibleSpeed, monsterFightSpeed, monsterHitSpeed, monsterBlackoutSpeed;
+    [SerializeField] private float monsterInvisibleSpeed, monsterFightSpeed,  monsterBlackoutSpeed;
 
     [SerializeField] private LayerMask cameraCastLayer;
     public MonsterSpeed monsterSpeedState;
@@ -70,10 +70,6 @@ public class Monster_Movement : MonoBehaviour
                 nextSpeed = monsterFightSpeed;
                 break;
 
-            case MonsterSpeed.Hit:
-                nextSpeed = monsterHitSpeed;
-                break;
-
             case MonsterSpeed.Blackout:
                 nextSpeed = monsterBlackoutSpeed;
                 break;
@@ -88,5 +84,5 @@ public class Monster_Movement : MonoBehaviour
 }
 public enum MonsterSpeed
 {
-    Invisible, Fight, Hit, Blackout, Null
+    Invisible, Fight, Blackout, Null
 }

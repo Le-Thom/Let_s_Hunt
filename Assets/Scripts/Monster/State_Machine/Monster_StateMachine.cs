@@ -46,6 +46,7 @@ public class Monster_StateMachine : MonoBehaviour
 
     public bool isSkillBeingCast = false;
     public bool isInFightState = false;
+    public float alphaOnInvisible = 0;
     //========
     //MONOBEHAVIOUR
     //========
@@ -126,6 +127,12 @@ public class Monster_StateMachine : MonoBehaviour
             }
         }
         return false;
+    }
+    public void SetNewAlphaOnBase(float newAlpha)
+    {
+        monster_Hider.alphaOnHide = newAlpha;
+        alphaOnInvisible = newAlpha;
+        monster_Hider.RefreshHide();
     }
     private void SetMonsterStateToDead()
     {

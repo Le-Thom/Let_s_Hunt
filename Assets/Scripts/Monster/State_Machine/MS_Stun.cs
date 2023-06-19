@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class MS_Stun : Monster_State
 {
+    private float navmeshOldSpeed = 0;
     public MS_Stun(Monster_StateMachine _stateMachine, Monster_StateFactory _factory) : base(_stateMachine, _factory)
     {
 
@@ -14,6 +15,8 @@ public class MS_Stun : Monster_State
         Debug.Log("Monster is Stun");
         stateMachine.monster_Input.enabled = false;
         stateMachine.Navmesh.destination = stateMachine.monster_Movement.transform.position;
+
+        navmeshOldSpeed = stateMachine.Navmesh.speed;
         stateMachine.Navmesh.speed = 0;
 
         stateMachine.directional_Animator.isPositionLocked = true;
@@ -25,7 +28,7 @@ public class MS_Stun : Monster_State
     public override void ExitState()
     {
         stateMachine.monster_Input.enabled = true;
-        stateMachine.Navmesh.speed = 1;
+        stateMachine.Navmesh.speed = navmeshOldSpeed;
         stateMachine.directional_Animator.isPositionLocked = false;
 
         Debug.Log("Monster Is Un-Stun");

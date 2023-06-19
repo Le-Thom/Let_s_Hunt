@@ -43,6 +43,11 @@ public class HealthBarManager : Singleton<HealthBarManager>
     {
         print("testing");
         HealthBar _healthBar = GetHealthFromIndex(indexPlayer);
+        if (_healthBar == null) 
+        { 
+            Debug.LogError("health bar is null" + "playerIdSearch = " + indexPlayer);
+            return;
+        }
         int newHp = Mathf.Clamp(_healthBar.GetHpValue() + value, 0, 10);
         _healthBar.ChangeValueHealthBar(newHp);
 

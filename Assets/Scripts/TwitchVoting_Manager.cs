@@ -124,6 +124,13 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
                 break;
             case TwitchVote.Revive:
 
+                Revive[] revives = FindObjectsByType<Revive>(FindObjectsSortMode.InstanceID);
+
+                foreach(Revive revive in revives)
+                {
+                    revive._ReviveServerRpc();
+                }
+
                 UI_Message_Manager.Instance.ShowMessage(Color.blue, "Reanimation des Soldats en cours");
                 break;
         }
@@ -150,6 +157,16 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
         }
 
         return chosenList;
+    }
+    [Button]
+    private void ReviveAll()
+    {
+        Revive[] revives = FindObjectsByType<Revive>(FindObjectsSortMode.InstanceID);
+
+        foreach (Revive revive in revives)
+        {
+            revive._ReviveServerRpc();
+        }
     }
 }
 public enum TwitchVote

@@ -305,14 +305,14 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// <summary>
     /// Revive player with full life.
     /// </summary>
-    public void Revive()
+    public void Revive(bool showMessage = true, bool playAnim = true, bool goToIdle = true)
     {
-        Debug.LogError("yesn't bro");
+        if(showMessage) UI_Message_Manager.Instance.ShowMessage(Color.red, "Revived 2");
         HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
-        player_Animator.ReanimationAnimator();
+        if (playAnim) player_Animator.ReanimationAnimator();
 
-        stateMachine.ChangeState(StateId.IDLE);
-        hunterHitCollider.HunterGetHitClientRpc(10);
+        if (goToIdle) stateMachine.ChangeState(StateId.IDLE);
+        //hunterHitCollider.HunterGetHitClientRpc(10);
     }
     public void Died() { 
         stateMachine.ChangeState(StateId.DEATH);

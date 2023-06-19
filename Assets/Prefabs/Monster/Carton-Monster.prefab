@@ -791,7 +791,7 @@ Transform:
   - {fileID: 221271230396356269}
   - {fileID: 5637215080041546221}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5457530387089195414
 MonoBehaviour:
@@ -1084,10 +1084,9 @@ MonoBehaviour:
   onClickAnimation: {fileID: 8256446789469884338}
   mousePointeur: {fileID: 1104947085398000973}
   navMeshAgent: {fileID: 476607089390100968}
-  monsterInvisibleSpeed: 5
-  monsterFightSpeed: 3
-  monsterHitSpeed: 1
-  monsterBlackoutSpeed: 7
+  monsterInvisibleSpeed: 16
+  monsterFightSpeed: 10
+  monsterBlackoutSpeed: 23
   cameraCastLayer:
     serializedVersion: 2
     m_Bits: 1
