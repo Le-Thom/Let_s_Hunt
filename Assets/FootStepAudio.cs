@@ -9,7 +9,7 @@ public class FootStepAudio : NetworkBehaviour
     [SerializeField] private ScS_PlayerData playerData;
 
 
-    public void PlayAudioFootStepClientRpc()
+    public void PlayAudioFootStep()
     {
         if (playerData.monitor.isMoving)
             _PlayAudioFootStepClientRpc();
