@@ -25,6 +25,11 @@ public class HunterHitCollider : NetworkBehaviour
 
         HealthBarManager.Instance.ChangeHealthBar(indexPlayer.Value, Damage);
     }
+    [ServerRpc]
+    public void HunterGetHitServerRpc(int Damage)
+    {
+        HunterGetHitClientRpc(Damage);
+    }
     public void HitFeedback()
     {
         player_Animator.HitFeedback();

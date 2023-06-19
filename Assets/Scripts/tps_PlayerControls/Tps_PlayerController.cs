@@ -308,11 +308,12 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     public void Revive()
     {
         UI_Message_Manager.Instance.ShowMessage(Color.red, "Revived Player " + playerData.monitor.index);
-        HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
+        Debug.LogError(playerData.monitor.index);
+        //HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
         player_Animator.ReanimationAnimator();
 
         stateMachine.ChangeState(StateId.IDLE);
-        //hunterHitCollider.HunterGetHitClientRpc(10);
+        hunterHitCollider.HunterGetHitServerRpc(10);
     }
     public void Died() { 
         stateMachine.ChangeState(StateId.DEATH);
