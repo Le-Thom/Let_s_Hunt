@@ -2728,7 +2728,7 @@ MonoBehaviour:
       Data3: -2135593847
       Data4: -948978429
     Path: event:/SFX/Player/Foot_step
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: ad58c05fe68fa9d4ba41468d749efb11, type: 2}
 --- !u!1001 &3182897698427314417
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3092,7 +3092,7 @@ MonoBehaviour:
       Data3: -2135593847
       Data4: -948978429
     Path: event:/SFX/Player/Foot_step
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: ad58c05fe68fa9d4ba41468d749efb11, type: 2}
 --- !u!1001 &3449927133828500471
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3338,7 +3338,7 @@ MonoBehaviour:
       Data3: -2135593847
       Data4: -948978429
     Path: event:/SFX/Player/Foot_step
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: ad58c05fe68fa9d4ba41468d749efb11, type: 2}
 --- !u!1001 &3984932657953975718
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3835,7 +3835,7 @@ MonoBehaviour:
       Data3: -2135593847
       Data4: -948978429
     Path: event:/SFX/Player/Foot_step
-  playerData: {fileID: 0}
+  playerData: {fileID: 11400000, guid: ad58c05fe68fa9d4ba41468d749efb11, type: 2}
 --- !u!212 &3354380945430957128 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 9067675618830646143, guid: ed582e5b2561e114cbb57d542ac28481,
