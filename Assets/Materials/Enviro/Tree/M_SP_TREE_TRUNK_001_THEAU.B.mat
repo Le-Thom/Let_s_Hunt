@@ -52,7 +52,7 @@ Material:
     - _Offset: 1
     - _Power: 0.21
     - _RandomInMovement: 1
-    - _Range: 1
+    - _Range: 0.15
     - _RimPower: 1
     - _WindSpeed: 2
     - _WindStrenght: 0.4

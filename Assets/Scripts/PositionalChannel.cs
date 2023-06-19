@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using UnityEngine.Windows;
 using VivoxUnity;
 
-public class PositionalChannel : NetworkBehaviour
+public class PositionalChannel : MonoBehaviour
 {
     private float _nextPosUpdate = 0;
     public bool isActif = false;
@@ -24,7 +24,7 @@ public class PositionalChannel : NetworkBehaviour
 
     void Update()
     {
-        if (IsOwner && isActif && Time.time > _nextPosUpdate)
+        if (isActif && Time.time > _nextPosUpdate)
         {
             vivoxManager.Update3DPosition(transform, transform);
             _nextPosUpdate += 0.3f; // Only update after 0.3 or more seconds
@@ -34,6 +34,8 @@ public class PositionalChannel : NetworkBehaviour
     public void ChangeMute()
     {
         if (forcedMute) return;
+
+        FMODUnity.RuntimeManager.PlayOneShot(audioToggleMute);
 
         toggleMute = !toggleMute;
         vocToggle.isOn = !toggleMute;

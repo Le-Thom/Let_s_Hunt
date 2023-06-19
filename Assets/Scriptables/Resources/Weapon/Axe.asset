@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Axe
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 21300000, guid: a05ae244f84fb1b4cb2253aeee9112a2, type: 3}
-  objectMaterial: {fileID: 2100000, guid: aa8768adca0791e45bde07c4da971d62, type: 2}
+  objectMaterial: {fileID: 2100000, guid: 5392706c631427c4f80143166a79ebf2, type: 2}
   objectName: Axe
   atkDistance: 2
   go_Weapon_Hit_Prefab: {fileID: 9002194189199374523, guid: c36a4ff6c9c604341821868f190e8f93,

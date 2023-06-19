@@ -20,6 +20,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
 
 
     public bool activeVivox;
+    public bool isPositional;
     public List<PositionalChannel> positionalChannel;
 
     private string userName;
@@ -121,7 +122,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
     {
         if (!activeVivox) return;
 
-        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional, 
+        ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional,
             new Channel3DProperties(32, 1, 1.0f, AudioFadeModel.InverseByDistance));
         channelSession = loginSession.GetChannelSession(channelId);
 
@@ -151,6 +152,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 Debug.Log($"{source.Channel.Name} Connected");
                 channelConnected = true;
 
+                if (!isPositional) return;
                 foreach (var item in positionalChannel)
                 {
                     item._Start();
@@ -193,44 +195,6 @@ public class LoginCredentials : Singleton<LoginCredentials>
     {
         channelSession.Disconnect();
         loginSession.DeleteChannelSession(new ChannelId(issuer, channelName, domain));
-    }
-
-    #endregion
-
-    #region Mute/Demute Methods
-
-    public void LocalToggleMuteSelf(VivoxUnity.Client client)
-    {
-        if (client.AudioInputDevices.Muted)
-        {
-            client.AudioInputDevices.Muted = false;
-        }
-        else
-        {
-            client.AudioInputDevices.Muted = true;
-        }
-    }
-    public void MuteOtherUser(string username)
-    {
-        string constructedParticipantKey = "sip:." + issuer + "." + username + ".@" + domain;
-        var participants = channelSession.Participants;
-
-        if (participants[constructedParticipantKey].InAudio)
-        {
-            if (participants[constructedParticipantKey].LocalMute == false)
-            {
-                participants[constructedParticipantKey].LocalMute = true;
-            }
-            else
-            {
-                participants[constructedParticipantKey].LocalMute = false;
-            }
-        }
-        else
-        {
-            //Tell Player To Try Again
-            Debug.Log("Try Again");
-        }
     }
 
     #endregion
