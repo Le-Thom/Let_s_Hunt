@@ -7,6 +7,7 @@ using Unity.Netcode.Transports.UTP;
 using Cinemachine;
 using UnityEngine.InputSystem;
 using System;
+using FOW;
 
 public class In_Game_Manager : Singleton<In_Game_Manager>
 {
@@ -28,6 +29,8 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
 
     private Dictionary<CinemachineVirtualCamera, Tps_PlayerController> soldiersComponent = new();
     private (CinemachineVirtualCamera, PlayerInput) monsterComponent;
+
+    [SerializeField] private FogOfWarWorld fog;
 
 
     //========
@@ -82,6 +85,8 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
                 Destroy(tps_PlayerController);
             }
 
+            fog.UnknownColor = Color.white;
+
             MiniMapManager.Instance.canvas.SetActive(true);
             MiniMapManager.Instance.SetForMonster();
         }
@@ -111,6 +116,8 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
 
             soldierScript.playerData.monitor.index = playerId;
             soldierScript.SetInstance();
+
+            fog.UnknownColor = Color.white * 0.1f;
 
             MiniMapManager.Instance.canvas.SetActive(true);
             MiniMapManager.Instance.SetForHunter();

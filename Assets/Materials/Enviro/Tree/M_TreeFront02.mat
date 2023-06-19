@@ -42,7 +42,7 @@ Material:
     - _IsRandom: 1
     - _ItsEmissive: 0
     - _Offset: 1
-    - _Range: 1
+    - _Range: 0.5
     - _RimPower: 1
     - _Wind_Influence: 0.25
     - _hasWind: 1

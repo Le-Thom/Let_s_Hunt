@@ -51,7 +51,7 @@ Material:
     - _ItsMonster: 0
     - _Offset: 1
     - _RandomInMovement: 1
-    - _Range: 1
+    - _Range: 0.5
     - _RimPower: 1
     - _WindSpeed: 2
     - _WindStrenght: 0.4
