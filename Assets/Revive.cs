@@ -124,13 +124,6 @@ public class Revive : InteractableObject
         Tps_PlayerController.Instance.hunterAnimationController.PlayAudioReviveClientRpc(transform.position);
         playerController.Revive();
         UI_Message_Manager.Instance.ShowMessage(Color.red, "You are Revived");
-        if (IsOwner)
-        {
-            UI_Message_Manager.Instance.ShowMessage(Color.red, "You are Revived  Z2");
-            Debug.LogError("No bro");
-            Tps_PlayerController tps_PlayerController = FindAnyObjectByType<Tps_PlayerController>();
-            tps_PlayerController.Revive();
-        }
     }
     [ClientRpc]
     public void _GetReviveClientRpc()
