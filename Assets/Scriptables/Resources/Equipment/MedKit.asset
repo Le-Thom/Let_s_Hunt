@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: MedKit
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 21300000, guid: 70eafbb1249407d468e83c1dfac7df5c, type: 3}
-  objectMaterial: {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  objectMaterial: {fileID: 2100000, guid: b6837222e12d53b4a9c0c9079bbc0761, type: 2}
   objectName: Medical Kit
   type: 1
   maxStackEquipment: 3

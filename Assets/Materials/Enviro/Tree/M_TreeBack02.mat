@@ -43,7 +43,7 @@ Material:
     - _IsTrunk: 1
     - _ItsEmissive: 0
     - _Offset: 1
-    - _Range: 1
+    - _Range: 0.15
     - _RimPower: 1
     m_Colors: []
   m_BuildTextureStacks: []

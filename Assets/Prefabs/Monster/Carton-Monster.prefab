@@ -124,7 +124,6 @@ GameObject:
   m_Component:
   - component: {fileID: 440359112470975633}
   - component: {fileID: 7174902002675658667}
-  - component: {fileID: 255483906480780035}
   m_Layer: 13
   m_Name: VoiceSpeakerListener
   m_TagString: Untagged
@@ -171,22 +170,6 @@ MonoBehaviour:
       Data4: -767730743
     Path: event:/SFX/Option/Toggle_Audio
   vocToggle: {fileID: 0}
---- !u!114 &255483906480780035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 338622109013342430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GlobalObjectIdHash: 951099334
-  AlwaysReplicateAsRoot: 0
-  DontDestroyWithOwner: 0
-  AutoObjectParentSync: 1
 --- !u!1 &1104947085398000973
 GameObject:
   m_ObjectHideFlags: 0
@@ -791,7 +774,7 @@ Transform:
   - {fileID: 221271230396356269}
   - {fileID: 5637215080041546221}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5457530387089195414
 MonoBehaviour:

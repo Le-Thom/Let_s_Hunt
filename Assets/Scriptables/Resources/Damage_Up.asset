@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: Damage_Up
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 21300000, guid: 7fed92de181a4a349881e12c34fcc85d, type: 3}
-  objectMaterial: {fileID: 2100000, guid: aa8768adca0791e45bde07c4da971d62, type: 2}
+  objectMaterial: {fileID: 2100000, guid: a136b79287e2dc94b8efc628aeb2653a, type: 2}
   objectName: DamageUp
