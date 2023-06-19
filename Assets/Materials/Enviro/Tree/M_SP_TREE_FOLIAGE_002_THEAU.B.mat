@@ -40,7 +40,7 @@ Material:
     m_Floats:
     - _Alpha: 0.73
     - _Brightness: 1
-    - _Brightnessoutline: 2
+    - _Brightnessoutline: 1
     - _ColorSeed: 0.5
     - _HaveMask: 1
     - _IsHiding: 1
@@ -49,8 +49,10 @@ Material:
     - _IsRandom: 1
     - _ItsEmissive: 0
     - _ItsMonster: 0
+    - _Offset: 1
     - _RandomInMovement: 1
-    - _RimPower: 1.68
+    - _Range: 1
+    - _RimPower: 1
     - _WindSpeed: 2
     - _WindStrenght: 0.4
     - _Wind_Influence: 0.3

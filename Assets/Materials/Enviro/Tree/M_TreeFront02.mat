@@ -34,11 +34,16 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Brightness: 1
+    - _Brightnessoutline: 1
     - _HaveMask: 1
     - _IsHiding: 1
     - _IsLeaves: 1
     - _IsRandom: 1
     - _ItsEmissive: 0
+    - _Offset: 1
+    - _Range: 1
+    - _RimPower: 1
     - _Wind_Influence: 0.25
     - _hasWind: 1
     m_Colors:

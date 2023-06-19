@@ -34,12 +34,17 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _Brightness: 1
+    - _Brightnessoutline: 1
     - _HaveMask: 1
     - _IsHiding: 1
     - _IsLeaves: 0
     - _IsRandom: 1
     - _IsTrunk: 1
     - _ItsEmissive: 0
+    - _Offset: 1
+    - _Range: 1
+    - _RimPower: 1
     m_Colors: []
   m_BuildTextureStacks: []
 --- !u!114 &1216784817374075367
