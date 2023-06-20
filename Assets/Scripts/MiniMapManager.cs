@@ -10,7 +10,6 @@ public class MiniMapManager : Singleton<MiniMapManager>
     // Reference
     [SerializeField] public GameObject canvas; 
     [SerializeField] private RectTransform _MM_UI;
-    [SerializeField] private Camera _camera;
     [SerializeField] private GameObject _monster;
     [SerializeField] private Transform _monsterCamera;
     [SerializeField] private bool isHunter = false;
@@ -25,9 +24,6 @@ public class MiniMapManager : Singleton<MiniMapManager>
     [SerializeField] private float mapRatio;
     private float midMapX, midMapY;
 
-    [SerializeField] private float distanceCamera = 100;
-    [SerializeField] private float sizeCamera = 50;
-
     private GameObject currentActifZone;
 
 
@@ -39,16 +35,9 @@ public class MiniMapManager : Singleton<MiniMapManager>
     // Monobehaviour
     private void OnValidate()
     {
-        _camera.transform.position = Vector3.up * distanceCamera;
-        _camera.orthographicSize = sizeCamera;
-
         _MM_UI.sizeDelta = new Vector2(mapSizeX, mapSizeY) * mapRatio;
 
-        _MM_MonsterCamera.sizeDelta = new Vector2(mapSizeX * 16 / (sizeCamera * 2), mapSizeY * 9 / (sizeCamera * 2)) * mapRatio ;
-    }
-    private void Reset()
-    {
-        _camera = gameObject.GetComponentInChildren<Camera>();
+        _MM_MonsterCamera.sizeDelta = new Vector2(mapSizeX * 16 / (75 * 2), mapSizeY * 9 / (75 * 2)) * mapRatio ;
     }
 
     private void Start()

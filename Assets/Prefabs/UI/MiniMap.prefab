@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 27.272728, y: 15.34091}
+  m_SizeDelta: {x: 40, y: 22.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2533802473268793499
 CanvasRenderer:
@@ -923,7 +923,6 @@ MonoBehaviour:
   mapTuto: 0
   canvas: {fileID: 5369867246037442845}
   _MM_UI: {fileID: 9145807333224640865}
-  _camera: {fileID: 4849273851279515324}
   _monster: {fileID: 0}
   _monsterCamera: {fileID: 0}
   isHunter: 0
@@ -937,8 +936,6 @@ MonoBehaviour:
   mapSizeX: 250
   mapSizeY: 250
   mapRatio: 1.5
-  distanceCamera: 20
-  sizeCamera: 110
   fightBrokeTimer: 10
 --- !u!1 &5021705509440406996
 GameObject:
