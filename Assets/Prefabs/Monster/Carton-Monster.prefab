@@ -138,8 +138,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 338622109013342430}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 14.18, y: -3.0500002, z: 10.44}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -235,6 +235,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 2297749494585857972}
   - {fileID: 9215159140318709160}
   - {fileID: 440359112470975633}
   - {fileID: 3645370641108435160}
@@ -774,7 +775,7 @@ Transform:
   - {fileID: 221271230396356269}
   - {fileID: 5637215080041546221}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5457530387089195414
 MonoBehaviour:
@@ -953,6 +954,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   isSkillBeingCast: 0
   isInFightState: 0
+  alphaOnInvisible: 0
 --- !u!1 &4662960666064811936
 GameObject:
   m_ObjectHideFlags: 0
@@ -1001,9 +1003,17 @@ MonoBehaviour:
   UI_skillCooldown: {fileID: 0}
   UI_skillCooldownText: {fileID: 0}
   monster_StateMachine: {fileID: 5991175800962124718}
+  monster_Sound: {fileID: 8768902395753957944}
   isSkillOnCooldown: 1
   cooldownMaxTimer: 30
   previewSpell: {fileID: 4245254707595310829}
+  skillSound:
+    Guid:
+      Data1: 294176220
+      Data2: 1096702884
+      Data3: -16386175
+      Data4: -916851867
+    Path: event:/SFX/Monster/BlackOut
   timeBeforeTheAttack: 0
   timeOfTheAttack: 10000
   timeOfMonsterStunWhenAttack: 0
@@ -1029,6 +1039,7 @@ GameObject:
   - component: {fileID: 476607089390100968}
   - component: {fileID: 4851044746912132995}
   - component: {fileID: 6453094905670207287}
+  - component: {fileID: 8768902395753957944}
   m_Layer: 13
   m_Name: Monster_Movement
   m_TagString: Untagged
@@ -1138,6 +1149,137 @@ MonoBehaviour:
   ScaleThreshold: 0.01
   InLocalSpace: 0
   Interpolate: 1
+--- !u!114 &8768902395753957944
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4833753636509211735}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6f0ee4153bb35f24b91268baf35eb838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monster_Movement: {fileID: 1924437338012848105}
+--- !u!1 &5214815659040751528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2872364462651979296}
+  - component: {fileID: 1749941628958367741}
+  - component: {fileID: 1236162678783569370}
+  m_Layer: 0
+  m_Name: Spot Light
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2872364462651979296
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214815659040751528}
+  m_LocalRotation: {x: 0.5735764, y: 0, z: 0, w: 0.8191521}
+  m_LocalPosition: {x: 0, y: 13.62, z: -4.84}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2297749494585857972}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
+--- !u!108 &1749941628958367741
+Light:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214815659040751528}
+  m_Enabled: 1
+  serializedVersion: 10
+  m_Type: 0
+  m_Shape: 0
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Intensity: 250
+  m_Range: 20
+  m_SpotAngle: 50.322212
+  m_InnerSpotAngle: 24.222881
+  m_CookieSize: 10
+  m_Shadows:
+    m_Type: 1
+    m_Resolution: -1
+    m_CustomResolution: -1
+    m_Strength: 1
+    m_Bias: 0.05
+    m_NormalBias: 0.4
+    m_NearPlane: 10
+    m_CullingMatrixOverride:
+      e00: 1
+      e01: 0
+      e02: 0
+      e03: 0
+      e10: 0
+      e11: 1
+      e12: 0
+      e13: 0
+      e20: 0
+      e21: 0
+      e22: 1
+      e23: 0
+      e30: 0
+      e31: 0
+      e32: 0
+      e33: 1
+    m_UseCullingMatrixOverride: 0
+  m_Cookie: {fileID: 0}
+  m_DrawHalo: 0
+  m_Flare: {fileID: 0}
+  m_RenderMode: 0
+  m_CullingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_RenderingLayerMask: 1
+  m_Lightmapping: 4
+  m_LightShadowCasterMode: 0
+  m_AreaSize: {x: 1, y: 1}
+  m_BounceIntensity: 0
+  m_ColorTemperature: 6570
+  m_UseColorTemperature: 0
+  m_BoundingSphereOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_UseBoundingSphereOverride: 0
+  m_UseViewFrustumForShadowCasterCull: 1
+  m_ShadowRadius: 0
+  m_ShadowAngle: 0
+--- !u!114 &1236162678783569370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5214815659040751528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Version: 3
+  m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_RenderingLayers: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_ShadowRenderingLayers: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
+  m_SoftShadowQuality: 0
 --- !u!1 &5224749553492611338
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,9 +1418,17 @@ MonoBehaviour:
   UI_skillCooldown: {fileID: 0}
   UI_skillCooldownText: {fileID: 0}
   monster_StateMachine: {fileID: 5991175800962124718}
+  monster_Sound: {fileID: 8768902395753957944}
   isSkillOnCooldown: 1
   cooldownMaxTimer: 8
   previewSpell: {fileID: 7980928846336941625}
+  skillSound:
+    Guid:
+      Data1: 1042412698
+      Data2: 1129125143
+      Data3: -1731097720
+      Data4: 800222539
+    Path: event:/SFX/Monster/Dash
   timeBeforeTheAttack: 10
   timeOfTheAttack: 500
   timeOfMonsterStunWhenAttack: 600
@@ -1766,9 +1916,17 @@ MonoBehaviour:
   UI_skillCooldown: {fileID: 0}
   UI_skillCooldownText: {fileID: 0}
   monster_StateMachine: {fileID: 5991175800962124718}
+  monster_Sound: {fileID: 8768902395753957944}
   isSkillOnCooldown: 1
   cooldownMaxTimer: 10
   previewSpell: {fileID: 5637211247844373812}
+  skillSound:
+    Guid:
+      Data1: 1848853035
+      Data2: 1314842245
+      Data3: 171360184
+      Data4: 891135655
+    Path: event:/SFX/Monster/AOE
   timeBeforeTheAttack: 1000
   timeOfTheAttack: 15000
   timeOfMonsterStunWhenAttack: 1000
@@ -1998,9 +2156,17 @@ MonoBehaviour:
   UI_skillCooldown: {fileID: 0}
   UI_skillCooldownText: {fileID: 0}
   monster_StateMachine: {fileID: 5991175800962124718}
+  monster_Sound: {fileID: 8768902395753957944}
   isSkillOnCooldown: 1
   cooldownMaxTimer: 8
   previewSpell: {fileID: 9173798577471840291}
+  skillSound:
+    Guid:
+      Data1: -23918160
+      Data2: 1308724989
+      Data3: 1344942775
+      Data4: -1010353924
+    Path: event:/SFX/Monster/Atk_cac
   timeBeforeTheAttack: 0
   timeOfTheAttack: 1000
   timeOfMonsterStunWhenAttack: 1000
@@ -3615,6 +3781,94 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4168376883457034422, guid: f143a88862799554da63bf17aebb278b,
     type: 3}
   m_PrefabInstance: {fileID: 4049901642888490936}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5194549432433008094
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4390436421013450920}
+    m_Modifications:
+    - target: {fileID: 5576868750891274318, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_Name
+      value: Spotlight
+      objectReference: {fileID: 0}
+    - target: {fileID: 5576868750891274318, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2872364462651979296}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 95f71ab1227497546beaefc9a01d09d6, type: 3}
+--- !u!4 &2297749494585857972 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6338114790073813610, guid: 95f71ab1227497546beaefc9a01d09d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 5194549432433008094}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6484365010795219743
 PrefabInstance:

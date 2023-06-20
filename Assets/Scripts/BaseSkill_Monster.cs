@@ -16,11 +16,13 @@ public class BaseCompetance_Monster : MonoBehaviour
     [SerializeField] private Slider UI_skillCooldown;
     [SerializeField] private TextMeshProUGUI UI_skillCooldownText;
     public Monster_StateMachine monster_StateMachine;
+    [SerializeField] private Monster_Sound monster_Sound;
 
     [Header("In-Game ")]
     public bool isSkillOnCooldown = false;
     [SerializeField] private float cooldownMaxTimer = 10;
     [SerializeField] private GameObject previewSpell;
+    [SerializeField] private FMODUnity.EventReference skillSound;
 
     [Header("Delay in Milliseconds")]
     [SerializeField] protected int timeBeforeTheAttack = 1000;
@@ -123,6 +125,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     {
         ShowPreviewOfSpell(false);
         monster_StateMachine.isSkillBeingCast = false;
+        monster_Sound.SpawnSoundServerRpc(skillSound.Path);
         Monster_StateMachine.whenSkillHaveToBeUsed -= UseSkill;
         Monster_StateMachine.whenSkillHaveToBeUsed -= CastingSkill;
         isSkillOnCooldown = true;

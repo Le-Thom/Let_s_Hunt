@@ -8,6 +8,7 @@ public class OnDamageBox : NetworkBehaviour
     public int damage;
     public GameObject hitParticule;
     public Vector2 offsetHit = new(1, -2);
+    public FMODUnity.EventReference hitMonsterRef;
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent<MonsterHitCollider>(out MonsterHitCollider component))
@@ -16,6 +17,7 @@ public class OnDamageBox : NetworkBehaviour
             {
                 component.MonsterGetHitServerRpc(damage);
             }
+            FMODUnity.RuntimeManager.PlayOneShot(hitMonsterRef, transform.position);
             component.FeedbackMonsterHit();
             Vector3 positionOfHit = other.ClosestPoint(transform.position);
 
