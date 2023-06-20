@@ -23,6 +23,8 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
     [SerializeField] private int voteTime = 100000;
     private bool isVoteStarted = false;
 
+    [SerializeField] private GameObject countDownVote;
+
     //========
     //MONOBEHAVIOUR
     //========
@@ -46,6 +48,7 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
         print("Strating Vote");
         if (isVoteStarted) return;
         ResetVoteCount();
+        countDownVote.SetActive(true);
 
         listOfCurrentVote.Clear();
 
@@ -138,6 +141,7 @@ public class TwitchVoting_Manager : Singleton<TwitchVoting_Manager>
         {
             voteRef_UI.AutoDestroy();
         }
+        countDownVote.SetActive(false);
     }
     private void ResetVoteCount()
     {

@@ -172,6 +172,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         SetVirtualCamParameters();
 
         playerData.monitor.isValid = true;
+
+        weaponIsActive = true;
     }
 
     private void Update()

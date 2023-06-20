@@ -14,7 +14,7 @@ public class Radio : InteractableObject
 
     // private
     [SerializeField] private bool available;
-    [SerializeField] private float unavailableTimer = 120f;
+    [SerializeField] private float unavailableTimer = 30f;
 
     [SerializeField] private ParticleSystem particle1, particle2;
 
@@ -103,7 +103,7 @@ public class Radio : InteractableObject
         if (onCanPickUp.active) onCanPickUp.SetActive(false);
         if (!available && !notAvailable.active) notAvailable.SetActive(true);
         TwitchVote_Timer_Manager.Instance.UpdateTimerTest(unavailableTimer.ToString());
-        for(int i = 0; i < unavailableTimer; i++)
+        for(int i = 1; i < unavailableTimer; i++)
         {
             await System.Threading.Tasks.Task.Delay(1000);
             TwitchVote_Timer_Manager.Instance.UpdateTimerTest((unavailableTimer - i).ToString());
