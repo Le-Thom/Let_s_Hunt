@@ -156,7 +156,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
         dash = 0;
         damage = 1;
-        damageMultiplicator = 2;
+        damageMultiplicator = 0.8f;
     }
 
     private void OnEnable()
@@ -777,7 +777,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Atk2
     private async void InitStateAtk2()
     {
-        SetDamage(playerData.inGameDataValue.atk2Damage * damage * 5);
+        SetDamage(playerData.inGameDataValue.atk2Damage * damage);
 
         directionScript.UpdateDirection(directionLook);
 
@@ -1052,8 +1052,16 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     [ClientRpc]
     private void PlayAnimHealingClientRpc()
     {
-        animHealing.SetActive(true);
+        StartCoroutine(StopHealingAnim());
     }
+
+    private IEnumerator StopHealingAnim()
+    {
+        animHealing.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        animHealing.SetActive(false);
+    }
+    
 
     /// <summary>
     /// 
