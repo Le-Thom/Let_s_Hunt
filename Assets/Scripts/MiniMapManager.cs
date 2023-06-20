@@ -32,13 +32,6 @@ public class MiniMapManager : Singleton<MiniMapManager>
     private Transform playerPos;
 
 
-    // Monobehaviour
-    private void OnValidate()
-    {
-        _MM_UI.sizeDelta = new Vector2(mapSizeX, mapSizeY) * mapRatio;
-
-        _MM_MonsterCamera.sizeDelta = new Vector2(mapSizeX * 16 / (75 * 2), mapSizeY * 9 / (75 * 2)) * mapRatio ;
-    }
 
     private void Start()
     {
