@@ -71,6 +71,13 @@ MonoBehaviour:
   hitParticule: {fileID: 5600114602144515440, guid: b38d57dde07beb74fbd89fd120dbadcd,
     type: 3}
   offsetHit: {x: 7, y: 0}
+  hitMonsterRef:
+    Guid:
+      Data1: 992763951
+      Data2: 1253918042
+      Data3: -604034146
+      Data4: 1751060640
+    Path: event:/SFX/Monster/Get_Hit
 --- !u!114 &2368539253103870573
 MonoBehaviour:
   m_ObjectHideFlags: 0

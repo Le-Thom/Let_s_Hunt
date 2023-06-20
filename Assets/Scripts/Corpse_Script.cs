@@ -18,6 +18,7 @@ public class Corpse_Script : NetworkBehaviour
     [SerializeField] private float secondToRemoveWhenUsed = 5;
     [SerializeField] private float maxDistanceBeforeUse = 5;
     [SerializeField] private bool debug = false;
+    public FMODUnity.EventReference eatSound;
     private bool isMonsterNear => 
         Vector3.Distance(transform.position, GameObject.FindAnyObjectByType<MonsterHitCollider>().transform.position) < maxDistanceBeforeUse;
 
@@ -65,6 +66,7 @@ public class Corpse_Script : NetworkBehaviour
         objectToDeactivateWhenMonsterUseCorpse.SetActive(false);
         Destroy(this);
         objectToActivateWhenMonsterNear.SetActive(false);
+        FMODUnity.RuntimeManager.PlayOneShot(eatSound, transform.position);
         DeacrivateObjectServerRpc();
     }
     [ServerRpc]
@@ -76,6 +78,7 @@ public class Corpse_Script : NetworkBehaviour
     public void DeacrivateObjectClientRpc()
     {
         if (IsHost) return;
+        FMODUnity.RuntimeManager.PlayOneShot(eatSound, transform.position);
         objectToActivateWhenMonsterUseCorpse.SetActive(true);
         objectToDeactivateWhenMonsterUseCorpse.SetActive(false);
         Destroy(this);
