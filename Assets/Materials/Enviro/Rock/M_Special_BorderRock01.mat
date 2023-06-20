@@ -46,6 +46,7 @@ Material:
     - _IsHiding: 0
     - _ItsEmissive: 0
     - _ItsMonster: 0
+    - _JustTheMask: 0
     - _Recalculate: 4
     m_Colors: []
   m_BuildTextureStacks: []

@@ -352,7 +352,10 @@ public class Pause : NetworkBehaviour
         _ResolutionDropdown.RefreshShownValue();
 
     }
-
+    public void Quit()
+    {
+        Application.Quit();
+    }
     #endregion
     //==========**
 }

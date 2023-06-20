@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: sc_TV_ReviveAll
   m_EditorClassIdentifier: 
   voteCount: 0
-  nameOfTheVote: Revive
+  nameOfTheVote: "R\xE9animation"
   twitchVote: 4

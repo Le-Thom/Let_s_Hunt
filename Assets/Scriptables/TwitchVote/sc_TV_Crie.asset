@@ -13,5 +13,5 @@ MonoBehaviour:
   m_Name: sc_TV_Crie
   m_EditorClassIdentifier: 
   voteCount: 0
-  nameOfTheVote: Crie
+  nameOfTheVote: faire crier le monstre
   twitchVote: 2

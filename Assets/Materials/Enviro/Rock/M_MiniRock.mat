@@ -59,6 +59,7 @@ Material:
     - _IsTrunk: 0
     - _ItsEmissive: 0
     - _ItsMonster: 0
+    - _JustTheMask: 0
     - _hasWind: 0
     - _isGrass: 0
     m_Colors: []

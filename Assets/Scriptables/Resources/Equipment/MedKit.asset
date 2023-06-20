@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   objectSprite: {fileID: 21300000, guid: 70eafbb1249407d468e83c1dfac7df5c, type: 3}
   objectMaterial: {fileID: 2100000, guid: b6837222e12d53b4a9c0c9079bbc0761, type: 2}
-  objectName: Medical Kit
+  objectName: Kit de soin
   type: 1
   maxStackEquipment: 3
   prefab_Object: {fileID: 0}

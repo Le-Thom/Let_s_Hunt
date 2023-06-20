@@ -43,8 +43,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _IsHiding: 1
+    - _IsHiding: 0
     - _ItsEmissive: 0
     - _ItsMonster: 0
+    - _JustTheMask: 0
     m_Colors: []
   m_BuildTextureStacks: []
