@@ -1532,6 +1532,7 @@ MonoBehaviour:
   - {fileID: 3395403452900440727}
   - {fileID: 942237084320194043}
   - {fileID: 3354380945430957128}
+  healingScript: {fileID: 0}
   animHealing: {fileID: 1912243507607040300}
   stateMachine:
     currentState: 0

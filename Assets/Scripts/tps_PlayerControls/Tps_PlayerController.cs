@@ -10,6 +10,7 @@ using UnityEngine.AI;
 using DG.Tweening;
 using Unity.Netcode;
 using UnityEngine.UIElements;
+using static UnityEngine.Rendering.DebugUI;
 
 /// <summary>
 /// tps player using starter pack model.
@@ -96,8 +97,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     [SerializeField] private List<SpriteRenderer> _axeRenderer;
 
-    [SerializeField] private HealingScript healingScript;
-
+    [SerializeField] private GameObject animHealing;
 
     #endregion
     //==============================================================================================================
@@ -876,8 +876,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     #region Healing
     private void InitStateHealing()
     {
-        HealthBarManager.Instance.ChangeHealthBar(playerData.monitor.index, 10);
-        healingScript.PlayAnimHealingClientRpc();
+        HealthBarManager.Instance.ChangeHealthBar(hunterHitCollider.GetPlayerId(), 10);
+        StartCoroutine(HealingAnim());
         hunterAnimationController.PlayAudioHealingClientRpc(transform.position);
         playerData.monitor.isChangingState = false;
     }
@@ -1049,7 +1049,15 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     #endregion
 
-    
+    private IEnumerator HealingAnim()
+    {
+
+        animHealing.SetActive(true);
+        yield return new WaitForSeconds(1f);
+        animHealing.SetActive(false);
+
+        ChangeStateToIdle();
+    }
 
     /// <summary>
     /// 

@@ -6,18 +6,10 @@ using UnityEngine;
 public class HealingScript : NetworkBehaviour
 {
     [SerializeField] private GameObject animHealing;
-    [SerializeField] private Tps_PlayerController playerController;
     [ClientRpc]
-    public void PlayAnimHealingClientRpc()
+    public void HealClientRpc(bool value)
     {
-        StartCoroutine(StopHealingAnim());
+        animHealing.SetActive(value);
     }
 
-    private IEnumerator StopHealingAnim()
-    {
-        animHealing.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        animHealing.SetActive(false);
-        playerController.ChangeStateToIdle();
-    }
 }
