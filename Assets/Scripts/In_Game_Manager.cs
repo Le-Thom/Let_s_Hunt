@@ -86,6 +86,7 @@ public class In_Game_Manager : Singleton<In_Game_Manager>
             }
 
             fog.UnknownColor = Color.white;
+            fog.UpdateFogConfig();
 
             MiniMapManager.Instance.canvas.SetActive(true);
             MiniMapManager.Instance.SetForMonster();

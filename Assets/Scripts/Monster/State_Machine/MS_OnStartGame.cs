@@ -13,6 +13,7 @@ public class MS_OnStartGame : Monster_State
     {
         stateMachine.monster_Camera.ChangeCameraState(MonsterCameraState.LockedCam);
         await Task.Delay(0);
+        stateMachine.alphaOnInvisible = 0.5f;
         stateMachine.monster_Input.enabled = true;
         if (!stateMachine.IsMonsterCloseToHunter(stateMachine.maxDistanceForExitingTheFight))
         {

@@ -8,6 +8,8 @@ using NaughtyAttributes;
 using DG.Tweening;
 using UnityEditor;
 using Unity.Multiplayer.Samples.Utilities.ClientAuthority;
+using Unity.Netcode.Components;
+
 public class Player_Animator : NetworkBehaviour
 {
     public bool debug = false;
@@ -71,7 +73,18 @@ public class Player_Animator : NetworkBehaviour
             }
         }
     }
-    public void SendSpeedToAnimator(float speed)
+
+    public void SendSpeedToAnimator(float speed, bool isMonster = false)
+    {
+        speed = Mathf.Clamp(speed, 0, 1);
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.SetFloat("speed", speed);
+        }
+        if (isMonster &&  IsHost) SendSpeedToAnimatorClientRpc(speed);
+    }
+    [ClientRpc]
+    public void SendSpeedToAnimatorClientRpc(float speed)
     {
         speed = Mathf.Clamp(speed, 0, 1);
         foreach (Animator animator in animatorToSendSpeed)
@@ -83,15 +96,29 @@ public class Player_Animator : NetworkBehaviour
     {
         foreach (Animator animator in animatorToSendSpeed)
         {
-            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenAttack");
-            if(debug) animator.SetTrigger("whenAttack");
+            if(animator.TryGetComponent<ClientNetworkAnimator>(out ClientNetworkAnimator clientNetworkAnimator))
+            {
+                clientNetworkAnimator.SetTrigger("whenAttack");
+            }
+            if(animator.TryGetComponent<NetworkAnimator>(out NetworkAnimator networkAnimator))
+            {
+                networkAnimator.SetTrigger("whenAttack");
+            }
+            if (debug) animator.SetTrigger("whenAttack");
         }
     }
     public void Attack2Animator()
     {
         foreach (Animator animator in animatorToSendSpeed)
         {
-            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenAttack2");
+            if (animator.TryGetComponent<ClientNetworkAnimator>(out ClientNetworkAnimator clientNetworkAnimator))
+            {
+                clientNetworkAnimator.SetTrigger("whenAttack2");
+            }
+            if (animator.TryGetComponent<NetworkAnimator>(out NetworkAnimator networkAnimator))
+            {
+                networkAnimator.SetTrigger("whenAttack2");
+            }
             if (debug) animator.SetTrigger("whenAttack2");
         }
     }
@@ -99,7 +126,14 @@ public class Player_Animator : NetworkBehaviour
     {
         foreach (Animator animator in animatorToSendSpeed)
         {
-            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenDodge");
+            if (animator.TryGetComponent<ClientNetworkAnimator>(out ClientNetworkAnimator clientNetworkAnimator))
+            {
+                clientNetworkAnimator.SetTrigger("whenDodge");
+            }
+            if (animator.TryGetComponent<NetworkAnimator>(out NetworkAnimator networkAnimator))
+            {
+                networkAnimator.SetTrigger("whenDodge");
+            }
             if (debug) animator.SetTrigger("whenDodge");
         }
     }

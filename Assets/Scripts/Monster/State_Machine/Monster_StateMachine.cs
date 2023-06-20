@@ -46,6 +46,7 @@ public class Monster_StateMachine : MonoBehaviour
 
     public bool isSkillBeingCast = false;
     public bool isInFightState = false;
+    public bool isGameStarted => monster_Input.enabled;
     public float alphaOnInvisible = 0;
     //========
     //MONOBEHAVIOUR
@@ -74,7 +75,7 @@ public class Monster_StateMachine : MonoBehaviour
     private void Update()
     {
         onUpdate?.Invoke();
-        UpdateSpeedAnimator();
+        if(isGameStarted) UpdateSpeedAnimator();
     }
 
     private void OnDestroy()
@@ -140,7 +141,7 @@ public class Monster_StateMachine : MonoBehaviour
     }
     private void UpdateSpeedAnimator()
     {
-        player_Animator.SendSpeedToAnimator(Navmesh.velocity.magnitude);
+        player_Animator.SendSpeedToAnimator(Navmesh.velocity.magnitude, true);
     }
     private static (Vector3, GameObject) GetMouseWorldPosition(LayerMask layerMask)
     {
