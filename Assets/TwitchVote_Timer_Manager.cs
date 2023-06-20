@@ -11,7 +11,7 @@ public class TwitchVote_Timer_Manager : Singleton<TwitchVote_Timer_Manager>
     public void UpdateTimerTest(string newText)
     {
         timer_text.text = newText;
-        anim.ResetComplete();
+        anim.SetProgress(0);
         anim.Play();
 
     }

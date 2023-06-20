@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using NaughtyAttributes;
 using TMPro;
+using FMODUnity;
 
 public class BaseCompetance_Monster : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     public bool isSkillOnCooldown = false;
     [SerializeField] private float cooldownMaxTimer = 10;
     [SerializeField] private GameObject previewSpell;
-    [SerializeField] private FMODUnity.EventReference skillSound;
+    [SerializeField] private int skillSound;
 
     [Header("Delay in Milliseconds")]
     [SerializeField] protected int timeBeforeTheAttack = 1000;
@@ -125,7 +126,7 @@ public class BaseCompetance_Monster : MonoBehaviour
     {
         ShowPreviewOfSpell(false);
         monster_StateMachine.isSkillBeingCast = false;
-        monster_Sound.SpawnSoundServerRpc(skillSound.Path);
+        monster_Sound.SpawnSoundServerRpc(skillSound);
         Monster_StateMachine.whenSkillHaveToBeUsed -= UseSkill;
         Monster_StateMachine.whenSkillHaveToBeUsed -= CastingSkill;
         isSkillOnCooldown = true;
