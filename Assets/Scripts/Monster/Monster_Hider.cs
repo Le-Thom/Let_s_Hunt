@@ -52,6 +52,7 @@ public class Monster_Hider : HiderBehavior
                 //Set the alpha To Reveal the monster
                 o.color = new Vector4(o.color.r, o.color.g, o.color.b, alphaOnReveal);
         }
+        MiniMapManager.Instance.FightBroke();
     }
     public void ModifyHiddenObjects(GameObject[] newObjectsToHide)
     {
