@@ -495,7 +495,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32e1fa1b231a1964b9d5e6ec38b6afa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  debug: 0
+  debug: 1
   animatorToSendSpeed:
   - {fileID: 413990312125421848}
   - {fileID: 4833497218930989988}
@@ -775,7 +775,7 @@ Transform:
   - {fileID: 221271230396356269}
   - {fileID: 5637215080041546221}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5457530387089195414
 MonoBehaviour:
@@ -1007,13 +1007,7 @@ MonoBehaviour:
   isSkillOnCooldown: 1
   cooldownMaxTimer: 30
   previewSpell: {fileID: 4245254707595310829}
-  skillSound:
-    Guid:
-      Data1: 294176220
-      Data2: 1096702884
-      Data3: -16386175
-      Data4: -916851867
-    Path: event:/SFX/Monster/BlackOut
+  skillSound: 3
   timeBeforeTheAttack: 0
   timeOfTheAttack: 10000
   timeOfMonsterStunWhenAttack: 0
@@ -1078,9 +1072,9 @@ MonoBehaviour:
   onClickAnimation: {fileID: 8256446789469884338}
   mousePointeur: {fileID: 1104947085398000973}
   navMeshAgent: {fileID: 476607089390100968}
-  monsterInvisibleSpeed: 16
-  monsterFightSpeed: 10
-  monsterBlackoutSpeed: 23
+  monsterInvisibleSpeed: 13
+  monsterFightSpeed: 7
+  monsterBlackoutSpeed: 20
   cameraCastLayer:
     serializedVersion: 2
     m_Bits: 1
@@ -1162,6 +1156,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   monster_Movement: {fileID: 1924437338012848105}
+  cac:
+    Guid:
+      Data1: -23918160
+      Data2: 1308724989
+      Data3: 1344942775
+      Data4: -1010353924
+    Path: event:/SFX/Monster/Atk_cac
+  aoe:
+    Guid:
+      Data1: 1848853035
+      Data2: 1314842245
+      Data3: 171360184
+      Data4: 891135655
+    Path: event:/SFX/Monster/AOE
+  dash:
+    Guid:
+      Data1: 1042412698
+      Data2: 1129125143
+      Data3: -1731097720
+      Data4: 800222539
+    Path: event:/SFX/Monster/Dash
+  blackout:
+    Guid:
+      Data1: 294176220
+      Data2: 1096702884
+      Data3: -16386175
+      Data4: -916851867
+    Path: event:/SFX/Monster/BlackOut
 --- !u!1 &5214815659040751528
 GameObject:
   m_ObjectHideFlags: 0
@@ -1422,13 +1444,7 @@ MonoBehaviour:
   isSkillOnCooldown: 1
   cooldownMaxTimer: 8
   previewSpell: {fileID: 7980928846336941625}
-  skillSound:
-    Guid:
-      Data1: 1042412698
-      Data2: 1129125143
-      Data3: -1731097720
-      Data4: 800222539
-    Path: event:/SFX/Monster/Dash
+  skillSound: 2
   timeBeforeTheAttack: 10
   timeOfTheAttack: 500
   timeOfMonsterStunWhenAttack: 600
@@ -1920,13 +1936,7 @@ MonoBehaviour:
   isSkillOnCooldown: 1
   cooldownMaxTimer: 10
   previewSpell: {fileID: 5637211247844373812}
-  skillSound:
-    Guid:
-      Data1: 1848853035
-      Data2: 1314842245
-      Data3: 171360184
-      Data4: 891135655
-    Path: event:/SFX/Monster/AOE
+  skillSound: 1
   timeBeforeTheAttack: 1000
   timeOfTheAttack: 15000
   timeOfMonsterStunWhenAttack: 1000
@@ -2160,13 +2170,7 @@ MonoBehaviour:
   isSkillOnCooldown: 1
   cooldownMaxTimer: 8
   previewSpell: {fileID: 9173798577471840291}
-  skillSound:
-    Guid:
-      Data1: -23918160
-      Data2: 1308724989
-      Data3: 1344942775
-      Data4: -1010353924
-    Path: event:/SFX/Monster/Atk_cac
+  skillSound: 0
   timeBeforeTheAttack: 0
   timeOfTheAttack: 1000
   timeOfMonsterStunWhenAttack: 1000
