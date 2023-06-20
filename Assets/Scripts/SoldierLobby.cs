@@ -20,7 +20,7 @@ public class SoldierLobby : MonoBehaviour
     public void WhenWaitingForSoldier()
     {
         soliderState = (int)SoliderState.WaitingForSoliderToJoin;
-        soliderNameUI.text = "Waiting ...";
+        soliderNameUI.text = "En attente d'un joueur ...";
 
         soliderWaitingIcon.SetActive(true);
         soliderJoinedIcon.SetActive(false);
@@ -30,7 +30,7 @@ public class SoldierLobby : MonoBehaviour
     public void WhenSoliderJoin()
     {
         soliderState = (int)SoliderState.SoldierJoined;
-        soliderNameUI.text = "Joined !";
+        soliderNameUI.text = "Connecté !";
 
         soliderWaitingIcon.SetActive(false);
         soliderJoinedIcon.SetActive(true);
@@ -39,7 +39,7 @@ public class SoldierLobby : MonoBehaviour
     public void WhenSoliderIsReady()
     {
         soliderState = (int)SoliderState.SoldierReady;
-        soliderNameUI.text = "Ready !";
+        soliderNameUI.text = "Prêt !";
 
         soliderWaitingIcon.SetActive(false);
         soliderJoinedIcon.SetActive(true);

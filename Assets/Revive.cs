@@ -36,8 +36,6 @@ public class Revive : InteractableObject
     [ClientRpc]
     public void IsActiveClientRpc()
     {
-        Debug.LogError("no");
-        UI_Message_Manager.Instance.ShowMessage(Color.red, "Player has died");
         isInteractable = true;
         sphereCollider.enabled = true;
         //playerController.GetComponentInParent<Tps_PlayerController>();

@@ -9,6 +9,7 @@ using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using TMPro;
 using System;
+using GameplayIngredients;
 
 public class JoinGame_Manager : NetworkBehaviour
 {
@@ -32,6 +33,12 @@ public class JoinGame_Manager : NetworkBehaviour
     [Header("Network Variable")]
     public NetworkVariable<bool> isTheGameStarted = new NetworkVariable<bool>(false);
     public NetworkVariable<FixedString32Bytes> joinCode = new NetworkVariable<FixedString32Bytes>("");
+
+    public Callable onStartGame;
+    public int countDownLancement = 0;
+    public int requiermentLancementForStartingGame = 10;
+    public Callable onFinishLancement;
+    public Slider countDownSlider;
 
     //========
     //MONOBEHAVIOUR
@@ -157,8 +164,42 @@ public class JoinGame_Manager : NetworkBehaviour
 
         if(canStartTheGame)
         {
+            StartingChatMissionClientRpc();
+            //StartTheGameClientRpc();
+        }
+    }
+    [ClientRpc]
+    public void StartingChatMissionClientRpc()
+    {
+        onStartGame.Execute();
+        countDownSlider.maxValue = requiermentLancementForStartingGame;
+        countDownSlider.value = 0;
+    }
+    [ClientRpc]
+    public void UpdateLancementTwitchClientRpc()
+    {
+        if(IsHost)
+        {
+            countDownLancement++;
+            countDownSlider.value++;
+        }
+    }
+    public void OnLancementMessageWrote(string user, string message)
+    {
+        if (isTheGameStarted.Value && !IsHost) return;
+        UI_Message_Manager.Instance.ShowMessage(Color.green ,user + "is Ready To Lauch");
+        countDownLancement++;
+        countDownSlider.value++;
+        UpdateLancementTwitchClientRpc();
+        if (countDownLancement >= requiermentLancementForStartingGame)
+        {
+            RemoveTwitchUiClientRpc();
             StartTheGameClientRpc();
         }
+    }
+    [ClientRpc] public void RemoveTwitchUiClientRpc()
+    {
+        onFinishLancement.Execute();
     }
 
     [ClientRpc]

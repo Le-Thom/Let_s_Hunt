@@ -13,6 +13,7 @@ public class TwitchCommand_Manager : MonoBehaviour
 
     public UnityEvent<string, string> onChatSendMessage;
     public UnityEvent<string, string> onChatSendVote;
+    public UnityEvent<string, string> onChatWakeUp;
     public UnityEvent<string, string> onChatSendDynamo;
 
     //========
@@ -22,6 +23,7 @@ public class TwitchCommand_Manager : MonoBehaviour
     {
         commandList.Add("!vote", onChatSendVote);
         commandList.Add("!dynamo", onChatSendDynamo);
+        commandList.Add("!lancement", onChatWakeUp);
         onChatSendVote.AddListener(SortVoteChoice);
     }
     //========
@@ -32,7 +34,8 @@ public class TwitchCommand_Manager : MonoBehaviour
         bool commandFound = false;
         foreach (string command in commandList.Keys)
         {
-            if (message.Contains(command))
+            string messageLowcase = message.ToLower();
+            if (messageLowcase.Contains(command))
             {
                     commandList.TryGetValue(command, out UnityEvent<string, string> eventOfCommand);
                     if (eventOfCommand != null) eventOfCommand.Invoke(user, message);
