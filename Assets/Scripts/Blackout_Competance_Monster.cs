@@ -25,6 +25,11 @@ public class Blackout_Competance_Monster : BaseCompetance_Monster
         }
         monster_StateMachine.monsterHitCollider.GetMonsterInvincibleForXMiliseconds(timeOfTheAttack);
 
+        if(BlackoutVisual_Manager.Instance != null)
+        {
+            BlackoutVisual_Manager.Instance.ActivateBlackoutFeedback(1000);
+        }
+
         /*
         float baseAcceleration = monster_StateMachine.Navmesh.acceleration;
         DOVirtual.Float(baseAcceleration, accelerationBoost, timeOfTheAttack / 1000 * 0.5f, v => monster_StateMachine.Navmesh.acceleration = v)

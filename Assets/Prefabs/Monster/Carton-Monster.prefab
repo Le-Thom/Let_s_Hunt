@@ -720,7 +720,7 @@ Transform:
   - {fileID: 5637215080041546221}
   - {fileID: 2168527159354665071}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5457530387089195414
 MonoBehaviour:
@@ -889,7 +889,7 @@ MonoBehaviour:
   directional_Animator: {fileID: 3722131394904496980}
   stunTimeInMillisecond: 10
   maxDistanceForEnteringInFight: 13
-  maxDistanceForExitingTheFight: 20
+  maxDistanceForExitingTheFight: 25
   playerLayer:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -1017,8 +1017,8 @@ MonoBehaviour:
   onClickAnimation: {fileID: 8256446789469884338}
   mousePointeur: {fileID: 1104947085398000973}
   navMeshAgent: {fileID: 476607089390100968}
-  monsterInvisibleSpeed: 13
-  monsterFightSpeed: 7
+  monsterInvisibleSpeed: 14
+  monsterFightSpeed: 6
   monsterBlackoutSpeed: 20
   cameraCastLayer:
     serializedVersion: 2

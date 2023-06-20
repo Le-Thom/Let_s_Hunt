@@ -151,6 +151,13 @@ public class Player_Animator : NetworkBehaviour
             animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenRevived");
         }
     }
+    public void GoToIdleAnimState()
+    {
+        foreach (Animator animator in animatorToSendSpeed)
+        {
+            animator.GetComponent<ClientNetworkAnimator>().SetTrigger("whenIdle");
+        }
+    }
     public Animator GetPlayerAnimator(int index)
     {
         if (animatorToSendSpeed.Count > index)

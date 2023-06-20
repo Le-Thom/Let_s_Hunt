@@ -45,7 +45,11 @@ public class Hunter_DamageZone : NetworkBehaviour
     }
     private void DamageFonction(HunterHitCollider hunterCollider)
     {
-        if (IsOwner) hunterCollider.HunterGetHitClientRpc(damage);
+        if (IsOwner) 
+        { 
+            hunterCollider.HunterGetHitClientRpc(damage);
+            if (Screenshake_Manager.instance != null) Screenshake_Manager.instance.ScreenshakeSolo(Screenshake.Extra_S);
+        }
 
 
         hunterCollider.HitFeedback();

@@ -16,6 +16,7 @@ public class OnDamageBox : NetworkBehaviour
             if (IsOwner)
             {
                 component.MonsterGetHitServerRpc(damage);
+                if (Screenshake_Manager.instance != null) Screenshake_Manager.instance.ScreenshakeSolo(Screenshake.Extra_S);
             }
             FMODUnity.RuntimeManager.PlayOneShot(hitMonsterRef, transform.position);
             component.FeedbackMonsterHit();

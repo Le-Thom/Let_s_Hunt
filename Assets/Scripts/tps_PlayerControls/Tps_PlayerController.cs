@@ -626,6 +626,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         playerData.monitor.canGetHit = true;
 
         playerData.monitor.isChangingState = false;
+        player_Animator.GoToIdleAnimState();
     }
     private void UpdateStateIdle()
     {
@@ -946,6 +947,8 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         player_Animator.DeathAnimator();
 
         vivoxAudio.GetComponent<PositionalChannel>().ForceMute();
+
+        if (Screenshake_Manager.instance != null) Screenshake_Manager.instance.ScreenshakeSolo(Screenshake.M);
 
         playerData.monitor.isChangingState = false;
     }

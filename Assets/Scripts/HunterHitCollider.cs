@@ -42,6 +42,7 @@ public class HunterHitCollider : NetworkBehaviour
     {
         Debug.Log(indexPlayer.Value + "has no flashlight");
         dynamo.BlackOutClientRpc();
+        if (BlackoutVisual_Manager.Instance != null) BlackoutVisual_Manager.Instance.ActivateBlackoutFeedback(1000);
     }
 
     [ServerRpc(RequireOwnership = false)]

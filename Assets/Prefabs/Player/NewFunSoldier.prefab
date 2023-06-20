@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 7296161464485299930}
   - component: {fileID: 2616545353995031148}
   - component: {fileID: 2195518851339787024}
+  - component: {fileID: 7788220936892994071}
   m_Layer: 10
   m_Name: Virtual Camera
   m_TagString: Untagged
@@ -386,6 +387,29 @@ MonoBehaviour:
   m_Offset: {x: 0, y: -1, z: 0}
   m_ApplyAfter: 1
   m_PreserveComposition: 0
+--- !u!114 &7788220936892994071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1007254072279366293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ApplyAfter: 2
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 0
+  m_UseCameraSpace: 1
+  m_ReactionSettings:
+    m_SecondaryNoise: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_Duration: 1
+    m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &1479388291559213574
 GameObject:
   m_ObjectHideFlags: 0
@@ -1507,7 +1531,7 @@ MonoBehaviour:
   _weapon: {fileID: 11400000, guid: 33a7d1fb9ba12a541b2644d66a2aaae6, type: 2}
   dash: 0
   damage: 1
-  damageMultiplicator: 1
+  damageMultiplicator: 0.8
   _Body: {fileID: 7004353723762604658}
   _Animator: {fileID: 6933130439547403805}
   _targetCamera: {fileID: 4607736137387591851}
@@ -1532,7 +1556,6 @@ MonoBehaviour:
   - {fileID: 3395403452900440727}
   - {fileID: 942237084320194043}
   - {fileID: 3354380945430957128}
-  healingScript: {fileID: 0}
   animHealing: {fileID: 1912243507607040300}
   stateMachine:
     currentState: 0
@@ -2393,7 +2416,7 @@ Transform:
   - {fileID: 7202710442627676995}
   - {fileID: 1171405874049563249}
   m_Father: {fileID: 0}
-  m_RootOrder: -1
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9013098282540401922
 GameObject:
@@ -2737,7 +2760,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4616327074944440546, guid: bef4b1367e19b00428b6063aa6db0d18, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3102710325748063682, guid: bef4b1367e19b00428b6063aa6db0d18,
         type: 3}
@@ -3201,7 +3225,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4616327074944440546, guid: bef4b1367e19b00428b6063aa6db0d18, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 3102710325748063682, guid: bef4b1367e19b00428b6063aa6db0d18,
         type: 3}
@@ -3549,7 +3574,8 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4511926888117896469, guid: cd104c0e1a2f6174d9a2b0d2ad2365b8, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 7759192356818374300, guid: cd104c0e1a2f6174d9a2b0d2ad2365b8,
         type: 3}
@@ -4176,7 +4202,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 2803201966591345589, guid: ed582e5b2561e114cbb57d542ac28481, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 8856071834028242334, guid: ed582e5b2561e114cbb57d542ac28481,

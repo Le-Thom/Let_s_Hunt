@@ -10,10 +10,16 @@ public class Screenshake_Manager : NetworkBehaviour
     //========
     //VARIABLES
     //========
+    public static Screenshake_Manager instance = null;
     [SerializeField] private CinemachineImpulseSource impulseSourceL;
     [SerializeField] private CinemachineImpulseSource impulseSourceM;
     [SerializeField] private CinemachineImpulseSource impulseSourceS;
     [SerializeField] private CinemachineImpulseSource impulseSourceExtraS;
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     //========
     //FONCTION
