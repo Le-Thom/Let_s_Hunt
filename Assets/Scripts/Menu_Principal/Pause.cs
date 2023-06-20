@@ -32,8 +32,6 @@ public class Pause : NetworkBehaviour
     [SerializeField] private Slider _SoundVolumeSlider;
     [Tooltip("toogle to enable/disable audio.")]
     [SerializeField] private Toggle _SoundVolumeToggle;
-    [Tooltip("Button to test audio.")]
-    [SerializeField] private Button _TestAudioButton;
 
     [SerializeField] private FMODUnity.EventReference pathAudioTest;
 
@@ -198,8 +196,6 @@ public class Pause : NetworkBehaviour
 
         _SoundVolumeSlider.onValueChanged.AddListener(SoundVolumeChange);
         _SoundVolumeToggle.onValueChanged.AddListener(SoundVolumeState);
-
-        _TestAudioButton.onClick.AddListener(TestAudio);
     }
 
     /// <summary>
@@ -262,7 +258,7 @@ public class Pause : NetworkBehaviour
     private void MusicVolumeChange()
     {
         if (musicVolumeIsOff) music.setVolume(0);
-        else music.setVolume(masterVolume);
+        else music.setVolume(musicVolume);
     }
 
     /// <summary>
@@ -316,10 +312,6 @@ public class Pause : NetworkBehaviour
         sound = FMODUnity.RuntimeManager.GetBus("bus:/SFX");
     }
 
-    /// <summary>
-    /// Test of a sound audio.
-    /// </summary>
-    public void TestAudio() => FMODUnity.RuntimeManager.PlayOneShot(pathAudioTest);
 
     /// <summary>
     /// Reset value inside the dropdown of the resolution settings.

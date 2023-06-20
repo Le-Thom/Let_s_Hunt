@@ -92,7 +92,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
     [SerializeField] private GameObject currentMenu;
 
     [Space(2), Header("Option")]
-    [SerializeField] string pathAudioTest;
+    [SerializeField] private FMODUnity.EventReference audioTest;
 
     private bool _fullscreen
     {
@@ -429,7 +429,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
     private void MusicVolumeChange()
     {
         if (musicVolumeIsOff) music.setVolume(0);
-        else music.setVolume(masterVolume);
+        else music.setVolume(musicVolume);
     }
 
     /// <summary>
@@ -486,7 +486,7 @@ public class MainMenuManager : Singleton<MainMenuManager>
     /// <summary>
     /// Test of a sound audio.
     /// </summary>
-    private void TestAudio() => FMODUnity.RuntimeManager.PlayOneShot(pathAudioTest, transform.position);
+    private void TestAudio() => FMODUnity.RuntimeManager.PlayOneShot(audioTest);
 
     /// <summary>
     /// Reset value inside the dropdown of the resolution settings.
