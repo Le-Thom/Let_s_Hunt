@@ -96,7 +96,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     [SerializeField] private List<SpriteRenderer> _axeRenderer;
 
-    [SerializeField] private GameObject animHealing;
+    [SerializeField] private HealingScript healingScript;
 
 
     #endregion
@@ -877,7 +877,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     private void InitStateHealing()
     {
         HealthBarManager.Instance.ChangeHealthBar(playerData.monitor.index, 10);
-        PlayAnimHealingClientRpc();
+        healingScript.PlayAnimHealingClientRpc();
         hunterAnimationController.PlayAudioHealingClientRpc(transform.position);
         playerData.monitor.isChangingState = false;
     }
@@ -1049,18 +1049,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
 
     #endregion
 
-    [ClientRpc]
-    private void PlayAnimHealingClientRpc()
-    {
-        StartCoroutine(StopHealingAnim());
-    }
-
-    private IEnumerator StopHealingAnim()
-    {
-        animHealing.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
-        animHealing.SetActive(false);
-    }
     
 
     /// <summary>

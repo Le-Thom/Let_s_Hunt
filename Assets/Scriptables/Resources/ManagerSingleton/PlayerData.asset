@@ -37,7 +37,7 @@ MonoBehaviour:
     playerRotation: {x: 0, y: 0, z: 0}
     currentDashCooldownTimer: 0
     currentAttaqueTime: 0
-    speed: 0
+    speed: 0.0011755879
   inGameDataValue:
     speed: 6
     sprintSpeed: 5.333
@@ -53,7 +53,7 @@ MonoBehaviour:
     atk1MovementSpeed: 2.1
     atk1Delay: 0
     atk1DelayBeforeIdle: 450
-    atk2Damage: -5
+    atk2Damage: -25
     atk2Speed: 1
     atk2MovementSpeed: 0.5
     atk2Delay: 0
