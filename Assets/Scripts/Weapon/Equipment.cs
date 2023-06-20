@@ -139,6 +139,5 @@ public class Equipment : MonoBehaviour
     public void UseItem(Tps_PlayerController player)
     {
         equipmentManager.UseItem(player, equipment, this);
-        ItemUsed();
     }
 }

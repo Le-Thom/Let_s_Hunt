@@ -288,17 +288,6 @@ public partial class @Tps_Player_Inputs: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""5c250108-277b-46be-85d0-b7dbf371e622"",
-                    ""path"": ""<Keyboard>/b"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Drop"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""84a7af94-2626-4d2e-aa96-1e42d2dd6017"",
                     ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",

@@ -4,6 +4,8 @@ using UnityEngine;
 using System;
 using System.ComponentModel;
 using VivoxUnity;
+using static UnityEngine.Rendering.DebugUI;
+using UnityEngine.Rendering;
 
 public class LoginCredentials : Singleton<LoginCredentials>
 {
@@ -123,7 +125,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
         if (!activeVivox) return;
 
         ChannelId channelId = new ChannelId(issuer, channelName, domain, ChannelType.Positional,
-            new Channel3DProperties(32, 1, 1.0f, AudioFadeModel.InverseByDistance));
+            new Channel3DProperties(50, 10, 0.5f, AudioFadeModel.LinearByDistance));
         channelSession = loginSession.GetChannelSession(channelId);
 
         Bind_Channel_Callback_Listeners(true, channelSession);
@@ -153,6 +155,7 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 channelConnected = true;
 
                 if (!isPositional) return;
+
                 foreach (var item in positionalChannel)
                 {
                     item._Start();
@@ -177,6 +180,29 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 {
                     MonsterVoice.Instance.positionalChannel.gameObject.SetActive(true);
                     MonsterVoice.Instance.positionalChannel.ForceMute();
+                }
+                try
+                {
+                    AdjustVolume(5);
+                    client.AudioOutputDevices.VolumeAdjustment = 1;
+                }
+                catch (Exception)
+                {
+
+                    throw;
+                }
+                foreach (var item in channelSession.Participants)
+                {
+                    try
+                    {
+                        item.LocalVolumeAdjustment = 5;
+
+                    }
+                    catch (Exception)
+                    {
+
+                        throw;
+                    }
                 }
                 break;
             case ConnectionState.Disconnecting:
