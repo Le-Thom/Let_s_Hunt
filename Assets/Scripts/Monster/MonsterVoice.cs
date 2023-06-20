@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class MonsterVoice : Singleton<MonsterVoice>
 {
-    public GameObject positionalChannel;
+    public PositionalChannel positionalChannel;
 }

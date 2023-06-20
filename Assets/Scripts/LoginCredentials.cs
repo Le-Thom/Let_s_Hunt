@@ -175,7 +175,8 @@ public class LoginCredentials : Singleton<LoginCredentials>
                 }
                 else
                 {
-                    MonsterVoice.Instance.positionalChannel.SetActive(true);
+                    MonsterVoice.Instance.positionalChannel.gameObject.SetActive(true);
+                    MonsterVoice.Instance.positionalChannel.ForceMute();
                 }
                 break;
             case ConnectionState.Disconnecting:
