@@ -1,14 +1,11 @@
-using DG.Tweening.Core.Easing;
-using FMOD;
-using GameplayIngredients;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.Timeline;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class Pause : MonoBehaviour
+public class Pause : NetworkBehaviour
 {
     private GameManager gameManager;
     public Controls _controls;
@@ -39,6 +36,8 @@ public class Pause : MonoBehaviour
     [SerializeField] private Button _TestAudioButton;
 
     [SerializeField] private FMODUnity.EventReference pathAudioTest;
+
+    [SerializeField] private PlayerInput monster;
 
 
     private bool _fullscreen
@@ -121,10 +120,16 @@ public class Pause : MonoBehaviour
     {
         if (!canOpen) return;
 
+        if (IsHost) monster.enabled = false;
+        else Tps_PlayerController.Instance.Inputs.Disable();
+
         pauseObj.SetActive(!pauseObj.active);
     }
     public void ClosePause()
     {
+        if (IsHost) monster.enabled = true;
+        else Tps_PlayerController.Instance.Inputs.Enable();
+
         pauseObj.SetActive(false);
     }
 
