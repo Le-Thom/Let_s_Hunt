@@ -172,13 +172,18 @@ public class JoinGame_Manager : NetworkBehaviour
     public void StartingChatMissionClientRpc()
     {
         onStartGame.Execute();
+        if (IsHost)
+        {
+            TwitchCommand_Manager twitchCommand_Manager = FindFirstObjectByType<TwitchCommand_Manager>();
+            twitchCommand_Manager.onChatWakeUp.AddListener(OnLancementMessageWrote);
+        }
         countDownSlider.maxValue = requiermentLancementForStartingGame;
         countDownSlider.value = 0;
     }
     [ClientRpc]
     public void UpdateLancementTwitchClientRpc()
     {
-        if(IsHost)
+        if(!IsHost)
         {
             countDownLancement++;
             countDownSlider.value++;
@@ -195,6 +200,8 @@ public class JoinGame_Manager : NetworkBehaviour
         {
             RemoveTwitchUiClientRpc();
             StartTheGameClientRpc();
+            TwitchCommand_Manager twitchCommand_Manager = FindFirstObjectByType<TwitchCommand_Manager>();
+            twitchCommand_Manager.onChatWakeUp.AddListener(OnLancementMessageWrote);
         }
     }
     [ClientRpc] public void RemoveTwitchUiClientRpc()
