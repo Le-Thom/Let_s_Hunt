@@ -69,6 +69,7 @@ public class EndGame_Manager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void OnPlayerDiedServerRpc(int playerId)
     {
+        if (playerId <= 0 || playerId > 4) return;
         listOfPlayerDead[playerId - 1] = true;
         CheckIfAllPlayerDied();
     }
@@ -76,6 +77,7 @@ public class EndGame_Manager : NetworkBehaviour
     [ServerRpc(RequireOwnership = false)]
     public void OnPlayerReviveServerRpc(int playerId)
     {
+        if (playerId <= 0 || playerId > 4) return;
         listOfPlayerDead[playerId - 1] = false;
         CheckIfAllPlayerDied();
     }
