@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MS_Fight : Monster_State
 {
+    public static Action onEnterFight;
     public MS_Fight(Monster_StateMachine _stateMachine, Monster_StateFactory _factory) : base(_stateMachine, _factory)
     {
 
@@ -15,6 +17,12 @@ public class MS_Fight : Monster_State
         stateMachine.monster_Skills.CanMonsterUseSkill(true);
         stateMachine.monster_Hider.alphaOnHide = 0.15f;
         stateMachine.monster_Hider.RefreshHide();
+
+        if(!stateMachine.isInFightState)
+        {
+            onEnterFight?.Invoke();
+        }
+
         stateMachine.isInFightState = true;
 
         Monster_Skills.whenASkillIsUsed += OnSkillUsed;

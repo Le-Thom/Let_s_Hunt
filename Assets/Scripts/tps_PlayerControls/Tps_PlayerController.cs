@@ -314,11 +314,16 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
         //HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
         player_Animator.ReanimationAnimator();
 
+        EndGame_Manager endGame_Manager = FindFirstObjectByType<EndGame_Manager>();
+        endGame_Manager.OnPlayerReviveServerRpc(playerData.monitor.index);
+
         stateMachine.ChangeState(StateId.IDLE);
         hunterHitCollider.HunterGetHitServerRpc(10);
     }
     public void Died() { 
         stateMachine.ChangeState(StateId.DEATH);
+        EndGame_Manager endGame_Manager = FindFirstObjectByType<EndGame_Manager>();
+        endGame_Manager.OnPlayerDiedServerRpc(playerData.monitor.index);
         WasOnSelectEquipment = false; 
     }
 

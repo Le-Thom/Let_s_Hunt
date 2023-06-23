@@ -11,6 +11,7 @@ public class EndGame_Manager : NetworkBehaviour
 
     [SerializeField] private GameObject winningCanvas;
     [SerializeField] private GameObject losingCanvas;
+    private List<bool> listOfPlayerDead = new(4) { false, false, false, false };
 
     //========
     //MONOBEHAVIOUR
@@ -63,5 +64,35 @@ public class EndGame_Manager : NetworkBehaviour
             losingCanvas.SetActive(true);
         }
         Time.timeScale = 0;
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void OnPlayerDiedServerRpc(int playerId)
+    {
+        listOfPlayerDead[playerId - 1] = true;
+        CheckIfAllPlayerDied();
+    }
+
+    [ServerRpc(RequireOwnership = false)]
+    public void OnPlayerReviveServerRpc(int playerId)
+    {
+        listOfPlayerDead[playerId - 1] = false;
+        CheckIfAllPlayerDied();
+    }
+    private void CheckIfAllPlayerDied()
+    {
+        bool isTheGameFinish = true;
+        foreach(bool isPlayerDead in listOfPlayerDead)
+        {
+            if(!isPlayerDead)
+            {
+                isTheGameFinish = false;
+            }
+        }
+
+        if(isTheGameFinish)
+        {
+            OnMonsterWinningClientRpc();
+        }
     }
 }

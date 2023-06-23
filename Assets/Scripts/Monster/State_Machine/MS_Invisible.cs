@@ -1,9 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class MS_Invisible : Monster_State
 {
+    public static Action onEnterInvisible;
     public MS_Invisible(Monster_StateMachine _stateMachine, Monster_StateFactory _factory) : base(_stateMachine, _factory)
     {
 
@@ -13,9 +15,11 @@ public class MS_Invisible : Monster_State
         stateMachine.monster_Camera.ChangeCameraState(MonsterCameraState.FreeCam);
         stateMachine.monster_Movement.ChangeSpeed(MonsterSpeed.Invisible, true);
         stateMachine.monster_Skills.CanMonsterUseSkill(false);
-        stateMachine.monster_Hider.alphaOnHide = stateMachine.alphaOnInvisible;
+        stateMachine.monster_Hider.alphaOnHide = 0.15f;
         stateMachine.monster_Hider.RefreshHide();
         stateMachine.isInFightState = false;
+
+        onEnterInvisible?.Invoke();
 
         stateMachine.onUpdate += UpdateState;
     }

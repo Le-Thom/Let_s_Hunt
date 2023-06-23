@@ -12,6 +12,17 @@ public class Blackout_Competance_Monster : BaseCompetance_Monster
     [SerializeField] private float speedBoost = 10;
     [SerializeField] private int blackoutTime;
 
+    private void OnEnable()
+    {
+        MS_Fight.onEnterFight += (() => isSkillOnCooldown = true);
+        MS_Invisible.onEnterInvisible += RechargeInstant; 
+    }
+    private void OnDisable()
+    {
+        MS_Fight.onEnterFight -= (() => isSkillOnCooldown = true);
+        MS_Invisible.onEnterInvisible -= RechargeInstant;
+    }
+
     protected override async void SkillFonction()
     {
         await Task.Delay(timeBeforeTheAttack);
@@ -52,5 +63,10 @@ public class Blackout_Competance_Monster : BaseCompetance_Monster
     {
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(transform.position, maxDistance);
+    }
+    private void RechargeInstant()
+    {
+        isSkillOnCooldown = false;
+        CooldownTimer = 0;
     }
 }

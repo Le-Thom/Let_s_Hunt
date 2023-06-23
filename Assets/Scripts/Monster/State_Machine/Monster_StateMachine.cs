@@ -47,7 +47,7 @@ public class Monster_StateMachine : MonoBehaviour
     public bool isSkillBeingCast = false;
     public bool isInFightState = false;
     public bool isGameStarted => monster_Input.enabled;
-    public float alphaOnInvisible = 0;
+    public float alphaOnInvisible = 0.15f;
     //========
     //MONOBEHAVIOUR
     //========
@@ -118,12 +118,10 @@ public class Monster_StateMachine : MonoBehaviour
     public bool IsMonsterCloseToHunter(float distance)
     {
         Collider[] colliders = Physics.OverlapSphere(MonsterTransform.position, distance, playerLayer);
-        print("wesh2");
         foreach (Collider collider in colliders)
         {
             if (collider.TryGetComponent<HunterHitCollider>(out _))
             {
-                print("wesh");
                 return true;
             }
         }
