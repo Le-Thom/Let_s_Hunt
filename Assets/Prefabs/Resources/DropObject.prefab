@@ -39,7 +39,7 @@ Transform:
   - {fileID: 4643190043170568186}
   - {fileID: 756726496402112203}
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: -82.721, z: 0}
 --- !u!54 &1523702375125552184
 Rigidbody:
@@ -553,6 +553,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Prefab_PickupObject
+      objectReference: {fileID: 0}
+    - target: {fileID: 7117636795346409321, guid: 7b8dc779609660b4bb4be505c9e6b27d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
