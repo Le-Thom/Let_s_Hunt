@@ -54,7 +54,7 @@ public class Revive : InteractableObject
 
     public override async void Interact()
     {
-        UI_Message_Manager.Instance.ShowMessage(Color.red, "Eéanimation");
+        UI_Message_Manager.Instance.ShowMessage(Color.red, "Réanimation");
 
         if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(CheckRevive());
@@ -105,7 +105,6 @@ public class Revive : InteractableObject
     [ServerRpc(RequireOwnership = false)]
     public void _ReviveServerRpc()
     {
-        UI_Message_Manager.Instance.ShowMessage(Color.red, "Réanimation Fini !");
         _InteractClientRpc();
     }
 
