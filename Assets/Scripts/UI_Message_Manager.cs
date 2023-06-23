@@ -5,6 +5,7 @@ using UnityEngine;
 using TMPro;
 using FMODUnity;
 using DG.Tweening;
+using BrunoMikoski.AnimationSequencer;
 
 public class UI_Message_Manager : Singleton<UI_Message_Manager>
 {
@@ -13,6 +14,7 @@ public class UI_Message_Manager : Singleton<UI_Message_Manager>
     [SerializeField] private RectTransform DownPoint;
     [SerializeField] private RectTransform LeftDownPoint;
     [SerializeField] private RectTransform LeftUpPoint;
+    [SerializeField] private TextMeshProUGUI hintText;
     public async void ShowMessage(Color color, string text, string fmodEventName = null, MessagePosition messagePosition = MessagePosition.Down)
     {
         GameObject newMessage = Instantiate(messagePrefab, messageParent.transform);
@@ -39,6 +41,14 @@ public class UI_Message_Manager : Singleton<UI_Message_Manager>
 
         await messageTMPro.DOColor(new Color( messageTMPro.color.r, messageTMPro.color.g, messageTMPro.color.b, 0), 5).AsyncWaitForCompletion();
         Destroy(newMessage);
+    }
+    public void ShowHint(string text)
+    {
+        hintText.text = text;
+        if(hintText.TryGetComponent<AnimationSequencerController>(out AnimationSequencerController script))
+        {
+            script.Play();
+        }
     }
 }
 public enum MessagePosition

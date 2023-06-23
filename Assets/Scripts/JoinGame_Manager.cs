@@ -192,7 +192,7 @@ public class JoinGame_Manager : NetworkBehaviour
     public void OnLancementMessageWrote(string user, string message)
     {
         if (isTheGameStarted.Value && !IsHost) return;
-        UI_Message_Manager.Instance.ShowMessage(Color.green ,user + "is Ready To Lauch");
+        UI_Message_Manager.Instance.ShowMessage(Color.green ,user + " est prêt!");
         countDownLancement++;
         countDownSlider.value++;
         UpdateLancementTwitchClientRpc();

@@ -53,7 +53,7 @@ public class Corpse_Script : NetworkBehaviour
         else
         {
             print("Can't Use");
-            UI_Message_Manager.Instance.ShowMessage(Color.red, "Too far away");
+            UI_Message_Manager.Instance.ShowMessage(Color.red, "Trop Loin !");
         }
     }
 

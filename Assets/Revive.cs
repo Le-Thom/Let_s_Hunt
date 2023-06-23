@@ -54,7 +54,7 @@ public class Revive : InteractableObject
 
     public override async void Interact()
     {
-        UI_Message_Manager.Instance.ShowMessage(Color.red, "Starting to Revive");
+        UI_Message_Manager.Instance.ShowMessage(Color.red, "Eéanimation");
 
         if (coroutine != null) StopCoroutine(coroutine);
         coroutine = StartCoroutine(CheckRevive());
@@ -105,7 +105,7 @@ public class Revive : InteractableObject
     [ServerRpc(RequireOwnership = false)]
     public void _ReviveServerRpc()
     {
-        UI_Message_Manager.Instance.ShowMessage(Color.red, "Success Player is Being Revied");
+        UI_Message_Manager.Instance.ShowMessage(Color.red, "Réanimation Fini !");
         _InteractClientRpc();
     }
 
@@ -121,7 +121,6 @@ public class Revive : InteractableObject
 
         Tps_PlayerController.Instance.hunterAnimationController.PlayAudioReviveClientRpc(transform.position);
         playerController.Revive();
-        UI_Message_Manager.Instance.ShowMessage(Color.red, "You are Revived");
     }
     [ClientRpc]
     public void _GetReviveClientRpc()
