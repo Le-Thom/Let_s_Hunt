@@ -41,6 +41,10 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
 
     private bool isConnectionStarted = false;
     private bool isConnectedToTwitch = false;
+
+    [SerializeField] private float timeOutWhenMessageNotReceived = 0f;
+    [SerializeField] private float timeOutBeforeReconnection = 12f;
+
     //========
     //MONOBEHAVIOUR
     //========
@@ -93,6 +97,16 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
                 isConnectedToTwitch = true;
             }
             print(message);
+            timeOutWhenMessageNotReceived = 0;
+        }
+        else if (isConnectionStarted)
+        {
+            timeOutWhenMessageNotReceived += Time.deltaTime;
+            if(timeOutWhenMessageNotReceived >=timeOutBeforeReconnection)
+            {
+                ConnectToTwitch(channel);
+                timeOutWhenMessageNotReceived = 0;
+            }
         }
     }
     //========
@@ -175,5 +189,9 @@ public class GetTwitchData_Script : Singleton<GetTwitchData_Script>
             //Time out
             DisconnectedTwitch();
         }
+    }
+    public async void SetAliveTwitch()
+    {
+
     }
 }
