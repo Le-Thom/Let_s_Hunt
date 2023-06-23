@@ -129,7 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6f4d6f265a3a364eb2d154bb54b2638, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: -2
+  damage: -1
   second: 2
   offsetHit: {x: 1, y: -2}
   trigger: {fileID: 8108994626053138177}
