@@ -61,5 +61,6 @@ public class Scene_Manager : Singleton<Scene_Manager>
 
             throw;
         }
+        SceneManager.LoadScene(1, LoadSceneMode.Single);
     }
 }
