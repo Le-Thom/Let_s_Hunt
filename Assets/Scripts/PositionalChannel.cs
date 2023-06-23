@@ -46,7 +46,7 @@ public class PositionalChannel : MonoBehaviour
     {
         forcedMute = true;
         vocToggle.isOn = false;
-        vivoxManager.client.AudioInputDevices.Muted = false;
+        vivoxManager.client.AudioInputDevices.Muted = true;
     }
     public void UnforceMute()
     {

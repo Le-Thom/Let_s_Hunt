@@ -12,8 +12,9 @@ public class Pause : NetworkBehaviour
     [SerializeField] private GameObject pauseObj, optionObj;
     [SerializeField]
     private JoinGame_Manager joinGame_Manager;
-    private bool canOpen => joinGame_Manager.isTheGameStarted.Value;
+    private bool canOpen => joinGame_Manager.isTheGameStarted.Value || lobby.active;
     [SerializeField] private DevicesSelector deviceSelector;
+    [SerializeField] private GameObject lobby;
 
     [Space(5), Header("Options")]
     [Tooltip("Button to set fullscreen.")]
