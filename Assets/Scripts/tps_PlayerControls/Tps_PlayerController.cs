@@ -152,7 +152,6 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     {
         // create inputs.
         _inputs = new();
-        _Camera = Camera.main;
 
         dash = 0;
         damage = 1;
@@ -163,6 +162,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     {
         // active inputs
         if (inputAutoActive) _inputs.Enable();
+        _Camera = Camera.main;
     }
 
     private void Start()
@@ -309,7 +309,7 @@ public class Tps_PlayerController : Singleton<Tps_PlayerController>
     /// </summary>
     public void Revive()
     {
-        UI_Message_Manager.Instance.ShowMessage(Color.red, "Vous avez été réanimer");
+        UI_Message_Manager.Instance.ShowMessage(Color.red, "Vous avez Ã©tÃ© rÃ©animer");
         Debug.LogError(playerData.monitor.index);
         //HealthBarManager.instance.ChangeHealthBar(playerData.monitor.index, 10);
         player_Animator.ReanimationAnimator();
